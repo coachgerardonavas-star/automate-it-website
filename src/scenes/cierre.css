@@ -1,0 +1,168 @@
+.scene-cierre {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #050A18;
+  overflow: hidden;
+}
+
+.cierre-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #050A18;
+}
+
+/* ── Video fullscreen ─────────────────────────────── */
+.cierre-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  background: #050A18;
+}
+
+/* Overlay cinematográfico sobre el video */
+.cierre-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* Fade a negro al terminar el video */
+.cierre-black {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: #050A18;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* ── Endframe: textos + CTA ──────────────────────── */
+.cierre-endframe {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
+  pointer-events: none;
+  text-align: center;
+}
+
+.cierre-texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 48px;
+}
+
+.cierre-text {
+  margin: 0;
+  font-family: "Manifold CF", "Proxima Nova", "Open Sans", system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  max-width: 920px;
+  will-change: transform, opacity;
+}
+
+.cierre-text--1 {
+  font-size: 52px;
+  color: #FFFFFF;
+}
+
+.cierre-text--2 {
+  font-size: 36px;
+  color: #00D9FF;
+  text-shadow: 0 0 24px rgba(0, 217, 255, 0.35);
+}
+
+/* ── CTA final ───────────────────────────────────── */
+.cierre-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  pointer-events: none;
+}
+
+.cierre-cta.is-revealed {
+  pointer-events: auto;
+}
+
+.cierre-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  will-change: transform, opacity;
+}
+
+.cierre-btn {
+  font-family: "Manifold CF", "Proxima Nova", "Open Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  padding: 16px 40px;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.cierre-btn--primary {
+  background: #0052CC;
+  color: #FFFFFF;
+  border: 1px solid #0052CC;
+}
+
+.cierre-btn--primary:hover {
+  background: #0062F0;
+  box-shadow: 0 0 28px rgba(0, 217, 255, 0.32);
+  transform: translateY(-2px);
+}
+
+.cierre-btn--secondary {
+  background: transparent;
+  color: #00D9FF;
+  border: 1px solid #00D9FF;
+}
+
+.cierre-btn--secondary:hover {
+  background: rgba(0, 217, 255, 0.08);
+  box-shadow: 0 0 22px rgba(0, 217, 255, 0.28);
+  transform: translateY(-2px);
+}
+
+.cierre-contact {
+  font-family: "Open Sans", system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #667788;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 720px) {
+  .cierre-text--1 { font-size: 32px; }
+  .cierre-text--2 { font-size: 22px; }
+  .cierre-btn { padding: 14px 28px; font-size: 14px; }
+}

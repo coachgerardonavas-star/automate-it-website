@@ -1,0 +1,85 @@
+.scene-tunnel {
+  position: relative;
+  width: 100%;
+  height: 300vh;
+  background: #050A18;
+}
+
+.tunnel-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.tunnel-canvas-host {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.tunnel-canvas-host canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.tunnel-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.tunnel-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  max-width: 90vw;
+  text-align: center;
+  will-change: opacity;
+}
+
+.tunnel-node-title {
+  margin: 0;
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+  font-size: 64px;
+  letter-spacing: 2px;
+  line-height: 1.15;
+  color: #FFFFFF;
+  text-shadow:
+    0 0 20px rgba(0, 217, 255, 0.35),
+    0 0 60px rgba(0, 82, 204, 0.3);
+}
+
+.tunnel-node-sub {
+  margin: 20px 0 0;
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #00D9FF;
+  text-shadow: 0 0 22px rgba(0, 217, 255, 0.55);
+}
+
+.tunnel-node--final .tunnel-node-title {
+  font-size: 64px;
+}
+
+.tunnel-node--final .tunnel-node-sub {
+  font-size: 22px;
+}
+
+.tunnel-fade {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+}
