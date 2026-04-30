@@ -21,7 +21,9 @@
       "Bash(git init *)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git -c user.name=\"Gerardo\" -c user.email=\"automateit@yourbizupgraded.com\" commit -m \"add project files\")"
+      "Bash(git -c user.name=\"Gerardo\" -c user.email=\"automateit@yourbizupgraded.com\" commit -m \"add project files\")",
+      "Bash(grep -q -E \"\\(Local:|ready in|error\\)\" \"C:\\\\\\\\Users\\\\\\\\Gerardo\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\claude\\\\\\\\c--Users-Gerardo-Documents-automate-it-website\\\\\\\\47c31910-f1f0-459f-b451-9de91e41a2eb\\\\\\\\tasks\\\\\\\\bxmqm0l37.output\")",
+      "Bash(cat \"C:\\\\\\\\Users\\\\\\\\Gerardo\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\claude\\\\\\\\c--Users-Gerardo-Documents-automate-it-website\\\\\\\\47c31910-f1f0-459f-b451-9de91e41a2eb\\\\\\\\tasks\\\\\\\\bxmqm0l37.output\")"
     ]
   }
 }

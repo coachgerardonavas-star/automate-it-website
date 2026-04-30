@@ -1,0 +1,93 @@
+---
+const cards = [
+  {
+    eyebrow: "Recepción",
+    title: "Llamadas que nunca contestaste",
+    body: "Cada una era un cliente listo para comprar. Cada una se fue a la competencia mientras tú estabas en otra junta.",
+  },
+  {
+    eyebrow: "Seguimiento",
+    title: "Leads que se enfriaron",
+    body: "Tu CRM tiene contactos de hace meses. Sin un primer follow-up rápido, ya no te recuerdan.",
+  },
+  {
+    eyebrow: "Operación",
+    title: "Horas que se fueron en tareas repetitivas",
+    body: "Pegas información de WhatsApp al CRM, del CRM al Excel, del Excel al email. No es operación, es desperdicio.",
+  },
+];
+---
+
+<section
+  id="el-dolor"
+  class="py-20 sm:py-28 border-t border-white/5 reveal-on-scroll"
+>
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <header class="max-w-3xl mb-12 sm:mb-16">
+      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+        El antes
+      </p>
+      <h2 class="font-heading text-3xl sm:text-5xl leading-tight">
+        Dejaste de manejar tu negocio.<br />
+        <span class="text-white/45">Tu negocio te maneja a ti.</span>
+      </h2>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+      {
+        cards.map((card) => (
+          <article class="p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors">
+            <p class="text-[10px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan font-semibold mb-5">
+              {card.eyebrow}
+            </p>
+            <h3 class="font-heading text-xl sm:text-2xl mb-4 leading-snug">
+              {card.title}
+            </h3>
+            <p class="text-sm sm:text-base text-white/70 leading-relaxed">
+              {card.body}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 700ms ease-out,
+      transform 700ms ease-out;
+  }
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.15 }
+  );
+
+  document
+    .querySelectorAll(".reveal-on-scroll")
+    .forEach((el) => observer.observe(el));
+</script>
