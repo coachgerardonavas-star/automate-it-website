@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import LegalContent from "../components/LegalContent.astro";
+import { translations } from "../i18n/translations";
+
+const lang = "es";
+const lastUpdated = "abril 2026";
+const title = `${translations[lang].legal.privacy.title} · Automate IT`;
+---
+
+<BaseLayout lang={lang} title={title}>
+  <Nav lang={lang} />
+  <main>
+    <LegalContent lang={lang} doc="privacy" lastUpdated={lastUpdated} />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

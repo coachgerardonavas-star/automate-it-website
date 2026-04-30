@@ -1,70 +1,13 @@
 ---
-const tiers = [
-  {
-    name: "Starter",
-    tagline: "Solo o equipo de 1–2",
-    price: "$449",
-    priceUnit: "/mes",
-    description:
-      "Cubre lo que se te está perdiendo todos los días: llamadas, primeros follow-ups, agenda.",
-    features: [
-      "Recepción de llamadas con calificación de leads",
-      "Primer follow-up en menos de 5 minutos",
-      "Agendamiento automático en tu calendario",
-      "Conexión con tu WhatsApp y email actuales",
-    ],
-    cta: "Empezar con Starter",
-    badge: null,
-  },
-  {
-    name: "Growth",
-    tagline: "Equipo de 3–10",
-    price: "$649",
-    priceUnit: "/mes",
-    description:
-      "Suma agentes de seguimiento de oportunidades y reportes operativos al día.",
-    features: [
-      "Todo lo de Starter",
-      "Seguimiento multi-touch en pipeline",
-      "Reportes diarios con métricas clave",
-      "Workflows custom según tu rubro",
-    ],
-    cta: "Empezar con Growth",
-    badge: "Más popular",
-  },
-  {
-    name: "Scale",
-    tagline: "Equipo de 10+",
-    price: "$899",
-    priceUnit: "/mes",
-    description:
-      "Equipo ampliado de agentes operando en múltiples canales con integraciones profundas.",
-    features: [
-      "Todo lo de Growth",
-      "Multi-canal: voz, WhatsApp, web, email",
-      "Integraciones profundas con tu stack",
-      "Implementación dedicada y onboarding del equipo",
-    ],
-    cta: "Empezar con Scale",
-    badge: "Mejor valor",
-  },
-  {
-    name: "Enterprise",
-    tagline: "Operación compleja o regulada",
-    price: "Solicitar",
-    priceUnit: "cotización",
-    description:
-      "Sistema multi-agente custom. SLA, compliance, success engineer dedicado.",
-    features: [
-      "Sistema multi-agente diseñado a medida",
-      "Compliance: HIPAA, datos sensibles, residencia",
-      "SLA contractual y soporte prioritario",
-      "Success engineer dedicado durante el primer año",
-    ],
-    cta: "Hablar con ventas",
-    badge: null,
-  },
-];
+import { translations, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const t = translations[lang].paquetes;
+const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
 ---
 
 <section
@@ -74,21 +17,20 @@ const tiers = [
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <header class="max-w-3xl mb-12 sm:mb-16">
       <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
-        Paquetes
+        {t.eyebrow}
       </p>
       <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
-        Escogemos los agentes que tu negocio necesita.<br />
-        <span class="text-white/45">No los que sobran.</span>
+        {t.titleLine1}<br />
+        <span class="text-white/45">{t.titleLine2}</span>
       </h2>
       <p class="text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl">
-        El equipo se arma según tu operación, no según una plantilla. Empezamos
-        chico, escalamos cuando los números lo justifican.
+        {t.subtitle}
       </p>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6">
       {
-        tiers.map((tier) => (
+        t.tiers.map((tier) => (
           <article class="relative flex flex-col p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors">
             {tier.badge && (
               <span class="absolute -top-3 left-7 sm:left-8 inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest uppercase bg-brand-cyan text-brand-bg">
@@ -126,7 +68,7 @@ const tiers = [
             </ul>
 
             <a
-              href="#diagnostico"
+              href={diagPath}
               class="inline-flex items-center justify-center px-5 py-2.5 rounded text-sm font-semibold border border-white/15 hover:bg-brand-cyan hover:text-brand-bg hover:border-brand-cyan transition-colors"
             >
               {tier.cta}
@@ -137,8 +79,7 @@ const tiers = [
     </div>
 
     <p class="mt-10 text-xs sm:text-sm text-white/45 max-w-2xl">
-      Precios cerrados antes de empezar. Setup incluido. Sin permanencia mínima
-      en Starter ni Growth.
+      {t.footer}
     </p>
   </div>
 </section>

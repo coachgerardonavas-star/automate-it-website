@@ -1,48 +1,12 @@
 ---
-const rubros = [
-  {
-    name: "Dental",
-    pain: "Pacientes que no confirman cita y huecos en la agenda.",
-    solution:
-      "Recordatorios + reagendamiento + lista de espera automática que llena los huecos.",
-    tier: "Starter",
-  },
-  {
-    name: "Legal",
-    pain: "Consultas que se dispersan en email y casos sin triage.",
-    solution:
-      "Triage de consultas, agenda de calls y follow-up al cliente entre etapas.",
-    tier: "Growth",
-  },
-  {
-    name: "Construcción y Plomería",
-    pain: "Llamadas perdidas mientras estás en obra.",
-    solution:
-      "Recepción 24/7, cotización rápida según tipo de trabajo, agenda en tu calendario.",
-    tier: "Starter",
-  },
-  {
-    name: "Salón y Spa",
-    pain: "No-shows, cancelaciones y huecos imposibles de llenar.",
-    solution:
-      "Confirmaciones automáticas, lista de espera y reagendamiento en un solo flujo.",
-    tier: "Starter",
-  },
-  {
-    name: "Inmobiliaria",
-    pain: "Leads que se enfrían en menos de 24 horas si no respondes.",
-    solution:
-      "Calificación inicial, tour virtual o presencial agendado, nurture multi-touch.",
-    tier: "Growth",
-  },
-  {
-    name: "Salud y terapia",
-    pain: "Admin que come horas que deberías estar atendiendo pacientes.",
-    solution:
-      "Agenda, recordatorios, intake forms previo a la sesión y cobro recurrente.",
-    tier: "Starter",
-  },
-];
+import { translations, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const t = translations[lang].paraQuien;
 ---
 
 <section
@@ -52,27 +16,26 @@ const rubros = [
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <header class="max-w-3xl mb-12 sm:mb-16">
       <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
-        Para quién es esto
+        {t.eyebrow}
       </p>
       <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
-        Si tu negocio depende de citas, leads o follow-up,<br />
-        <span class="text-white/45">esto es para ti.</span>
+        {t.titleLine1}<br />
+        <span class="text-white/45">{t.titleLine2}</span>
       </h2>
       <p class="text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl">
-        Construido para dueños de negocios de servicios con equipos chicos.
-        Empezamos por el dolor más caro y escalamos cuando ves resultados.
+        {t.subtitle}
       </p>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
       {
-        rubros.map((rubro) => (
+        t.rubros.map((rubro) => (
           <article class="p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors">
             <h3 class="font-heading text-xl sm:text-2xl mb-5">{rubro.name}</h3>
 
             <div class="mb-4">
               <p class="text-[10px] sm:text-xs tracking-[0.22em] uppercase text-white/45 font-semibold mb-1.5">
-                Tu día se va en
+                {t.painLabel}
               </p>
               <p class="text-sm sm:text-base text-white/85 leading-relaxed">
                 {rubro.pain}
@@ -81,7 +44,7 @@ const rubros = [
 
             <div class="mb-6">
               <p class="text-[10px] sm:text-xs tracking-[0.22em] uppercase text-brand-cyan font-semibold mb-1.5">
-                Empezamos por
+                {t.solutionLabel}
               </p>
               <p class="text-sm sm:text-base text-white/85 leading-relaxed">
                 {rubro.solution}
@@ -92,7 +55,7 @@ const rubros = [
               href="#paquetes"
               class="inline-flex items-center gap-2 text-xs sm:text-sm text-white/60 hover:text-brand-cyan transition-colors"
             >
-              <span>Recomendado:</span>
+              <span>{t.recommendedLabel}</span>
               <span class="font-semibold">{rubro.tier}</span>
               <span aria-hidden="true">→</span>
             </a>
@@ -102,8 +65,7 @@ const rubros = [
     </div>
 
     <p class="mt-10 text-xs sm:text-sm text-white/45 max-w-2xl">
-      ¿No estás en esta lista? Si tu operación tiene calendario, leads y
-      follow-up, probablemente podemos ayudarte. Cuéntanos en el diagnóstico.
+      {t.footer}
     </p>
   </div>
 </section>

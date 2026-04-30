@@ -9,18 +9,20 @@ import SeccionPaquetes from "../components/SeccionPaquetes.astro";
 import SeccionParaQuien from "../components/SeccionParaQuien.astro";
 import SeccionCtaFinal from "../components/SeccionCtaFinal.astro";
 import Footer from "../components/Footer.astro";
+
+const lang = "es";
 ---
 
-<BaseLayout>
-  <Nav />
+<BaseLayout lang={lang}>
+  <Nav lang={lang} />
   <main>
-    <Hero />
-    <SeccionDolor />
-    <SeccionTransformacion />
-    <SeccionAgentes />
-    <SeccionPaquetes />
-    <SeccionParaQuien />
-    <SeccionCtaFinal />
+    <Hero lang={lang} />
+    <SeccionDolor lang={lang} />
+    <SeccionTransformacion lang={lang} />
+    <SeccionAgentes lang={lang} />
+    <SeccionPaquetes lang={lang} />
+    <SeccionParaQuien lang={lang} />
+    <SeccionCtaFinal lang={lang} />
   </main>
-  <Footer />
+  <Footer lang={lang} />
 </BaseLayout>

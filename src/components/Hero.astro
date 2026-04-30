@@ -1,4 +1,13 @@
 ---
+import { translations, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const t = translations[lang].hero;
+const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
 ---
 
 <section class="relative min-h-[88vh] flex items-center overflow-hidden">
@@ -10,38 +19,35 @@
 
   <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full">
     <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
-      Your business, upgraded.
+      {t.eyebrow}
     </p>
 
     <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl leading-[1.04] max-w-4xl">
-      Tu negocio,<br />
-      <span class="text-brand-cyan">sin secuestrarte el día.</span>
+      {t.h1Line1}<br />
+      <span class="text-brand-cyan">{t.h1Line2}</span>
     </h1>
 
     <p class="mt-6 max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed">
-      Equipos de IA especializados ejecutan tareas repetitivas, contestan
-      llamadas y dan seguimiento a leads las 24 horas. Tú recuperas las horas
-      que tu negocio te robaba.
+      {t.subtitle}
     </p>
 
     <div class="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
       <a
-        href="#diagnostico"
+        href={diagPath}
         class="inline-flex items-center justify-center px-6 py-3 rounded font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors"
       >
-        Diagnóstico gratuito de 30 min
+        {t.ctaPrimary}
       </a>
       <a
         href="#como-funciona"
         class="inline-flex items-center justify-center px-6 py-3 rounded font-semibold border border-white/20 hover:border-brand-cyan/60 hover:text-brand-cyan transition-colors"
       >
-        Cómo funciona
+        {t.ctaSecondary}
       </a>
     </div>
 
     <p class="mt-12 text-xs sm:text-sm text-white/45 max-w-md">
-      Sin compromiso. Sin venta dura. 30 minutos para identificar dónde estás
-      perdiendo tiempo y leads.
+      {t.microcopy}
     </p>
   </div>
 </section>

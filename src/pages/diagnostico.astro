@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import DiagnosticoForm from "../components/DiagnosticoForm.astro";
+import { translations } from "../i18n/translations";
+
+const lang = "es";
+const title = translations[lang].diagnosticoPage.title;
+---
+
+<BaseLayout lang={lang} title={title}>
+  <Nav lang={lang} />
+  <main>
+    <DiagnosticoForm lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

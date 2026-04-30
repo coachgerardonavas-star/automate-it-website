@@ -1,21 +1,12 @@
 ---
-const cards = [
-  {
-    eyebrow: "Recepción",
-    title: "Llamadas que nunca contestaste",
-    body: "Cada una era un cliente listo para comprar. Cada una se fue a la competencia mientras tú estabas en otra junta.",
-  },
-  {
-    eyebrow: "Seguimiento",
-    title: "Leads que se enfriaron",
-    body: "Tu CRM tiene contactos de hace meses. Sin un primer follow-up rápido, ya no te recuerdan.",
-  },
-  {
-    eyebrow: "Operación",
-    title: "Horas que se fueron en tareas repetitivas",
-    body: "Pegas información de WhatsApp al CRM, del CRM al Excel, del Excel al email. No es operación, es desperdicio.",
-  },
-];
+import { translations, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const t = translations[lang].dolor;
 ---
 
 <section
@@ -25,17 +16,17 @@ const cards = [
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <header class="max-w-3xl mb-12 sm:mb-16">
       <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
-        El antes
+        {t.eyebrow}
       </p>
       <h2 class="font-heading text-3xl sm:text-5xl leading-tight">
-        Dejaste de manejar tu negocio.<br />
-        <span class="text-white/45">Tu negocio te maneja a ti.</span>
+        {t.titleLine1}<br />
+        <span class="text-white/45">{t.titleLine2}</span>
       </h2>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
       {
-        cards.map((card) => (
+        t.cards.map((card) => (
           <article class="p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors">
             <p class="text-[10px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan font-semibold mb-5">
               {card.eyebrow}

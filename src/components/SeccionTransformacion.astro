@@ -1,26 +1,12 @@
 ---
-const steps = [
-  {
-    n: "01",
-    title: "Diagnóstico",
-    body: "30 minutos sin compromiso. Identificamos dónde se te está yendo el tiempo y los leads. Sales del call con un mapa claro.",
-  },
-  {
-    n: "02",
-    title: "Propuesta",
-    body: "Plan a medida: qué procesos automatizar, qué agentes los ejecutan, en qué orden. Precio cerrado antes de empezar.",
-  },
-  {
-    n: "03",
-    title: "Setup",
-    body: "Configuramos los agentes y los conectamos a tus sistemas: CRM, email, calendario, WhatsApp, lo que uses. Sin migrar nada.",
-  },
-  {
-    n: "04",
-    title: "Go-live",
-    body: "Tu equipo de IA empieza a operar. Métricas reales desde el primer día y ajuste continuo durante el primer mes.",
-  },
-];
+import { translations, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const t = translations[lang].transformacion;
 ---
 
 <section
@@ -30,11 +16,11 @@ const steps = [
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <header class="max-w-3xl mb-14 sm:mb-20">
       <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
-        La transformación
+        {t.eyebrow}
       </p>
       <h2 class="font-heading text-3xl sm:text-5xl leading-tight">
-        De tu primer call al primer agente operando.<br />
-        <span class="text-white/45">En semanas, no en meses.</span>
+        {t.titleLine1}<br />
+        <span class="text-white/45">{t.titleLine2}</span>
       </h2>
     </header>
 
@@ -44,7 +30,7 @@ const steps = [
         aria-hidden="true"></span>
 
       {
-        steps.map((step) => (
+        t.steps.map((step) => (
           <li class="relative">
             <div class="flex md:flex-col items-start gap-5 md:gap-6">
               <div class="shrink-0 grid place-items-center w-16 h-16 rounded-full border border-brand-cyan/40 bg-brand-bg font-heading text-lg text-brand-cyan relative z-10">

@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Hero from "../../components/Hero.astro";
+import SeccionDolor from "../../components/SeccionDolor.astro";
+import SeccionTransformacion from "../../components/SeccionTransformacion.astro";
+import SeccionAgentes from "../../components/SeccionAgentes.astro";
+import SeccionPaquetes from "../../components/SeccionPaquetes.astro";
+import SeccionParaQuien from "../../components/SeccionParaQuien.astro";
+import SeccionCtaFinal from "../../components/SeccionCtaFinal.astro";
+import Footer from "../../components/Footer.astro";
+
+const lang = "en";
+---
+
+<BaseLayout lang={lang}>
+  <Nav lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <SeccionDolor lang={lang} />
+    <SeccionTransformacion lang={lang} />
+    <SeccionAgentes lang={lang} />
+    <SeccionPaquetes lang={lang} />
+    <SeccionParaQuien lang={lang} />
+    <SeccionCtaFinal lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

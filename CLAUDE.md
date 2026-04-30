@@ -11,7 +11,7 @@ Sitio web one-page en Astro. Sin scroll cinematográfico Three.js. Foco en clari
 - **Estilos:** Tailwind CSS 3 vía `@astrojs/tailwind` 5.x
 - **Animaciones:** CSS puro + Intersection Observer. **Sin GSAP. Sin Three.js. Sin Vite directo.**
 - **Blog:** Astro Content Collections (sprint futuro)
-- **i18n:** astro-i18n-aut o estructura de carpetas `/en/` `/es/` (sprint futuro)
+- **i18n:** built-in Astro 4 i18n + estructura de carpetas. ES en root, EN en `/en/`. Strings centralizadas en `src/i18n/translations.ts` (objeto `{ es, en }`). Componentes aceptan `lang` prop con default `"es"`. Rutas: `/`, `/diagnostico`, `/privacidad`, `/terminos` y sus equivalentes EN `/en/`, `/en/diagnostic`, `/en/privacy`, `/en/terms`.
 - **Deploy:** Cloudflare Pages — push a `main` = deploy automático
 - Si en algún momento se considera agregar una librería JS pesada, **detenerse** y buscar primero solución CSS pura. Solo proponer la librería al CEO antes de instalar.
 
@@ -70,9 +70,19 @@ Reglas estrictas del verde lima `#AADD00`: solo en estados "En vivo", "Activo", 
 ## Estructura de carpetas
 ```
 src/
-  components/      # Nav, Hero, Seccion*.astro
-  layouts/         # BaseLayout.astro
-  pages/           # index.astro y futuras rutas
+  components/      # Nav, Hero, Seccion*.astro, DiagnosticoForm, LegalContent
+  i18n/            # translations.ts (todas las strings ES/EN), utils.ts
+  layouts/         # BaseLayout.astro (acepta lang prop)
+  pages/
+    index.astro          # ES home
+    diagnostico.astro    # ES /diagnostico
+    privacidad.astro     # ES /privacidad
+    terminos.astro       # ES /terminos
+    en/
+      index.astro        # EN home
+      diagnostic.astro   # EN /en/diagnostic
+      privacy.astro      # EN /en/privacy
+      terms.astro        # EN /en/terms
   styles/          # global.css con tokens
 public/
   assets/          # video, logo, imágenes estáticas
