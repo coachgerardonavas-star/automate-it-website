@@ -217,7 +217,7 @@ export function animateTunnel(section) {
       trigger: section,
       start: "top top",
       end: "bottom bottom",
-      scrub: 1,
+      scrub: 1.5,
       onUpdate: () => {
         updateCamera();
         updateNodes();

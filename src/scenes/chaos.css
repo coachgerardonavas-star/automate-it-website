@@ -22,21 +22,22 @@
 .chaos-floats {
   position: absolute;
   right: 8vw;
-  bottom: 30%;
-  width: 300px;
-  height: 360px;
+  bottom: 12vh;
+  width: 320px;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 8px;
   pointer-events: none;
-  z-index: 2;
+  z-index: 5;
+  overflow: hidden;
   outline: none;
   border: none;
 }
 
 .chaos-float {
-  width: 300px;
+  width: 320px;
   padding: 12px;
   background: #0A1428;
   border: none;
@@ -46,19 +47,8 @@
   box-sizing: border-box;
   outline: none;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 210ms ease-out, transform 210ms ease-out;
   will-change: transform, opacity;
-}
-
-.chaos-float.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.chaos-float.is-fading {
-  opacity: 0;
-  transition: opacity 200ms ease-out;
+  flex: 0 0 auto;
 }
 
 .chaos-float-from {
