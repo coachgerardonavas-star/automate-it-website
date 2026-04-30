@@ -1,0 +1,119 @@
+---
+const productLinks = [
+  { label: "Cómo funciona", href: "#como-funciona" },
+  { label: "Agentes", href: "#agentes" },
+  { label: "Paquetes", href: "#paquetes" },
+  { label: "Para quién", href: "#para-quien" },
+];
+
+const empresaLinks = [
+  { label: "Diagnóstico", href: "#diagnostico" },
+  { label: "Privacidad", href: "/privacidad" },
+  { label: "Términos", href: "/terminos" },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/5 bg-brand-bg pt-16 pb-10">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 mb-12">
+      <div class="md:col-span-5">
+        <a href="/" class="inline-flex items-center mb-4" aria-label="Automate IT — inicio">
+          <span class="font-heading text-xl tracking-tight">
+            AUTOMATE <span class="text-brand-cyan">IT</span>
+          </span>
+        </a>
+        <p class="font-heading text-base text-white/60 mb-4">
+          Your business, upgraded.
+        </p>
+        <p class="text-sm text-white/55 leading-relaxed max-w-sm">
+          Equipos de IA especializados que ejecutan tu back-office. Tú recuperas
+          el tiempo que tu negocio te robaba.
+        </p>
+      </div>
+
+      <nav class="md:col-span-3" aria-label="Producto">
+        <h3 class="text-[11px] tracking-[0.22em] uppercase text-white/45 font-semibold mb-4">
+          Producto
+        </h3>
+        <ul class="space-y-2.5">
+          {
+            productLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-white/75 hover:text-brand-cyan transition-colors"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav class="md:col-span-2" aria-label="Empresa">
+        <h3 class="text-[11px] tracking-[0.22em] uppercase text-white/45 font-semibold mb-4">
+          Empresa
+        </h3>
+        <ul class="space-y-2.5">
+          {
+            empresaLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-white/75 hover:text-brand-cyan transition-colors"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="md:col-span-2">
+        <h3 class="text-[11px] tracking-[0.22em] uppercase text-white/45 font-semibold mb-4">
+          Contacto
+        </h3>
+        <a
+          href="mailto:automateit@yourbizupgraded.com"
+          class="text-sm text-white/75 hover:text-brand-cyan transition-colors break-all"
+        >
+          automateit@<br class="hidden md:inline" />yourbizupgraded.com
+        </a>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center sm:justify-between">
+      <p class="text-xs text-white/40">
+        © {year} Automate IT LLC. Todos los derechos reservados.
+      </p>
+
+      <div
+        class="inline-flex items-center gap-1 text-xs"
+        role="group"
+        aria-label="Selector de idioma (próximamente)"
+      >
+        <button
+          type="button"
+          aria-current="true"
+          aria-disabled="true"
+          class="px-3 py-1.5 rounded border border-brand-cyan/40 text-brand-cyan font-semibold cursor-default"
+        >
+          ES
+        </button>
+        <button
+          type="button"
+          aria-disabled="true"
+          title="EN próximamente"
+          class="px-3 py-1.5 rounded border border-white/10 text-white/40 cursor-not-allowed"
+          disabled
+        >
+          EN
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>

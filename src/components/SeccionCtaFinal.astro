@@ -1,0 +1,169 @@
+---
+const businessTypes = [
+  "Dental",
+  "Legal",
+  "Construcción / Plomería",
+  "Salón / Spa",
+  "Inmobiliaria",
+  "Salud / Terapia",
+  "Otro",
+];
+---
+
+<section
+  id="diagnostico"
+  class="py-20 sm:py-28 border-t border-white/5 reveal-on-scroll relative overflow-hidden"
+>
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-[24rem] w-[60rem] rounded-full bg-brand-cyan/[0.05] blur-3xl"></div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-5 lg:px-8 text-center">
+    <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+      Diagnóstico gratuito
+    </p>
+    <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
+      30 minutos.<br class="sm:hidden" />
+      <span class="sm:inline"> Sin compromiso.</span><br />
+      <span class="text-white/45">Sales con un mapa, no con una cotización.</span>
+    </h2>
+    <p class="text-base sm:text-lg text-white/70 leading-relaxed mb-12 max-w-2xl mx-auto">
+      Te contactamos en menos de 24 horas para agendar el call. Hablamos de tu
+      operación, identificamos los 2–3 procesos más caros, te decimos qué
+      automatizamos primero. Sin venta dura.
+    </p>
+
+    <form
+      id="cta-form"
+      class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 text-left"
+      novalidate
+    >
+      <label class="block">
+        <span class="sr-only">Tu nombre</span>
+        <input
+          type="text"
+          name="name"
+          placeholder="Tu nombre"
+          required
+          autocomplete="name"
+          class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors"
+        />
+      </label>
+      <label class="block">
+        <span class="sr-only">Tu email</span>
+        <input
+          type="email"
+          name="email"
+          placeholder="Tu email"
+          required
+          autocomplete="email"
+          class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors"
+        />
+      </label>
+      <label class="block">
+        <span class="sr-only">Tipo de negocio</span>
+        <select
+          name="business_type"
+          required
+          class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-brand-cyan transition-colors appearance-none cursor-pointer"
+        >
+          <option value="" class="bg-brand-bg">Tipo de negocio</option>
+          {
+            businessTypes.map((t) => (
+              <option value={t} class="bg-brand-bg">
+                {t}
+              </option>
+            ))
+          }
+        </select>
+      </label>
+      <button
+        type="submit"
+        class="sm:col-span-3 inline-flex items-center justify-center px-6 py-3 rounded font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      >
+        Solicitar diagnóstico gratuito
+      </button>
+    </form>
+
+    <p id="cta-error" class="hidden text-sm text-red-400 mb-2"></p>
+
+    <div
+      id="cta-success"
+      class="hidden p-6 rounded-lg border border-brand-lime/40 bg-brand-lime/5 text-left"
+      role="status"
+      aria-live="polite"
+    >
+      <p class="font-heading text-xl mb-2 text-brand-lime">Recibido.</p>
+      <p class="text-sm sm:text-base text-white/85">
+        Te contactamos en menos de 24 horas al email que dejaste. Mientras tanto,
+        revisa tu carpeta de spam por si nuestro mail termina ahí.
+      </p>
+    </div>
+
+    <p class="mt-6 text-xs text-white/45">
+      Tus datos no se comparten ni se venden. Los usamos solo para coordinar
+      tu diagnóstico.
+    </p>
+  </div>
+</section>
+
+<style>
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 700ms ease-out,
+      transform 700ms ease-out;
+  }
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById("cta-form") as HTMLFormElement | null;
+  const error = document.getElementById("cta-error");
+  const success = document.getElementById("cta-success");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form || !error || !success) return;
+
+    error.classList.add("hidden");
+    error.textContent = "";
+
+    if (!form.checkValidity()) {
+      error.textContent = "Revisa los 3 campos antes de enviar.";
+      error.classList.remove("hidden");
+      form.reportValidity();
+      return;
+    }
+
+    const submitBtn = form.querySelector(
+      'button[type="submit"]'
+    ) as HTMLButtonElement | null;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando…";
+    }
+
+    const data = Object.fromEntries(new FormData(form));
+
+    // PENDIENTE Sprint 6: enviar a HubSpot CRM + notificación a
+    // automateit@yourbizupgraded.com. Por ahora se loggea en consola.
+    console.log("[lead] CTA final:", data);
+
+    await new Promise((r) => setTimeout(r, 400));
+
+    form.classList.add("hidden");
+    success.classList.remove("hidden");
+  });
+</script>

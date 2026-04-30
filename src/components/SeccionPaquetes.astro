@@ -3,6 +3,8 @@ const tiers = [
   {
     name: "Starter",
     tagline: "Solo o equipo de 1–2",
+    price: "$449",
+    priceUnit: "/mes",
     description:
       "Cubre lo que se te está perdiendo todos los días: llamadas, primeros follow-ups, agenda.",
     features: [
@@ -11,12 +13,14 @@ const tiers = [
       "Agendamiento automático en tu calendario",
       "Conexión con tu WhatsApp y email actuales",
     ],
-    cta: "Cotizar Starter",
+    cta: "Empezar con Starter",
     badge: null,
   },
   {
     name: "Growth",
     tagline: "Equipo de 3–10",
+    price: "$649",
+    priceUnit: "/mes",
     description:
       "Suma agentes de seguimiento de oportunidades y reportes operativos al día.",
     features: [
@@ -25,12 +29,14 @@ const tiers = [
       "Reportes diarios con métricas clave",
       "Workflows custom según tu rubro",
     ],
-    cta: "Cotizar Growth",
+    cta: "Empezar con Growth",
     badge: "Más popular",
   },
   {
     name: "Scale",
     tagline: "Equipo de 10+",
+    price: "$899",
+    priceUnit: "/mes",
     description:
       "Equipo ampliado de agentes operando en múltiples canales con integraciones profundas.",
     features: [
@@ -39,12 +45,14 @@ const tiers = [
       "Integraciones profundas con tu stack",
       "Implementación dedicada y onboarding del equipo",
     ],
-    cta: "Cotizar Scale",
+    cta: "Empezar con Scale",
     badge: "Mejor valor",
   },
   {
     name: "Enterprise",
     tagline: "Operación compleja o regulada",
+    price: "Solicitar",
+    priceUnit: "cotización",
     description:
       "Sistema multi-agente custom. SLA, compliance, success engineer dedicado.",
     features: [
@@ -94,6 +102,15 @@ const tiers = [
               </h3>
               <p class="text-xs sm:text-sm text-white/55">{tier.tagline}</p>
             </header>
+
+            <div class="mb-6 flex items-baseline gap-2">
+              <span class="font-heading text-3xl sm:text-4xl text-white">
+                {tier.price}
+              </span>
+              <span class="text-xs sm:text-sm text-white/55">
+                {tier.priceUnit}
+              </span>
+            </div>
 
             <p class="text-sm sm:text-base text-white/75 leading-relaxed mb-6">
               {tier.description}
