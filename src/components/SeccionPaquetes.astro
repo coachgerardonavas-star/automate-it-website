@@ -31,7 +31,10 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6">
       {
         t.tiers.map((tier) => (
-          <article class="relative flex flex-col p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors">
+          <article
+            id={tier.name.toLowerCase()}
+            class="relative flex flex-col p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors duration-200 ease-brand scroll-mt-20"
+          >
             {tier.badge && (
               <span class="absolute -top-3 left-7 sm:left-8 inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest uppercase bg-brand-cyan text-brand-bg">
                 {tier.badge}

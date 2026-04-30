@@ -1,5 +1,6 @@
 ---
 import { translations, type Lang } from "../i18n/translations";
+import BitAvatar from "./BitAvatar.astro";
 
 interface Props {
   lang?: Lang;
@@ -7,6 +8,7 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].hero;
+const bit = translations[lang].bit;
 const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
 ---
 
@@ -34,17 +36,28 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
     <div class="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
       <a
         href={diagPath}
-        class="inline-flex items-center justify-center px-6 py-3 rounded font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors"
+        class="inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
       >
         {t.ctaPrimary}
       </a>
       <a
         href="#como-funciona"
-        class="inline-flex items-center justify-center px-6 py-3 rounded font-semibold border border-white/20 hover:border-brand-cyan/60 hover:text-brand-cyan transition-colors"
+        class="inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold border border-white/20 hover:border-brand-cyan/60 hover:text-brand-cyan transition-colors duration-200 ease-brand"
       >
         {t.ctaSecondary}
       </a>
     </div>
+
+    <a
+      href="#scale"
+      class="mt-8 inline-flex items-center gap-3 group text-white/70 hover:text-brand-cyan transition-colors duration-200 ease-brand"
+      aria-label={bit.anchorLabel}
+    >
+      <BitAvatar lang={lang} size={36} />
+      <span class="text-sm sm:text-base font-semibold">
+        {bit.heroLine}
+      </span>
+    </a>
 
     <p class="mt-12 text-xs sm:text-sm text-white/45 max-w-md">
       {t.microcopy}

@@ -6,9 +6,10 @@ interface Props {
   lang?: Lang;
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { lang = "es", title, description } = Astro.props;
+const { lang = "es", title, description, noindex = false } = Astro.props;
 const t = translations[lang];
 const pageTitle = title ?? t.siteTitle;
 const pageDescription = description ?? t.siteDescription;
@@ -22,6 +23,7 @@ const htmlLang = lang === "en" ? "en" : "es";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={pageDescription} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
     <meta name="theme-color" content="#050A18" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />

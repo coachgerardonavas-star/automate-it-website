@@ -1,5 +1,6 @@
 ---
 import { translations, type Lang } from "../i18n/translations";
+import BitAvatar from "./BitAvatar.astro";
 
 interface Props {
   lang?: Lang;
@@ -13,7 +14,12 @@ const homeHref = lang === "en" ? "/en/" : "/";
 
 <nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-bg/80 border-b border-white/5">
   <div class="max-w-7xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
-    <a href={homeHref} class="flex items-center gap-2 shrink-0" aria-label={t.logoLabel}>
+    <a
+      href={homeHref}
+      class="flex items-center gap-3 shrink-0"
+      aria-label={t.logoLabel}
+    >
+      <BitAvatar lang={lang} size={28} showTooltip={true} />
       <span class="font-heading text-base sm:text-lg tracking-tight">
         AUTOMATE <span class="text-brand-cyan">IT</span>
       </span>
@@ -25,7 +31,7 @@ const homeHref = lang === "en" ? "/en/" : "/";
           <li>
             <a
               href={l.href}
-              class="text-white/75 hover:text-white transition-colors"
+              class="text-white/75 hover:text-white transition-colors duration-200 ease-brand"
             >
               {l.label}
             </a>
@@ -36,7 +42,7 @@ const homeHref = lang === "en" ? "/en/" : "/";
 
     <a
       href={ctaHref}
-      class="inline-flex items-center px-4 py-2 rounded text-xs sm:text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors"
+      class="inline-flex items-center px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
     >
       {t.cta}
     </a>

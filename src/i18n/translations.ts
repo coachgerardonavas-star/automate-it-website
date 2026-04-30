@@ -152,6 +152,67 @@ export const translations = {
       ],
     },
 
+    servicios: {
+      eyebrow: "Servicios individuales",
+      titleLine1: "Si solo necesitas un agente,",
+      titleLine2: "lo contratas suelto.",
+      subtitle:
+        "Cada servicio funciona por sí solo o se combina con otros. Sin paquete cerrado, sin compromisos largos.",
+      services: [
+        {
+          sku: "AIT-SVC-001",
+          name: "Agente de Voz IA · Inbound",
+          price: "$299",
+          priceUnit: "/mes",
+          description:
+            "Recepcionista IA 24/7 que contesta llamadas, agenda citas y filtra leads.",
+        },
+        {
+          sku: "AIT-SVC-002",
+          name: "Agente de Voz IA · Outbound",
+          price: "$399",
+          priceUnit: "/mes",
+          description:
+            "Llama leads en 60 seg, hace follow-up automático y reduce no-shows hasta 60%.",
+        },
+        {
+          sku: "AIT-SVC-003",
+          name: "Chatbot IA · WhatsApp",
+          price: "$199",
+          priceUnit: "/mes",
+          description:
+            "Conversaciones 24/7 en WhatsApp, Messenger e Instagram — agenda y cotiza.",
+        },
+        {
+          sku: "AIT-SVC-004",
+          name: "CRM + Automatizaciones",
+          price: "$249",
+          priceUnit: "/mes",
+          description:
+            "Base de datos, pipeline visual y flujos automáticos para tu operación comercial.",
+        },
+        {
+          sku: "AIT-SVC-005",
+          name: "Marketing Automation",
+          price: "$229",
+          priceUnit: "/mes",
+          description:
+            "Email + WhatsApp automatizado, nurturing, A/B testing y reportes de ROI.",
+        },
+      ],
+      cta: "Cotizar este servicio",
+      packagesHint: "¿Necesitas varios? Mira los paquetes →",
+    },
+
+    bit: {
+      tooltip: "Hola, soy BIT",
+      heroLine: "Conoce a BIT, tu copiloto de operación →",
+      anchorLabel: "Saber más sobre BIT",
+      avatarAlt: "BIT, mascota de Automate IT",
+      description:
+        "BIT es la cara visible de tu sistema multi-agente. Coordina voz, chat, CRM y marketing, te avisa cuando algo requiere tu atención y reporta resultados cada mañana.",
+    },
+
     paquetes: {
       eyebrow: "Paquetes",
       titleLine1: "Escogemos los agentes que tu negocio necesita.",
@@ -600,6 +661,67 @@ export const translations = {
           ],
         },
       ],
+    },
+
+    servicios: {
+      eyebrow: "Individual services",
+      titleLine1: "If you just need one agent,",
+      titleLine2: "you can hire it standalone.",
+      subtitle:
+        "Each service works on its own or combined with others. No bundled plan, no long-term commitments.",
+      services: [
+        {
+          sku: "AIT-SVC-001",
+          name: "Voice AI Agent · Inbound",
+          price: "$299",
+          priceUnit: "/mo",
+          description:
+            "24/7 AI receptionist that answers calls, books appointments, and filters leads.",
+        },
+        {
+          sku: "AIT-SVC-002",
+          name: "Voice AI Agent · Outbound",
+          price: "$399",
+          priceUnit: "/mo",
+          description:
+            "Calls leads in 60 seconds, runs automatic follow-up, and cuts no-shows up to 60%.",
+        },
+        {
+          sku: "AIT-SVC-003",
+          name: "AI Chatbot · WhatsApp",
+          price: "$199",
+          priceUnit: "/mo",
+          description:
+            "24/7 conversations on WhatsApp, Messenger, and Instagram — books and quotes.",
+        },
+        {
+          sku: "AIT-SVC-004",
+          name: "CRM + Automations",
+          price: "$249",
+          priceUnit: "/mo",
+          description:
+            "Database, visual pipeline, and automated flows for your sales operation.",
+        },
+        {
+          sku: "AIT-SVC-005",
+          name: "Marketing Automation",
+          price: "$229",
+          priceUnit: "/mo",
+          description:
+            "Automated email + WhatsApp, nurturing, A/B testing, and ROI reports.",
+        },
+      ],
+      cta: "Get a quote",
+      packagesHint: "Need several? See the plans →",
+    },
+
+    bit: {
+      tooltip: "Hi, I'm BIT",
+      heroLine: "Meet BIT, your operations copilot →",
+      anchorLabel: "Learn more about BIT",
+      avatarAlt: "BIT, the Automate IT mascot",
+      description:
+        "BIT is the visible face of your multi-agent system. It coordinates voice, chat, CRM, and marketing, alerts you when something needs your attention, and reports results every morning.",
     },
 
     paquetes: {

@@ -10,7 +10,7 @@ const lastUpdated = "abril 2026";
 const title = `${translations[lang].legal.terms.title} · Automate IT`;
 ---
 
-<BaseLayout lang={lang} title={title}>
+<BaseLayout lang={lang} title={title} noindex={true}>
   <Nav lang={lang} />
   <main>
     <LegalContent lang={lang} doc="terms" lastUpdated={lastUpdated} />
