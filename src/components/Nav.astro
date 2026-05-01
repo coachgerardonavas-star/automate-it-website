@@ -1,6 +1,7 @@
 ---
 import { translations, type Lang } from "../i18n/translations";
 import BitAvatar from "./BitAvatar.astro";
+import { switchLangPath } from "../i18n/utils";
 
 interface Props {
   lang?: Lang;
@@ -8,12 +9,23 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].nav;
+const footerT = translations[lang].footer;
 const ctaHref = lang === "en" ? "/en/diagnostic" : "/diagnostico";
 const homeHref = lang === "en" ? "/en/" : "/";
+const currentPath = Astro.url.pathname;
+const otherLang: Lang = lang === "en" ? "es" : "en";
+const otherLangHref = switchLangPath(currentPath, otherLang);
 ---
 
-<nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-bg/80 border-b border-white/5">
-  <div class="max-w-7xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
+<nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-bg/85 border-b border-white/5">
+  <input
+    id="nav-mobile-toggle"
+    type="checkbox"
+    class="peer sr-only"
+    aria-label={t.cta}
+  />
+
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between gap-3">
     <a
       href={homeHref}
       class="flex items-center gap-3 shrink-0"
@@ -25,7 +37,7 @@ const homeHref = lang === "en" ? "/en/" : "/";
       </span>
     </a>
 
-    <ul class="hidden md:flex items-center gap-8 text-sm">
+    <ul class="hidden md:flex items-center gap-7 text-sm">
       {
         t.links.map((l) => (
           <li>
@@ -40,11 +52,230 @@ const homeHref = lang === "en" ? "/en/" : "/";
       }
     </ul>
 
-    <a
-      href={ctaHref}
-      class="inline-flex items-center px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
+    <div class="hidden md:flex items-center gap-4">
+      <div
+        class="inline-flex items-center gap-1 text-xs"
+        role="group"
+        aria-label={footerT.switcherLabel}
+      >
+        {
+          lang === "es" ? (
+            <span
+              aria-current="true"
+              class="px-2.5 py-1 rounded-sm border border-brand-cyan/40 text-brand-cyan font-semibold"
+            >
+              ES
+            </span>
+          ) : (
+            <a
+              href={otherLangHref}
+              class="px-2.5 py-1 rounded-sm border border-white/15 text-white/70 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
+            >
+              ES
+            </a>
+          )
+        }
+        {
+          lang === "en" ? (
+            <span
+              aria-current="true"
+              class="px-2.5 py-1 rounded-sm border border-brand-cyan/40 text-brand-cyan font-semibold"
+            >
+              EN
+            </span>
+          ) : (
+            <a
+              href={otherLangHref}
+              class="px-2.5 py-1 rounded-sm border border-white/15 text-white/70 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
+            >
+              EN
+            </a>
+          )
+        }
+      </div>
+
+      <a
+        href={ctaHref}
+        class="inline-flex items-center px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
+      >
+        {t.cta}
+      </a>
+    </div>
+
+    <label
+      for="nav-mobile-toggle"
+      class="md:hidden cursor-pointer p-2 -mr-2 nav-hamburger-label"
+      aria-controls="nav-mobile-panel"
     >
-      {t.cta}
-    </a>
+      <span class="hamburger-icon">
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+      </span>
+    </label>
+  </div>
+
+  <div
+    id="nav-mobile-panel"
+    class="nav-mobile-panel md:hidden border-t border-white/5 bg-brand-bg"
+  >
+    <ul class="px-5 py-3">
+      {
+        t.links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="block py-3 text-base text-white/85 hover:text-brand-cyan border-b border-white/5 last:border-b-0 transition-colors"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="px-5 py-4 border-t border-white/5 flex items-center justify-between">
+      <span class="text-[11px] tracking-[0.22em] uppercase text-white/45 font-semibold">
+        {footerT.switcherLabel}
+      </span>
+      <div
+        class="inline-flex items-center gap-1 text-xs"
+        role="group"
+        aria-label={footerT.switcherLabel}
+      >
+        {
+          lang === "es" ? (
+            <span
+              aria-current="true"
+              class="px-3 py-1.5 rounded-sm border border-brand-cyan/40 text-brand-cyan font-semibold"
+            >
+              ES
+            </span>
+          ) : (
+            <a
+              href={otherLangHref}
+              class="px-3 py-1.5 rounded-sm border border-white/15 text-white/70"
+            >
+              ES
+            </a>
+          )
+        }
+        {
+          lang === "en" ? (
+            <span
+              aria-current="true"
+              class="px-3 py-1.5 rounded-sm border border-brand-cyan/40 text-brand-cyan font-semibold"
+            >
+              EN
+            </span>
+          ) : (
+            <a
+              href={otherLangHref}
+              class="px-3 py-1.5 rounded-sm border border-white/15 text-white/70"
+            >
+              EN
+            </a>
+          )
+        }
+      </div>
+    </div>
+
+    <div class="px-5 pb-5 pt-4 border-t border-white/5">
+      <a
+        href={ctaHref}
+        class="block w-full text-center px-5 py-3 rounded-sm text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors"
+      >
+        {t.cta}
+      </a>
+    </div>
   </div>
 </nav>
+
+<style>
+  .nav-mobile-panel {
+    display: none;
+  }
+  #nav-mobile-toggle:checked ~ .nav-mobile-panel {
+    display: block;
+    animation: navPanelIn 220ms cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  .hamburger-icon {
+    display: block;
+    position: relative;
+    width: 22px;
+    height: 16px;
+  }
+  .hamburger-icon .line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition:
+      transform 220ms cubic-bezier(0.2, 0, 0, 1),
+      opacity 160ms cubic-bezier(0.2, 0, 0, 1),
+      top 220ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  .hamburger-icon .line-1 {
+    top: 0;
+  }
+  .hamburger-icon .line-2 {
+    top: 7px;
+  }
+  .hamburger-icon .line-3 {
+    top: 14px;
+  }
+
+  #nav-mobile-toggle:checked ~ div .hamburger-icon .line-1 {
+    top: 7px;
+    transform: rotate(45deg);
+  }
+  #nav-mobile-toggle:checked ~ div .hamburger-icon .line-2 {
+    opacity: 0;
+  }
+  #nav-mobile-toggle:checked ~ div .hamburger-icon .line-3 {
+    top: 7px;
+    transform: rotate(-45deg);
+  }
+
+  @keyframes navPanelIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hamburger-icon .line {
+      transition: none;
+    }
+    #nav-mobile-toggle:checked ~ .nav-mobile-panel {
+      animation: none;
+    }
+  }
+
+  /* Body scroll lock when mobile panel is open (progressive enhancement) */
+  :global(html:has(#nav-mobile-toggle:checked)) {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // Cierra el panel mobile al navegar a un anchor o link interno
+  const toggle = document.getElementById(
+    "nav-mobile-toggle"
+  ) as HTMLInputElement | null;
+  if (toggle) {
+    document.querySelectorAll("#nav-mobile-panel a").forEach((a) => {
+      a.addEventListener("click", () => {
+        toggle.checked = false;
+      });
+    });
+  }
+</script>

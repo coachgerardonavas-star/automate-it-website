@@ -22,8 +22,8 @@ export const translations = {
 
     hero: {
       eyebrow: "Your business, upgraded.",
-      h1Line1: "Tu negocio,",
-      h1Line2: "sin secuestrarte el día.",
+      h1Line1: "Escala sin contratar.",
+      h1Line2: "Automatiza sin código.",
       subtitle:
         "Equipos de IA especializados ejecutan tareas repetitivas, contestan llamadas y dan seguimiento a leads las 24 horas. Tú recuperas las horas que tu negocio te robaba.",
       ctaPrimary: "Diagnóstico gratuito de 30 min",
@@ -568,8 +568,8 @@ export const translations = {
 
     hero: {
       eyebrow: "Your business, upgraded.",
-      h1Line1: "Your business,",
-      h1Line2: "without holding you hostage.",
+      h1Line1: "Scale without hiring.",
+      h1Line2: "Automate without code.",
       subtitle:
         "Specialized AI agents handle repetitive tasks, answer calls, and follow up with leads 24/7. You reclaim the hours your business was stealing from you.",
       ctaPrimary: "Free 30-minute diagnostic",
@@ -972,7 +972,7 @@ export const translations = {
           "Ex.: I miss 4 calls a day because I'm with patients. Each one is worth $200–$800.",
         urgency: "Urgency",
         urgencyOptions: [
-          { value: "now", label: "Yesterday — I want to start now" },
+          { value: "now", label: "ASAP — I needed this yesterday" },
           { value: "month", label: "This month" },
           { value: "quarter", label: "Next 3 months" },
           { value: "exploring", label: "Just exploring, no rush" },

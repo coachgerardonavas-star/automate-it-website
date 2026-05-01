@@ -62,7 +62,7 @@ for (const { src, out } of MAPPING) {
   await page.setViewport({
     width: WIDTH,
     height: HEIGHT,
-    deviceScaleFactor: 1,
+    deviceScaleFactor: 2,
   });
 
   const fileUrl = "file:///" + filePath.replace(/\\/g, "/");
