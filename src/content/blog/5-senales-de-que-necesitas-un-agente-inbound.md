@@ -3,7 +3,7 @@ title: "5 señales de que necesitas un agente de voz inbound"
 description: "Si reconoces tres o más en tu operación, estás dejando dinero en la mesa todos los días."
 pubDate: 2026-04-22
 lang: es
-author: Equipo Automate IT
+author: Gerardo · Automate IT
 tags: ["voz", "inbound", "diagnóstico"]
 ---
 

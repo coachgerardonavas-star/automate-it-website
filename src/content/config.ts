@@ -7,7 +7,7 @@ const blog = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     lang: z.enum(["es", "en"]),
-    author: z.string().default("Equipo Automate IT"),
+    author: z.string().default("Gerardo · Automate IT"),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),
