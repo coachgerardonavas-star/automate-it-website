@@ -23,3 +23,7 @@ Thumbs.db
 # Editors
 .idea/
 *.swp
+
+# Audit artifacts
+lighthouse-*.json
+lighthouse-*.html
