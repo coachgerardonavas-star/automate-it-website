@@ -9,11 +9,11 @@
  *   - HUBSPOT_FORM_GUID_*            HubSpot form GUIDs (one per form)
  */
 
-export const GA_ID = "G-XXXXXXXXXX"; // TODO: replace with real GA4 ID
+export const GA_ID = "G-82JWGNDTLG"; // active
 export const SEARCH_CONSOLE_VERIFICATION =
   "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN"; // TODO
 
-export const HUBSPOT_PORTAL_ID = ""; // TODO Sprint 6+
+export const HUBSPOT_PORTAL_ID = "245810986"; // active
 export const HUBSPOT_FORM_GUID_CTA = ""; // TODO Sprint 6+ — home inline form
 export const HUBSPOT_FORM_GUID_DIAGNOSTICO = ""; // TODO Sprint 6+ — /diagnostico
 export const HUBSPOT_FORM_GUID_CHATBOT = ""; // TODO Sprint 6+ — chatbot widget
