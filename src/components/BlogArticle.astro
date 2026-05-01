@@ -63,16 +63,16 @@ const { Content } = await post.render();
   </div>
 </article>
 
-<style is:global>
+<style>
   .prose-blog {
     color: rgba(255, 255, 255, 0.85);
     font-size: 16px;
     line-height: 1.75;
   }
-  .prose-blog p {
+  .prose-blog :global(p) {
     margin: 0 0 1.25rem;
   }
-  .prose-blog h2 {
+  .prose-blog :global(h2) {
     font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
     font-weight: 800;
     font-size: 1.6rem;
@@ -80,7 +80,7 @@ const { Content } = await post.render();
     margin: 2.5rem 0 1rem;
     color: var(--color-white);
   }
-  .prose-blog h3 {
+  .prose-blog :global(h3) {
     font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
     font-weight: 800;
     font-size: 1.25rem;
@@ -88,40 +88,40 @@ const { Content } = await post.render();
     margin: 2rem 0 0.75rem;
     color: var(--color-white);
   }
-  .prose-blog ul,
-  .prose-blog ol {
+  .prose-blog :global(ul),
+  .prose-blog :global(ol) {
     margin: 0 0 1.25rem;
     padding-left: 1.5rem;
   }
-  .prose-blog li {
+  .prose-blog :global(li) {
     margin: 0.5rem 0;
   }
-  .prose-blog strong {
+  .prose-blog :global(strong) {
     color: var(--color-white);
     font-weight: 700;
   }
-  .prose-blog a {
+  .prose-blog :global(a) {
     color: var(--color-cyan);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
   }
-  .prose-blog a:hover {
+  .prose-blog :global(a:hover) {
     color: var(--color-white);
   }
-  .prose-blog hr {
+  .prose-blog :global(hr) {
     border: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     margin: 2rem 0;
   }
-  .prose-blog blockquote {
+  .prose-blog :global(blockquote) {
     border-left: 3px solid var(--color-cyan);
     padding-left: 1rem;
     margin: 1.5rem 0;
     color: rgba(255, 255, 255, 0.7);
     font-style: italic;
   }
-  .prose-blog code {
+  .prose-blog :global(code) {
     background: rgba(0, 217, 255, 0.08);
     color: var(--color-cyan);
     padding: 1px 6px;

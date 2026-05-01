@@ -53,7 +53,7 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
       class="mt-8 inline-flex items-center gap-3 group text-white/70 hover:text-brand-cyan transition-colors duration-200 ease-brand"
       aria-label={bit.anchorLabel}
     >
-      <BitAvatar lang={lang} size={36} />
+      <BitAvatar lang={lang} size={36} loading="eager" />
       <span class="text-sm sm:text-base font-semibold">
         {bit.heroLine}
       </span>
