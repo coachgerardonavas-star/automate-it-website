@@ -10,7 +10,7 @@ Sitio web one-page en Astro. Sin scroll cinematográfico Three.js. Foco en clari
 - **Framework:** Astro 4.x (última estable usada hoy: 4.16)
 - **Estilos:** Tailwind CSS 3 vía `@astrojs/tailwind` 5.x
 - **Animaciones:** CSS puro + Intersection Observer. **Sin GSAP. Sin Three.js. Sin Vite directo.**
-- **Blog:** Astro Content Collections (sprint futuro)
+- **Blog:** Astro Content Collections. Schema en `src/content/config.ts`. Posts en `src/content/blog/*.md` con frontmatter `{ title, description, pubDate, lang, author, tags, draft }`. Listing en `/blog` y `/en/blog`, artículo dinámico en `/blog/[slug]` y `/en/blog/[slug]` filtrado por `lang` en `getStaticPaths`.
 - **i18n:** built-in Astro 4 i18n + estructura de carpetas. ES en root, EN en `/en/`. Strings centralizadas en `src/i18n/translations.ts` (objeto `{ es, en }`). Componentes aceptan `lang` prop con default `"es"`. Rutas: `/`, `/diagnostico`, `/privacidad`, `/terminos` y sus equivalentes EN `/en/`, `/en/diagnostic`, `/en/privacy`, `/en/terms`.
 - **Deploy:** Cloudflare Pages — push a `main` = deploy automático
 - Si en algún momento se considera agregar una librería JS pesada, **detenerse** y buscar primero solución CSS pura. Solo proponer la librería al CEO antes de instalar.
@@ -67,9 +67,16 @@ Disponibles como utilidades Tailwind y/o CSS vars:
 BIT es la cara visible del sistema multi-agente. Aparece en:
 - Nav: avatar 28px con tooltip "Hola, soy BIT".
 - Hero: avatar 36px + línea "Conoce a BIT, tu copiloto de operación →" con anchor a `#scale`.
-- Componente reutilizable: `src/components/BitAvatar.astro` (acepta `lang`, `size`, `showTooltip`).
-- Avatar usa placeholder con iniciales "BIT" en cyan sobre navy. Cuando exista `public/assets/mascota.png`, swap a `<img>` (TODO).
+- Sección Paquetes / Tier Scale: `mascota1.png` (BIT recostado) como elemento decorativo overflow top-right.
+- Chatbot widget flotante (bottom-right, todas las páginas): trigger con avatar BIT + glow cyan + pulse.
+- Componente reutilizable: `src/components/BitAvatar.astro` (acepta `lang`, `size`, `showTooltip`). Renderiza `<img src="/assets/mascota.png">` con fondo transparente.
+- Activos:
+  - `public/assets/mascota.png` — BIT de pie (Nav, Hero, Chatbot)
+  - `public/assets/mascota1.png` — BIT recostado (Tier Scale)
 - Copy oficial en `translations.bit`: descripción, tooltip, anchorLabel, alt.
+
+## Chatbot widget
+Widget flotante CSS-only + vanilla JS en `src/components/ChatbotWidget.astro`. Inyectado vía BaseLayout.astro (prop `chatbot` default `true`; se puede desactivar por página). Estado open/closed via atributo `data-open`. Quick actions a /diagnostico, /#paquetes, mailto. Input funcional pero **webhook pendiente Sprint 6+**: por ahora muestra mensaje "Este chat todavía no está conectado. Te respondemos por email a la brevedad."
 
 ## Reglas de copy y mensaje
 - Cero jerga hueca. Sustantivos concretos, verbos directos.

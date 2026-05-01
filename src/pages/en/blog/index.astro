@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Nav from "../../../components/Nav.astro";
+import Footer from "../../../components/Footer.astro";
+import BlogList from "../../../components/BlogList.astro";
+import { translations } from "../../../i18n/translations";
+
+const lang = "en";
+const title = translations[lang].blog.pageTitle;
+const description = translations[lang].blog.pageDescription;
+---
+
+<BaseLayout lang={lang} title={title} description={description}>
+  <Nav lang={lang} />
+  <main>
+    <BlogList lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

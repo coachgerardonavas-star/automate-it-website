@@ -1,0 +1,132 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { translations, type Lang } from "../i18n/translations";
+
+interface Props {
+  lang?: Lang;
+  post: CollectionEntry<"blog">;
+}
+
+const { lang = "es", post } = Astro.props;
+const t = translations[lang].blog;
+const blogBase = lang === "en" ? "/en/blog" : "/blog";
+const dateLocale = lang === "en" ? "en-US" : "es-ES";
+const dateFmt = new Intl.DateTimeFormat(dateLocale, {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+}).format(post.data.pubDate);
+
+const { Content } = await post.render();
+---
+
+<article class="py-16 sm:py-24">
+  <div class="max-w-3xl mx-auto px-5 lg:px-8">
+    <a
+      href={blogBase}
+      class="inline-flex items-center gap-2 text-xs sm:text-sm text-white/55 hover:text-brand-cyan transition-colors duration-200 ease-brand mb-10"
+    >
+      {t.backToBlog}
+    </a>
+
+    <header class="mb-10">
+      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+        {t.eyebrow}
+      </p>
+      <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-5">
+        {post.data.title}
+      </h1>
+      <p class="text-base text-white/65 leading-relaxed mb-6">
+        {post.data.description}
+      </p>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-white/55">
+        <span>
+          {t.byAuthor} <strong class="text-white/80">{post.data.author}</strong>
+        </span>
+        <span aria-hidden="true">·</span>
+        <span>{t.publishedOn} {dateFmt}</span>
+      </div>
+      {post.data.tags.length > 0 && (
+        <div class="mt-5 flex flex-wrap gap-2">
+          {post.data.tags.map((tag) => (
+            <span class="px-2 py-1 rounded-xs text-[10px] tracking-widest uppercase bg-white/[0.04] border border-white/10 text-white/55">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="prose-blog">
+      <Content />
+    </div>
+  </div>
+</article>
+
+<style is:global>
+  .prose-blog {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+  .prose-blog p {
+    margin: 0 0 1.25rem;
+  }
+  .prose-blog h2 {
+    font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    margin: 2.5rem 0 1rem;
+    color: var(--color-white);
+  }
+  .prose-blog h3 {
+    font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    margin: 2rem 0 0.75rem;
+    color: var(--color-white);
+  }
+  .prose-blog ul,
+  .prose-blog ol {
+    margin: 0 0 1.25rem;
+    padding-left: 1.5rem;
+  }
+  .prose-blog li {
+    margin: 0.5rem 0;
+  }
+  .prose-blog strong {
+    color: var(--color-white);
+    font-weight: 700;
+  }
+  .prose-blog a {
+    color: var(--color-cyan);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .prose-blog a:hover {
+    color: var(--color-white);
+  }
+  .prose-blog hr {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 2rem 0;
+  }
+  .prose-blog blockquote {
+    border-left: 3px solid var(--color-cyan);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+  }
+  .prose-blog code {
+    background: rgba(0, 217, 255, 0.08);
+    color: var(--color-cyan);
+    padding: 1px 6px;
+    border-radius: var(--r-xs);
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+  }
+</style>

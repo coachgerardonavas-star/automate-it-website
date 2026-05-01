@@ -11,10 +11,11 @@ export const translations = {
     nav: {
       logoLabel: "Automate IT — inicio",
       links: [
-        { label: "Cómo funciona", href: "#como-funciona" },
-        { label: "Agentes", href: "#agentes" },
-        { label: "Paquetes", href: "#paquetes" },
-        { label: "Para quién", href: "#para-quien" },
+        { label: "Cómo funciona", href: "/#como-funciona" },
+        { label: "Agentes", href: "/#agentes" },
+        { label: "Paquetes", href: "/#paquetes" },
+        { label: "Para quién", href: "/#para-quien" },
+        { label: "Blog", href: "/blog" },
       ],
       cta: "Diagnóstico gratuito",
     },
@@ -211,6 +212,39 @@ export const translations = {
       avatarAlt: "BIT, mascota de Automate IT",
       description:
         "BIT es la cara visible de tu sistema multi-agente. Coordina voz, chat, CRM y marketing, te avisa cuando algo requiere tu atención y reporta resultados cada mañana.",
+    },
+
+    chatbot: {
+      openLabel: "Abrir chat con BIT",
+      closeLabel: "Cerrar chat",
+      headerName: "BIT",
+      headerStatus: "En línea",
+      welcomeMessage:
+        "Hola, soy BIT. Puedo ayudarte a entender qué automatizamos primero en tu negocio. ¿Por dónde empezamos?",
+      quickActions: [
+        { label: "Solicitar diagnóstico", href: "/diagnostico" },
+        { label: "Ver paquetes", href: "/#paquetes" },
+        { label: "Hablar con un humano", href: "mailto:automateit@yourbizupgraded.com" },
+      ],
+      inputPlaceholder: "Escribe tu pregunta…",
+      sendLabel: "Enviar",
+      pendingNotice:
+        "Este chat todavía no está conectado. Te respondemos por email a la brevedad.",
+    },
+
+    blog: {
+      pageTitle: "Blog · Automate IT",
+      pageDescription:
+        "Ideas concretas para dueños de negocios que quieren recuperar su tiempo.",
+      eyebrow: "Blog",
+      heading: "Pensamientos sobre automatización",
+      subheading:
+        "Sin humo. Solo tácticas, números y mecanismos que ya hemos visto funcionar.",
+      readMore: "Leer →",
+      byAuthor: "Por",
+      publishedOn: "Publicado",
+      backToBlog: "← Volver al blog",
+      noPosts: "Pronto publicaremos aquí. Mientras tanto, escríbenos.",
     },
 
     paquetes: {
@@ -415,13 +449,14 @@ export const translations = {
       empresaHeading: "Empresa",
       contactHeading: "Contacto",
       productLinks: [
-        { label: "Cómo funciona", href: "#como-funciona" },
-        { label: "Agentes", href: "#agentes" },
-        { label: "Paquetes", href: "#paquetes" },
-        { label: "Para quién", href: "#para-quien" },
+        { label: "Cómo funciona", href: "/#como-funciona" },
+        { label: "Agentes", href: "/#agentes" },
+        { label: "Paquetes", href: "/#paquetes" },
+        { label: "Para quién", href: "/#para-quien" },
       ],
       empresaLinks: [
         { label: "Diagnóstico", href: "/diagnostico" },
+        { label: "Blog", href: "/blog" },
         { label: "Privacidad", href: "/privacidad" },
         { label: "Términos", href: "/terminos" },
       ],
@@ -522,10 +557,11 @@ export const translations = {
     nav: {
       logoLabel: "Automate IT — home",
       links: [
-        { label: "How it works", href: "#como-funciona" },
-        { label: "Agents", href: "#agentes" },
-        { label: "Plans", href: "#paquetes" },
-        { label: "Who it's for", href: "#para-quien" },
+        { label: "How it works", href: "/en/#como-funciona" },
+        { label: "Agents", href: "/en/#agentes" },
+        { label: "Plans", href: "/en/#paquetes" },
+        { label: "Who it's for", href: "/en/#para-quien" },
+        { label: "Blog", href: "/en/blog" },
       ],
       cta: "Free diagnostic",
     },
@@ -722,6 +758,39 @@ export const translations = {
       avatarAlt: "BIT, the Automate IT mascot",
       description:
         "BIT is the visible face of your multi-agent system. It coordinates voice, chat, CRM, and marketing, alerts you when something needs your attention, and reports results every morning.",
+    },
+
+    chatbot: {
+      openLabel: "Open chat with BIT",
+      closeLabel: "Close chat",
+      headerName: "BIT",
+      headerStatus: "Online",
+      welcomeMessage:
+        "Hi, I'm BIT. I can help you figure out what to automate first in your business. Where do we start?",
+      quickActions: [
+        { label: "Request diagnostic", href: "/en/diagnostic" },
+        { label: "See plans", href: "/en/#paquetes" },
+        { label: "Talk to a human", href: "mailto:automateit@yourbizupgraded.com" },
+      ],
+      inputPlaceholder: "Type your question…",
+      sendLabel: "Send",
+      pendingNotice:
+        "This chat isn't connected yet. We'll reply by email shortly.",
+    },
+
+    blog: {
+      pageTitle: "Blog · Automate IT",
+      pageDescription:
+        "Concrete ideas for business owners who want to reclaim their time.",
+      eyebrow: "Blog",
+      heading: "Thoughts on automation",
+      subheading:
+        "No fluff. Just tactics, numbers, and mechanisms we've seen work.",
+      readMore: "Read →",
+      byAuthor: "By",
+      publishedOn: "Published",
+      backToBlog: "← Back to blog",
+      noPosts: "We'll publish here soon. In the meantime, drop us a line.",
     },
 
     paquetes: {
@@ -926,13 +995,14 @@ export const translations = {
       empresaHeading: "Company",
       contactHeading: "Contact",
       productLinks: [
-        { label: "How it works", href: "#como-funciona" },
-        { label: "Agents", href: "#agentes" },
-        { label: "Plans", href: "#paquetes" },
-        { label: "Who it's for", href: "#para-quien" },
+        { label: "How it works", href: "/en/#como-funciona" },
+        { label: "Agents", href: "/en/#agentes" },
+        { label: "Plans", href: "/en/#paquetes" },
+        { label: "Who it's for", href: "/en/#para-quien" },
       ],
       empresaLinks: [
         { label: "Diagnostic", href: "/en/diagnostic" },
+        { label: "Blog", href: "/en/blog" },
         { label: "Privacy", href: "/en/privacy" },
         { label: "Terms", href: "/en/terms" },
       ],

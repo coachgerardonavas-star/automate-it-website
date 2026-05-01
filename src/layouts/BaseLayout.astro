@@ -1,15 +1,23 @@
 ---
 import "../styles/global.css";
 import { translations, type Lang } from "../i18n/translations";
+import ChatbotWidget from "../components/ChatbotWidget.astro";
 
 interface Props {
   lang?: Lang;
   title?: string;
   description?: string;
   noindex?: boolean;
+  chatbot?: boolean;
 }
 
-const { lang = "es", title, description, noindex = false } = Astro.props;
+const {
+  lang = "es",
+  title,
+  description,
+  noindex = false,
+  chatbot = true,
+} = Astro.props;
 const t = translations[lang];
 const pageTitle = title ?? t.siteTitle;
 const pageDescription = description ?? t.siteDescription;
@@ -56,5 +64,6 @@ const htmlLang = lang === "en" ? "en" : "es";
   </head>
   <body class="bg-brand-bg text-white">
     <slot />
+    {chatbot && <ChatbotWidget lang={lang} />}
   </body>
 </html>

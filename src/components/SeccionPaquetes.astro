@@ -33,12 +33,24 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
         t.tiers.map((tier) => (
           <article
             id={tier.name.toLowerCase()}
-            class="relative flex flex-col p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors duration-200 ease-brand scroll-mt-20"
+            class="relative flex flex-col p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors duration-200 ease-brand scroll-mt-20 overflow-visible"
           >
             {tier.badge && (
-              <span class="absolute -top-3 left-7 sm:left-8 inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest uppercase bg-brand-cyan text-brand-bg">
+              <span class="absolute -top-3 left-7 sm:left-8 inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest uppercase bg-brand-cyan text-brand-bg z-10">
                 {tier.badge}
               </span>
+            )}
+
+            {tier.name === "Scale" && (
+              <img
+                src="/assets/mascota1.png"
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+                class="absolute -top-6 -right-4 w-24 h-24 sm:w-28 sm:h-28 object-contain pointer-events-none select-none"
+                style="background:transparent;"
+              />
             )}
 
             <header class="mb-5">

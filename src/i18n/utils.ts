@@ -16,9 +16,14 @@ export function localizedPath(lang: Lang, path: string): string {
 export function switchLangPath(currentPath: string, target: Lang): string {
   const trimmed = currentPath.replace(/\/+$/, "") || "/";
   const isEnglish = trimmed === "/en" || trimmed.startsWith("/en/");
-  const stripped = isEnglish
+  let stripped = isEnglish
     ? trimmed.replace(/^\/en/, "") || "/"
     : trimmed;
+
+  // Blog articles: switching lang lands on the listing because slugs differ.
+  if (stripped.startsWith("/blog/") && stripped !== "/blog") {
+    stripped = "/blog";
+  }
 
   const equivalences: Record<string, string> = {
     "/diagnostico": "/diagnostic",
