@@ -377,6 +377,13 @@ export const translations = {
             "Agenda, recordatorios, intake forms previo a la sesión y cobro recurrente.",
           tier: "Starter",
         },
+        {
+          name: "Daycares / VPK",
+          pain: "Padres llamando todo el día, pagos manuales, listas de espera en papel.",
+          solution:
+            "Recepción IA que contesta, agenda tours, confirma pagos y gestiona lista de espera.",
+          tier: "Starter",
+        },
       ],
     },
 
@@ -405,6 +412,7 @@ export const translations = {
         "Salón / Spa",
         "Inmobiliaria",
         "Salud / Terapia",
+        "Daycares / VPK",
         "Otro",
       ],
     },
@@ -923,6 +931,13 @@ export const translations = {
             "Scheduling, reminders, pre-session intake forms, and recurring billing.",
           tier: "Starter",
         },
+        {
+          name: "Daycares / VPK",
+          pain: "Parents calling all day, manual payments, waitlists on paper.",
+          solution:
+            "AI reception that answers, schedules tours, confirms payments, and manages the waitlist.",
+          tier: "Starter",
+        },
       ],
     },
 
@@ -951,6 +966,7 @@ export const translations = {
         "Salon / Spa",
         "Real Estate",
         "Health / Therapy",
+        "Daycares / VPK",
         "Other",
       ],
     },
