@@ -226,10 +226,13 @@ export const translations = {
         { label: "Ver paquetes", href: "/#paquetes" },
         { label: "Hablar con un humano", href: "mailto:automateit@yourbizupgraded.com" },
       ],
+      emailPlaceholder: "Tu email para respuesta",
       inputPlaceholder: "Escribe tu pregunta…",
       sendLabel: "Enviar",
-      pendingNotice:
-        "Este chat todavía no está conectado. Te respondemos por email a la brevedad.",
+      successNotice:
+        "Recibido. Te respondemos por email a la brevedad.",
+      errorSubmitFallback:
+        "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
     },
 
     blog: {
@@ -400,6 +403,8 @@ export const translations = {
       submitButton: "Solicitar diagnóstico gratuito",
       submitting: "Enviando…",
       errorAllFields: "Revisa los 3 campos antes de enviar.",
+      errorSubmitFallback:
+        "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
       successHeading: "Recibido.",
       successBody:
         "Te contactamos en menos de 24 horas al email que dejaste. Mientras tanto, revisa tu carpeta de spam por si nuestro mail termina ahí.",
@@ -445,6 +450,8 @@ export const translations = {
       successHeading: "Recibido.",
       successBody:
         "Te contactamos en menos de 24 horas al email y/o WhatsApp que dejaste para agendar el call.",
+      errorSubmitFallback:
+        "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
       privacyDisclaimer:
         "Tus datos no se comparten ni se venden. Los usamos solo para coordinar tu diagnóstico.",
     },
@@ -780,10 +787,13 @@ export const translations = {
         { label: "See plans", href: "/en/#paquetes" },
         { label: "Talk to a human", href: "mailto:automateit@yourbizupgraded.com" },
       ],
+      emailPlaceholder: "Your email for the reply",
       inputPlaceholder: "Type your question…",
       sendLabel: "Send",
-      pendingNotice:
-        "This chat isn't connected yet. We'll reply by email shortly.",
+      successNotice:
+        "Got it. We'll reply by email shortly.",
+      errorSubmitFallback:
+        "Something went wrong. Email us at automateit@yourbizupgraded.com",
     },
 
     blog: {
@@ -954,6 +964,8 @@ export const translations = {
       submitButton: "Request free diagnostic",
       submitting: "Sending…",
       errorAllFields: "Check the 3 fields before sending.",
+      errorSubmitFallback:
+        "Something went wrong. Email us at automateit@yourbizupgraded.com",
       successHeading: "Got it.",
       successBody:
         "We'll contact you within 24 hours at the email you provided. Meanwhile, check your spam folder in case our message ends up there.",
@@ -999,6 +1011,8 @@ export const translations = {
       successHeading: "Got it.",
       successBody:
         "We'll contact you within 24 hours at the email and/or WhatsApp you provided to book the call.",
+      errorSubmitFallback:
+        "Something went wrong. Email us at automateit@yourbizupgraded.com",
       privacyDisclaimer:
         "Your data isn't shared or sold. We only use it to coordinate your diagnostic.",
     },

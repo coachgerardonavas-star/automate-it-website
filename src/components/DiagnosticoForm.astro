@@ -37,7 +37,9 @@ const homeHref = lang === "en" ? "/en/" : "/";
       class="space-y-5"
       novalidate
       data-error-msg={ctaCommon.errorAllFields}
+      data-error-fallback={t.errorSubmitFallback}
       data-submitting={t.submitting}
+      data-submit-label={t.submit}
     >
       <label class="block">
         <span class="block text-xs tracking-wider uppercase text-white/55 mb-2">
@@ -163,9 +165,31 @@ const homeHref = lang === "en" ? "/en/" : "/";
 </section>
 
 <script>
+  import { submitToHubSpot } from "../lib/hubspot";
+  import { HUBSPOT_FORM_GUID_DIAGNOSTICO } from "../config/site";
+
   const form = document.getElementById("diag-form") as HTMLFormElement | null;
   const error = document.getElementById("diag-error");
   const success = document.getElementById("diag-success");
+
+  function getUrgencyLabel(form: HTMLFormElement): string {
+    const checked = form.querySelector<HTMLInputElement>(
+      'input[name="urgency"]:checked'
+    );
+    if (!checked) return "";
+    const labelEl = checked.closest("label");
+    const labelSpan = labelEl?.querySelector("span");
+    return labelSpan?.textContent?.trim() ?? checked.value;
+  }
+
+  function splitName(full: string): { firstname: string; lastname: string } {
+    const parts = full.trim().split(/\s+/);
+    if (parts.length === 1) return { firstname: parts[0], lastname: "" };
+    return {
+      firstname: parts[0],
+      lastname: parts.slice(1).join(" "),
+    };
+  }
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -184,19 +208,43 @@ const homeHref = lang === "en" ? "/en/" : "/";
     const submitBtn = form.querySelector(
       'button[type="submit"]'
     ) as HTMLButtonElement | null;
+    const restoreBtn = () => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = form.dataset.submitLabel ?? "";
+      }
+    };
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.textContent = form.dataset.submitting ?? "";
     }
 
-    const data = Object.fromEntries(new FormData(form));
-    // PENDIENTE Sprint 6: enviar a HubSpot CRM + notificación a
-    // automateit@yourbizupgraded.com.
-    console.log("[lead] /diagnostico:", data);
+    const data = Object.fromEntries(new FormData(form)) as Record<
+      string,
+      string
+    >;
+    const { firstname, lastname } = splitName(data.name ?? "");
+    const urgencyLabel = getUrgencyLabel(form);
+    const message =
+      `Problema: ${data.problem ?? ""}\n\n` +
+      `Urgencia: ${urgencyLabel || data.urgency || ""}`;
 
-    await new Promise((r) => setTimeout(r, 400));
-
-    form.classList.add("hidden");
-    success.classList.remove("hidden");
+    try {
+      await submitToHubSpot(HUBSPOT_FORM_GUID_DIAGNOSTICO, [
+        { name: "firstname", value: firstname },
+        { name: "lastname", value: lastname },
+        { name: "email", value: data.email ?? "" },
+        { name: "phone", value: data.phone ?? "" },
+        { name: "industry", value: data.business_type ?? "" },
+        { name: "message", value: message },
+      ]);
+      form.classList.add("hidden");
+      success.classList.remove("hidden");
+    } catch (err) {
+      console.error("[lead] /diagnostico HubSpot error:", err);
+      error.textContent = form.dataset.errorFallback ?? "";
+      error.classList.remove("hidden");
+      restoreBtn();
+    }
   });
 </script>

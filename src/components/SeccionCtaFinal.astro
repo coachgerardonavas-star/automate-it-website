@@ -35,6 +35,7 @@ const t = translations[lang].ctaFinal;
       class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 text-left"
       novalidate
       data-error-msg={t.errorAllFields}
+      data-error-fallback={t.errorSubmitFallback}
       data-submitting={t.submitting}
       data-submit-label={t.submitButton}
     >
@@ -127,6 +128,9 @@ const t = translations[lang].ctaFinal;
 </style>
 
 <script>
+  import { submitToHubSpot } from "../lib/hubspot";
+  import { HUBSPOT_FORM_GUID_CTA } from "../config/site";
+
   const form = document.getElementById("cta-form") as HTMLFormElement | null;
   const error = document.getElementById("cta-error");
   const success = document.getElementById("cta-success");
@@ -148,19 +152,35 @@ const t = translations[lang].ctaFinal;
     const submitBtn = form.querySelector(
       'button[type="submit"]'
     ) as HTMLButtonElement | null;
+    const restoreBtn = () => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = form.dataset.submitLabel ?? "";
+      }
+    };
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.textContent = form.dataset.submitting ?? "";
     }
 
-    const data = Object.fromEntries(new FormData(form));
-    // PENDIENTE Sprint 6: enviar a HubSpot CRM + notificación a
-    // automateit@yourbizupgraded.com. Por ahora se loggea en consola.
-    console.log("[lead] CTA final:", data);
+    const data = Object.fromEntries(new FormData(form)) as Record<
+      string,
+      string
+    >;
 
-    await new Promise((r) => setTimeout(r, 400));
-
-    form.classList.add("hidden");
-    success.classList.remove("hidden");
+    try {
+      await submitToHubSpot(HUBSPOT_FORM_GUID_CTA, [
+        { name: "firstname", value: data.name ?? "" },
+        { name: "email", value: data.email ?? "" },
+        { name: "industry", value: data.business_type ?? "" },
+      ]);
+      form.classList.add("hidden");
+      success.classList.remove("hidden");
+    } catch (err) {
+      console.error("[lead] CTA final HubSpot error:", err);
+      error.textContent = form.dataset.errorFallback ?? "";
+      error.classList.remove("hidden");
+      restoreBtn();
+    }
   });
 </script>

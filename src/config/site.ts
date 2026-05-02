@@ -14,9 +14,9 @@ export const SEARCH_CONSOLE_VERIFICATION =
   "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN"; // TODO
 
 export const HUBSPOT_PORTAL_ID = "245810986"; // active
-export const HUBSPOT_FORM_GUID_CTA = ""; // TODO Sprint 6+ — home inline form
-export const HUBSPOT_FORM_GUID_DIAGNOSTICO = ""; // TODO Sprint 6+ — /diagnostico
-export const HUBSPOT_FORM_GUID_CHATBOT = ""; // TODO Sprint 6+ — chatbot widget
+export const HUBSPOT_FORM_GUID_CTA = "890d8b21-51f1-4ea3-be82-dff60ca6c055"; // active — home inline form
+export const HUBSPOT_FORM_GUID_DIAGNOSTICO = "c3800beb-7430-4f16-bb9e-c1989b9ebf37"; // active — /diagnostico
+export const HUBSPOT_FORM_GUID_CHATBOT = "cd8b13bd-f8b9-4876-acc8-69be4df0027c"; // active — chatbot widget
 
 const PLACEHOLDER_GA = "G-XXXXXXXXXX";
 const PLACEHOLDER_SC = "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN";

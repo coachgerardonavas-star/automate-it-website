@@ -59,19 +59,32 @@ const t = translations[lang].chatbot;
 
     <form
       class="chatbot-form"
-      data-pending={t.pendingNotice}
+      data-success={t.successNotice}
+      data-error={t.errorSubmitFallback}
       data-sending={t.sendLabel}
+      novalidate
     >
       <input
-        type="text"
-        name="message"
-        class="chatbot-input"
-        placeholder={t.inputPlaceholder}
-        autocomplete="off"
+        type="email"
+        name="email"
+        class="chatbot-input chatbot-input--email"
+        placeholder={t.emailPlaceholder}
+        autocomplete="email"
+        required
       />
-      <button type="submit" class="chatbot-send" aria-label={t.sendLabel}>
-        →
-      </button>
+      <div class="chatbot-form-row">
+        <input
+          type="text"
+          name="message"
+          class="chatbot-input"
+          placeholder={t.inputPlaceholder}
+          autocomplete="off"
+          required
+        />
+        <button type="submit" class="chatbot-send" aria-label={t.sendLabel}>
+          →
+        </button>
+      </div>
     </form>
   </div>
 </div>
@@ -277,10 +290,16 @@ const t = translations[lang].chatbot;
 
   .chatbot-form {
     display: flex;
+    flex-direction: column;
     gap: 8px;
     padding: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     background: var(--neutral-900);
+  }
+
+  .chatbot-form-row {
+    display: flex;
+    gap: 8px;
   }
 
   .chatbot-input {
@@ -338,6 +357,9 @@ const t = translations[lang].chatbot;
 </style>
 
 <script>
+  import { submitToHubSpot } from "../lib/hubspot";
+  import { HUBSPOT_FORM_GUID_CHATBOT } from "../config/site";
+
   const root = document.querySelector(".chatbot") as HTMLElement | null;
   if (root) {
     const toggle = (next?: boolean) => {
@@ -345,10 +367,10 @@ const t = translations[lang].chatbot;
       const target = typeof next === "boolean" ? next : !cur;
       root.setAttribute("data-open", String(target));
       if (target) {
-        const input = root.querySelector(
-          ".chatbot-input"
+        const focusTarget = root.querySelector(
+          ".chatbot-input--email"
         ) as HTMLInputElement | null;
-        setTimeout(() => input?.focus(), 200);
+        setTimeout(() => focusTarget?.focus(), 200);
       }
     };
 
@@ -358,17 +380,26 @@ const t = translations[lang].chatbot;
 
     const form = root.querySelector(".chatbot-form") as HTMLFormElement | null;
     const body = root.querySelector(".chatbot-body");
-    form?.addEventListener("submit", (e) => {
+    form?.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form || !body) return;
-      const input = form.querySelector(
-        ".chatbot-input"
+
+      const emailInput = form.querySelector(
+        '.chatbot-input--email'
+      ) as HTMLInputElement | null;
+      const messageInput = form.querySelector(
+        'input[name="message"]'
       ) as HTMLInputElement | null;
       const send = form.querySelector(
         ".chatbot-send"
       ) as HTMLButtonElement | null;
-      const text = input?.value.trim();
-      if (!text) return;
+
+      const email = emailInput?.value.trim() ?? "";
+      const text = messageInput?.value.trim() ?? "";
+      if (!text || !email) {
+        if (!form.checkValidity()) form.reportValidity();
+        return;
+      }
 
       const userMsg = document.createElement("div");
       userMsg.className = "chatbot-message chatbot-message--user";
@@ -377,17 +408,29 @@ const t = translations[lang].chatbot;
       userMsg.appendChild(userP);
       body.appendChild(userMsg);
 
-      const sys = document.createElement("div");
-      sys.className = "chatbot-message chatbot-message--system";
-      sys.textContent = form.dataset.pending ?? "";
-      body.appendChild(sys);
-
-      // PENDIENTE Sprint 6+: enviar a webhook real (n8n / HubSpot).
-      console.log("[chatbot] message:", text);
-
-      if (input) input.value = "";
       if (send) send.disabled = true;
       body.scrollTop = body.scrollHeight;
+
+      try {
+        await submitToHubSpot(HUBSPOT_FORM_GUID_CHATBOT, [
+          { name: "email", value: email },
+          { name: "message", value: text },
+        ]);
+        const sys = document.createElement("div");
+        sys.className = "chatbot-message chatbot-message--system";
+        sys.textContent = form.dataset.success ?? "";
+        body.appendChild(sys);
+        if (messageInput) messageInput.value = "";
+      } catch (err) {
+        console.error("[chatbot] HubSpot error:", err);
+        const sys = document.createElement("div");
+        sys.className = "chatbot-message chatbot-message--system";
+        sys.textContent = form.dataset.error ?? "";
+        body.appendChild(sys);
+        if (send) send.disabled = false;
+      } finally {
+        body.scrollTop = body.scrollHeight;
+      }
     });
 
     document.addEventListener("keydown", (e) => {
