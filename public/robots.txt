@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /keystatic/
 
-Sitemap: https://yourbizupgraded.com/sitemap.xml
+Sitemap: https://yourbizupgraded.com/sitemap-index.xml

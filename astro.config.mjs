@@ -3,6 +3,7 @@ import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
 import keystatic from "@keystatic/astro";
+import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
@@ -16,6 +17,10 @@ export default defineConfig({
     react(),
     markdoc(),
     keystatic(),
+    sitemap({
+      filter: (page) =>
+        !page.includes("/keystatic") && !page.includes("/en/keystatic"),
+    }),
   ],
   i18n: {
     defaultLocale: "es",
