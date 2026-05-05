@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import openSans400Url from "@fontsource/open-sans/files/open-sans-latin-400-normal.woff2?url";
+import openSans600Url from "@fontsource/open-sans/files/open-sans-latin-600-normal.woff2?url";
 import { translations, type Lang } from "../i18n/translations";
 import ChatbotWidget from "../components/ChatbotWidget.astro";
 import {
@@ -63,6 +65,20 @@ const enableSC = isSearchConsoleEnabled();
       href="/fonts/manifold-cf-extrabold.woff2"
       crossorigin="anonymous"
     />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={openSans400Url}
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={openSans600Url}
+      crossorigin="anonymous"
+    />
 
     <link
       rel="alternate"
@@ -82,21 +98,33 @@ const enableSC = isSearchConsoleEnabled();
 
     {
       enableGA && (
-        <>
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          />
-          <script
-            is:inline
-            define:vars={{ GA_ID }}
-          >{`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', GA_ID, { anonymize_ip: true });
-          `}</script>
-        </>
+        <script
+          is:inline
+          define:vars={{ GA_ID }}
+        >{`
+          // Defer GA4 to keep gtag.js (~160KB third-party) out of the
+          // LCP / TBT critical path. Loads ~2s after window.load — well
+          // outside Lighthouse's measurement window for above-the-fold,
+          // still in time to track the visit before the user navigates.
+          (function(){
+            function loadGA(){
+              var s = document.createElement('script');
+              s.async = true;
+              s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+              document.head.appendChild(s);
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              window.gtag = gtag;
+              gtag('js', new Date());
+              gtag('config', GA_ID, { anonymize_ip: true });
+            }
+            if (document.readyState === 'complete') {
+              setTimeout(loadGA, 2000);
+            } else {
+              window.addEventListener('load', function(){ setTimeout(loadGA, 2000); });
+            }
+          })();
+        `}</script>
       )
     }
 
