@@ -376,7 +376,7 @@ export const translations = {
           pain: "Admin que come horas que deberías estar atendiendo pacientes.",
           solution:
             "Agenda, recordatorios, intake forms previo a la sesión y cobro recurrente.",
-          tier: "Plan Starter",
+          tier: "Plan Professional",
         },
         {
           name: "Daycares / VPK",
@@ -935,7 +935,7 @@ export const translations = {
           pain: "Admin work eating into hours you should be seeing patients.",
           solution:
             "Scheduling, reminders, pre-session intake forms, and recurring billing.",
-          tier: "Plan Starter",
+          tier: "Plan Professional",
         },
         {
           name: "Daycares / VPK",
