@@ -1,5 +1,6 @@
 ---
 import { translations, type Lang } from "../i18n/translations";
+import { jsonLd } from "../lib/jsonld";
 
 interface Props {
   lang?: Lang;
@@ -8,7 +9,58 @@ interface Props {
 const { lang = "es" } = Astro.props;
 const t = translations[lang].servicios;
 const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
+
+const serviceNames =
+  lang === "es"
+    ? [
+        "Plan Starter — Recepcionista IA",
+        "Plan Professional HIPAA — Recepcionista IA",
+      ]
+    : [
+        "Starter Plan — AI Receptionist",
+        "Professional HIPAA Plan — AI Receptionist",
+      ];
+
+const orgRef = {
+  "@type": "Organization",
+  name: "Automate IT",
+  url: "https://yourbizupgraded.com",
+};
+
+const serviceSchemas = t.plans.map((plan, i) => {
+  const priceNumber = plan.price.replace(/[^0-9.]/g, "");
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: serviceNames[i],
+    description: plan.description,
+    provider: orgRef,
+    areaServed: "United States",
+    offers: {
+      "@type": "Offer",
+      price: priceNumber,
+      priceCurrency: "USD",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: priceNumber,
+        priceCurrency: "USD",
+        billingIncrement: 1,
+        unitCode: "MON",
+      },
+    },
+  };
+});
 ---
+
+{
+  serviceSchemas.map((schema) => (
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={jsonLd(schema)}
+    />
+  ))
+}
 
 <section
   id="servicios"

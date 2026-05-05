@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { translations, type Lang } from "../i18n/translations";
+import { jsonLd } from "../lib/jsonld";
 
 interface Props {
   lang?: Lang;
@@ -17,8 +18,42 @@ const dateFmt = new Intl.DateTimeFormat(dateLocale, {
   day: "numeric",
 }).format(post.data.pubDate);
 
+const canonicalUrl = `https://yourbizupgraded.com${blogBase}/${post.slug}/`;
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  inLanguage: post.data.lang === "en" ? "en-US" : "es-MX",
+  author: {
+    "@type": "Person",
+    name: post.data.author,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Automate IT",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://yourbizupgraded.com/assets/logo-hero.png",
+    },
+  },
+  keywords: post.data.tags.join(", "),
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalUrl,
+  },
+};
+
 const { Content } = await post.render();
 ---
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={jsonLd(blogPostingSchema)}
+/>
 
 <article class="py-16 sm:py-24">
   <div class="max-w-3xl mx-auto px-5 lg:px-8">

@@ -3,6 +3,7 @@ import "../styles/global.css";
 import openSans400Url from "@fontsource/open-sans/files/open-sans-latin-400-normal.woff2?url";
 import openSans600Url from "@fontsource/open-sans/files/open-sans-latin-600-normal.woff2?url";
 import { translations, type Lang } from "../i18n/translations";
+import { jsonLd } from "../lib/jsonld";
 import ChatbotWidget from "../components/ChatbotWidget.astro";
 import {
   GA_ID,
@@ -35,6 +36,38 @@ const enableGA = isGAEnabled();
 const enableSC = isSearchConsoleEnabled();
 const canonicalUrl = Astro.url.href;
 const ogImageUrl = "https://yourbizupgraded.com/assets/logo-hero.png";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Automate IT",
+  alternateName: "Automate IT LLC",
+  url: "https://yourbizupgraded.com",
+  logo: ogImageUrl,
+  description:
+    "Recepcionista IA 24/7 para pequeños negocios. Agentes de voz, chatbots WhatsApp y CRM automatizado. HIPAA-compliant para sector salud.",
+  email: "automateit@yourbizupgraded.com",
+  areaServed: ["Florida", "United States"],
+  serviceType: [
+    "AI Voice Agent",
+    "WhatsApp Chatbot",
+    "CRM Automation",
+    "HIPAA Compliant AI Receptionist",
+  ],
+  sameAs: [],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Automate IT",
+  url: "https://yourbizupgraded.com",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://yourbizupgraded.com/?s={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
 ---
 
 <!doctype html>
@@ -138,6 +171,17 @@ const ogImageUrl = "https://yourbizupgraded.com/assets/logo-hero.png";
         `}</script>
       )
     }
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={jsonLd(organizationSchema)}
+    />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={jsonLd(websiteSchema)}
+    />
 
     <title>{pageTitle}</title>
   </head>
