@@ -272,21 +272,32 @@ const homeHref = lang === "en" ? "/en/" : "/";
       `Problema: ${data.problem ?? ""}\n\n` +
       `Urgencia: ${urgencyLabel || data.urgency || ""}`;
 
+    const hipaaWrapper = form.querySelector(
+      "[data-hipaa-field]"
+    ) as HTMLElement | null;
     const hipaaCheckboxEl = form.querySelector(
       'input[name="hipaa_compliant"]'
     ) as HTMLInputElement | null;
-    const hipaaCompliant = hipaaCheckboxEl?.checked ? "true" : "false";
+    const hipaaVisible =
+      !!hipaaWrapper && !hipaaWrapper.classList.contains("hidden");
+
+    const fields = [
+      { name: "firstname", value: firstname },
+      { name: "lastname", value: lastname },
+      { name: "email", value: data.email ?? "" },
+      { name: "phone", value: data.phone ?? "" },
+      { name: "industry", value: data.business_type ?? "" },
+      { name: "message", value: message },
+    ];
+    if (hipaaVisible) {
+      fields.push({
+        name: "hipaa_compliant",
+        value: hipaaCheckboxEl?.checked ? "true" : "false",
+      });
+    }
 
     try {
-      await submitToHubSpot(HUBSPOT_FORM_GUID_DIAGNOSTICO, [
-        { name: "firstname", value: firstname },
-        { name: "lastname", value: lastname },
-        { name: "email", value: data.email ?? "" },
-        { name: "phone", value: data.phone ?? "" },
-        { name: "industry", value: data.business_type ?? "" },
-        { name: "message", value: message },
-        { name: "hipaa_compliant", value: hipaaCompliant },
-      ]);
+      await submitToHubSpot(HUBSPOT_FORM_GUID_DIAGNOSTICO, fields);
       form.classList.add("hidden");
       success.classList.remove("hidden");
     } catch (err) {
