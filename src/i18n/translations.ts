@@ -443,6 +443,9 @@ export const translations = {
           { value: "exploring", label: "Solo explorando, sin prisa" },
         ],
       },
+      hipaaQuestion: "¿Manejas información de pacientes bajo HIPAA?",
+      hipaaHint:
+        "Terapeutas, SLPs, clínicas y cualquier práctica de salud en EE.UU. deben cumplir HIPAA.",
       submit: "Solicitar diagnóstico",
       submitting: "Enviando…",
       successHeading: "Recibido.",
@@ -1002,6 +1005,9 @@ export const translations = {
           { value: "exploring", label: "Just exploring, no rush" },
         ],
       },
+      hipaaQuestion: "Do you handle patient information under HIPAA?",
+      hipaaHint:
+        "Therapists, SLPs, clinics, and any U.S. healthcare practice must comply with HIPAA.",
       submit: "Request diagnostic",
       submitting: "Sending…",
       successHeading: "Got it.",

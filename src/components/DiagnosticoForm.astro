@@ -103,6 +103,25 @@ const homeHref = lang === "en" ? "/en/" : "/";
         </select>
       </label>
 
+      <div data-hipaa-field class="hidden">
+        <label class="flex items-start gap-3 cursor-pointer p-4 rounded border border-brand-cyan/30 bg-brand-cyan/[0.04] hover:border-brand-cyan/50 transition-colors duration-200 ease-brand">
+          <input
+            type="checkbox"
+            name="hipaa_compliant"
+            value="true"
+            class="mt-1 accent-brand-cyan shrink-0"
+          />
+          <span class="min-w-0">
+            <span class="block text-sm text-white/95 font-semibold leading-snug">
+              {t.hipaaQuestion}
+            </span>
+            <span class="block text-xs text-white/60 mt-1.5 leading-relaxed">
+              {t.hipaaHint}
+            </span>
+          </span>
+        </label>
+      </div>
+
       <label class="block">
         <span class="block text-xs tracking-wider uppercase text-white/55 mb-2">
           {t.labels.problem}
@@ -172,6 +191,30 @@ const homeHref = lang === "en" ? "/en/" : "/";
   const error = document.getElementById("diag-error");
   const success = document.getElementById("diag-success");
 
+  const HIPAA_BIZ_TYPES = ["Salud / Terapia", "Health / Therapy"];
+
+  if (form) {
+    const bizSelect = form.querySelector(
+      'select[name="business_type"]'
+    ) as HTMLSelectElement | null;
+    const hipaaField = form.querySelector(
+      "[data-hipaa-field]"
+    ) as HTMLElement | null;
+    const hipaaCheckbox = form.querySelector(
+      'input[name="hipaa_compliant"]'
+    ) as HTMLInputElement | null;
+
+    const toggleHipaa = () => {
+      if (!bizSelect || !hipaaField) return;
+      const isHealthcare = HIPAA_BIZ_TYPES.includes(bizSelect.value);
+      hipaaField.classList.toggle("hidden", !isHealthcare);
+      if (!isHealthcare && hipaaCheckbox) hipaaCheckbox.checked = false;
+    };
+
+    bizSelect?.addEventListener("change", toggleHipaa);
+    toggleHipaa();
+  }
+
   function getUrgencyLabel(form: HTMLFormElement): string {
     const checked = form.querySelector<HTMLInputElement>(
       'input[name="urgency"]:checked'
@@ -229,6 +272,11 @@ const homeHref = lang === "en" ? "/en/" : "/";
       `Problema: ${data.problem ?? ""}\n\n` +
       `Urgencia: ${urgencyLabel || data.urgency || ""}`;
 
+    const hipaaCheckboxEl = form.querySelector(
+      'input[name="hipaa_compliant"]'
+    ) as HTMLInputElement | null;
+    const hipaaCompliant = hipaaCheckboxEl?.checked ? "true" : "false";
+
     try {
       await submitToHubSpot(HUBSPOT_FORM_GUID_DIAGNOSTICO, [
         { name: "firstname", value: firstname },
@@ -237,6 +285,7 @@ const homeHref = lang === "en" ? "/en/" : "/";
         { name: "phone", value: data.phone ?? "" },
         { name: "industry", value: data.business_type ?? "" },
         { name: "message", value: message },
+        { name: "hipaa_compliant", value: hipaaCompliant },
       ]);
       form.classList.add("hidden");
       success.classList.remove("hidden");
