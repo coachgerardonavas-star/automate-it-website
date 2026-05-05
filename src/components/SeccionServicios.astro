@@ -28,46 +28,153 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
       </p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-16 sm:mb-20">
       {
-        t.services.map((svc) => (
-          <article class="group relative flex flex-col p-7 sm:p-8 rounded-md bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-all duration-200 ease-brand">
+        t.plans.map((plan) => (
+          <article
+            id={`plan-${plan.sku.toLowerCase()}`}
+            class:list={[
+              "relative flex flex-col p-7 sm:p-8 rounded-md bg-white/[0.025] border transition-all duration-200 ease-brand scroll-mt-20",
+              plan.badge
+                ? "border-brand-lime/40 hover:border-brand-lime"
+                : "border-white/5 hover:border-brand-cyan/40",
+            ]}
+          >
+            {plan.badge && (
+              <span class="absolute -top-3 left-7 sm:left-8 inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest uppercase bg-brand-lime text-brand-bg">
+                {plan.badge}
+              </span>
+            )}
             <p class="font-mono text-[10px] tracking-widest uppercase text-white/35 mb-3">
-              {svc.sku}
+              {plan.sku}
             </p>
-            <h3 class="font-heading text-xl sm:text-2xl mb-4 leading-snug">
-              {svc.name}
+            <h3 class="font-heading text-2xl sm:text-3xl mb-2 leading-snug">
+              {plan.name}
             </h3>
-            <div class="mb-5 flex items-baseline gap-2">
+            <div class="mb-2 flex items-baseline gap-2">
               <span class="font-heading text-3xl sm:text-4xl text-white">
-                {svc.price}
+                {plan.price}
               </span>
               <span class="text-xs sm:text-sm text-white/55">
-                {svc.priceUnit}
+                {plan.priceUnit}
               </span>
             </div>
-            <p class="text-sm sm:text-base text-white/75 leading-relaxed mb-6 flex-1">
-              {svc.description}
+            <p class="text-xs text-white/55 mb-4 font-mono">{plan.setup}</p>
+            <p class="text-sm sm:text-base text-white/75 leading-relaxed mb-6">
+              {plan.description}
             </p>
-            <a
-              href={diagPath}
-              class="inline-flex items-center justify-center px-5 py-2.5 rounded-sm text-sm font-semibold border border-white/15 hover:bg-brand-cyan hover:text-brand-bg hover:border-brand-cyan transition-colors duration-200 ease-brand"
-            >
-              {t.cta}
-            </a>
+            <ul class="space-y-2.5 flex-1">
+              {plan.features.map((feature) => (
+                <li class="flex gap-3 text-sm text-white/80 leading-snug">
+                  <span class="text-brand-cyan mt-0.5 shrink-0">→</span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
           </article>
         ))
       }
     </div>
 
-    <p class="mt-10 text-xs sm:text-sm text-white/55 max-w-2xl">
+    <div class="mb-16 sm:mb-20">
+      <header class="mb-8 sm:mb-10">
+        <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-3 font-semibold">
+          {t.modulesEyebrow}
+        </p>
+        <p class="text-sm sm:text-base text-white/65 max-w-2xl">
+          {t.modulesSubtitle}
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        {
+          t.modules.map((mod) => (
+            <article class="flex flex-col p-6 rounded-md bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-all duration-200 ease-brand">
+              <div class="flex items-center justify-between mb-3">
+                <p class="font-mono text-[10px] tracking-widest uppercase text-white/35">
+                  {mod.sku}
+                </p>
+                {mod.hipaa ? (
+                  <span class="font-mono text-[9px] tracking-wider uppercase text-brand-lime">
+                    HIPAA ✓
+                  </span>
+                ) : (
+                  <span class="font-mono text-[9px] tracking-wider uppercase text-white/30">
+                    no HIPAA
+                  </span>
+                )}
+              </div>
+              <h3 class="font-heading text-lg sm:text-xl mb-3 leading-snug">
+                {mod.name}
+              </h3>
+              <p class="text-sm text-white/70 leading-relaxed mb-5 flex-1">
+                {mod.description}
+              </p>
+              <div class="space-y-2 pt-4 border-t border-white/5 text-xs">
+                <div class="flex justify-between gap-2">
+                  <span class="text-white/45">Starter</span>
+                  <span class="text-white/85 font-mono text-right">
+                    {mod.priceStarter}
+                  </span>
+                </div>
+                <div class="flex justify-between gap-2">
+                  <span class="text-white/45">Professional</span>
+                  <span class="text-white/85 font-mono text-right">
+                    {mod.pricePro}
+                  </span>
+                </div>
+                <div class="flex justify-between gap-2 text-[10px] text-white/35">
+                  <span>{mod.setupStarter}</span>
+                  <span>{mod.setupPro}</span>
+                </div>
+              </div>
+              {"hipaaNote" in mod && mod.hipaaNote && (
+                <p class="mt-3 text-[10px] text-white/45 italic leading-snug">
+                  {mod.hipaaNote}
+                </p>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mb-12 sm:mb-14">
+      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
+        {t.examplesEyebrow}
+      </p>
+      <div class="rounded-md border border-white/5 bg-white/[0.02] divide-y divide-white/5">
+        {
+          t.examples.map((ex) => (
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 px-5 sm:px-6 py-4">
+              <div class="min-w-0 flex-1">
+                <p class="text-sm sm:text-base text-white/85 font-semibold">
+                  {ex.label}
+                </p>
+                <p class="text-xs text-white/45 mt-0.5 font-mono">
+                  {ex.detail}
+                </p>
+              </div>
+              <p class="font-heading text-xl sm:text-2xl text-brand-cyan font-mono shrink-0">
+                {ex.total}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="text-center">
       <a
-        href="#paquetes"
-        class="text-brand-cyan hover:text-white transition-colors"
+        href={diagPath}
+        class="inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
       >
-        {t.packagesHint}
+        {t.cta}
       </a>
-    </p>
+      <p class="mt-4 text-xs sm:text-sm text-white/55 max-w-md mx-auto">
+        {t.ctaHint}
+      </p>
+    </div>
   </div>
 </section>
 
