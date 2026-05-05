@@ -21,15 +21,42 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "Your business, upgraded.",
-      h1Line1: "Escala sin contratar.",
-      h1Line2: "Automatiza sin código.",
+      eyebrow: "Recepcionista IA para negocios en Florida · Desde $99/mes",
+      h1Line1: "Mi negocio no duerme.",
+      h1Line2: "Yo sí.",
       subtitle:
-        "Equipos de IA especializados ejecutan tareas repetitivas, contestan llamadas y dan seguimiento a leads las 24 horas. Tú recuperas las horas que tu negocio te robaba.",
+        "Tu agente contesta llamadas en inglés y en español, agenda citas y captura leads — aunque estés en un trabajo, en una sesión o dormido. Sin contratar a nadie.",
       ctaPrimary: "Diagnóstico gratuito de 30 min",
       ctaSecondary: "Cómo funciona",
-      microcopy:
-        "Sin compromiso. Sin venta dura. 30 minutos para identificar dónde estás perdiendo tiempo y leads.",
+      microcopy: "30 minutos. Sin costo. Sin compromiso. En español.",
+    },
+
+    resultados: {
+      eyebrow: "Lo que nos dicen después de la primera semana",
+      subtitle: "Resultados típicos de nuestros clientes en Florida",
+      cards: [
+        {
+          icon: "📞",
+          quote:
+            "Mis clientes ya no se van con la competencia. Alguien siempre contesta.",
+        },
+        {
+          icon: "🕐",
+          quote:
+            "Me libero horas cada semana que antes perdía contestando llamadas de rutina.",
+        },
+        {
+          icon: "🌐",
+          quote:
+            "Mis clientes en inglés se atienden solos. Yo me enfoco en el trabajo.",
+        },
+        {
+          icon: "😴",
+          quote:
+            "El viernes en la noche recibí una cita agendada. Yo estaba dormido.",
+        },
+      ],
+      disclaimer: "Resultados típicos. Cada negocio es distinto.",
     },
 
     dolor: {
@@ -583,15 +610,42 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "Your business, upgraded.",
-      h1Line1: "Scale without hiring.",
-      h1Line2: "Automate without code.",
+      eyebrow: "AI Receptionist for Florida businesses · From $99/mo",
+      h1Line1: "My business never sleeps.",
+      h1Line2: "I do.",
       subtitle:
-        "Specialized AI agents handle repetitive tasks, answer calls, and follow up with leads 24/7. You reclaim the hours your business was stealing from you.",
+        "Your agent answers calls in English and Spanish, books appointments, and captures leads — whether you're on a job, in a session, or asleep. No hiring needed.",
       ctaPrimary: "Free 30-minute diagnostic",
       ctaSecondary: "How it works",
-      microcopy:
-        "No commitment. No hard sell. 30 minutes to identify where you're losing time and leads.",
+      microcopy: "30 minutes. No cost. No commitment.",
+    },
+
+    resultados: {
+      eyebrow: "What we hear after the first week",
+      subtitle: "Typical results from our Florida clients",
+      cards: [
+        {
+          icon: "📞",
+          quote:
+            "My clients stopped going to competitors. Someone always picks up.",
+        },
+        {
+          icon: "🕐",
+          quote:
+            "I get back hours every week I used to lose answering routine calls.",
+        },
+        {
+          icon: "🌐",
+          quote:
+            "My English-speaking clients handle themselves. I focus on the work.",
+        },
+        {
+          icon: "😴",
+          quote:
+            "Friday night I woke up to a booked appointment. I was already asleep.",
+        },
+      ],
+      disclaimer: "Typical results. Every business is different.",
     },
 
     dolor: {
