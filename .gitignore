@@ -27,3 +27,6 @@ Thumbs.db
 # Audit artifacts
 lighthouse-*.json
 lighthouse-*.html
+
+# Claude Code project-level subagent configs (managed locally, not deployed)
+.claude/agents/
