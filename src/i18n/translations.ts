@@ -293,7 +293,7 @@ export const translations = {
       noPosts: "Pronto publicaremos aquí. Mientras tanto, escríbenos.",
     },
 
-    paquetes: {
+    faqPrecios: {
       eyebrow: "Preguntas frecuentes",
       title: "Lo que siempre preguntan",
       faqs: [
@@ -341,49 +341,49 @@ export const translations = {
           pain: "Pacientes que no confirman cita y huecos en la agenda.",
           solution:
             "Recordatorios + reagendamiento + lista de espera automática que llena los huecos.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
         {
           name: "Legal",
           pain: "Consultas que se dispersan en email y casos sin triage.",
           solution:
             "Triage de consultas, agenda de calls y follow-up al cliente entre etapas.",
-          tier: "Growth",
+          tier: "Plan Professional",
         },
         {
           name: "Construcción y Plomería",
           pain: "Llamadas perdidas mientras estás en obra.",
           solution:
             "Recepción 24/7, cotización rápida según tipo de trabajo, agenda en tu calendario.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
         {
           name: "Salón y Spa",
           pain: "No-shows, cancelaciones y huecos imposibles de llenar.",
           solution:
             "Confirmaciones automáticas, lista de espera y reagendamiento en un solo flujo.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
         {
           name: "Inmobiliaria",
           pain: "Leads que se enfrían en menos de 24 horas si no respondes.",
           solution:
             "Calificación inicial, tour virtual o presencial agendado, nurture multi-touch.",
-          tier: "Growth",
+          tier: "Plan Professional",
         },
         {
           name: "Salud y terapia",
           pain: "Admin que come horas que deberías estar atendiendo pacientes.",
           solution:
             "Agenda, recordatorios, intake forms previo a la sesión y cobro recurrente.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
         {
           name: "Daycares / VPK",
           pain: "Padres llamando todo el día, pagos manuales, listas de espera en papel.",
           solution:
             "Recepción IA que contesta, agenda tours, confirma pagos y gestiona lista de espera.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
       ],
     },
@@ -852,7 +852,7 @@ export const translations = {
       noPosts: "We'll publish here soon. In the meantime, drop us a line.",
     },
 
-    paquetes: {
+    faqPrecios: {
       eyebrow: "Pricing FAQ",
       title: "What people always ask",
       faqs: [
@@ -900,49 +900,49 @@ export const translations = {
           pain: "Patients who don't confirm appointments and gaps in the schedule.",
           solution:
             "Reminders + reschedule + automatic waitlist that fills the gaps.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
         {
           name: "Legal",
           pain: "Inquiries scattered across email and cases without triage.",
           solution:
             "Inquiry triage, call scheduling, and client follow-up between stages.",
-          tier: "Growth",
+          tier: "Plan Professional",
         },
         {
           name: "Construction & Plumbing",
           pain: "Calls missed while you're on the job site.",
           solution:
             "24/7 reception, fast quote based on job type, scheduled in your calendar.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
         {
           name: "Salon & Spa",
           pain: "No-shows, cancellations, and gaps that are hard to fill.",
           solution:
             "Automatic confirmations, waitlist, and rescheduling in one flow.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
         {
           name: "Real Estate",
           pain: "Leads that go cold in less than 24 hours if you don't reply.",
           solution:
             "Initial qualification, virtual or in-person tour booking, multi-touch nurture.",
-          tier: "Growth",
+          tier: "Plan Professional",
         },
         {
           name: "Health & Therapy",
           pain: "Admin work eating into hours you should be seeing patients.",
           solution:
             "Scheduling, reminders, pre-session intake forms, and recurring billing.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
         {
           name: "Daycares / VPK",
           pain: "Parents calling all day, manual payments, waitlists on paper.",
           solution:
             "AI reception that answers, schedules tours, confirms payments, and manages the waitlist.",
-          tier: "Starter",
+          tier: "Plan Starter",
         },
       ],
     },
