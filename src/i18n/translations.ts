@@ -13,7 +13,7 @@ export const translations = {
       links: [
         { label: "Cómo funciona", href: "/#como-funciona" },
         { label: "Agentes", href: "/#agentes" },
-        { label: "Paquetes", href: "/#paquetes" },
+        { label: "Planes", href: "/#planes" },
         { label: "Para quién", href: "/#para-quien" },
         { label: "Blog", href: "/blog" },
       ],
@@ -266,7 +266,7 @@ export const translations = {
         "Hola, soy BIT. Puedo ayudarte a entender qué automatizamos primero en tu negocio. ¿Por dónde empezamos?",
       quickActions: [
         { label: "Solicitar diagnóstico", href: "/diagnostico" },
-        { label: "Ver paquetes", href: "/#paquetes" },
+        { label: "Ver planes", href: "/#planes" },
         { label: "Hablar con un humano", href: "mailto:automateit@yourbizupgraded.com" },
       ],
       emailPlaceholder: "Tu email para respuesta",
@@ -294,77 +294,32 @@ export const translations = {
     },
 
     paquetes: {
-      eyebrow: "Paquetes",
-      titleLine1: "Escogemos los agentes que tu negocio necesita.",
-      titleLine2: "No los que sobran.",
-      subtitle:
-        "El equipo se arma según tu operación, no según una plantilla. Empezamos chico, escalamos cuando los números lo justifican.",
-      footer:
-        "Precios cerrados antes de empezar. Setup incluido. Sin permanencia mínima en Starter ni Growth.",
-      tiers: [
+      eyebrow: "Preguntas frecuentes",
+      title: "Lo que siempre preguntan",
+      faqs: [
         {
-          name: "Starter",
-          tagline: "Solo o equipo de 1–2",
-          price: "$449",
-          priceUnit: "/mes",
-          description:
-            "Cubre lo que se te está perdiendo todos los días: llamadas, primeros follow-ups, agenda.",
-          features: [
-            "Recepción de llamadas con calificación de leads",
-            "Primer follow-up en menos de 5 minutos",
-            "Agendamiento automático en tu calendario",
-            "Conexión con tu WhatsApp y email actuales",
-          ],
-          cta: "Empezar con Starter",
-          badge: null,
+          q: "¿Puedo empezar solo con un módulo?",
+          a: "Sí. El plan base ($99 Starter o $179 Professional) requiere al menos 1 módulo activo. Puedes empezar con WhatsApp por $99/mes adicional y agregar voz o CRM después.",
         },
         {
-          name: "Growth",
-          tagline: "Equipo de 3–10",
-          price: "$649",
-          priceUnit: "/mes",
-          description:
-            "Suma agentes de seguimiento de oportunidades y reportes operativos al día.",
-          features: [
-            "Todo lo de Starter",
-            "Seguimiento multi-touch en pipeline",
-            "Reportes diarios con métricas clave",
-            "Workflows custom según tu rubro",
-          ],
-          cta: "Empezar con Growth",
-          badge: "Más popular",
+          q: "¿Qué pasa si supero los 300 minutos o mensajes?",
+          a: "Se facturan bloques adicionales de 300 unidades. Voz: $35 (Starter) / $40 (Professional). WhatsApp: $25/$30. CRM: $20/$25. Siempre bloque completo, nunca fracciones.",
         },
         {
-          name: "Scale",
-          tagline: "Equipo de 10+",
-          price: "$899",
-          priceUnit: "/mes",
-          description:
-            "Equipo ampliado de agentes operando en múltiples canales con integraciones profundas.",
-          features: [
-            "Todo lo de Growth",
-            "Multi-canal: voz, WhatsApp, web, email",
-            "Integraciones profundas con tu stack",
-            "Implementación dedicada y onboarding del equipo",
-          ],
-          cta: "Empezar con Scale",
-          badge: "Mejor valor",
+          q: "¿El setup fee es reembolsable?",
+          a: "No. Cubre 4-8 horas de configuración, integración y pruebas por módulo activo. Se paga una sola vez al firmar.",
         },
         {
-          name: "Enterprise",
-          tagline: "Operación compleja o regulada",
-          price: "Solicitar",
-          priceUnit: "cotización",
-          description:
-            "Sistema multi-agente custom. SLA, compliance, success engineer dedicado.",
-          features: [
-            "Sistema multi-agente diseñado a medida",
-            "Compliance: HIPAA, datos sensibles, residencia",
-            "SLA contractual y soporte prioritario",
-            "Success engineer dedicado durante el primer año",
-          ],
-          cta: "Hablar con ventas",
-          badge: null,
+          q: "¿Puedo cancelar cuando quiera?",
+          a: "Los primeros 90 días no son cancelables. Del día 91 en adelante, cancelas con 30 días de aviso escrito sin penalidad.",
+        },
+        {
+          q: "¿Qué es HIPAA y por qué importa?",
+          a: "HIPAA es la ley federal de EE.UU. que protege la información de salud de los pacientes. Si eres terapeuta, SLP o clínica, necesitas el Plan Professional — garantiza que Retell AI, Cal.com y Twilio operen bajo BAA firmado. Automate IT no custodia información de pacientes (PHI) en ningún caso.",
+        },
+        {
+          q: "¿Puedo agregar módulos después de firmar?",
+          a: "Sí, en cualquier momento. El costo se prorratea al ciclo de facturación vigente. Para eliminar un módulo necesitas 15 días de aviso y solo se procesa al inicio del siguiente ciclo.",
         },
       ],
     },
@@ -509,7 +464,7 @@ export const translations = {
       productLinks: [
         { label: "Cómo funciona", href: "/#como-funciona" },
         { label: "Agentes", href: "/#agentes" },
-        { label: "Paquetes", href: "/#paquetes" },
+        { label: "Planes", href: "/#planes" },
         { label: "Para quién", href: "/#para-quien" },
       ],
       empresaLinks: [
@@ -617,7 +572,7 @@ export const translations = {
       links: [
         { label: "How it works", href: "/en/#como-funciona" },
         { label: "Agents", href: "/en/#agentes" },
-        { label: "Plans", href: "/en/#paquetes" },
+        { label: "Plans", href: "/en/#planes" },
         { label: "Who it's for", href: "/en/#para-quien" },
         { label: "Blog", href: "/en/blog" },
       ],
@@ -870,7 +825,7 @@ export const translations = {
         "Hi, I'm BIT. I can help you figure out what to automate first in your business. Where do we start?",
       quickActions: [
         { label: "Request diagnostic", href: "/en/diagnostic" },
-        { label: "See plans", href: "/en/#paquetes" },
+        { label: "See plans", href: "/en/#planes" },
         { label: "Talk to a human", href: "mailto:automateit@yourbizupgraded.com" },
       ],
       emailPlaceholder: "Your email for the reply",
@@ -898,77 +853,32 @@ export const translations = {
     },
 
     paquetes: {
-      eyebrow: "Plans",
-      titleLine1: "We pick the agents your business needs.",
-      titleLine2: "Not the ones it doesn't.",
-      subtitle:
-        "The team is built around your operation, not a template. We start small and scale when the numbers justify it.",
-      footer:
-        "Fixed pricing before starting. Setup included. No minimum commitment on Starter or Growth.",
-      tiers: [
+      eyebrow: "Pricing FAQ",
+      title: "What people always ask",
+      faqs: [
         {
-          name: "Starter",
-          tagline: "Solo or 1–2 person team",
-          price: "$449",
-          priceUnit: "/mo",
-          description:
-            "Covers what you're losing every day: calls, first follow-ups, scheduling.",
-          features: [
-            "Call reception with lead qualification",
-            "First follow-up in under 5 minutes",
-            "Automatic booking on your calendar",
-            "Connects to your existing WhatsApp and email",
-          ],
-          cta: "Start with Starter",
-          badge: null,
+          q: "Can I start with just one module?",
+          a: "Yes. The base plan ($99 Starter or $179 Professional) requires at least 1 active module. You can start with WhatsApp at $99/mo extra and add Voice or CRM later.",
         },
         {
-          name: "Growth",
-          tagline: "Team of 3–10",
-          price: "$649",
-          priceUnit: "/mo",
-          description:
-            "Adds opportunity follow-up agents and daily operational reports.",
-          features: [
-            "Everything in Starter",
-            "Multi-touch follow-up across pipeline",
-            "Daily reports with key metrics",
-            "Custom workflows for your industry",
-          ],
-          cta: "Start with Growth",
-          badge: "Most popular",
+          q: "What happens if I exceed 300 minutes or messages?",
+          a: "Additional 300-unit blocks are billed. Voice: $35 (Starter) / $40 (Professional). WhatsApp: $25/$30. CRM: $20/$25. Always full block, never fractions.",
         },
         {
-          name: "Scale",
-          tagline: "Team of 10+",
-          price: "$899",
-          priceUnit: "/mo",
-          description:
-            "Extended team of agents operating across multiple channels with deep integrations.",
-          features: [
-            "Everything in Growth",
-            "Multi-channel: voice, WhatsApp, web, email",
-            "Deep integrations with your stack",
-            "Dedicated implementation and team onboarding",
-          ],
-          cta: "Start with Scale",
-          badge: "Best value",
+          q: "Is the setup fee refundable?",
+          a: "No. It covers 4-8 hours of configuration, integration, and testing per active module. Paid once at signing.",
         },
         {
-          name: "Enterprise",
-          tagline: "Complex or regulated operation",
-          price: "Request",
-          priceUnit: "quote",
-          description:
-            "Custom multi-agent system. SLA, compliance, dedicated success engineer.",
-          features: [
-            "Multi-agent system designed to spec",
-            "Compliance: HIPAA, sensitive data, residency",
-            "Contractual SLA and priority support",
-            "Dedicated success engineer for the first year",
-          ],
-          cta: "Talk to sales",
-          badge: null,
+          q: "Can I cancel anytime?",
+          a: "The first 90 days are non-cancellable. From day 91 onward, you cancel with 30 days written notice — no penalty.",
+        },
+        {
+          q: "What is HIPAA and why does it matter?",
+          a: "HIPAA is the U.S. federal law protecting patient health information. If you're a therapist, SLP, or clinic, you need the Professional Plan — it guarantees Retell AI, Cal.com, and Twilio operate under signed BAA. Automate IT never holds patient information (PHI).",
+        },
+        {
+          q: "Can I add modules after signing?",
+          a: "Yes, anytime. The cost prorates to the current billing cycle. To remove a module you need 15 days notice, processed at the start of the next cycle.",
         },
       ],
     },
@@ -1113,7 +1023,7 @@ export const translations = {
       productLinks: [
         { label: "How it works", href: "/en/#como-funciona" },
         { label: "Agents", href: "/en/#agentes" },
-        { label: "Plans", href: "/en/#paquetes" },
+        { label: "Plans", href: "/en/#planes" },
         { label: "Who it's for", href: "/en/#para-quien" },
       ],
       empresaLinks: [

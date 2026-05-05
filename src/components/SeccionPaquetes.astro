@@ -7,97 +7,47 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].paquetes;
-const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
 ---
 
 <section
-  id="paquetes"
-  class="py-20 sm:py-28 border-t border-white/5 reveal-on-scroll"
+  id="planes"
+  class="py-20 sm:py-28 border-t border-white/5 reveal-on-scroll scroll-mt-20"
 >
-  <div class="max-w-7xl mx-auto px-5 lg:px-8">
-    <header class="max-w-3xl mb-12 sm:mb-16">
+  <div class="max-w-3xl mx-auto px-5 lg:px-8">
+    <header class="mb-10 sm:mb-12">
       <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
         {t.eyebrow}
       </p>
-      <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
-        {t.titleLine1}<br />
-        <span class="text-white/45">{t.titleLine2}</span>
+      <h2 class="font-heading text-3xl sm:text-5xl leading-tight">
+        {t.title}
       </h2>
-      <p class="text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl">
-        {t.subtitle}
-      </p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6">
+    <div class="border-t border-white/5">
       {
-        t.tiers.map((tier) => (
-          <article
-            id={tier.name.toLowerCase()}
-            class="relative flex flex-col p-7 sm:p-8 rounded-lg bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors duration-200 ease-brand scroll-mt-20 overflow-visible"
-          >
-            {tier.badge && (
-              <span class="absolute -top-3 left-7 sm:left-8 inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest uppercase bg-brand-cyan text-brand-bg z-10">
-                {tier.badge}
-              </span>
-            )}
-
-            {tier.name === "Scale" && (
-              <img
-                src="/assets/mascota1.webp"
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                decoding="async"
-                width={224}
-                height={224}
-                class="absolute -top-6 -right-4 w-24 h-24 sm:w-28 sm:h-28 object-contain pointer-events-none select-none"
-                style="background:transparent;"
-              />
-            )}
-
-            <header class="mb-5">
-              <h3 class="font-heading text-2xl sm:text-3xl mb-1">
-                {tier.name}
+        t.faqs.map((faq) => (
+          <details class="faq-item border-b border-white/5">
+            <summary class="cursor-pointer list-none py-5 sm:py-6 flex items-start justify-between gap-4 hover:text-brand-cyan transition-colors duration-200 ease-brand">
+              <h3 class="font-heading text-base sm:text-lg leading-snug pr-2">
+                {faq.q}
               </h3>
-              <p class="text-xs sm:text-sm text-white/55">{tier.tagline}</p>
-            </header>
-
-            <div class="mb-6 flex items-baseline gap-2">
-              <span class="font-heading text-3xl sm:text-4xl text-white">
-                {tier.price}
+              <span
+                class="faq-icon shrink-0 text-brand-cyan text-2xl leading-none mt-0.5 select-none"
+                aria-hidden="true"
+              >
+                <span class="faq-icon-closed">+</span>
+                <span class="faq-icon-open">−</span>
               </span>
-              <span class="text-xs sm:text-sm text-white/55">
-                {tier.priceUnit}
-              </span>
+            </summary>
+            <div class="pb-5 sm:pb-6 pr-8 sm:pr-12">
+              <p class="text-sm sm:text-base text-white/75 leading-relaxed">
+                {faq.a}
+              </p>
             </div>
-
-            <p class="text-sm sm:text-base text-white/75 leading-relaxed mb-6">
-              {tier.description}
-            </p>
-
-            <ul class="space-y-2.5 mb-8 flex-1">
-              {tier.features.map((feature) => (
-                <li class="flex gap-3 text-sm text-white/80 leading-snug">
-                  <span class="text-brand-cyan mt-0.5 shrink-0">→</span>
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href={diagPath}
-              class="inline-flex items-center justify-center px-5 py-2.5 rounded text-sm font-semibold border border-white/15 hover:bg-brand-cyan hover:text-brand-bg hover:border-brand-cyan transition-colors"
-            >
-              {tier.cta}
-            </a>
-          </article>
+          </details>
         ))
       }
     </div>
-
-    <p class="mt-10 text-xs sm:text-sm text-white/45 max-w-2xl">
-      {t.footer}
-    </p>
   </div>
 </section>
 
@@ -113,6 +63,28 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
     opacity: 1;
     transform: translateY(0);
   }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item summary::marker {
+    display: none;
+  }
+
+  .faq-icon-open {
+    display: none;
+  }
+  .faq-item[open] .faq-icon-closed {
+    display: none;
+  }
+  .faq-item[open] .faq-icon-open {
+    display: inline;
+  }
+
+  .faq-item[open] summary {
+    color: var(--color-cyan);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal-on-scroll {
       opacity: 1;
