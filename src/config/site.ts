@@ -11,7 +11,7 @@
 
 export const GA_ID = "G-82JWGNDTLG"; // active
 export const SEARCH_CONSOLE_VERIFICATION =
-  "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN"; // TODO
+  "HEhyqCcIvI_0Rvx4GSThqCx9NbfhE7i9Ktu1PjgJQqw"; // active
 
 export const HUBSPOT_PORTAL_ID = "245810986"; // active
 export const HUBSPOT_FORM_GUID_CTA = "890d8b21-51f1-4ea3-be82-dff60ca6c055"; // active — home inline form
