@@ -32,7 +32,7 @@ export const translations = {
         "🗓️ Agenda citas mientras estás dormido.",
       ],
       ctaPrimary: "Agenda tu diagnóstico gratuito",
-      microcopy: "30 minutos. Sin costo. Sin compromiso. En español.",
+      microcopy: "30 minutos. Sin costo. Sin compromiso.",
     },
 
     resultados: {
