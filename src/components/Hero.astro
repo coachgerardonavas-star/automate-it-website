@@ -1,7 +1,6 @@
 ---
 import { type Lang } from "../i18n/translations";
 import { getCopy } from "../i18n/site-copy";
-import BitAvatar from "./BitAvatar.astro";
 
 interface Props {
   lang?: Lang;
@@ -10,7 +9,6 @@ interface Props {
 const { lang = "es" } = Astro.props;
 const copy = getCopy(lang);
 const t = copy.hero;
-const bit = copy.bit;
 const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
 ---
 
@@ -35,33 +33,26 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
       {t.subtitle}
     </p>
 
-    <div class="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+    <ul class="mt-8 space-y-4 sm:space-y-5 max-w-2xl">
+      {
+        t.bullets.map((bullet) => (
+          <li class="text-base sm:text-lg text-white/90 leading-relaxed">
+            {bullet}
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-10">
       <a
         href={diagPath}
         class="inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
       >
         {t.ctaPrimary}
       </a>
-      <a
-        href="#como-funciona"
-        class="inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold border border-white/20 hover:border-brand-cyan/60 hover:text-brand-cyan transition-colors duration-200 ease-brand"
-      >
-        {t.ctaSecondary}
-      </a>
     </div>
 
-    <a
-      href="#agentes"
-      class="mt-8 inline-flex items-center gap-3 group text-white/70 hover:text-brand-cyan transition-colors duration-200 ease-brand"
-      aria-label={bit.anchorLabel}
-    >
-      <BitAvatar lang={lang} size={36} loading="eager" />
-      <span class="text-sm sm:text-base font-semibold">
-        {bit.heroLine}
-      </span>
-    </a>
-
-    <p class="mt-12 text-xs sm:text-sm text-white/45 max-w-md">
+    <p class="mt-8 text-xs sm:text-sm text-white/45 max-w-md">
       {t.microcopy}
     </p>
   </div>

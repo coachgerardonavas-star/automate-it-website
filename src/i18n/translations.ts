@@ -22,12 +22,16 @@ export const translations = {
 
     hero: {
       eyebrow: "Recepcionista IA para negocios en Florida · Desde $99/mes",
-      h1Line1: "Mi negocio no duerme.",
-      h1Line2: "Yo sí.",
+      h1Line1: "Mientras tú trabajas,",
+      h1Line2: "nosotros contestamos.",
       subtitle:
-        "Tu agente contesta llamadas en inglés y en español, agenda citas y captura leads — aunque estés en un trabajo, en una sesión o dormido. Sin contratar a nadie.",
-      ctaPrimary: "Diagnóstico gratuito de 30 min",
-      ctaSecondary: "Cómo funciona",
+        "Alguien siempre contesta, no importa la hora ni el idioma.",
+      bullets: [
+        "📞 Contesta llamadas mientras atiendes a tus clientes.",
+        "💬 Responde WhatsApp mientras estás con tu familia.",
+        "🗓️ Agenda citas mientras estás dormido.",
+      ],
+      ctaPrimary: "Agenda tu diagnóstico gratuito",
       microcopy: "30 minutos. Sin costo. Sin compromiso. En español.",
     },
 
@@ -611,12 +615,16 @@ export const translations = {
 
     hero: {
       eyebrow: "AI Receptionist for Florida businesses · From $99/mo",
-      h1Line1: "My business never sleeps.",
-      h1Line2: "I do.",
+      h1Line1: "While you work,",
+      h1Line2: "we answer.",
       subtitle:
-        "Your agent answers calls in English and Spanish, books appointments, and captures leads — whether you're on a job, in a session, or asleep. No hiring needed.",
-      ctaPrimary: "Free 30-minute diagnostic",
-      ctaSecondary: "How it works",
+        "Someone always picks up, no matter the time or language.",
+      bullets: [
+        "📞 Answers calls while you're with your clients.",
+        "💬 Responds to WhatsApp while you're with your family.",
+        "🗓️ Books appointments while you're asleep.",
+      ],
+      ctaPrimary: "Book your free diagnosis",
       microcopy: "30 minutes. No cost. No commitment.",
     },
 
