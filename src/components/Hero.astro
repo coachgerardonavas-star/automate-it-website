@@ -55,5 +55,16 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
     <p class="mt-8 text-xs sm:text-sm text-white/45 max-w-md">
       {t.microcopy}
     </p>
+
+    <ul class="mt-12 sm:mt-14 grid grid-cols-2 sm:flex sm:flex-wrap gap-x-6 gap-y-3 text-xs sm:text-sm text-white/55 max-w-3xl">
+      {
+        t.trustBadges.map((badge) => (
+          <li class="flex items-start gap-1.5 leading-snug">
+            <span aria-hidden="true">{badge.icon}</span>
+            <span>{badge.text}</span>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>

@@ -33,6 +33,12 @@ export const translations = {
       ],
       ctaPrimary: "Agenda tu diagnóstico gratuito",
       microcopy: "30 minutos. Sin costo. Sin compromiso.",
+      trustBadges: [
+        { icon: "🔒", text: "Tus datos no se venden" },
+        { icon: "🤐", text: "Conversaciones privadas" },
+        { icon: "🛡️", text: "HIPAA-compliant disponible" },
+        { icon: "⚙️", text: "Sin acceso a tu información personal" },
+      ],
     },
 
     resultados: {
@@ -352,6 +358,14 @@ export const translations = {
           q: "¿Puedo agregar módulos después de firmar?",
           a: "Sí, en cualquier momento. El costo se prorratea al ciclo de facturación vigente. Para eliminar un módulo necesitas 15 días de aviso y solo se procesa al inicio del siguiente ciclo.",
         },
+        {
+          q: "¿El sistema de IA escucha o guarda mis conversaciones con clientes?",
+          a: "No. Automate IT no almacena ni tiene acceso al contenido de las conversaciones. Los datos de llamadas y mensajes quedan en los sistemas de los proveedores (Retell AI, Twilio) bajo sus propios términos de privacidad. Para clientes del sector salud con Plan Professional, todos los proveedores operan bajo BAA firmado y no pueden usar datos de pacientes para entrenar modelos de IA.",
+        },
+        {
+          q: "¿Puedo usar este servicio si soy abogado o manejo información confidencial de clientes?",
+          a: "Sí. Los abogados en Florida están sujetos a las Reglas de Conducta Profesional del Florida Bar (Rule 1.6 — Confidencialidad), que exigen medidas razonables para proteger información del cliente — pero no requieren un compliance tecnológico específico como HIPAA. El Plan Starter es suficiente para firmas legales. Si deseas, podemos configurar el agente para que no grabe conversaciones y para que los datos de leads vayan únicamente a tu CRM privado.",
+        },
       ],
     },
 
@@ -626,6 +640,12 @@ export const translations = {
       ],
       ctaPrimary: "Book your free diagnosis",
       microcopy: "30 minutes. No cost. No commitment.",
+      trustBadges: [
+        { icon: "🔒", text: "Your data is never sold" },
+        { icon: "🤐", text: "Conversations stay private" },
+        { icon: "🛡️", text: "HIPAA-compliant available" },
+        { icon: "⚙️", text: "No access to your personal information" },
+      ],
     },
 
     resultados: {
@@ -944,6 +964,14 @@ export const translations = {
         {
           q: "Can I add modules after signing?",
           a: "Yes, anytime. The cost prorates to the current billing cycle. To remove a module you need 15 days notice, processed at the start of the next cycle.",
+        },
+        {
+          q: "Does the AI system listen to or store my conversations with clients?",
+          a: "No. Automate IT doesn't store or have access to the content of conversations. Call and message data stays in the providers' systems (Retell AI, Twilio) under their own privacy terms. For healthcare clients on Plan Professional, all providers operate under signed BAA and cannot use patient data to train AI models.",
+        },
+        {
+          q: "Can I use this service if I'm a lawyer or handle confidential client information?",
+          a: "Yes. Florida attorneys are subject to the Florida Bar Rules of Professional Conduct (Rule 1.6 — Confidentiality), which require reasonable measures to protect client information — but don't require specific technical compliance like HIPAA. The Starter Plan is sufficient for law firms. If you wish, we can configure the agent not to record conversations and to send lead data only to your private CRM.",
         },
       ],
     },
