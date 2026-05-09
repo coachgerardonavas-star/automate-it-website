@@ -12,7 +12,7 @@ const t = copy.hero;
 const diagPath = "/diagnostico";
 ---
 
-<section class="relative min-h-[88vh] flex items-center overflow-hidden">
+<section class="relative min-h-[88vh] lg:min-h-[720px] flex items-center overflow-hidden">
   <div class="absolute inset-0 -z-10" aria-hidden="true">
     <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/25 via-brand-bg to-brand-bg"></div>
     <div class="absolute -top-40 -right-32 h-[40rem] w-[40rem] rounded-full bg-brand-cyan/10 blur-3xl"></div>
@@ -21,7 +21,7 @@ const diagPath = "/diagnostico";
 
   <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-      <div class="order-2 lg:order-1">
+      <div>
         <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
           {t.eyebrow}
         </p>
@@ -59,10 +59,10 @@ const diagPath = "/diagnostico";
         </p>
       </div>
 
-      <div class="order-1 lg:order-2">
-        <div class="relative aspect-square w-full max-w-md mx-auto lg:max-w-none rounded-lg overflow-hidden">
+      <div class="hidden lg:flex items-center justify-center">
+        <div class="relative aspect-square w-full max-w-[480px] rounded-lg overflow-hidden">
           <video
-            class="block w-full h-full object-cover"
+            class="block w-full h-full object-contain"
             src="/assets/bit-animation.mp4"
             autoplay
             loop
