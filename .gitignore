@@ -27,3 +27,11 @@ Thumbs.db
 # Audit artifacts
 lighthouse-*.json
 lighthouse-*.html
+
+# Skills installed locally via skills CLI / emilkowalski / gstack
+.agents/
+.claude/skills/
+skills-lock.json
+
+# Temp work folders
+tmp-bit/
