@@ -8,7 +8,7 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].servicios;
-const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
+const diagPath = "/diagnostico";
 
 const serviceNames =
   lang === "es"

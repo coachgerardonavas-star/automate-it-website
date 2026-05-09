@@ -9,7 +9,7 @@ interface Props {
 const { lang = "es" } = Astro.props;
 const copy = getCopy(lang);
 const t = copy.hero;
-const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
+const diagPath = "/diagnostico";
 ---
 
 <section class="relative min-h-[88vh] flex items-center overflow-hidden">
@@ -20,41 +20,60 @@ const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
   </div>
 
   <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full">
-    <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
-      {t.eyebrow}
-    </p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+      <div class="order-2 lg:order-1">
+        <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
+          {t.eyebrow}
+        </p>
 
-    <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl leading-[1.04] max-w-4xl">
-      {t.h1Line1}<br />
-      <span class="text-brand-cyan">{t.h1Line2}</span>
-    </h1>
+        <h1 class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04]">
+          {t.h1Line1}<br />
+          <span class="text-brand-cyan">{t.h1Line2}</span>
+        </h1>
 
-    <p class="mt-6 max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed">
-      {t.subtitle}
-    </p>
+        <p class="mt-6 text-base sm:text-lg text-white/75 leading-relaxed">
+          {t.subtitle}
+        </p>
 
-    <ul class="mt-8 space-y-4 sm:space-y-5 max-w-2xl">
-      {
-        t.bullets.map((bullet) => (
-          <li class="text-base sm:text-lg text-white/90 leading-relaxed">
-            {bullet}
-          </li>
-        ))
-      }
-    </ul>
+        <ul class="mt-8 space-y-4 sm:space-y-5">
+          {
+            t.bullets.map((bullet) => (
+              <li class="text-base sm:text-lg text-white/90 leading-relaxed">
+                {bullet}
+              </li>
+            ))
+          }
+        </ul>
 
-    <div class="mt-10">
-      <a
-        href={diagPath}
-        class="inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
-      >
-        {t.ctaPrimary}
-      </a>
+        <div class="mt-10">
+          <a
+            href={diagPath}
+            class="inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
+          >
+            {t.ctaPrimary}
+          </a>
+        </div>
+
+        <p class="mt-8 text-xs sm:text-sm text-white/45 max-w-md">
+          {t.microcopy}
+        </p>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <div class="relative aspect-square w-full max-w-md mx-auto lg:max-w-none rounded-lg overflow-hidden">
+          <video
+            class="block w-full h-full object-cover"
+            src="/assets/bit-animation.mp4"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            aria-hidden="true"
+          ></video>
+        </div>
+      </div>
     </div>
-
-    <p class="mt-8 text-xs sm:text-sm text-white/45 max-w-md">
-      {t.microcopy}
-    </p>
 
     <ul class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-xs text-white/55 max-w-3xl">
       {

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Gratuito — Automate IT</title>
+  <meta name="description" content="30 minutos. Sin costo. Sin compromiso. Te decimos exactamente qué automatizar primero en tu negocio en Florida.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Diagnóstico Gratuito — Automate IT">
+  <meta property="og:description" content="30 minutos. Sin costo. Sin compromiso.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────────────── */
+    :root {
+      --bg:        #050A18;
+      --bg-card:   #0D1B2A;
+      --bg-input:  #0A1628;
+      --cyan:      #00B4D8;
+      --cyan-dim:  #007A96;
+      --cyan-glow: rgba(0,180,216,0.15);
+      --lime:      #A8FF3E;
+      --white:     #F0F4F8;
+      --gray-1:    #8899AA;
+      --gray-2:    #3D4F61;
+      --border:    rgba(0,180,216,0.2);
+      --border-focus: rgba(0,180,216,0.7);
+      --error:     #FF5A6E;
+      --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px;  --sp-4: 16px;
+      --sp-5: 24px; --sp-6: 32px; --sp-7: 48px;  --sp-8: 64px; --sp-9: 96px;
+      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-pill: 999px;
+      --shadow-glow: 0 0 24px rgba(0,180,216,0.25);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.4);
+      --font-title: 'Montserrat', sans-serif;
+      --font-body:  'Open Sans', sans-serif;
+      --transition: 200ms ease;
+    }
+
+    /* ── RESET ───────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── BACKGROUND GRID ─────────────────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,180,216,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,180,216,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ──────────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--sp-4) var(--sp-7);
+      background: rgba(5,10,24,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--cyan); }
+
+    .nav-back {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--gray-1);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      transition: color var(--transition);
+    }
+    .nav-back:hover { color: var(--cyan); }
+    .nav-back svg { width: 16px; height: 16px; }
+
+    /* ── MAIN LAYOUT ─────────────────────────────────────────────────────── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: var(--sp-8) var(--sp-5) var(--sp-9);
+    }
+
+    /* ── EYEBROW ────────────────────────────────────────────────────────── */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-family: var(--font-title);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: var(--sp-4);
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--cyan);
+      border-radius: 2px;
+    }
+
+    /* ── HERO TEXT ───────────────────────────────────────────────────────── */
+    h1 {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--sp-5);
+    }
+    h1 .line-white { color: var(--white); }
+    h1 .line-cyan  { color: var(--cyan); }
+
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--gray-1);
+      line-height: 1.6;
+      margin-bottom: var(--sp-6);
+    }
+
+    /* ── TRUST BADGES ───────────────────────────────────────────────────── */
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-7);
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: 0.82rem;
+      color: var(--gray-1);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: var(--sp-2) var(--sp-4);
+    }
+    .trust-badge svg {
+      width: 14px; height: 14px;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    /* ── FORM CARD ───────────────────────────────────────────────────────── */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-7) var(--sp-6);
+      box-shadow: var(--shadow-md), 0 0 60px rgba(0,180,216,0.06);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-section-label {
+      font-family: var(--font-title);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan-dim);
+      margin-bottom: var(--sp-5);
+      padding-bottom: var(--sp-3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── FORM FIELDS ─────────────────────────────────────────────────────── */
+    .field-group {
+      display: grid;
+      gap: var(--sp-5);
+      margin-bottom: var(--sp-6);
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-4);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.01em;
+    }
+    label .req { color: var(--cyan); margin-left: 2px; }
+
+    input, select, textarea {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--gray-2);
+      border-radius: var(--radius-md);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: 14px var(--sp-4);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input::placeholder, textarea::placeholder { color: var(--gray-2); }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px var(--cyan-glow);
+    }
+    input.error, select.error, textarea.error {
+      border-color: var(--error);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300B4D8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    select option { background: var(--bg-card); color: var(--white); }
+
+    textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+
+    .field-hint {
+      font-size: 0.75rem;
+      color: var(--gray-1);
+      line-height: 1.4;
+    }
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--error);
+      display: none;
+    }
+    .field-error.visible { display: block; }
+
+    /* ── HIPAA CHECKBOX ──────────────────────────────────────────────────── */
+    .hipaa-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      padding: var(--sp-4);
+      background: rgba(0,180,216,0.05);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+    .hipaa-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      padding: 0;
+      accent-color: var(--cyan);
+      cursor: pointer;
+    }
+    .hipaa-label {
+      font-size: 0.88rem;
+      color: var(--white);
+      line-height: 1.5;
+    }
+    .hipaa-label span { color: var(--cyan); font-weight: 600; }
+
+    /* ── SUBMIT BUTTON ───────────────────────────────────────────────────── */
+    .btn-submit {
+      width: 100%;
+      background: var(--cyan);
+      color: #050A18;
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 18px var(--sp-6);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      margin-top: var(--sp-6);
+    }
+    .btn-submit:hover {
+      background: #00CFE8;
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-1px);
+    }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .btn-submit svg { width: 18px; height: 18px; }
+    .btn-submit .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(5,10,24,0.3);
+      border-top-color: #050A18;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-microcopy {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--gray-1);
+      margin-top: var(--sp-3);
+    }
+
+    /* ── SUCCESS STATE ───────────────────────────────────────────────────── */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: var(--sp-8) var(--sp-6);
+      animation: fadeUp 0.5s ease both;
+    }
+    .success-state.visible { display: block; }
+    .success-icon {
+      width: 64px; height: 64px;
+      background: var(--cyan-glow);
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--sp-5);
+    }
+    .success-icon svg { width: 28px; height: 28px; color: var(--cyan); }
+    .success-title {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: var(--sp-3);
+    }
+    .success-body {
+      color: var(--gray-1);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* ── WHY SECTION ─────────────────────────────────────────────────────── */
+    .why-section {
+      margin-top: var(--sp-9);
+      padding-top: var(--sp-7);
+      border-top: 1px solid var(--border);
+    }
+    .why-title {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: var(--sp-6);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-4);
+    }
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--sp-5);
+    }
+    .why-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: var(--sp-3);
+      display: block;
+    }
+    .why-card-title {
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--cyan);
+      margin-bottom: var(--sp-2);
+    }
+    .why-card-body {
+      font-size: 0.82rem;
+      color: var(--gray-1);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: var(--sp-6) var(--sp-5);
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--gray-2);
+    }
+    footer a { color: var(--gray-1); text-decoration: none; }
+    footer a:hover { color: var(--cyan); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      nav { padding: var(--sp-4); }
+      main { padding: var(--sp-6) var(--sp-4) var(--sp-8); }
+      .form-card { padding: var(--sp-5) var(--sp-4); }
+      .field-row { grid-template-columns: 1fr; }
+      .why-grid  { grid-template-columns: 1fr; }
+      h1 { font-size: 1.8rem; }
+    }
+
+    /* ── REDUCED MOTION ──────────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .form-card, .success-state { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">AUTOMATE <span>IT</span></a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M10 3L5 8l5 5"/>
+      </svg>
+      Volver al sitio
+    </a>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- EYEBROW -->
+    <p class="eyebrow">Diagnóstico gratuito · Florida</p>
+
+    <!-- HERO -->
+    <h1>
+      <span class="line-white">¿Tu negocio te tiene</span><br>
+      <span class="line-cyan">trabajando de más?</span>
+    </h1>
+
+    <p class="hero-sub">
+      En 30 minutos te decimos exactamente qué automatizar primero — sin costo, sin compromiso, sin venderte algo que no necesitas.
+    </p>
+
+    <!-- TRUST BADGES -->
+    <div class="trust-strip">
+      <div class="trust-badge">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/>
+        </svg>
+        30 minutos
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M13 3L6 10 3 7"/>
+        </svg>
+        Sin costo
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M8 2a5 5 0 100 12A5 5 0 008 2zm0 4v3M8 11v.5"/>
+        </svg>
+        Sin compromiso
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <rect x="3" y="5" width="10" height="8" rx="1"/><path d="M6 5V4a2 2 0 014 0v1"/>
+        </svg>
+        HIPAA disponible
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card" id="formCard">
+
+      <div id="formContent">
+        <p class="form-section-label">Tu información</p>
+
+        <form id="diagForm" novalidate>
+          <div class="field-group">
+
+            <!-- Nombre + Apellido -->
+            <div class="field-row">
+              <div class="field">
+                <label for="firstName">Nombre <span class="req">*</span></label>
+                <input type="text" id="firstName" name="firstName" placeholder="María" autocomplete="given-name" required>
+                <span class="field-error" id="err-firstName">Ingresa tu nombre.</span>
+              </div>
+              <div class="field">
+                <label for="lastName">Apellido <span class="req">*</span></label>
+                <input type="text" id="lastName" name="lastName" placeholder="González" autocomplete="family-name" required>
+                <span class="field-error" id="err-lastName">Ingresa tu apellido.</span>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="field">
+              <label for="email">Correo electrónico <span class="req">*</span></label>
+              <input type="email" id="email" name="email" placeholder="maria@minegocio.com" autocomplete="email" required>
+              <span class="field-error" id="err-email">Ingresa un correo válido.</span>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="field">
+              <label for="phone">Teléfono</label>
+              <input type="tel" id="phone" name="phone" placeholder="(407) 555-0100" autocomplete="tel">
+              <p class="field-hint">Opcional. Te contactamos por email si no lo incluyes.</p>
+            </div>
+
+            <!-- Tipo de negocio -->
+            <div class="field">
+              <label for="bizType">Tipo de negocio <span class="req">*</span></label>
+              <select id="bizType" name="bizType" required>
+                <option value="" disabled selected>Selecciona tu sector</option>
+                <option value="salon-spa">Salón / Spa</option>
+                <option value="dental">Clínica dental</option>
+                <option value="legal">Firma legal / Notaría</option>
+                <option value="inmobiliaria">Inmobiliaria</option>
+                <option value="servicios-hogar">Servicios del hogar (plomería, electricidad, HVAC…)</option>
+                <option value="terapeuta-psicologo">Terapeuta / Psicólogo</option>
+                <option value="slp-clinica">SLP / Clínica de salud</option>
+                <option value="consultor-freelancer">Consultor / Freelancer</option>
+                <option value="restaurante">Restaurante / Comida</option>
+                <option value="otro">Otro</option>
+              </select>
+              <span class="field-error" id="err-bizType">Selecciona el tipo de negocio.</span>
+            </div>
+
+            <!-- Problema principal -->
+            <div class="field">
+              <label for="mainProblem">¿Cuál es tu mayor problema operativo ahora mismo? <span class="req">*</span></label>
+              <select id="mainProblem" name="mainProblem" required>
+                <option value="" disabled selected>Selecciona el que más te afecta</option>
+                <option value="llamadas-perdidas">Pierdo llamadas porque estoy ocupado trabajando</option>
+                <option value="ingles">No me siento cómodo atendiendo llamadas en inglés</option>
+                <option value="citas-manuales">Coordinar citas me toma demasiado tiempo</option>
+                <option value="leads-sin-seguimiento">Los leads llegan pero nadie hace seguimiento a tiempo</option>
+                <option value="fuera-de-horario">Clientes llaman fuera de horario y no tengo cómo atenderlos</option>
+                <option value="whatsapp">Responder WhatsApp me consume horas al día</option>
+                <option value="otro">Otro</option>
+              </select>
+              <span class="field-error" id="err-mainProblem">Selecciona tu problema principal.</span>
+            </div>
+
+            <!-- Urgencia -->
+            <div class="field">
+              <label for="urgency">¿Cuándo te gustaría implementar una solución?</label>
+              <select id="urgency" name="urgency">
+                <option value="esta-semana">Esta semana</option>
+                <option value="este-mes" selected>Este mes</option>
+                <option value="proximo-mes">El próximo mes</option>
+                <option value="explorando">Solo estoy explorando</option>
+              </select>
+            </div>
+
+            <!-- HIPAA -->
+            <label class="hipaa-row" for="hipaa">
+              <input type="checkbox" id="hipaa" name="hipaa">
+              <span class="hipaa-label">
+                Mi negocio maneja información de pacientes y requiere cumplimiento <span>HIPAA</span>
+                — quiero el <span>Plan Professional</span>.
+              </span>
+            </label>
+
+            <!-- Mensaje adicional -->
+            <div class="field">
+              <label for="message">¿Algo más que debamos saber? <span style="color:var(--gray-1);font-weight:400">(opcional)</span></label>
+              <textarea id="message" name="message" placeholder="Cuéntanos brevemente sobre tu negocio, horarios, número de empleados, o cualquier detalle relevante..."></textarea>
+            </div>
+
+          </div><!-- /.field-group -->
+
+          <!-- SUBMIT -->
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="btn-icon">
+              <path d="M10 2l8 8-8 8M2 10h16"/>
+            </svg>
+            <div class="spinner" id="spinner"></div>
+            <span id="btnText">Quiero mi diagnóstico gratuito</span>
+          </button>
+
+          <p class="form-microcopy">Respondemos en menos de 24 horas hábiles. Sin spam.</p>
+
+        </form>
+      </div><!-- /#formContent -->
+
+      <!-- SUCCESS -->
+      <div class="success-state" id="successState">
+        <div class="success-icon">
+          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M5 14l6 6L23 8"/>
+          </svg>
+        </div>
+        <p class="success-title">¡Listo! Recibimos tu solicitud.</p>
+        <p class="success-body">
+          Te contactamos en menos de 24 horas hábiles para coordinar tu diagnóstico de 30 minutos.<br><br>
+          Mientras tanto, si tienes preguntas puedes escribirnos a
+          <a href="mailto:automateit@yourbizupgraded.com" style="color:var(--cyan)">automateit@yourbizupgraded.com</a>.
+        </p>
+      </div>
+
+    </div><!-- /.form-card -->
+
+    <!-- WHY SECTION -->
+    <div class="why-section">
+      <p class="why-title">¿Qué pasa en el diagnóstico?</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <span class="why-card-icon">🔍</span>
+          <p class="why-card-title">Revisamos tu operación</p>
+          <p class="why-card-body">Te preguntamos cómo funciona tu negocio hoy — llamadas, citas, leads, canales. Sin tecnicismos.</p>
+        </div>
+        <div class="why-card">
+          <span class="why-card-icon">📋</span>
+          <p class="why-card-title">Identificamos el cuello de botella</p>
+          <p class="why-card-body">Te decimos exactamente qué proceso te está costando más tiempo y clientes perdidos.</p>
+        </div>
+        <div class="why-card">
+          <span class="why-card-icon">💡</span>
+          <p class="why-card-title">Te presentamos una solución concreta</p>
+          <p class="why-card-body">No vendemos tecnología genérica. Te mostramos qué módulo resuelve tu problema específico y cuánto cuesta.</p>
+        </div>
+        <div class="why-card">
+          <span class="why-card-icon">🤝</span>
+          <p class="why-card-title">Tú decides sin presión</p>
+          <p class="why-card-body">Si no es el momento o no es la solución correcta, te lo decimos. Sin pitch de ventas agresivo.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Automate IT &nbsp;·&nbsp; <a href="/privacidad">Privacidad</a> &nbsp;·&nbsp; <a href="/terminos">Términos</a> &nbsp;·&nbsp; <a href="mailto:automateit@yourbizupgraded.com">automateit@yourbizupgraded.com</a></p>
+  </footer>
+
+  <script>
+    // ── FORM LOGIC ────────────────────────────────────────────────────────
+    const form      = document.getElementById('diagForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner   = document.getElementById('spinner');
+    const btnText   = document.getElementById('btnText');
+    const btnIcon   = document.querySelector('.btn-icon');
+    const formContent  = document.getElementById('formContent');
+    const successState = document.getElementById('successState');
+
+    const required = ['firstName', 'lastName', 'email', 'bizType', 'mainProblem'];
+
+    function validate() {
+      let valid = true;
+      required.forEach(id => {
+        const el  = document.getElementById(id);
+        const err = document.getElementById('err-' + id);
+        const isEmpty = !el.value.trim();
+        const isEmailBad = id === 'email' && el.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+        if (isEmpty || isEmailBad) {
+          el.classList.add('error');
+          err.classList.add('visible');
+          if (valid) el.focus();
+          valid = false;
+        } else {
+          el.classList.remove('error');
+          err.classList.remove('visible');
+        }
+      });
+      return valid;
+    }
+
+    // Clear error on input
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('input', () => {
+        el.classList.remove('error');
+        document.getElementById('err-' + id).classList.remove('visible');
+      });
+    });
+
+    function setLoading(on) {
+      submitBtn.disabled = on;
+      spinner.style.display  = on ? 'block' : 'none';
+      btnIcon.style.display  = on ? 'none' : 'block';
+      btnText.textContent = on ? 'Enviando...' : 'Quiero mi diagnóstico gratuito';
+    }
+
+    function collectData() {
+      return {
+        firstName:   document.getElementById('firstName').value.trim(),
+        lastName:    document.getElementById('lastName').value.trim(),
+        email:       document.getElementById('email').value.trim(),
+        phone:       document.getElementById('phone').value.trim(),
+        bizType:     document.getElementById('bizType').value,
+        mainProblem: document.getElementById('mainProblem').value,
+        urgency:     document.getElementById('urgency').value,
+        hipaa:       document.getElementById('hipaa').checked,
+        message:     document.getElementById('message').value.trim(),
+        source:      document.referrer || 'direct',
+        ts:          new Date().toISOString(),
+        utmParams:   window.location.search,
+      };
+    }
+
+    // ── HUBSPOT CONFIG ────────────────────────────────────────────────────
+    const HS_PORTAL_ID = '245810986';
+    const HS_FORM_ID   = 'c3800beb-7430-4f16-bb9e-c1989b9ebf37';
+    const HS_ENDPOINT  = `https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL_ID}/${HS_FORM_ID}`;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      setLoading(true);
+      const data = collectData();
+
+      // Map form fields to HubSpot property names
+      const payload = {
+        fields: [
+          { objectTypeId: '0-1', name: 'firstname',        value: data.firstName },
+          { objectTypeId: '0-1', name: 'lastname',         value: data.lastName },
+          { objectTypeId: '0-1', name: 'email',            value: data.email },
+          { objectTypeId: '0-1', name: 'phone',            value: data.phone },
+          { objectTypeId: '0-1', name: 'tipo_de_negocio',  value: data.bizType },
+          { objectTypeId: '0-1', name: 'problema_principal', value: data.mainProblem },
+          { objectTypeId: '0-1', name: 'urgencia',         value: data.urgency },
+          { objectTypeId: '0-1', name: 'requiere_hipaa',   value: data.hipaa ? 'true' : 'false' },
+          { objectTypeId: '0-1', name: 'message',          value: data.message },
+        ].filter(f => f.value !== '' && f.value !== undefined),
+        context: {
+          pageUri:  window.location.href,
+          pageName: 'Diagnóstico Gratuito — Automate IT',
+        },
+        legalConsentOptions: {
+          consent: {
+            consentToProcess: true,
+            text: 'El usuario envió el formulario de diagnóstico gratuito.',
+          }
+        }
+      };
+
+      try {
+        const res = await fetch(HS_ENDPOINT, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const errBody = await res.json().catch(() => ({}));
+          console.error('HubSpot error:', res.status, errBody);
+          throw new Error('HubSpot submission failed');
+        }
+
+        // Show success
+        formContent.style.display = 'none';
+        successState.classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        setLoading(false);
+        alert('Hubo un problema al enviar. Por favor escríbenos directamente a automateit@yourbizupgraded.com');
+      }
+    });
+  </script>
+
+</body>
+</html>

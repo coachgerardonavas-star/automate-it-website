@@ -12,7 +12,7 @@ const { lang = "es" } = Astro.props;
 const copy = getCopy(lang);
 const t = copy.nav;
 const footerT = copy.footer;
-const ctaHref = lang === "en" ? "/en/diagnostic" : "/diagnostico";
+const ctaHref = "/diagnostico";
 const homeHref = lang === "en" ? "/en/" : "/";
 const currentPath = Astro.url.pathname;
 const otherLang: Lang = lang === "en" ? "es" : "en";
@@ -37,6 +37,12 @@ const otherLangHref = switchLangPath(currentPath, otherLang);
       <span class="font-heading text-base sm:text-lg tracking-tight">
         AUTOMATE <span class="text-brand-cyan">IT</span>
       </span>
+      <span
+        class="hidden sm:inline-flex items-center text-[10px] tracking-[0.22em] uppercase text-white/55 font-semibold pl-3 ml-1 border-l border-white/15"
+        aria-label="Florida"
+      >
+        Florida
+      </span>
     </a>
 
     <ul class="hidden md:flex items-center gap-7 text-sm">
@@ -54,7 +60,7 @@ const otherLangHref = switchLangPath(currentPath, otherLang);
       }
     </ul>
 
-    <div class="hidden md:flex items-center gap-4">
+    <div class="flex items-center gap-2 md:gap-4">
       <div
         class="inline-flex items-center gap-1 text-xs"
         role="group"
@@ -98,23 +104,23 @@ const otherLangHref = switchLangPath(currentPath, otherLang);
 
       <a
         href={ctaHref}
-        class="inline-flex items-center px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
+        class="hidden md:inline-flex items-center px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
       >
         {t.cta}
       </a>
-    </div>
 
-    <label
-      for="nav-mobile-toggle"
-      class="md:hidden cursor-pointer p-2 -mr-2 nav-hamburger-label"
-      aria-controls="nav-mobile-panel"
-    >
-      <span class="hamburger-icon">
-        <span class="line line-1"></span>
-        <span class="line line-2"></span>
-        <span class="line line-3"></span>
-      </span>
-    </label>
+      <label
+        for="nav-mobile-toggle"
+        class="md:hidden cursor-pointer p-2 -mr-2 nav-hamburger-label"
+        aria-controls="nav-mobile-panel"
+      >
+        <span class="hamburger-icon">
+          <span class="line line-1"></span>
+          <span class="line line-2"></span>
+          <span class="line line-3"></span>
+        </span>
+      </label>
+    </div>
   </div>
 
   <div
@@ -135,52 +141,6 @@ const otherLangHref = switchLangPath(currentPath, otherLang);
         ))
       }
     </ul>
-
-    <div class="px-5 py-4 border-t border-white/5 flex items-center justify-between">
-      <span class="text-[11px] tracking-[0.22em] uppercase text-white/45 font-semibold">
-        {footerT.switcherLabel}
-      </span>
-      <div
-        class="inline-flex items-center gap-1 text-xs"
-        role="group"
-        aria-label={footerT.switcherLabel}
-      >
-        {
-          lang === "es" ? (
-            <span
-              aria-current="true"
-              class="px-3 py-1.5 rounded-sm border border-brand-cyan/40 text-brand-cyan font-semibold"
-            >
-              ES
-            </span>
-          ) : (
-            <a
-              href={otherLangHref}
-              class="px-3 py-1.5 rounded-sm border border-white/15 text-white/70"
-            >
-              ES
-            </a>
-          )
-        }
-        {
-          lang === "en" ? (
-            <span
-              aria-current="true"
-              class="px-3 py-1.5 rounded-sm border border-brand-cyan/40 text-brand-cyan font-semibold"
-            >
-              EN
-            </span>
-          ) : (
-            <a
-              href={otherLangHref}
-              class="px-3 py-1.5 rounded-sm border border-white/15 text-white/70"
-            >
-              EN
-            </a>
-          )
-        }
-      </div>
-    </div>
 
     <div class="px-5 pb-5 pt-4 border-t border-white/5">
       <a

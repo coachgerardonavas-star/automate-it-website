@@ -909,7 +909,7 @@ export const translations = {
       welcomeMessage:
         "Hi, I'm BIT. I can help you figure out what to automate first in your business. Where do we start?",
       quickActions: [
-        { label: "Request diagnostic", href: "/en/diagnostic" },
+        { label: "Request diagnostic", href: "/diagnostico" },
         { label: "See plans", href: "/en/#planes" },
         { label: "Talk to a human", href: "mailto:automateit@yourbizupgraded.com" },
       ],
@@ -1123,7 +1123,7 @@ export const translations = {
         { label: "Who it's for", href: "/en/#para-quien" },
       ],
       empresaLinks: [
-        { label: "Diagnostic", href: "/en/diagnostic" },
+        { label: "Diagnostic", href: "/diagnostico" },
         { label: "Blog", href: "/en/blog" },
         { label: "Privacy", href: "/en/privacy" },
         { label: "Terms", href: "/en/terms" },
