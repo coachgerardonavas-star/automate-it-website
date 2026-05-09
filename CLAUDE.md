@@ -127,3 +127,11 @@ tailwind.config.mjs
 
 ## Email corporativo
 automateit@yourbizupgraded.com (lead notifications futuras vía HubSpot).
+
+## gstack
+Skills instaladas globalmente desde [garrytan/gstack](https://github.com/garrytan/gstack) en `~/.claude/skills/`.
+
+**Browsing web — preferir `/browse` de gstack.** Para cualquier navegación web (abrir páginas, scraping, screenshots, QA visual) usar el skill `/browse` por default. Si `/browse` no está disponible o falla en una tarea concreta, se permite caer a `mcp__claude-in-chrome__*` como respaldo — pero `/browse` es la primera opción siempre.
+
+**Skills disponibles (cuando relevantes a la tarea):**
+`/office-hours`, `/plan-ceo-review`, `/plan-eng-review`, `/plan-design-review`, `/design-consultation`, `/design-shotgun`, `/design-html`, `/review`, `/ship`, `/land-and-deploy`, `/canary`, `/benchmark`, `/browse`, `/connect-chrome`, `/qa`, `/qa-only`, `/design-review`, `/setup-browser-cookies`, `/setup-deploy`, `/setup-gbrain`, `/retro`, `/investigate`, `/document-release`, `/codex`, `/cso`, `/autoplan`, `/plan-devex-review`, `/devex-review`, `/careful`, `/freeze`, `/guard`, `/unfreeze`, `/gstack-upgrade`, `/learn`.
