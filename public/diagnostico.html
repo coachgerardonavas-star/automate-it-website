@@ -882,6 +882,24 @@
           throw new Error('HubSpot submission failed');
         }
 
+        // Fire Telegram notification (fire-and-forget — never blocks the user)
+        fetch('https://notify-telegram.coachgerardonavas.workers.dev', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName:   data.firstName,
+            lastName:    data.lastName,
+            email:       data.email,
+            phone:       data.phone,
+            bizType:     data.bizType,
+            mainProblem: data.mainProblem,
+            urgency:     data.urgency,
+            hipaa:       data.hipaa ? 'true' : 'false',
+            message:     data.message,
+            source:      data.source,
+          }),
+        }).catch(() => {}); // silencioso — si Telegram falla, el usuario no lo ve
+
         // Show success
         formContent.style.display = 'none';
         successState.classList.add('visible');
