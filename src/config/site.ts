@@ -18,6 +18,7 @@ export const HUBSPOT_FORM_GUID_CTA = "890d8b21-51f1-4ea3-be82-dff60ca6c055"; // 
 export const HUBSPOT_FORM_GUID_DIAGNOSTICO = "c3800beb-7430-4f16-bb9e-c1989b9ebf37"; // active — /diagnostico
 export const HUBSPOT_FORM_GUID_CHATBOT = "cd8b13bd-f8b9-4876-acc8-69be4df0027c"; // active — chatbot widget
 
+export const BIT_WORKER_URL = "https://bit-chat-3126.coachgerardonavas.workers.dev";
 const PLACEHOLDER_GA = "G-XXXXXXXXXX";
 const PLACEHOLDER_SC = "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN";
 
