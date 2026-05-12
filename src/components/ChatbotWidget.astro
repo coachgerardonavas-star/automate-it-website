@@ -18,15 +18,11 @@ const t = translations[lang].chatbot;
     aria-label={t.openLabel}
     data-action="toggle"
   >
-    <video
-      class="chatbot-trigger-video"
-      src="/assets/bit-animation.mp4"
-      autoplay
-      loop
-      muted
-      playsinline
-      preload="metadata"
-      aria-hidden="true"></video>
+    <img
+      src="/assets/mascota.png"
+      alt="BIT"
+      style="width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;"
+    />
     <span class="chatbot-trigger-pulse" aria-hidden="true"></span>
   </button>
 
@@ -164,14 +160,6 @@ const t = translations[lang].chatbot;
     box-shadow:
       0 0 28px rgba(0, 217, 255, 0.45),
       0 4px 16px rgba(0, 0, 0, 0.5);
-  }
-
-  .chatbot-trigger-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 62% 42%;
-    display: block;
   }
 
   .chatbot-trigger-pulse {
