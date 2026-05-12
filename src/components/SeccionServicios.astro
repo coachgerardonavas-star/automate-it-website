@@ -68,7 +68,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
 >
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <header class="max-w-3xl mb-12 sm:mb-16">
-      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+      <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
         {t.eyebrow}
       </p>
       <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
@@ -97,7 +97,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
                 {plan.badge}
               </span>
             )}
-            <p class="font-mono text-[10px] tracking-widest uppercase text-white/35 mb-3">
+            <p class="font-mono text-xs sm:text-[10px] tracking-widest uppercase text-white/45 mb-3">
               {plan.sku}
             </p>
             <h3 class="font-heading text-2xl sm:text-3xl mb-2 leading-snug">
@@ -107,22 +107,28 @@ const serviceSchemas = t.plans.map((plan, i) => {
               <span class="font-heading text-3xl sm:text-4xl text-white">
                 {plan.price}
               </span>
-              <span class="text-xs sm:text-sm text-white/55">
+              <span class="text-sm sm:text-sm text-white/70">
                 {plan.priceUnit}
               </span>
             </div>
-            <p class="text-xs text-white/55 mb-4 font-mono">{plan.setup}</p>
-            <p class="text-sm sm:text-base text-white/75 leading-relaxed mb-6">
+            <p class="text-sm sm:text-xs text-white/70 mb-4 font-mono">{plan.setup}</p>
+            <p class="text-base sm:text-base text-white/80 leading-relaxed mb-6">
               {plan.description}
             </p>
             <ul class="space-y-2.5 flex-1">
               {plan.features.map((feature) => (
-                <li class="flex gap-3 text-sm text-white/80 leading-snug">
+                <li class="flex gap-3 text-sm sm:text-sm text-white/85 leading-snug">
                   <span class="text-brand-cyan mt-0.5 shrink-0">→</span>
                   <span>{feature}</span>
                 </li>
               ))}
             </ul>
+            <a
+              href={diagPath}
+              class="mt-6 inline-block text-sm text-white/70 hover:text-brand-cyan transition-colors"
+            >
+              {t.planDiagnosticHint}
+            </a>
           </article>
         ))
       }
@@ -130,10 +136,10 @@ const serviceSchemas = t.plans.map((plan, i) => {
 
     <div class="mb-16 sm:mb-20">
       <header class="mb-8 sm:mb-10">
-        <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-3 font-semibold">
+        <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-3 font-semibold">
           {t.modulesEyebrow}
         </p>
-        <p class="text-sm sm:text-base text-white/65 max-w-2xl">
+        <p class="text-base sm:text-base text-white/75 max-w-2xl leading-relaxed">
           {t.modulesSubtitle}
         </p>
       </header>
@@ -143,15 +149,15 @@ const serviceSchemas = t.plans.map((plan, i) => {
           t.modules.map((mod) => (
             <article class="flex flex-col p-6 rounded-md bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-all duration-200 ease-brand">
               <div class="flex items-center justify-between mb-3">
-                <p class="font-mono text-[10px] tracking-widest uppercase text-white/35">
+                <p class="font-mono text-xs sm:text-[10px] tracking-widest uppercase text-white/45">
                   {mod.sku}
                 </p>
                 {mod.hipaa ? (
-                  <span class="font-mono text-[9px] tracking-wider uppercase text-brand-lime">
+                  <span class="font-mono text-[10px] sm:text-[9px] tracking-wider uppercase text-brand-lime">
                     HIPAA ✓
                   </span>
                 ) : (
-                  <span class="font-mono text-[9px] tracking-wider uppercase text-white/30">
+                  <span class="font-mono text-[10px] sm:text-[9px] tracking-wider uppercase text-white/40">
                     no HIPAA
                   </span>
                 )}
@@ -159,32 +165,38 @@ const serviceSchemas = t.plans.map((plan, i) => {
               <h3 class="font-heading text-lg sm:text-xl mb-3 leading-snug">
                 {mod.name}
               </h3>
-              <p class="text-sm text-white/70 leading-relaxed mb-5 flex-1">
+              <p class="text-sm sm:text-sm text-white/75 leading-relaxed mb-5 flex-1">
                 {mod.description}
               </p>
-              <div class="space-y-2 pt-4 border-t border-white/5 text-xs">
+              <div class="space-y-2 pt-4 border-t border-white/5 text-sm sm:text-xs">
                 <div class="flex justify-between gap-2">
-                  <span class="text-white/45">Starter</span>
-                  <span class="text-white/85 font-mono text-right">
+                  <span class="text-white/55">Starter</span>
+                  <span class="text-white/90 font-mono text-right">
                     {mod.priceStarter}
                   </span>
                 </div>
                 <div class="flex justify-between gap-2">
-                  <span class="text-white/45">Professional</span>
-                  <span class="text-white/85 font-mono text-right">
+                  <span class="text-white/55">Professional</span>
+                  <span class="text-white/90 font-mono text-right">
                     {mod.pricePro}
                   </span>
                 </div>
-                <div class="flex justify-between gap-2 text-[10px] text-white/35">
+                <div class="flex justify-between gap-2 text-sm sm:text-xs text-white/55">
                   <span>{mod.setupStarter}</span>
                   <span>{mod.setupPro}</span>
                 </div>
               </div>
               {"hipaaNote" in mod && mod.hipaaNote && (
-                <p class="mt-3 text-[10px] text-white/45 italic leading-snug">
+                <p class="mt-3 text-sm sm:text-xs text-white/55 italic leading-snug">
                   {mod.hipaaNote}
                 </p>
               )}
+              <a
+                href={diagPath}
+                class="mt-4 inline-block text-sm sm:text-xs text-white/65 hover:text-brand-cyan transition-colors"
+              >
+                {t.moduleDiagnosticHint}
+              </a>
             </article>
           ))
         }
@@ -192,7 +204,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
     </div>
 
     <div class="mb-12 sm:mb-14">
-      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
+      <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
         {t.examplesEyebrow}
       </p>
       <div class="rounded-md border border-white/5 bg-white/[0.02] divide-y divide-white/5">
@@ -200,10 +212,10 @@ const serviceSchemas = t.plans.map((plan, i) => {
           t.examples.map((ex) => (
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 px-5 sm:px-6 py-4">
               <div class="min-w-0 flex-1">
-                <p class="text-sm sm:text-base text-white/85 font-semibold">
+                <p class="text-sm sm:text-base text-white/90 font-semibold">
                   {ex.label}
                 </p>
-                <p class="text-xs text-white/45 mt-0.5 font-mono">
+                <p class="text-sm sm:text-xs text-white/55 mt-0.5 font-mono">
                   {ex.detail}
                 </p>
               </div>
@@ -223,7 +235,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
       >
         {t.cta}
       </a>
-      <p class="mt-4 text-xs sm:text-sm text-white/55 max-w-md mx-auto">
+      <p class="mt-4 text-sm sm:text-sm text-white/65 max-w-md mx-auto">
         {t.ctaHint}
       </p>
     </div>

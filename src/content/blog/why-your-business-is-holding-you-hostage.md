@@ -39,4 +39,4 @@ AI agents cover three things a human can't:
 - **60-second latency.** The first follow-up on a hot lead happens before the lead cools down.
 - **Flat cost per agent.** They don't scale with your hours, they scale with your volume. And you only feel that if you choose to scale.
 
-This site shows you the plans and services. But if you want to know where you specifically should start, book the 30-minute call. You leave with a map, not a sales pitch.
+This site shows you the plans and services. But if you want to know where you specifically should start, fill out the diagnostic — it takes 5 minutes. We'll call you to walk through it. You leave the call with a map, not a sales pitch.

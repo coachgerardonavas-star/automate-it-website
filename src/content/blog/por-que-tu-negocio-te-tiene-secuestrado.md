@@ -39,4 +39,4 @@ Los agentes de IA cubren tres cosas que un humano no puede:
 - **Latencia de 60 segundos.** El primer follow-up a un lead caliente sucede antes de que se enfríe.
 - **Costo plano por agente.** No escalan con tus horas, escalan con tu volumen. Y eso solo se nota si eliges escalar.
 
-El sitio que estás leyendo te muestra los paquetes y servicios. Pero si quieres saber dónde empezarías tú específicamente, agenda los 30 minutos. Sales del call con un mapa, no con una cotización.
+El sitio que estás leyendo te muestra los paquetes y servicios. Pero si quieres saber dónde empezarías tú específicamente, llena el diagnóstico — son 5 minutos. Te llamamos a coordinar y sales de la llamada con un mapa, no con una cotización.

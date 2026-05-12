@@ -33,4 +33,4 @@ Si tu mercado tiene actividad fuera de tu horario actual y no puedes pagarle a a
 
 ---
 
-Si reconoces 3 o más en tu negocio, vale los 30 minutos del diagnóstico. Si no, tampoco está mal — pero al menos ya sabes qué buscar.
+Si reconoces 3 o más en tu negocio, vale los 5 minutos del diagnóstico. Si no, tampoco está mal — pero al menos ya sabes qué buscar.

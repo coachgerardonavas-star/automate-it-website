@@ -6,7 +6,7 @@ export const translations = {
   es: {
     siteTitle: "Automate IT — Your business, upgraded.",
     siteDescription:
-      "Equipos de IA especializados ejecutan tu back-office. Recupera tu tiempo y deja de perder leads.",
+      "Equipos de IA especializados ejecutan tu operación interna. Recupera tu tiempo y deja de perder leads.",
 
     nav: {
       logoLabel: "Automate IT — inicio",
@@ -32,7 +32,7 @@ export const translations = {
         "🗓️ Agenda citas mientras estás dormido.",
       ],
       ctaPrimary: "Agenda tu diagnóstico gratuito",
-      microcopy: "30 minutos. Sin costo. Sin compromiso.",
+      microcopy: "Formulario de 5 minutos. Sin costo. Sin compromiso.",
       trustBadges: [
         { icon: "🔒", text: "Tus datos no se venden" },
         { icon: "🤐", text: "Conversaciones privadas" },
@@ -94,13 +94,13 @@ export const translations = {
 
     transformacion: {
       eyebrow: "La transformación",
-      titleLine1: "De tu primer call al primer agente operando.",
+      titleLine1: "De tu primer formulario al primer agente operando.",
       titleLine2: "En semanas, no en meses.",
       steps: [
         {
           n: "01",
           title: "Diagnóstico",
-          body: "30 minutos sin compromiso. Identificamos dónde se te está yendo el tiempo y los leads. Sales del call con un mapa claro.",
+          body: "Completas un formulario de 5 minutos. Te llamamos en menos de 24 horas para revisar tu operación e identificar dónde se te está yendo el tiempo y los leads. Sales de la llamada con un mapa claro.",
         },
         {
           n: "02",
@@ -122,7 +122,7 @@ export const translations = {
 
     agentes: {
       eyebrow: "Los agentes en acción",
-      title: "Equipos de IA especializados ejecutan tu back-office.",
+      title: "Equipos de IA especializados ejecutan tu operación interna.",
       subtitle:
         "Cada agente entrenado para una función específica. Conversan con tus sistemas en tiempo real: CRM, calendario, WhatsApp, email. Tú ves los resultados; ellos hacen el trabajo.",
       terminalTitle: "automate-it · live",
@@ -196,6 +196,8 @@ export const translations = {
       titleLine2: "Activa tus canales.",
       subtitle:
         "Empieza con el plan correcto y suma los módulos que tu negocio necesita. Sin paquete cerrado.",
+      planDiagnosticHint:
+        "¿No sabes si este plan es para ti? El diagnóstico te lo dice — es gratis.",
       plans: [
         {
           sku: "STARTER",
@@ -230,7 +232,10 @@ export const translations = {
         },
       ],
       modulesEyebrow: "Módulos de canal",
-      modulesSubtitle: "Se suman a cualquier plan base. Cada módulo incluye 300 minutos o mensajes al mes.",
+      modulesSubtitle:
+        "Un canal es la forma en que tus clientes te contactan: voz, WhatsApp, Messenger / web chat o CRM. Se suma a cualquier plan base — tú activas solo los que tu negocio usa. Cada módulo incluye 300 minutos o mensajes al mes.",
+      moduleDiagnosticHint:
+        "¿Dudas si este canal te sirve? El diagnóstico te lo dice — es gratis.",
       modules: [
         {
           sku: "VOZ",
@@ -261,7 +266,7 @@ export const translations = {
           pricePro: "No recomendado",
           setupStarter: "Setup +$79",
           setupPro: "Setup +$99",
-          description: "Chatbot en Facebook Messenger o embebido en tu sitio web.",
+          description: "Chatbot en Facebook Messenger o integrado en tu sitio web.",
         },
         {
           sku: "CRM",
@@ -435,11 +440,11 @@ export const translations = {
 
     ctaFinal: {
       eyebrow: "Diagnóstico gratuito",
-      titleLine1: "30 minutos.",
+      titleLine1: "5 minutos.",
       titleLine2: "Sin compromiso.",
       titleLine3: "Sales con un mapa, no con una cotización.",
       subtitle:
-        "Te contactamos en menos de 24 horas para agendar el call. Hablamos de tu operación, identificamos los 2–3 procesos más caros, te decimos qué automatizamos primero. Sin venta dura.",
+        "Llena el formulario y te contactamos en menos de 24 horas para agendar una llamada de 30 minutos. Hablamos de tu operación, identificamos los 2–3 procesos más caros, te decimos qué automatizamos primero. Sin venta dura.",
       formNamePlaceholder: "Tu nombre",
       formEmailPlaceholder: "Tu email",
       formBizTypePlaceholder: "Tipo de negocio",
@@ -468,7 +473,7 @@ export const translations = {
     diagnosticoPage: {
       title: "Diagnóstico gratuito · Automate IT",
       backLink: "← Volver a la home",
-      heading: "Diagnóstico gratuito de 30 minutos",
+      heading: "Diagnóstico gratuito · 5 minutos",
       subheading:
         "Cuéntanos un poco sobre tu negocio y el problema más caro. En la primera respuesta tendrás un mapa de qué automatizamos y en qué orden.",
       labels: {
@@ -495,7 +500,7 @@ export const translations = {
       submitting: "Enviando…",
       successHeading: "Recibido.",
       successBody:
-        "Te contactamos en menos de 24 horas al email y/o WhatsApp que dejaste para agendar el call.",
+        "Te contactamos en menos de 24 horas al email y/o WhatsApp que dejaste para agendar una llamada de 30 minutos.",
       errorSubmitFallback:
         "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
       privacyDisclaimer:
@@ -505,7 +510,7 @@ export const translations = {
     footer: {
       tagline: "Your business, upgraded.",
       description:
-        "Equipos de IA especializados que ejecutan tu back-office. Tú recuperas el tiempo que tu negocio te robaba.",
+        "Equipos de IA especializados que ejecutan tu operación interna. Tú recuperas el tiempo que tu negocio te robaba.",
       productHeading: "Producto",
       empresaHeading: "Empresa",
       contactHeading: "Contacto",
@@ -639,7 +644,7 @@ export const translations = {
         "🗓️ Books appointments while you're asleep.",
       ],
       ctaPrimary: "Book your free diagnosis",
-      microcopy: "30 minutes. No cost. No commitment.",
+      microcopy: "5-minute form. No cost. No commitment.",
       trustBadges: [
         { icon: "🔒", text: "Your data is never sold" },
         { icon: "🤐", text: "Conversations stay private" },
@@ -701,13 +706,13 @@ export const translations = {
 
     transformacion: {
       eyebrow: "The transformation",
-      titleLine1: "From your first call to your first agent live.",
+      titleLine1: "From your first form to your first agent live.",
       titleLine2: "In weeks, not months.",
       steps: [
         {
           n: "01",
           title: "Diagnostic",
-          body: "30 minutes, no commitment. We identify where your time and leads are leaking. You leave the call with a clear map.",
+          body: "Fill out a 5-minute form. We call you within 24 hours to review your operation and identify where your time and leads are leaking. You leave the call with a clear map.",
         },
         {
           n: "02",
@@ -803,6 +808,8 @@ export const translations = {
       titleLine2: "Activate your channels.",
       subtitle:
         "Start with the right plan and add the modules your business needs. No bundled packages.",
+      planDiagnosticHint:
+        "Not sure if this plan is for you? The diagnostic will tell you — it's free.",
       plans: [
         {
           sku: "STARTER",
@@ -837,7 +844,10 @@ export const translations = {
         },
       ],
       modulesEyebrow: "Channel modules",
-      modulesSubtitle: "Add to any base plan. Each module includes 300 minutes or messages per month.",
+      modulesSubtitle:
+        "A channel is how your customers reach you: voice, WhatsApp, Messenger / web chat, or CRM. Add it to any base plan — you only activate the ones your business actually uses. Each module includes 300 minutes or messages per month.",
+      moduleDiagnosticHint:
+        "Not sure if this channel fits? The diagnostic will tell you — it's free.",
       modules: [
         {
           sku: "VOZ",
@@ -868,7 +878,7 @@ export const translations = {
           pricePro: "Not recommended",
           setupStarter: "Setup +$79",
           setupPro: "Setup +$99",
-          description: "Chatbot on Facebook Messenger or embedded in your website.",
+          description: "Chatbot on Facebook Messenger or integrated into your website.",
         },
         {
           sku: "CRM",
@@ -1042,11 +1052,11 @@ export const translations = {
 
     ctaFinal: {
       eyebrow: "Free diagnostic",
-      titleLine1: "30 minutes.",
+      titleLine1: "5 minutes.",
       titleLine2: "No commitment.",
       titleLine3: "You leave with a map, not a sales pitch.",
       subtitle:
-        "We contact you within 24 hours to schedule the call. We talk about your operation, identify the 2–3 most expensive processes, and tell you what to automate first. No hard sell.",
+        "Fill out the form and we'll contact you within 24 hours to schedule a 30-minute call. We talk about your operation, identify the 2–3 most expensive processes, and tell you what to automate first. No hard sell.",
       formNamePlaceholder: "Your name",
       formEmailPlaceholder: "Your email",
       formBizTypePlaceholder: "Business type",
@@ -1075,7 +1085,7 @@ export const translations = {
     diagnosticoPage: {
       title: "Free diagnostic · Automate IT",
       backLink: "← Back to home",
-      heading: "Free 30-minute diagnostic",
+      heading: "Free diagnostic · 5 minutes",
       subheading:
         "Tell us a bit about your business and your most expensive problem. In our first reply you'll get a map of what to automate and in what order.",
       labels: {
@@ -1102,7 +1112,7 @@ export const translations = {
       submitting: "Sending…",
       successHeading: "Got it.",
       successBody:
-        "We'll contact you within 24 hours at the email and/or WhatsApp you provided to book the call.",
+        "We'll contact you within 24 hours at the email and/or WhatsApp you provided to book a 30-minute call.",
       errorSubmitFallback:
         "Something went wrong. Email us at automateit@yourbizupgraded.com",
       privacyDisclaimer:
