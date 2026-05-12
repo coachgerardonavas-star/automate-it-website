@@ -52,7 +52,13 @@ const t = translations[lang].chatbot;
         class="chatbot-welcome-lang"
         data-welcome-lang="es"
       >
-        <span aria-hidden="true">🇻🇪</span>
+        <img
+          src="https://flagcdn.com/ve.svg"
+          width="16"
+          height="12"
+          alt="VE"
+          class="chatbot-welcome-flag"
+        />
         <span>Español</span>
       </button>
       <button
@@ -60,7 +66,13 @@ const t = translations[lang].chatbot;
         class="chatbot-welcome-lang"
         data-welcome-lang="en"
       >
-        <span aria-hidden="true">🇺🇸</span>
+        <img
+          src="https://flagcdn.com/us.svg"
+          width="16"
+          height="12"
+          alt="US"
+          class="chatbot-welcome-flag"
+        />
         <span>English</span>
       </button>
     </div>
@@ -493,6 +505,14 @@ const t = translations[lang].chatbot;
     border-color: var(--color-cyan);
     background: rgba(0, 217, 255, 0.08);
     color: var(--color-cyan);
+  }
+  .chatbot-welcome-flag {
+    width: 16px;
+    height: 12px;
+    border-radius: 2px;
+    object-fit: cover;
+    display: inline-block;
+    vertical-align: middle;
   }
 
   @media (prefers-reduced-motion: reduce) {

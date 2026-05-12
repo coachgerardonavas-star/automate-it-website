@@ -19,15 +19,12 @@ const sizePx = `${size}px`;
   role="img"
   aria-label={t.avatarAlt}
 >
-  <video
-    class="bit-avatar-video"
-    src="/assets/bit-animation.mp4"
-    autoplay
-    loop
-    muted
-    playsinline
-    preload="metadata"
-    aria-hidden="true"></video>
+  <img
+    class="bit-avatar-img"
+    src="/assets/mascota.png"
+    alt=""
+    aria-hidden="true"
+  />
 </span>
 
 <style>
@@ -40,11 +37,11 @@ const sizePx = `${size}px`;
     background: transparent;
   }
 
-  .bit-avatar-video {
+  .bit-avatar-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 62% 42%;
+    object-position: center 10%;
     /* clip-path circular instead of overflow:hidden on parent —
        keeps the tooltip ::after free to overflow below */
     clip-path: circle(50% at 50% 50%);
@@ -81,16 +78,3 @@ const sizePx = `${size}px`;
   }
 </style>
 
-<script>
-  // Pause all BIT avatar videos when prefers-reduced-motion is enabled.
-  // Astro hoists this script once per page; loops over every instance
-  // currently in the DOM (Nav + chatbot header in typical pages).
-  if (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  ) {
-    document
-      .querySelectorAll<HTMLVideoElement>(".bit-avatar-video")
-      .forEach((v) => v.pause());
-  }
-</script>

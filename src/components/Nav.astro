@@ -76,12 +76,24 @@ const enHref = switchLangPath(currentPath, "en");
               class="lang-toggle-option is-active"
               aria-current="true"
             >
-              <span aria-hidden="true">🇻🇪</span>
+              <img
+                src="https://flagcdn.com/ve.svg"
+                width="16"
+                height="12"
+                alt="VE"
+                class="lang-toggle-flag"
+              />
               <span>ES</span>
             </span>
           ) : (
             <a href={esHref} class="lang-toggle-option">
-              <span aria-hidden="true">🇻🇪</span>
+              <img
+                src="https://flagcdn.com/ve.svg"
+                width="16"
+                height="12"
+                alt="VE"
+                class="lang-toggle-flag"
+              />
               <span>ES</span>
             </a>
           )
@@ -92,12 +104,24 @@ const enHref = switchLangPath(currentPath, "en");
               class="lang-toggle-option is-active"
               aria-current="true"
             >
-              <span aria-hidden="true">🇺🇸</span>
+              <img
+                src="https://flagcdn.com/us.svg"
+                width="16"
+                height="12"
+                alt="US"
+                class="lang-toggle-flag"
+              />
               <span>EN</span>
             </span>
           ) : (
             <a href={enHref} class="lang-toggle-option">
-              <span aria-hidden="true">🇺🇸</span>
+              <img
+                src="https://flagcdn.com/us.svg"
+                width="16"
+                height="12"
+                alt="US"
+                class="lang-toggle-flag"
+              />
               <span>EN</span>
             </a>
           )
@@ -320,6 +344,14 @@ const enHref = switchLangPath(currentPath, "en");
   }
   .lang-toggle-option.is-active {
     color: #ffffff;
+  }
+  .lang-toggle-flag {
+    width: 16px;
+    height: 12px;
+    border-radius: 2px;
+    object-fit: cover;
+    display: inline-block;
+    vertical-align: middle;
   }
   .lang-toggle-option:not(.is-active):hover {
     color: rgba(255, 255, 255, 0.85);
