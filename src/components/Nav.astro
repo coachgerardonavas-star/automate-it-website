@@ -1,7 +1,6 @@
 ---
 import { type Lang } from "../i18n/translations";
 import { getCopy } from "../i18n/site-copy";
-import BitAvatar from "./BitAvatar.astro";
 import { switchLangPath } from "../i18n/utils";
 
 interface Props {
@@ -35,7 +34,13 @@ const enHref = switchLangPath(currentPath, "en");
       class="flex items-center gap-3 shrink-0"
       aria-label={t.logoLabel}
     >
-      <BitAvatar lang={lang} size={28} showTooltip={true} />
+      <img
+        src="/assets/logo-a-transparent.webp"
+        width="36"
+        height="36"
+        alt="Automate IT"
+        style="object-fit:contain; display:block;"
+      />
       <span class="font-heading text-base sm:text-lg tracking-tight">
         AUTOMATE <span class="text-brand-cyan">IT</span>
       </span>
