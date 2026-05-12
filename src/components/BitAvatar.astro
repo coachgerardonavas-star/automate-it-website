@@ -5,18 +5,11 @@ interface Props {
   lang?: Lang;
   size?: number;
   showTooltip?: boolean;
-  loading?: "eager" | "lazy";
 }
 
-const {
-  lang = "es",
-  size = 32,
-  showTooltip = false,
-  loading = "lazy",
-} = Astro.props;
+const { lang = "es", size = 32, showTooltip = false } = Astro.props;
 const t = translations[lang].bit;
 const sizePx = `${size}px`;
-const intrinsic = Math.max(48, size * 2);
 ---
 
 <span
@@ -26,15 +19,15 @@ const intrinsic = Math.max(48, size * 2);
   role="img"
   aria-label={t.avatarAlt}
 >
-  <img
-    src="/assets/mascota.webp"
-    alt=""
-    class="bit-avatar-img"
-    width={intrinsic}
-    height={intrinsic}
-    loading={loading}
-    decoding="async"
-  />
+  <video
+    class="bit-avatar-video"
+    src="/assets/bit-animation.mp4"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    aria-hidden="true"></video>
 </span>
 
 <style>
@@ -47,10 +40,14 @@ const intrinsic = Math.max(48, size * 2);
     background: transparent;
   }
 
-  .bit-avatar-img {
+  .bit-avatar-video {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: 62% 42%;
+    /* clip-path circular instead of overflow:hidden on parent —
+       keeps the tooltip ::after free to overflow below */
+    clip-path: circle(50% at 50% 50%);
     display: block;
   }
 
@@ -83,3 +80,17 @@ const intrinsic = Math.max(48, size * 2);
     opacity: 1;
   }
 </style>
+
+<script>
+  // Pause all BIT avatar videos when prefers-reduced-motion is enabled.
+  // Astro hoists this script once per page; loops over every instance
+  // currently in the DOM (Nav + chatbot header in typical pages).
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    document
+      .querySelectorAll<HTMLVideoElement>(".bit-avatar-video")
+      .forEach((v) => v.pause());
+  }
+</script>

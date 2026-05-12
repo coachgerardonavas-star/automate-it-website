@@ -18,9 +18,53 @@ const t = translations[lang].chatbot;
     aria-label={t.openLabel}
     data-action="toggle"
   >
-    <BitAvatar lang={lang} size={36} />
+    <video
+      class="chatbot-trigger-video"
+      src="/assets/bit-animation.mp4"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="metadata"
+      aria-hidden="true"></video>
     <span class="chatbot-trigger-pulse" aria-hidden="true"></span>
   </button>
+
+  <div
+    class="chatbot-welcome"
+    data-show="false"
+    role="dialog"
+    aria-label="Choose chat language"
+  >
+    <button
+      type="button"
+      class="chatbot-welcome-close"
+      aria-label="Close"
+      data-welcome-action="dismiss"
+    >
+      ×
+    </button>
+    <p class="chatbot-welcome-title">Hola / Hi <span aria-hidden="true">👋</span></p>
+    <p class="chatbot-welcome-subtitle">¿En qué idioma prefieres chatear?</p>
+    <div class="chatbot-welcome-langs">
+      <button
+        type="button"
+        class="chatbot-welcome-lang"
+        data-welcome-lang="es"
+      >
+        <span aria-hidden="true">🇻🇪</span>
+        <span>Español</span>
+      </button>
+      <button
+        type="button"
+        class="chatbot-welcome-lang"
+        data-welcome-lang="en"
+      >
+        <span aria-hidden="true">🇺🇸</span>
+        <span>English</span>
+      </button>
+    </div>
+  </div>
 
   <div class="chatbot-panel" role="dialog" aria-label={t.headerName}>
     <header class="chatbot-header">
@@ -88,22 +132,34 @@ const t = translations[lang].chatbot;
 
   .chatbot-trigger {
     appearance: none;
-    border: none;
+    padding: 0;
     background: var(--color-bg);
-    border: 1px solid rgba(0, 217, 255, 0.4);
-    box-shadow: var(--glow-cyan-md), 0 8px 24px rgba(0, 0, 0, 0.5);
-    width: 60px;
-    height: 60px;
-    border-radius: 999px;
+    border: 2px solid rgba(0, 217, 255, 0.4);
+    box-shadow:
+      0 0 20px rgba(0, 217, 255, 0.25),
+      0 4px 16px rgba(0, 0, 0, 0.5);
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
     cursor: pointer;
-    display: grid;
-    place-items: center;
     position: relative;
-    transition: transform 200ms var(--ease-brand);
+    transition: all 0.2s ease;
   }
 
   .chatbot-trigger:hover {
-    border-color: var(--color-cyan);
+    border-color: #00d9ff;
+    box-shadow:
+      0 0 28px rgba(0, 217, 255, 0.45),
+      0 4px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .chatbot-trigger-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 42%;
+    display: block;
   }
 
   .chatbot-trigger-pulse {
@@ -348,11 +404,112 @@ const t = translations[lang].chatbot;
   .chatbot-send:hover { opacity: 0.9; }
   .chatbot-send:disabled { opacity: 0.4; cursor: not-allowed; }
 
+  /* ===== Welcome bubble (lang chooser, shown 5s after load) ===== */
+  .chatbot-welcome {
+    position: absolute;
+    bottom: 88px;
+    right: 0;
+    width: 220px;
+    background: var(--neutral-800);
+    border: 1px solid rgba(0, 217, 255, 0.35);
+    border-radius: var(--r-md);
+    padding: 14px 14px 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+  .chatbot-welcome[data-show="true"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .chatbot[data-open="true"] .chatbot-welcome,
+  .chatbot-welcome[data-dismissed="true"] {
+    display: none;
+  }
+
+  .chatbot-welcome-close {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--r-xs);
+    transition: color 0.2s ease;
+  }
+  .chatbot-welcome-close:hover {
+    color: var(--color-white);
+  }
+
+  .chatbot-welcome-title {
+    margin: 0 0 4px;
+    font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--color-white);
+    padding-right: 18px;
+  }
+
+  .chatbot-welcome-subtitle {
+    margin: 0 0 10px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.4;
+  }
+
+  .chatbot-welcome-langs {
+    display: flex;
+    gap: 6px;
+  }
+
+  .chatbot-welcome-lang {
+    flex: 1;
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-white);
+    border-radius: var(--r-sm);
+    padding: 6px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 200ms var(--ease-brand);
+  }
+  .chatbot-welcome-lang:hover {
+    border-color: var(--color-cyan);
+    background: rgba(0, 217, 255, 0.08);
+    color: var(--color-cyan);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .chatbot-trigger-pulse,
-    .chatbot-status-dot { animation: none; }
-    .chatbot[data-open="true"] .chatbot-panel { animation: none; }
-    .chatbot-typing-dots span { animation: none; opacity: 0.6; }
+    .chatbot-status-dot {
+      animation: none;
+    }
+    .chatbot[data-open="true"] .chatbot-panel {
+      animation: none;
+    }
+    .chatbot-typing-dots span {
+      animation: none;
+      opacity: 0.6;
+    }
+    .chatbot-welcome {
+      transition: none;
+    }
   }
 </style>
 
@@ -384,6 +541,55 @@ const t = translations[lang].chatbot;
   root.querySelectorAll('[data-action="toggle"]').forEach((btn) => {
     btn.addEventListener("click", () => toggle());
   });
+
+  // ===== Welcome bubble — lang chooser (shown 5s after load) =====
+  const welcome = root.querySelector(".chatbot-welcome");
+
+  const dismissWelcome = () => {
+    if (!welcome) return;
+    welcome.setAttribute("data-show", "false");
+    // Remove from layout after fade-out completes so it never blocks clicks.
+    setTimeout(() => welcome.setAttribute("data-dismissed", "true"), 320);
+  };
+
+  // Show only if the user hasn't already picked a chat language this session
+  // and the chat isn't already open.
+  if (welcome && !sessionStorage.getItem("chatLang")) {
+    setTimeout(() => {
+      if (root.getAttribute("data-open") !== "true") {
+        welcome.setAttribute("data-show", "true");
+      }
+    }, 5000);
+  }
+
+  // Lang buttons → save in sessionStorage, close bubble, open chat
+  root.querySelectorAll("[data-welcome-lang]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const chosen = btn.getAttribute("data-welcome-lang") || "es";
+      sessionStorage.setItem("chatLang", chosen);
+      dismissWelcome();
+      toggle(true);
+    });
+  });
+
+  // X button → save fallback lang from document but DO NOT open chat
+  root.querySelectorAll('[data-welcome-action="dismiss"]').forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!sessionStorage.getItem("chatLang")) {
+        sessionStorage.setItem(
+          "chatLang",
+          document.documentElement.lang || "es"
+        );
+      }
+      dismissWelcome();
+    });
+  });
+
+  // Pause the BIT trigger video when prefers-reduced-motion is enabled.
+  // (BitAvatar.astro has its own pause script for its own videos.)
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    root.querySelector(".chatbot-trigger-video")?.pause();
+  }
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") toggle(false);
@@ -425,6 +631,7 @@ const t = translations[lang].chatbot;
     const email = emailMatch[0];
     if (root.dataset.leadCaptured === email) return;
     root.dataset.leadCaptured = email;
+    const chatLang = sessionStorage.getItem("chatLang") || lang;
     try {
       await fetch(
         `https://api.hsforms.com/submissions/v3/integration/submit/245810986/${HUBSPOT_FORM_GUID_CHATBOT}`,
@@ -434,7 +641,8 @@ const t = translations[lang].chatbot;
           body: JSON.stringify({
             fields: [
               { name: "email", value: email },
-              { name: "message", value: `Chat lead — ${lang}` },
+              { name: "message", value: `Chat lead — ${chatLang}` },
+              { name: "lang", value: chatLang },
             ],
             context: { pageUri: window.location.href, pageName: document.title },
           }),
