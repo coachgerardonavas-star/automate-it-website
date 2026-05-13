@@ -122,6 +122,49 @@ a {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* CTA shine sweep — applied to .btn-cta buttons across the site */
+.btn-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  animation: ctaShine 2.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.btn-cta:disabled::after {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes ctaShine {
+  0%   { left: -60%; }
+  50%  { left: 120%; }
+  100% { left: 120%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-cta::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
