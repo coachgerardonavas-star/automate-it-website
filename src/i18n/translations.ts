@@ -4,9 +4,9 @@ export const langs: Lang[] = ["es", "en"];
 
 export const translations = {
   es: {
-    siteTitle: "Automate IT — Your business, upgraded.",
+    siteTitle: "Automate IT — Your business, upgraded.h",
     siteDescription:
-      "Equipos de IA especializados ejecutan tu operación interna. Recupera tu tiempo y deja de perder leads.",
+      "Equipos de IA especializados ejecutan tu operación ihnterna. Recupera tu tiempo y deja de perder leads.",
 
     nav: {
       logoLabel: "Automate IT — inicio",
@@ -526,7 +526,7 @@ export const translations = {
         { label: "Privacidad", href: "/privacidad" },
         { label: "Términos", href: "/terminos" },
       ],
-      copyright: "© {year} Automate IT. Todos los derechos reservados.",
+      copyright: "© {year} Automate IT LLC. Todos los derechos reservados.",
       switcherLabel: "Idioma",
       langEs: "ES",
       langEn: "EN",
@@ -1138,7 +1138,7 @@ export const translations = {
         { label: "Privacy", href: "/en/privacy" },
         { label: "Terms", href: "/en/terms" },
       ],
-      copyright: "© {year} Automate IT. All rights reserved.",
+      copyright: "© {year} Automate IT LLC. All rights reserved.",
       switcherLabel: "Language",
       langEs: "ES",
       langEn: "EN",
