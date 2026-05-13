@@ -4,9 +4,9 @@ export const langs: Lang[] = ["es", "en"];
 
 export const translations = {
   es: {
-    siteTitle: "Automate IT — Your business, upgraded.h",
+    siteTitle: "Automate IT — Your business, upgraded.",
     siteDescription:
-      "Equipos de IA especializados ejecutan tu operación ihnterna. Recupera tu tiempo y deja de perder leads.",
+      "Equipos de IA especializados ejecutan tu operación interna. Recupera tu tiempo y deja de perder leads.",
 
     nav: {
       logoLabel: "Automate IT — inicio",
