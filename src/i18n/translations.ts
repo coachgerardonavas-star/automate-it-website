@@ -397,7 +397,7 @@ export const translations = {
           name: "Legal",
           pain: "Consultas que se dispersan en email y casos sin triage.",
           solution:
-            "Triage de consultas, agenda de calls y follow-up al cliente entre etapas.",
+            "Revisión de consultas, agenda de llamadas y seguimiento al cliente entre etapas.",
           tier: "Plan Professional",
         },
         {
@@ -559,7 +559,7 @@ export const translations = {
           },
           {
             heading: "Compliance regulado",
-            body: "Para clientes en healthcare ofrecemos BAA bajo HIPAA. Para clientes con datos sensibles otros, definimos arreglos contractuales caso por caso.",
+            body: "Para clientes en healthcare ofrecemos BAA bajo HIPAA. Para otros clientes con datos sensibles, definimos acuerdos contractuales caso por caso.",
           },
           {
             heading: "Contacto",
@@ -582,7 +582,7 @@ export const translations = {
           },
           {
             heading: "Suscripción y facturación",
-            body: "Los planes Starter, Growth y Scale se facturan mensualmente por adelantado. Sin permanencia mínima en Starter y Growth: cancelas con 30 días de aviso y la suscripción termina al final del período pagado. Enterprise se rige por contrato dedicado.",
+            body: "Los planes Starter y Professional se facturan mensualmente por adelantado. Sin permanencia mínima: cancelas con 30 días de aviso por escrito y la suscripción termina al final del período pagado.",
           },
           {
             heading: "Setup y entregables",
@@ -590,7 +590,7 @@ export const translations = {
           },
           {
             heading: "Disponibilidad y SLA",
-            body: "Mejor esfuerzo en Starter, Growth y Scale. SLA contractual con compensación en Enterprise. Mantenimientos planificados se notifican con 48 horas de anticipación.",
+            body: "Mejor esfuerzo en ambos planes. SLA contractual disponible bajo acuerdo por escrito. Mantenimientos planificados se notifican con 48 horas de anticipación.",
           },
           {
             heading: "Propiedad intelectual",
@@ -745,7 +745,7 @@ export const translations = {
           promptDur: 1.0,
           promptDelay: 0.0,
           lines: [
-            { text: "Incoming call: Maria Gonzalez", delay: 1.1 },
+            { text: "Incoming call: María González", delay: 1.1 },
             {
               before: "Qualifying lead… ",
               ok: "high intent",
@@ -771,7 +771,7 @@ export const translations = {
           promptDelay: 3.4,
           lines: [
             {
-              text: "Cold lead detected: Carlos Mendez · 45 days",
+              text: "Cold lead detected: Carlos Méndez · 45 days",
               delay: 4.4,
             },
             { text: "Reactivating with 3-email sequence…", delay: 4.9 },
@@ -919,7 +919,7 @@ export const translations = {
       welcomeMessage:
         "Hi, I'm BIT. I can help you figure out what to automate first in your business. Where do we start?",
       quickActions: [
-        { label: "Request diagnostic", href: "/diagnostico" },
+        { label: "Request diagnostic", href: "/en/diagnostic" },
         { label: "See plans", href: "/en/#planes" },
         { label: "Talk to a human", href: "mailto:automateit@yourbizupgraded.com" },
       ],
@@ -1133,7 +1133,7 @@ export const translations = {
         { label: "Who it's for", href: "/en/#para-quien" },
       ],
       empresaLinks: [
-        { label: "Diagnostic", href: "/diagnostico" },
+        { label: "Diagnostic", href: "/en/diagnostic" },
         { label: "Blog", href: "/en/blog" },
         { label: "Privacy", href: "/en/privacy" },
         { label: "Terms", href: "/en/terms" },
@@ -1194,7 +1194,7 @@ export const translations = {
           },
           {
             heading: "Subscription and billing",
-            body: "Starter, Growth, and Scale plans are billed monthly in advance. No minimum commitment on Starter or Growth: cancel with 30 days notice and the subscription ends at the end of the paid period. Enterprise is governed by a dedicated contract.",
+            body: "Starter and Professional plans are billed monthly in advance. No minimum commitment: cancel with 30 days written notice and the subscription ends at the end of the paid period.",
           },
           {
             heading: "Setup and deliverables",
@@ -1202,7 +1202,7 @@ export const translations = {
           },
           {
             heading: "Availability and SLA",
-            body: "Best effort on Starter, Growth, and Scale. Contractual SLA with compensation on Enterprise. Planned maintenance is announced 48 hours in advance.",
+            body: "Best effort on both plans. Contractual SLA available under written agreement. Planned maintenance is announced 48 hours in advance.",
           },
           {
             heading: "Intellectual property",
