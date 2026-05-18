@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { translations } from "../i18n/translations";
+import { CircleCheck } from "lucide-astro";
+
+const lang = "es" as const;
+const t = translations[lang].thanksPage;
+const sessionId = Astro.url.searchParams.get("session_id") ?? "";
+---
+
+<BaseLayout lang={lang} title={t.title} noindex={true}>
+  <Nav lang={lang} />
+  <main class="min-h-[60vh] pt-10 pb-24">
+    <div class="max-w-2xl mx-auto px-5 lg:px-8">
+      <a
+        href="/"
+        class="inline-block text-sm text-white/60 hover:text-brand-cyan transition-colors mb-8"
+      >
+        {t.backLink}
+      </a>
+
+      <header class="mb-10 flex flex-col items-start gap-5">
+        <span
+          class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-cyan/15 text-brand-cyan"
+        >
+          <CircleCheck size={32} strokeWidth={2} />
+        </span>
+        <h1 class="font-heading text-3xl sm:text-5xl leading-tight">
+          {t.heading}
+        </h1>
+        <p class="text-base sm:text-lg text-white/75 leading-relaxed">
+          {t.subheading}
+        </p>
+      </header>
+
+      <section class="space-y-4 text-white/80">
+        <p class="text-base">{t.bodyIntro}</p>
+        <ul class="space-y-2 text-sm sm:text-base">
+          {
+            t.bullets.map((line) => (
+              <li class="flex gap-3">
+                <span aria-hidden="true" class="text-brand-cyan">→</span>
+                <span>{line}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        {
+          sessionId && (
+            <p class="pt-6 text-xs text-white/40 break-all">
+              Ref: <span class="font-mono">{sessionId}</span>
+            </p>
+          )
+        }
+      </section>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

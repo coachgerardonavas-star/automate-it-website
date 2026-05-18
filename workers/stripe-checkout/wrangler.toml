@@ -1,0 +1,14 @@
+name = "stripe-checkout-automate"
+main = "src/index.ts"
+compatibility_date = "2025-10-01"
+workers_dev = true
+
+# Set STRIPE_SECRET_KEY (sk_test_* in sandbox, sk_live_* in production):
+#   wrangler secret put STRIPE_SECRET_KEY
+#
+# Optional override of allowed origins (comma-separated). Defaults to the
+# production + Cloudflare Pages preview origins listed in src/index.ts.
+#   wrangler secret put ALLOWED_ORIGINS
+
+[observability]
+enabled = true

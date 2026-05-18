@@ -288,6 +288,9 @@ export const translations = {
       ],
       cta: "Agenda tu diagnóstico gratuito",
       ctaHint: "¿No sabes qué módulos necesitas? El diagnóstico te lo dice.",
+      checkoutLabel: "Empezar ahora",
+      checkoutLoading: "Procesando...",
+      checkoutError: "Hubo un problema. Intenta de nuevo.",
     },
 
     bit: {
@@ -468,6 +471,35 @@ export const translations = {
         "Daycare / VPK",
         "Otro",
       ],
+    },
+
+    thanksPage: {
+      title: "Pago recibido · Automate IT",
+      heading: "Tu pago fue procesado.",
+      subheading:
+        "Nos pondremos en contacto contigo en las próximas 24 horas hábiles para arrancar el setup.",
+      bodyIntro:
+        "Mientras tanto, te dejamos esto claro:",
+      bullets: [
+        "Recibirás un email con el resumen de tu compra desde Stripe.",
+        "Te escribimos al email registrado para coordinar el kick-off.",
+        "Si tienes algo urgente, escríbenos a automateit@yourbizupgraded.com.",
+      ],
+      backLink: "← Volver a la home",
+    },
+
+    errorPage: {
+      title: "Algo salió mal · Automate IT",
+      heading: "Hubo un problema con tu pago.",
+      subheading:
+        "No te preocupes: no se cobró nada y tus datos están a salvo.",
+      bodyIntro: "Puedes:",
+      bullets: [
+        "Volver a intentarlo desde la página de planes.",
+        "Escribirnos a automateit@yourbizupgraded.com y resolvemos manual.",
+      ],
+      backLink: "← Volver a la home",
+      retryLink: "Ver planes",
     },
 
     diagnosticoPage: {
@@ -900,6 +932,9 @@ export const translations = {
       ],
       cta: "Book your free diagnosis",
       ctaHint: "Not sure which modules you need? The diagnosis will tell you.",
+      checkoutLabel: "Get started",
+      checkoutLoading: "Processing...",
+      checkoutError: "Something went wrong. Please try again.",
     },
 
     bit: {
@@ -1080,6 +1115,34 @@ export const translations = {
         "Daycare / VPK",
         "Other",
       ],
+    },
+
+    thanksPage: {
+      title: "Payment received · Automate IT",
+      heading: "Your payment went through.",
+      subheading:
+        "We'll reach out within the next 24 business hours to start the setup.",
+      bodyIntro: "Meanwhile, a quick heads-up:",
+      bullets: [
+        "You'll receive a purchase summary email from Stripe.",
+        "We'll email you at the address on file to coordinate the kick-off.",
+        "If anything is urgent, write to automateit@yourbizupgraded.com.",
+      ],
+      backLink: "← Back to home",
+    },
+
+    errorPage: {
+      title: "Something went wrong · Automate IT",
+      heading: "There was a problem with your payment.",
+      subheading:
+        "Don't worry — nothing was charged and your data is safe.",
+      bodyIntro: "You can:",
+      bullets: [
+        "Try again from the plans page.",
+        "Email us at automateit@yourbizupgraded.com and we'll resolve it manually.",
+      ],
+      backLink: "← Back to home",
+      retryLink: "See plans",
     },
 
     diagnosticoPage: {

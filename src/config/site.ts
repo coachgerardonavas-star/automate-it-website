@@ -19,6 +19,18 @@ export const HUBSPOT_FORM_GUID_DIAGNOSTICO = "c3800beb-7430-4f16-bb9e-c1989b9ebf
 export const HUBSPOT_FORM_GUID_CHATBOT = "cd8b13bd-f8b9-4876-acc8-69be4df0027c"; // active — chatbot widget
 
 export const BIT_WORKER_URL = "https://bit-chat-3126.coachgerardonavas.workers.dev";
+
+// Replace with the deployed URL of `workers/stripe-checkout` once it's live in Cloudflare.
+// While set to the placeholder, the checkout buttons will not POST anywhere.
+export const STRIPE_CHECKOUT_WORKER_URL =
+  "https://stripe-checkout-automate.coachgerardonavas.workers.dev";
+
+const PLACEHOLDER_STRIPE = "https://stripe-checkout-automate.PLACEHOLDER.workers.dev";
+
+export const isStripeCheckoutEnabled = (): boolean =>
+  Boolean(STRIPE_CHECKOUT_WORKER_URL) &&
+  STRIPE_CHECKOUT_WORKER_URL !== PLACEHOLDER_STRIPE;
+
 const PLACEHOLDER_GA = "G-XXXXXXXXXX";
 const PLACEHOLDER_SC = "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN";
 

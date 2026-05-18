@@ -1,6 +1,8 @@
 ---
 import { translations, type Lang } from "../i18n/translations";
 import { jsonLd } from "../lib/jsonld";
+import { STRIPE_PRICES } from "../lib/stripe";
+import { STRIPE_CHECKOUT_WORKER_URL } from "../config/site";
 
 interface Props {
   lang?: Lang;
@@ -9,6 +11,17 @@ interface Props {
 const { lang = "es" } = Astro.props;
 const t = translations[lang].servicios;
 const diagPath = "/diagnostico";
+
+const planPriceBySku: Record<string, { monthly: string; setup: string }> = {
+  STARTER: {
+    monthly: STRIPE_PRICES.STARTER_BASE.monthly,
+    setup: STRIPE_PRICES.STARTER_BASE.setup,
+  },
+  PROFESSIONAL: {
+    monthly: STRIPE_PRICES.PROFESSIONAL_BASE.monthly,
+    setup: STRIPE_PRICES.PROFESSIONAL_BASE.setup,
+  },
+};
 
 const serviceNames =
   lang === "es"
@@ -123,9 +136,33 @@ const serviceSchemas = t.plans.map((plan, i) => {
                 </li>
               ))}
             </ul>
+            {planPriceBySku[plan.sku] && (
+              <div class="mt-6">
+                <button
+                  type="button"
+                  data-stripe-checkout
+                  data-price-monthly={planPriceBySku[plan.sku].monthly}
+                  data-price-setup={planPriceBySku[plan.sku].setup}
+                  data-plan-name={plan.name}
+                  data-lang={lang}
+                  data-label-default={t.checkoutLabel}
+                  data-label-loading={t.checkoutLoading}
+                  class="btn-cta block w-full text-center px-5 py-3 rounded-sm text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {t.checkoutLabel}
+                </button>
+                <p
+                  data-stripe-error
+                  class="hidden mt-2 text-sm text-[#E5484D]"
+                  role="alert"
+                >
+                  {t.checkoutError}
+                </p>
+              </div>
+            )}
             <a
               href={diagPath}
-              class="mt-6 inline-block text-sm text-white/70 hover:text-brand-cyan transition-colors"
+              class="mt-4 inline-block text-sm text-white/70 hover:text-brand-cyan transition-colors"
             >
               {t.planDiagnosticHint}
             </a>
@@ -262,3 +299,49 @@ const serviceSchemas = t.plans.map((plan, i) => {
     }
   }
 </style>
+
+<script is:inline define:vars={{ workerUrl: STRIPE_CHECKOUT_WORKER_URL }}>
+  (function () {
+    var buttons = document.querySelectorAll("[data-stripe-checkout]");
+    if (!buttons.length || !workerUrl) return;
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", async function () {
+        var defaultLabel = btn.getAttribute("data-label-default") || "";
+        var loadingLabel = btn.getAttribute("data-label-loading") || "";
+        var errorEl = btn.parentElement
+          ? btn.parentElement.querySelector("[data-stripe-error]")
+          : null;
+
+        btn.disabled = true;
+        btn.textContent = loadingLabel;
+        if (errorEl) errorEl.classList.add("hidden");
+
+        try {
+          var res = await fetch(workerUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              priceIdMonthly: btn.getAttribute("data-price-monthly"),
+              priceIdSetup: btn.getAttribute("data-price-setup"),
+              planName: btn.getAttribute("data-plan-name"),
+              lang: btn.getAttribute("data-lang"),
+            }),
+          });
+          var data = await res.json().catch(function () {
+            return null;
+          });
+          if (res.ok && data && typeof data.url === "string") {
+            window.location.href = data.url;
+            return;
+          }
+          throw new Error("checkout-failed");
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = defaultLabel;
+          if (errorEl) errorEl.classList.remove("hidden");
+        }
+      });
+    });
+  })();
+</script>

@@ -32,6 +32,9 @@ export function switchLangPath(currentPath: string, target: Lang): string {
     "/privacy": "/privacidad",
     "/terminos": "/terms",
     "/terms": "/terminos",
+    "/gracias": "/thanks",
+    "/thanks": "/gracias",
+    "/error": "/error",
   };
 
   let nextPath = stripped;
