@@ -10,7 +10,7 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].servicios;
-const diagPath = "/diagnostico";
+const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
 
 const planPriceBySku: Record<string, { monthly: string; setup: string }> = {
   STARTER: {
@@ -76,7 +76,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
 }
 
 <section
-  id="servicios"
+  id="planes"
   class="py-20 sm:py-28 border-t border-white/5 reveal-on-scroll"
 >
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
