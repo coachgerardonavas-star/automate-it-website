@@ -459,7 +459,7 @@ export const translations = {
       titleLine2: "Sin compromiso.",
       titleLine3: "Sales con un mapa, no con una cotización.",
       subtitle:
-        "Llena el formulario y te contactamos en menos de 24 horas para agendar una llamada de 30 minutos. Hablamos de tu operación, identificamos los 2–3 procesos más caros, te decimos qué automatizamos primero. Sin venta dura.",
+        "Llena el formulario y te contactamos en menos de 24 horas para entregarte tu diagnóstico personalizado. Hablamos de tu operación, identificamos los 2–3 procesos más caros, te decimos qué automatizamos primero. Sin venta dura.",
       formNamePlaceholder: "Tu nombre",
       formEmailPlaceholder: "Tu email",
       formBizTypePlaceholder: "Tipo de negocio",
@@ -524,6 +524,8 @@ export const translations = {
         name: "Tu nombre",
         email: "Email",
         phone: "Teléfono o WhatsApp",
+        addressLabel: "Dirección del negocio",
+        addressPlaceholder: "Ciudad, Estado (ej: Orlando, FL)",
         bizType: "Tipo de negocio",
         bizTypePlaceholder: "Selecciona tu rubro",
         problem: "El problema más caro de tu día",
@@ -544,7 +546,7 @@ export const translations = {
       submitting: "Enviando…",
       successHeading: "Recibido.",
       successBody:
-        "Te contactamos en menos de 24 horas al email y/o WhatsApp que dejaste para agendar una llamada de 30 minutos.",
+        "Revisaremos tu información y te contactaremos por email o WhatsApp en menos de 24 horas.",
       errorSubmitFallback:
         "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
       privacyDisclaimer:
@@ -1115,7 +1117,7 @@ export const translations = {
       titleLine2: "No commitment.",
       titleLine3: "You leave with a map, not a sales pitch.",
       subtitle:
-        "Fill out the form and we'll contact you within 24 hours to schedule a 30-minute call. We talk about your operation, identify the 2–3 most expensive processes, and tell you what to automate first. No hard sell.",
+        "Fill out the form and we'll contact you within 24 hours to deliver your personalized diagnosis. We talk about your operation, identify the 2–3 most expensive processes, and tell you what to automate first. No hard sell.",
       formNamePlaceholder: "Your name",
       formEmailPlaceholder: "Your email",
       formBizTypePlaceholder: "Business type",
@@ -1179,6 +1181,8 @@ export const translations = {
         name: "Your name",
         email: "Email",
         phone: "Phone or WhatsApp",
+        addressLabel: "Business address",
+        addressPlaceholder: "City, State (e.g.: Orlando, FL)",
         bizType: "Business type",
         bizTypePlaceholder: "Select your industry",
         problem: "The most expensive problem in your day",
@@ -1199,7 +1203,7 @@ export const translations = {
       submitting: "Sending…",
       successHeading: "Got it.",
       successBody:
-        "We'll contact you within 24 hours at the email and/or WhatsApp you provided to book a 30-minute call.",
+        "We'll review your information and reach out via email or WhatsApp within 24 hours.",
       errorSubmitFallback:
         "Something went wrong. Email us at automateit@yourbizupgraded.com",
       privacyDisclaimer:
