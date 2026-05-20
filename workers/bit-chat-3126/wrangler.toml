@@ -1,0 +1,6 @@
+name = "bit-chat-3126"
+main = "index.js"
+compatibility_date = "2026-05-20"
+
+[vars]
+ALLOWED_ORIGIN = "https://yourbizupgraded.com,http://localhost:4321,http://127.0.0.1:4321"
