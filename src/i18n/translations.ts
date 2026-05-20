@@ -374,6 +374,18 @@ export const translations = {
           q: "¿Puedo usar este servicio si soy abogado o manejo información confidencial de clientes?",
           a: "Sí. Los abogados en Florida están sujetos a las Reglas de Conducta Profesional del Florida Bar (Rule 1.6 — Confidencialidad), que exigen medidas razonables para proteger información del cliente — pero no requieren un compliance tecnológico específico como HIPAA. El Plan Starter es suficiente para firmas legales. Si deseas, podemos configurar el agente para que no grabe conversaciones y para que los datos de leads vayan únicamente a tu CRM privado.",
         },
+        {
+          q: "¿Qué pasa si el agente falla o da información incorrecta?",
+          a: "Monitoreamos el sistema en tiempo real. Si el agente comete un error, lo corregimos en 24 horas hábiles. Para clientes Professional, el tiempo de respuesta es de 4 horas. Siempre hay un humano detrás del sistema.",
+        },
+        {
+          q: "¿Cuánto tiempo tarda el setup?",
+          a: "El sistema está operativo en 2 semanas desde la firma del contrato. La primera semana es configuración y la segunda es pruebas con datos reales antes del go-live.",
+        },
+        {
+          q: "¿Qué necesito tener para empezar?",
+          a: "Solo un número de teléfono o línea de WhatsApp activa, y 1 hora de tu tiempo para la sesión de onboarding. Nosotros configuramos todo lo demás.",
+        },
       ],
     },
 
@@ -1017,6 +1029,18 @@ export const translations = {
         {
           q: "Can I use this service if I'm a lawyer or handle confidential client information?",
           a: "Yes. Florida attorneys are subject to the Florida Bar Rules of Professional Conduct (Rule 1.6 — Confidentiality), which require reasonable measures to protect client information — but don't require specific technical compliance like HIPAA. The Starter Plan is sufficient for law firms. If you wish, we can configure the agent not to record conversations and to send lead data only to your private CRM.",
+        },
+        {
+          q: "What happens if the agent fails or gives wrong information?",
+          a: "We monitor the system in real time. If the agent makes a mistake, we fix it within 24 business hours. Professional plan clients get a 4-hour response time. There is always a human behind the system.",
+        },
+        {
+          q: "How long does setup take?",
+          a: "The system is live within 2 weeks of signing. Week one is configuration, week two is testing with real data before go-live.",
+        },
+        {
+          q: "What do I need to get started?",
+          a: "Just an active phone number or WhatsApp line, and 1 hour of your time for the onboarding session. We handle everything else.",
         },
       ],
     },
