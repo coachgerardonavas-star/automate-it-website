@@ -1,0 +1,7 @@
+name = "health-check"
+main = "index.js"
+compatibility_date = "2026-05-20"
+preview_urls = false
+
+[triggers]
+crons = ["*/15 * * * *"]
