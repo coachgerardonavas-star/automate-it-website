@@ -1,0 +1,78 @@
+---
+import type { Lang } from "../i18n/translations";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+
+const heuristics = {
+  es: [
+    { stat: "3 seg", context: "Tiempo máximo de respuesta. Siempre." },
+    { stat: "24/7", context: "Sin días festivos. Sin llamadas perdidas." },
+    {
+      stat: "$328/mes",
+      context: "vs $2,917/mes de recepcionista bilingüe en Florida.",
+    },
+    {
+      stat: "Inglés y español",
+      context:
+        "Tu agente contesta en los dos idiomas. El dueño no tiene que estar.",
+    },
+  ],
+  en: [
+    { stat: "3 sec", context: "Maximum response time. Every time." },
+    { stat: "24/7", context: "No holidays. No missed calls." },
+    {
+      stat: "$328/mo",
+      context: "vs $2,917/mo for a bilingual receptionist in Florida.",
+    },
+    {
+      stat: "English & Spanish",
+      context:
+        "Your agent answers in both languages. You don't have to be there.",
+    },
+  ],
+}[lang];
+---
+
+<section
+  class="py-16 bg-[#050A18] border-t border-b border-brand-cyan/15 reveal-on-scroll"
+>
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+      {
+        heuristics.map((item) => (
+          <div class="flex flex-col">
+            <p class="font-heading font-bold text-4xl sm:text-[3.5rem] leading-none text-brand-cyan mb-3 sm:mb-4">
+              {item.stat}
+            </p>
+            <p class="text-sm text-white/70 leading-relaxed">{item.context}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 700ms ease-out,
+      transform 700ms ease-out;
+  }
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
