@@ -71,8 +71,8 @@ export const translations = {
 
     dolor: {
       eyebrow: "El antes",
-      titleLine1: "Dejaste de manejar tu negocio.",
-      titleLine2: "Tu negocio te maneja a ti.",
+      titleLine1: "Si no contestas rápido,",
+      titleLine2: "el siguiente negocio en Google sí lo hace.",
       cards: [
         {
           eyebrow: "Recepción",
@@ -729,8 +729,8 @@ export const translations = {
 
     dolor: {
       eyebrow: "The before",
-      titleLine1: "You stopped running your business.",
-      titleLine2: "Your business runs you.",
+      titleLine1: "If you don't answer fast,",
+      titleLine2: "the next business on Google will.",
       cards: [
         {
           eyebrow: "Reception",
