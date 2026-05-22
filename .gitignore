@@ -7,6 +7,9 @@ dist/
 # Astro
 .astro/
 
+# Cloudflare Workers local cache (miniflare/wrangler dev state)
+.wrangler/
+
 # Logs
 *.log
 npm-debug.log*
