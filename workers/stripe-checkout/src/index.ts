@@ -92,6 +92,11 @@ export default {
     const origin = request.headers.get("Origin");
     const cors = corsHeaders(origin, allowed);
 
+    const url = new URL(request.url);
+    if (request.method === "GET" && url.pathname === "/health") {
+      return jsonResponse({ status: "ok" }, 200, cors);
+    }
+
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: cors });
     }

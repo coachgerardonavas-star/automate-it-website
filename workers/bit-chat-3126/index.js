@@ -47,6 +47,21 @@ Closers: rhetorical questions like "¿y tú qué opinas?" or "let me know if you
 - For HIPAA clients, Retell AI, Cal.com, and Twilio operate under signed BAA, and patient data never trains AI models.
 - First 90 days are non-cancellable. After day 91, cancel with 30 days written notice.
 
+## What each module actually does
+
+- Voz: answers inbound calls, makes outbound follow-ups, books appointments on the calendar, captures messages when needed, and writes a transcript into the CRM. Bilingual by default — switches based on what the caller speaks first.
+- WhatsApp: replies to inbound chats, answers FAQs from the menu we trained, books appointments, and sends reminders the day before visits.
+- Messenger / web chat: same scope as WhatsApp but on Instagram DMs, Facebook Messenger, or the website widget. Not HIPAA-eligible.
+- CRM: stores leads, conversation summaries, and tags. Connects to Google Calendar, payment links, and the tools the business already uses.
+
+## After go-live
+
+We don't disappear after week two. The system reports weekly: calls handled, appointments booked, conversations that needed human follow-up. If something breaks, we fix it. If they want to change a flow, we change it — no extra fee inside the same module.
+
+## When the agent passes to a human
+
+The agent escalates when the conversation hits a flag configured during setup: urgent words ("emergency", "urgente"), pricing outside the standard menu, complaints, or anything outside the trained scope. Escalation goes by SMS, email, or a tagged note in the CRM — whichever the owner picks.
+
 ## What you don't know
 
 If they ask something specific you weren't told — custom integrations with a tool you don't recognize, edge-case pricing, regulatory questions outside HIPAA — say you don't have that detail, and offer to connect them with a human through the diagnostic.
@@ -101,6 +116,11 @@ export default {
       Vary: "Origin",
       ...(allowOrigin ? { "Access-Control-Allow-Origin": allowOrigin } : {}),
     };
+
+    const url = new URL(request.url);
+    if (request.method === "GET" && url.pathname === "/health") {
+      return json({ status: "ok" }, 200, corsHeaders);
+    }
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders });
@@ -190,6 +210,10 @@ export default {
     } catch {
       return json({ error: "Invalid JSON response from Anthropic" }, 502, corsHeaders);
     }
+
+    const cacheCreation = data?.usage?.cache_creation_input_tokens ?? 0;
+    const cacheRead     = data?.usage?.cache_read_input_tokens ?? 0;
+    console.log(`Cache → creation=${cacheCreation} tokens · read=${cacheRead} tokens`);
 
     const reply = Array.isArray(data.content)
       ? data.content

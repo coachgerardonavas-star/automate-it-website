@@ -1,5 +1,11 @@
 # Automate IT — Website (Astro)
 
+## Proyecto
+- **Nombre:** Automate IT — yourbizupgraded.com
+- **Repo:** coachgerardonavas-star/automate-it-website
+- **Rama principal:** `main`
+- **Deploy:** Cloudflare Pages — automático en cada push a `main`
+
 ## Quién soy
 CEO y dueño de Automate IT (yourbizupgraded.com). Empresa de automatización empresarial con agentes de IA en n8n.
 
@@ -16,6 +22,18 @@ Sitio web one-page en Astro. Sin scroll cinematográfico Three.js. Foco en clari
 - **Performance:** Lighthouse mobile baseline 98/96/100/100 (Performance / Accessibility / Best Practices / SEO). FCP 1.6s, LCP 2.0s, TBT 0ms, CLS 0. Optimizaciones aplicadas: favicon SVG (no PNG 783KB), mascotas a webp 320px (110KB → 18KB), Open Sans self-hosted vía `@fontsource/open-sans` (sin Google Fonts third-party), Manifold CF preload, prose-blog scoped + `:global()` para no bundle globalmente.
 - **Deploy:** Cloudflare Pages — push a `main` = deploy automático
 - Si en algún momento se considera agregar una librería JS pesada, **detenerse** y buscar primero solución CSS pura. Solo proponer la librería al CEO antes de instalar.
+
+## Integraciones activas
+- **HubSpot Forms API v3** — 3 formularios activos. Portal ID: `245810986`. Helper en `src/lib/hubspot.ts`.
+- **Cloudflare Worker `bit-chat-3126`** — chatbot BIT (Claude Haiku vía proxy seguro). Código en `workers/bit-chat-3126/`.
+- **Cloudflare Worker `stripe-checkout`** — pagos Stripe.
+- **Google Analytics 4** — `G-82JWGNDTLG`. Configurado en `src/config/site.ts`.
+- **Telegram interno** — Chat ID: `8348522203` (notificaciones internas).
+
+## Advertencia crítica — IntersectionObserver
+El `IntersectionObserver` que activa **todas** las animaciones `.reveal-on-scroll` del sitio vive dentro de `SeccionDolor.astro`. Si ese componente se elimina, se mueve fuera del homepage, o se condiciona su render, **todas** las animaciones de reveal del sitio dejarán de funcionar.
+
+**Antes de tocar `SeccionDolor.astro` (eliminarlo, moverlo, lazy-load, etc.):** mover primero el observer al `BaseLayout.astro` para que viva globalmente. No tocar el componente hasta hacer ese paso.
 
 ## Identidad de marca
 Tokens disponibles como utilidades Tailwind (`bg-brand-cyan`, etc.) y como CSS custom properties (`var(--color-cyan)`).
@@ -90,6 +108,15 @@ Widget flotante CSS-only + vanilla JS en `src/components/ChatbotWidget.astro`. I
 **No todos los clientes necesitan los 16+ agentes.** El sistema es modular según paquete (Starter / Growth / Scale / Enterprise).
 **No mencionar "16 agentes" como número fijo en copy.** Hablar de "equipos especializados" / "agentes" sin comprometer un número que no aplica a todos los paquetes. Solo en la card de Enterprise se puede referenciar "sistema multi-agente custom" o similar.
 
+## Reglas — qué NO hacer
+- **No WordPress, no Calendly, no widgets de chat de terceros.** Todo se hostea en Astro + Cloudflare.
+- **No Three.js, no GSAP.** Stack archivado en rama `three-js-archive`.
+- **No testimonios falsos.** La sección de testimonios no existe hasta tener clientes reales con autorización.
+- **No prometer "magia con IA".** Cada claim necesita mecanismo concreto o número verificado.
+- **No emojis decorativos.** Iconografía vectorial (Lucide) sí.
+- **No copy genérico** tipo "transformamos tu negocio con IA". Sustantivos concretos, verbos directos.
+- **No `WidthType.PERCENTAGE` en tablas docx** — usar siempre `DXA` (regla para generadores de informes/propuestas).
+
 ## Reglas de trabajo
 - **Mobile-first.** Diseña a 375px primero, escala a desktop.
 - **No pedir permiso** para naming de archivos, estructura de carpetas, clases Tailwind, orden de CSS.
@@ -105,22 +132,37 @@ Widget flotante CSS-only + vanilla JS en `src/components/ChatbotWidget.astro`. I
 ## Estructura de carpetas
 ```
 src/
-  components/      # Nav, Hero, Seccion*.astro, DiagnosticoForm, LegalContent
-  i18n/            # translations.ts (todas las strings ES/EN), utils.ts
+  components/      # Nav, Hero, Seccion*.astro, DiagnosticoForm, LegalContent, BitAvatar, ChatbotWidget
+  config/
+    site.ts        # GA_ID, HUBSPOT_*, Search Console — configuración global
+  content/
+    blog/          # posts Markdown (ver Astro Content Collections en Stack)
+    config.ts      # schema de la colección blog
+  i18n/
+    translations.ts  # TODAS las strings ES/EN — NUNCA hardcodear texto en componentes
+    utils.ts
   layouts/         # BaseLayout.astro (acepta lang prop)
+  lib/
+    hubspot.ts     # integración HubSpot Forms API v3
   pages/
     index.astro          # ES home
     diagnostico.astro    # ES /diagnostico
     privacidad.astro     # ES /privacidad
     terminos.astro       # ES /terminos
+    blog/                # ES /blog + /blog/[slug]
     en/
       index.astro        # EN home
       diagnostic.astro   # EN /en/diagnostic
       privacy.astro      # EN /en/privacy
       terms.astro        # EN /en/terms
+      blog/              # EN /en/blog + /en/blog/[slug]
   styles/          # global.css con tokens
 public/
   assets/          # video, logo, imágenes estáticas
+  fonts/           # manifold-cf-extrabold.woff2
+workers/
+  bit-chat-3126/   # Cloudflare Worker — chatbot BIT (Claude Haiku proxy)
+  health-check/    # Cloudflare Worker — health check
 astro.config.mjs
 tailwind.config.mjs
 ```
@@ -135,3 +177,11 @@ Skills instaladas globalmente desde [garrytan/gstack](https://github.com/garryta
 
 **Skills disponibles (cuando relevantes a la tarea):**
 `/office-hours`, `/plan-ceo-review`, `/plan-eng-review`, `/plan-design-review`, `/design-consultation`, `/design-shotgun`, `/design-html`, `/review`, `/ship`, `/land-and-deploy`, `/canary`, `/benchmark`, `/browse`, `/connect-chrome`, `/qa`, `/qa-only`, `/design-review`, `/setup-browser-cookies`, `/setup-deploy`, `/setup-gbrain`, `/retro`, `/investigate`, `/document-release`, `/codex`, `/cso`, `/autoplan`, `/plan-devex-review`, `/devex-review`, `/careful`, `/freeze`, `/guard`, `/unfreeze`, `/gstack-upgrade`, `/learn`.
+
+## Fuente de verdad
+Antes de tocar el sitio, leer en este orden:
+1. `WEBSITE_BRIEF_ASTRO_v2_2.md`
+2. `Manual_de_Marca_from_claude___Automate_IT.pdf`
+3. Este archivo `CLAUDE.md`
+
+Si algo en el código contradice el brief, **el brief gana** — salvo que el CEO actualice el brief explícitamente.
