@@ -74,6 +74,7 @@ Disponibles como utilidades Tailwind y/o CSS vars:
 3. **Sección Transformación / Cómo funciona** — Timeline de 4 pasos: Diagnóstico → Propuesta → Setup → Go-live.
 4. **Sección Agentes en acción** — Mockup terminal con typewriter CSS-only mostrando agentes operando.
 5. **Sección Servicios individuales** — 5 servicios con SKU (AIT-SVC-001 a 005) y precio individual.
+<!-- TODO: renombrar #growth → #professional antes de distribuir URLs públicas -->
 6. **Sección Paquetes** — Starter / Growth / Scale / Enterprise (cada tier con `id` para anchor: `#starter`, `#growth`, `#scale`, `#enterprise`).
 7. **Sección Para quién** — Grid por rubro.
 8. **CTA final** — Form inline 3 campos.
