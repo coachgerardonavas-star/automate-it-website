@@ -142,14 +142,12 @@ const websiteSchema = {
 
     {
       enableGA && (
-        <script
-          is:inline
-          define:vars={{ GA_ID }}
-        >{`
-          // Defer GA4 to keep gtag.js (~160KB third-party) out of the
-          // LCP / TBT critical path. Loads ~2s after window.load — well
-          // outside Lighthouse's measurement window for above-the-fold,
-          // still in time to track the visit before the user navigates.
+        <script is:inline define:vars={{ GA_ID }}>
+          // Defer GA4 ~2s after window.load to keep gtag.js (~160KB) out of
+          // the LCP / TBT critical path while still firing in time to track
+          // the visit. NOTE: script body must be plain JS — wrapping it in a
+          // {`...`} JSX template literal renders the GA loader as a string
+          // inside a block statement and it never executes.
           (function(){
             function loadGA(){
               var s = document.createElement('script');
@@ -168,7 +166,7 @@ const websiteSchema = {
               window.addEventListener('load', function(){ setTimeout(loadGA, 2000); });
             }
           })();
-        `}</script>
+        </script>
       )
     }
 
