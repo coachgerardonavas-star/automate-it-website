@@ -12,25 +12,50 @@ const t = copy.hero;
 const diagPath = "/diagnostico";
 ---
 
-<section class="relative min-h-[88vh] lg:min-h-[720px] flex items-center overflow-hidden">
+<section
+  class="relative min-h-[88vh] lg:min-h-[720px] flex items-center overflow-hidden"
+>
   <div class="absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/25 via-brand-bg to-brand-bg"></div>
-    <div class="absolute -top-40 -right-32 h-[40rem] w-[40rem] rounded-full bg-brand-cyan/10 blur-3xl"></div>
-    <div class="absolute bottom-0 -left-40 h-[30rem] w-[30rem] rounded-full bg-brand-blue/15 blur-3xl"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-brand-navy/25 via-brand-bg to-brand-bg"
+    >
+    </div>
+    <div
+      class="absolute -top-40 -right-32 h-[40rem] w-[40rem] rounded-full bg-brand-cyan/10 blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 -left-40 h-[30rem] w-[30rem] rounded-full bg-brand-blue/15 blur-3xl"
+    >
+    </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-12 items-center">
-    <div>
-      <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
+  <div
+    class="hero-spotlight absolute inset-0 pointer-events-none"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="relative z-10 max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-12 items-stretch"
+  >
+    <div class="flex flex-col justify-center">
+      <p
+        class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold"
+      >
         {t.eyebrow}
       </p>
 
-      <h1 class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl [filter:drop-shadow(0_0_40px_rgba(0,217,255,0.06))]">
+      <h1
+        class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl [filter:drop-shadow(0_0_40px_rgba(0,217,255,0.06))]"
+      >
         {t.h1Line1}<br />
         <span class="text-brand-cyan">{t.h1Line2}</span>
       </h1>
 
-      <p class="mt-6 max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed">
+      <p
+        class="mt-6 max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed"
+      >
         {t.subtitle}
       </p>
 
@@ -57,7 +82,9 @@ const diagPath = "/diagnostico";
         {t.microcopy}
       </p>
 
-      <ul class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-sm sm:text-xs text-white/70 max-w-3xl">
+      <ul
+        class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-sm sm:text-xs text-white/70 max-w-3xl"
+      >
         {
           t.trustBadges.map((badge) => (
             <li class="flex items-start gap-1.5 leading-snug">
@@ -70,25 +97,35 @@ const diagPath = "/diagnostico";
     </div>
 
     <div
-      class="hidden lg:flex items-center justify-center relative"
+      class="hidden lg:flex items-end justify-center relative"
       aria-hidden="true"
     >
       <img
-        src="/assets/mascota.webp"
+        src="/assets/bit-callme.png"
         alt=""
-        width="320"
-        height="320"
+        aria-hidden="true"
+        width="290"
+        height="592"
         loading="eager"
         decoding="async"
-        class="w-64 xl:w-80 h-auto object-contain hero-mascot"
+        class="w-56 lg:w-72 xl:w-80 h-auto object-contain hero-bit"
       />
     </div>
   </div>
 </section>
 
 <style>
-  .hero-mascot {
-    filter: drop-shadow(0 0 60px rgba(0, 217, 255, 0.2))
-      drop-shadow(0 0 20px rgba(0, 217, 255, 0.1));
+  .hero-spotlight {
+    z-index: 0;
+    background: radial-gradient(
+      ellipse 60% 50% at 30% 50%,
+      rgba(0, 217, 255, 0.07) 0%,
+      transparent 70%
+    );
+  }
+
+  .hero-bit {
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 50px rgba(0, 217, 255, 0.25));
   }
 </style>

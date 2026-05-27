@@ -7,6 +7,33 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].resultados;
+
+type CounterFormat = "int" | "k";
+
+function parseStat(stat: string): {
+  prefix: string;
+  target: number;
+  suffix: string;
+  format: CounterFormat;
+} {
+  const m = stat.match(/^(\$?)([0-9]+(?:\.[0-9]+)?)([%KMB]?)$/);
+  if (!m) return { prefix: "", target: 0, suffix: "", format: "int" };
+  const prefix = m[1] || "";
+  const numStr = m[2];
+  const suffix = m[3] || "";
+  let target = parseFloat(numStr);
+  let format: CounterFormat = "int";
+  if (suffix === "K") {
+    target = target * 1000;
+    format = "k";
+  }
+  return { prefix, target, suffix, format };
+}
+
+const parsedCards = t.cards.map((card) => ({
+  ...card,
+  ...parseStat(card.stat),
+}));
 ---
 
 <section
@@ -25,14 +52,17 @@ const t = translations[lang].resultados;
       </p>
     </header>
 
-    <div
-      class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl"
-    >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl">
       {
-        t.cards.map((card) => (
+        parsedCards.map((card) => (
           <article class="flex flex-col p-7 sm:p-8 rounded-md bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors duration-200 ease-brand">
             <p class="font-heading font-extrabold text-6xl sm:text-7xl leading-none text-[#00D9FF] mb-5 tracking-tight">
-              {card.stat}
+              <span aria-hidden="true">{card.prefix}</span><span
+                data-counter
+                data-counter-value={card.target}
+                data-counter-format={card.format}
+                aria-label={card.stat}
+              >0</span><span aria-hidden="true">{card.suffix}</span>
             </p>
             <p class="text-base sm:text-lg text-white/90 leading-snug">
               {card.consequence}
@@ -68,3 +98,59 @@ const t = translations[lang].resultados;
     }
   }
 </style>
+
+<script>
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  function formatValue(value: number, format: string): string {
+    if (format === "k") return String(Math.round(value / 1000));
+    return String(Math.round(value));
+  }
+
+  function animateCounter(el: HTMLElement) {
+    if (el.dataset.animated === "true") return;
+    el.dataset.animated = "true";
+
+    const target = parseFloat(el.dataset.counterValue || "0");
+    const format = el.dataset.counterFormat || "int";
+
+    if (reduceMotion) {
+      el.textContent = formatValue(target, format);
+      return;
+    }
+
+    const duration = 1800;
+    const start = performance.now();
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = formatValue(target * eased, format);
+      if (t < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const counters = document.querySelectorAll<HTMLElement>("[data-counter]");
+
+  if (reduceMotion) {
+    counters.forEach(animateCounter);
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    counters.forEach((el) => observer.observe(el));
+  }
+</script>

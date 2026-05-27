@@ -63,6 +63,13 @@ export const translations = {
       disclaimer: "Datos de la industria de servicios en EE.UU., 2024–2026.",
     },
 
+    ribbon: {
+      bigPart: "5.2 millones",
+      restPart:
+        " de personas hablan español en casa en Florida. Muchas llaman a negocios que no pueden atenderlas en inglés. Tu agente sí puede.",
+      source: "Fuente: MPI Data Hub / NIWAP 2024",
+    },
+
     banda: {
       stats: [
         {
@@ -721,6 +728,13 @@ export const translations = {
         },
       ],
       disclaimer: "U.S. service industry data, 2024–2026.",
+    },
+
+    ribbon: {
+      bigPart: "5.2 million",
+      restPart:
+        " people speak Spanish at home in Florida. Many call businesses that can't serve them in English. Your agent can.",
+      source: "Source: MPI Data Hub / NIWAP 2024",
     },
 
     banda: {
