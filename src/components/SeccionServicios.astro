@@ -99,10 +99,10 @@ const serviceSchemas = t.plans.map((plan, i) => {
           <article
             id={`plan-${plan.sku.toLowerCase()}`}
             class:list={[
-              "relative flex flex-col p-7 sm:p-8 rounded-md bg-white/[0.025] border transition-all duration-200 ease-brand scroll-mt-20",
+              "relative flex flex-col p-7 sm:p-8 rounded-md bg-white/[0.025] scroll-mt-20",
               plan.badge
-                ? "border-brand-lime/40 hover:border-brand-lime"
-                : "border-white/5 hover:border-brand-cyan/40",
+                ? "border border-brand-lime/40 hover:border-brand-lime transition-all duration-200 ease-brand"
+                : "card-glow",
             ]}
           >
             {plan.badge && (
@@ -184,7 +184,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
         {
           t.modules.map((mod) => (
-            <article class="flex flex-col p-6 rounded-md bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-all duration-200 ease-brand">
+            <article class="card-glow flex flex-col p-6 rounded-md bg-white/[0.025]">
               <div class="flex items-center justify-between mb-3">
                 <p class="font-mono text-xs sm:text-[10px] tracking-widest uppercase text-white/45">
                   {mod.sku}

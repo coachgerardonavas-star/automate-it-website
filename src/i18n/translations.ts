@@ -391,64 +391,43 @@ export const translations = {
 
     paraQuien: {
       eyebrow: "Para quién es esto",
-      titleLine1: "Si tu negocio depende de citas, leads o follow-up,",
-      titleLine2: "esto es para ti.",
+      titleLine1: "Si las llamadas te llegan a ti",
+      titleLine2: "y eres tú quien tiene que contestar.",
       subtitle:
-        "Construido para dueños de negocios de servicios con equipos chicos. Empezamos por el dolor más caro y escalamos cuando ves resultados.",
+        "Hecho para dueños de negocios donde el primer contacto con el cliente llega por teléfono o WhatsApp, y no hay quien lo agarre a tiempo. Si te ves en estas situaciones, empezamos por el dolor más caro.",
       footer:
-        "¿No estás en esta lista? Si tu operación tiene calendario, leads y follow-up, probablemente podemos ayudarte. Cuéntanos en el diagnóstico.",
-      painLabel: "Tu día se va en",
+        "Esto no es para ti si ya tienes recepcionista a tiempo completo, si tu equipo pasa de 15 personas con procesos cerrados, o si el primer contacto con tus clientes no llega por teléfono ni WhatsApp. Cualquier otro caso, hablemos en el diagnóstico.",
+      painLabel: "Lo que pasa hoy",
       solutionLabel: "Empezamos por",
       recommendedLabel: "Recomendado:",
       rubros: [
         {
-          name: "Dental",
-          pain: "Pacientes que no confirman cita y huecos en la agenda.",
+          name: "Contestar es tu cuello de botella",
+          pain: "Las llamadas y los WhatsApp llegan mientras estás atendiendo. O contestas tarde o se quedan sin respuesta.",
           solution:
-            "Recordatorios + reagendamiento + lista de espera automática que llena los huecos.",
+            "Recepción 24/7 que contesta de inmediato, califica al cliente y agenda en tu calendario.",
           tier: "Plan Starter",
         },
         {
-          name: "Legal",
-          pain: "Consultas que se dispersan en email y casos sin triage.",
+          name: "Eres el dueño y el recepcionista",
+          pain: "Cada lead nuevo pasa por ti. Pierdes horas del día contestando antes de cobrar la primera factura.",
           solution:
-            "Revisión de consultas, agenda de llamadas y seguimiento al cliente entre etapas.",
+            "Un agente toma el primer contacto, filtra curiosos y solo te pasa los clientes listos para hablar.",
+          tier: "Plan Starter",
+        },
+        {
+          name: "Te llaman en inglés y respondes a medias",
+          pain: "Tus clientes angloparlantes cuelgan o se van con la competencia porque la primera conversación se siente forzada.",
+          solution:
+            "Atención bilingüe que detecta el idioma y responde con la misma claridad en inglés que en español.",
           tier: "Plan Professional",
         },
         {
-          name: "Construcción y Plomería",
-          pain: "Llamadas perdidas mientras estás en obra.",
+          name: "Pierdes clientes que nunca supiste que existieron",
+          pain: "No tienes registro de cuántas llamadas o mensajes se quedaron sin contestar mientras trabajabas.",
           solution:
-            "Recepción 24/7, cotización rápida según tipo de trabajo, agenda en tu calendario.",
-          tier: "Plan Starter",
-        },
-        {
-          name: "Salón y Spa",
-          pain: "No-shows, cancelaciones y huecos imposibles de llenar.",
-          solution:
-            "Confirmaciones automáticas, lista de espera y reagendamiento en un solo flujo.",
-          tier: "Plan Starter",
-        },
-        {
-          name: "Inmobiliaria",
-          pain: "Leads que se enfrían en menos de 24 horas si no respondes.",
-          solution:
-            "Calificación inicial, tour virtual o presencial agendado, nurture multi-touch.",
+            "Cada interacción queda registrada con quién, cuándo y qué pidió, y un follow-up automático cierra el lazo.",
           tier: "Plan Professional",
-        },
-        {
-          name: "Salud y terapia",
-          pain: "Admin que come horas que deberías estar atendiendo pacientes.",
-          solution:
-            "Agenda, recordatorios, intake forms previo a la sesión y cobro recurrente.",
-          tier: "Plan Professional",
-        },
-        {
-          name: "Daycares / VPK",
-          pain: "Padres llamando todo el día, pagos manuales, listas de espera en papel.",
-          solution:
-            "Recepción IA que contesta, agenda tours, confirma pagos y gestiona lista de espera.",
-          tier: "Plan Starter",
         },
       ],
     },
@@ -1049,64 +1028,43 @@ export const translations = {
 
     paraQuien: {
       eyebrow: "Who it's for",
-      titleLine1: "If your business runs on appointments, leads, or follow-up,",
-      titleLine2: "this is for you.",
+      titleLine1: "If the calls come to you",
+      titleLine2: "and you're the one who has to answer.",
       subtitle:
-        "Built for service business owners with small teams. We start with the most expensive pain and scale when you see results.",
+        "Built for business owners where the first customer contact comes in by phone or WhatsApp, and no one is there to catch it in time. If any of these match your day, we start with the most expensive pain first.",
       footer:
-        "Not on this list? If your operation has a calendar, leads, and follow-up, we can probably help. Tell us in the diagnostic.",
-      painLabel: "Your day is lost to",
+        "This isn't for you if you already have a full-time receptionist, if your team is past 15 people with locked-down processes, or if first contact with your customers doesn't come through phone or WhatsApp. Anything else, let's talk in the diagnostic.",
+      painLabel: "What's happening now",
       solutionLabel: "We start with",
       recommendedLabel: "Recommended:",
       rubros: [
         {
-          name: "Dental",
-          pain: "Patients who don't confirm appointments and gaps in the schedule.",
+          name: "Answering is your bottleneck",
+          pain: "Calls and WhatsApp come in while you're with a customer. Either you reply late or they go unanswered.",
           solution:
-            "Reminders + reschedule + automatic waitlist that fills the gaps.",
+            "24/7 reception that answers instantly, qualifies the customer, and books in your calendar.",
           tier: "Plan Starter",
         },
         {
-          name: "Legal",
-          pain: "Inquiries scattered across email and cases without triage.",
+          name: "You're the owner and the receptionist",
+          pain: "Every new lead runs through you. Hours of the day go to first contact before you bill a single client.",
           solution:
-            "Inquiry triage, call scheduling, and client follow-up between stages.",
+            "An agent handles the first touch, filters out tire-kickers, and only routes customers ready to talk.",
+          tier: "Plan Starter",
+        },
+        {
+          name: "They call in English and you answer halfway",
+          pain: "Your English-speaking customers hang up or go to a competitor because the first conversation feels forced.",
+          solution:
+            "Bilingual reception that detects the language and responds with the same clarity in English as in Spanish.",
           tier: "Plan Professional",
         },
         {
-          name: "Construction & Plumbing",
-          pain: "Calls missed while you're on the job site.",
+          name: "You're losing customers you never knew about",
+          pain: "You have no record of how many calls or messages went unanswered while you were working.",
           solution:
-            "24/7 reception, fast quote based on job type, scheduled in your calendar.",
-          tier: "Plan Starter",
-        },
-        {
-          name: "Salon & Spa",
-          pain: "No-shows, cancellations, and gaps that are hard to fill.",
-          solution:
-            "Automatic confirmations, waitlist, and rescheduling in one flow.",
-          tier: "Plan Starter",
-        },
-        {
-          name: "Real Estate",
-          pain: "Leads that go cold in less than 24 hours if you don't reply.",
-          solution:
-            "Initial qualification, virtual or in-person tour booking, multi-touch nurture.",
+            "Every interaction is logged with who, when, and what they asked, and an automatic follow-up closes the loop.",
           tier: "Plan Professional",
-        },
-        {
-          name: "Health & Therapy",
-          pain: "Admin work eating into hours you should be seeing patients.",
-          solution:
-            "Scheduling, reminders, pre-session intake forms, and recurring billing.",
-          tier: "Plan Professional",
-        },
-        {
-          name: "Daycares / VPK",
-          pain: "Parents calling all day, manual payments, waitlists on paper.",
-          solution:
-            "AI reception that answers, schedules tours, confirms payments, and manages the waitlist.",
-          tier: "Plan Starter",
         },
       ],
     },
