@@ -19,52 +19,76 @@ const diagPath = "/diagnostico";
     <div class="absolute bottom-0 -left-40 h-[30rem] w-[30rem] rounded-full bg-brand-blue/15 blur-3xl"></div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full">
-    <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
-      {t.eyebrow}
-    </p>
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-12 items-center">
+    <div>
+      <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
+        {t.eyebrow}
+      </p>
 
-    <h1 class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl [filter:drop-shadow(0_0_40px_rgba(0,217,255,0.06))]">
-      {t.h1Line1}<br />
-      <span class="text-brand-cyan">{t.h1Line2}</span>
-    </h1>
+      <h1 class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl [filter:drop-shadow(0_0_40px_rgba(0,217,255,0.06))]">
+        {t.h1Line1}<br />
+        <span class="text-brand-cyan">{t.h1Line2}</span>
+      </h1>
 
-    <p class="mt-6 max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed">
-      {t.subtitle}
-    </p>
+      <p class="mt-6 max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed">
+        {t.subtitle}
+      </p>
 
-    <ul class="mt-8 space-y-4 sm:space-y-5 max-w-2xl">
-      {
-        t.bullets.map((bullet) => (
-          <li class="text-base sm:text-lg text-white/90 leading-relaxed">
-            {bullet}
-          </li>
-        ))
-      }
-    </ul>
+      <ul class="mt-8 space-y-4 sm:space-y-5 max-w-2xl">
+        {
+          t.bullets.map((bullet) => (
+            <li class="text-base sm:text-lg text-white/90 leading-relaxed">
+              {bullet}
+            </li>
+          ))
+        }
+      </ul>
 
-    <div class="mt-10">
-      <a
-        href={diagPath}
-        class="btn-cta inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
-      >
-        {t.ctaPrimary}
-      </a>
+      <div class="mt-10">
+        <a
+          href={diagPath}
+          class="btn-cta inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
+        >
+          {t.ctaPrimary}
+        </a>
+      </div>
+
+      <p class="mt-8 text-sm sm:text-base text-white/55 max-w-md">
+        {t.microcopy}
+      </p>
+
+      <ul class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-sm sm:text-xs text-white/70 max-w-3xl">
+        {
+          t.trustBadges.map((badge) => (
+            <li class="flex items-start gap-1.5 leading-snug">
+              <span aria-hidden="true">{badge.icon}</span>
+              <span>{badge.text}</span>
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
-    <p class="mt-8 text-sm sm:text-base text-white/55 max-w-md">
-      {t.microcopy}
-    </p>
-
-    <ul class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-sm sm:text-xs text-white/70 max-w-3xl">
-      {
-        t.trustBadges.map((badge) => (
-          <li class="flex items-start gap-1.5 leading-snug">
-            <span aria-hidden="true">{badge.icon}</span>
-            <span>{badge.text}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <div
+      class="hidden lg:flex items-center justify-center relative"
+      aria-hidden="true"
+    >
+      <img
+        src="/assets/mascota.webp"
+        alt=""
+        width="320"
+        height="320"
+        loading="eager"
+        decoding="async"
+        class="w-64 xl:w-80 h-auto object-contain hero-mascot"
+      />
+    </div>
   </div>
 </section>
+
+<style>
+  .hero-mascot {
+    filter: drop-shadow(0 0 60px rgba(0, 217, 255, 0.2))
+      drop-shadow(0 0 20px rgba(0, 217, 255, 0.1));
+  }
+</style>

@@ -1,54 +1,35 @@
 ---
-import type { Lang } from "../i18n/translations";
+import { translations, type Lang } from "../i18n/translations";
 
 interface Props {
   lang?: Lang;
 }
 
 const { lang = "es" } = Astro.props;
-
-const heuristics = {
-  es: [
-    { stat: "3 seg", context: "Tiempo máximo de respuesta. Siempre." },
-    { stat: "24/7", context: "Sin días festivos. Sin llamadas perdidas." },
-    {
-      stat: "$328/mes",
-      context: "vs $2,917/mes de recepcionista bilingüe en Florida.",
-    },
-    {
-      stat: "Inglés y español",
-      context:
-        "Tu agente contesta en los dos idiomas. El dueño no tiene que estar.",
-    },
-  ],
-  en: [
-    { stat: "3 sec", context: "Maximum response time. Every time." },
-    { stat: "24/7", context: "No holidays. No missed calls." },
-    {
-      stat: "$328/mo",
-      context: "vs $2,917/mo for a bilingual receptionist in Florida.",
-    },
-    {
-      stat: "English & Spanish",
-      context:
-        "Your agent answers in both languages. You don't have to be there.",
-    },
-  ],
-}[lang];
+const stats = translations[lang].banda.stats;
 ---
 
 <section
-  class="py-16 bg-[#050A18] border-t border-b border-brand-cyan/15 reveal-on-scroll"
+  class="py-20 sm:py-24 bg-[#020714] border-t border-b border-brand-cyan/15 reveal-on-scroll"
 >
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 sm:gap-x-10"
+    >
       {
-        heuristics.map((item) => (
-          <div class="flex flex-col">
-            <p class="font-heading font-extrabold text-5xl sm:text-6xl leading-[0.95] tracking-tight text-brand-cyan mb-3 sm:mb-4 break-words">
+        stats.map((item) => (
+          <div
+            class="flex flex-col"
+            data-source={item.source}
+            title={`Fuente: ${item.source}`}
+          >
+            <p class="font-heading font-extrabold text-6xl sm:text-7xl leading-[0.95] tracking-tight text-brand-cyan mb-4 break-words">
               {item.stat}
             </p>
-            <p class="text-sm text-white/70 leading-relaxed">{item.context}</p>
+            <p class="text-sm text-[#97A0AF] leading-relaxed">{item.label}</p>
+            <p class="mt-3 text-[10px] uppercase tracking-[0.18em] text-white/30">
+              {item.source}
+            </p>
           </div>
         ))
       }

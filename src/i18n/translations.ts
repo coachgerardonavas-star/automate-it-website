@@ -42,31 +42,54 @@ export const translations = {
     },
 
     resultados: {
-      eyebrow: "Lo que nos dicen después de la primera semana",
-      subtitle: "Resultados típicos de nuestros clientes en Florida",
+      eyebrow: "Lo que pasa cuando no contestas",
+      subtitle:
+        "La consecuencia es inmediata y medible. No es opinión — son datos de la industria.",
       cards: [
         {
-          icon: "📞",
-          quote:
-            "Mis clientes ya no se van con la competencia. Alguien siempre contesta.",
+          stat: "62%",
+          consequence: "Llaman al siguiente negocio en Google. Inmediatamente.",
         },
         {
-          icon: "🕐",
-          quote:
-            "Me libero horas cada semana que antes perdía contestando llamadas de rutina.",
+          stat: "85%",
+          consequence: "No vuelven a intentarlo. Nunca.",
         },
         {
-          icon: "🌐",
-          quote:
-            "Mis clientes en inglés se atienden solos. Yo me enfoco en el trabajo.",
-        },
-        {
-          icon: "😴",
-          quote:
-            "El viernes en la noche recibí una cita agendada. Yo estaba dormido.",
+          stat: "$126K",
+          consequence:
+            "Es lo que pierde un negocio promedio al año. Solo en llamadas.",
         },
       ],
-      disclaimer: "Resultados típicos. Cada negocio es distinto.",
+      disclaimer: "Datos de la industria de servicios en EE.UU., 2024–2026.",
+    },
+
+    banda: {
+      stats: [
+        {
+          stat: "85%",
+          label:
+            "de las personas que no logran contactar un negocio no vuelven a llamar",
+          source: "PATLive / SchedulingKit 2026",
+        },
+        {
+          stat: "62%",
+          label:
+            "de los negocios pequeños no contestan la mayoría de sus llamadas",
+          source: "411 Locals / getaira.io 2026",
+        },
+        {
+          stat: "5.2M",
+          label:
+            "personas hablan español en casa en Florida — muchas esperan que alguien conteste en inglés",
+          source: "MPI Data Hub / NIWAP 2024",
+        },
+        {
+          stat: "$126K",
+          label:
+            "en ingresos pierde al año el negocio promedio por llamadas no contestadas",
+          source: "SchedulingKit / Dialzara 2026",
+        },
+      ],
     },
 
     dolor: {
@@ -679,31 +702,52 @@ export const translations = {
     },
 
     resultados: {
-      eyebrow: "What we hear after the first week",
-      subtitle: "Typical results from our Florida clients",
+      eyebrow: "What happens when you don't answer",
+      subtitle:
+        "The consequence is immediate and measurable. Not opinion — industry data.",
       cards: [
         {
-          icon: "📞",
-          quote:
-            "My clients stopped going to competitors. Someone always picks up.",
+          stat: "62%",
+          consequence: "Call the next business on Google. Immediately.",
         },
         {
-          icon: "🕐",
-          quote:
-            "I get back hours every week I used to lose answering routine calls.",
+          stat: "85%",
+          consequence: "Never try again. Ever.",
         },
         {
-          icon: "🌐",
-          quote:
-            "My English-speaking clients handle themselves. I focus on the work.",
-        },
-        {
-          icon: "😴",
-          quote:
-            "Friday night I woke up to a booked appointment. I was already asleep.",
+          stat: "$126K",
+          consequence:
+            "Is what the average business loses per year. From missed calls alone.",
         },
       ],
-      disclaimer: "Typical results. Every business is different.",
+      disclaimer: "U.S. service industry data, 2024–2026.",
+    },
+
+    banda: {
+      stats: [
+        {
+          stat: "85%",
+          label: "of callers who don't reach a business won't call back",
+          source: "PATLive / SchedulingKit 2026",
+        },
+        {
+          stat: "62%",
+          label: "of small businesses miss most of their incoming calls",
+          source: "411 Locals / getaira.io 2026",
+        },
+        {
+          stat: "5.2M",
+          label:
+            "people speak Spanish at home in Florida — many need someone to answer in English",
+          source: "MPI Data Hub / NIWAP 2024",
+        },
+        {
+          stat: "$126K",
+          label:
+            "average annual revenue lost by small businesses from missed calls",
+          source: "SchedulingKit / Dialzara 2026",
+        },
+      ],
     },
 
     dolor: {
