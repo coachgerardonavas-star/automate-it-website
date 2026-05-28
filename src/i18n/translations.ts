@@ -64,10 +64,10 @@ export const translations = {
     },
 
     ribbon: {
-      bigPart: "5.2 millones",
-      restPart:
-        " de personas hablan español en casa en Florida. Muchas llaman a negocios que no pueden atenderlas en inglés. Tu agente sí puede.",
-      source: "Fuente: MPI Data Hub / NIWAP 2024",
+      message:
+        "Cada vez que llama un cliente en inglés y no puedes atender — ese cliente se va con la competencia. Tu agente contesta en inglés aunque tú no estés.",
+      source:
+        "Fuente: MPI Data Hub / NIWAP 2024 · 44.9% de hispanohablantes en Florida con dominio limitado del inglés",
     },
 
     banda: {
@@ -313,7 +313,7 @@ export const translations = {
       examples: [
         { label: "Salón de belleza · Solo WhatsApp", total: "$198/mes", detail: "Starter $99 + WhatsApp $99" },
         { label: "Terapeuta SLP · Voz HIPAA", total: "$328/mes", detail: "Professional $179 + Voz $149" },
-        { label: "Consultora · Voz + WhatsApp + CRM", total: "$446/mes", detail: "Starter $99 + $149 + $99 + $99" },
+        { label: "Realtor · Voz + WhatsApp + CRM", total: "$446/mes", detail: "Starter $99 + Voz $149 + WhatsApp $99 + CRM $99" },
         { label: "Clínica HIPAA · Voz + WhatsApp + CRM", total: "$526/mes", detail: "Professional $179 + $149 + $99 + $99" },
       ],
       cta: "Agenda tu diagnóstico gratuito",
@@ -731,10 +731,10 @@ export const translations = {
     },
 
     ribbon: {
-      bigPart: "5.2 million",
-      restPart:
-        " people speak Spanish at home in Florida. Many call businesses that can't serve them in English. Your agent can.",
-      source: "Source: MPI Data Hub / NIWAP 2024",
+      message:
+        "Every time an English-speaking customer calls and you can't answer — they go to your competitor. Your agent handles it in English, even when you're not available.",
+      source:
+        "Source: MPI Data Hub / NIWAP 2024 · 44.9% of Florida Spanish speakers have limited English proficiency",
     },
 
     banda: {
@@ -978,7 +978,7 @@ export const translations = {
       examples: [
         { label: "Beauty salon · WhatsApp only", total: "$198/mo", detail: "Starter $99 + WhatsApp $99" },
         { label: "SLP Therapist · HIPAA Voice", total: "$328/mo", detail: "Professional $179 + Voice $149" },
-        { label: "Consultant · Voice + WhatsApp + CRM", total: "$446/mo", detail: "Starter $99 + $149 + $99 + $99" },
+        { label: "Realtor · Voice + WhatsApp + CRM", total: "$446/mo", detail: "Starter $99 + Voice $149 + WhatsApp $99 + CRM $99" },
         { label: "HIPAA Clinic · Voice + WhatsApp + CRM", total: "$526/mo", detail: "Professional $179 + $149 + $99 + $99" },
       ],
       cta: "Book your free diagnosis",
