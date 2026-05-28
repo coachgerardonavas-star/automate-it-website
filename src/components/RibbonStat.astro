@@ -7,14 +7,32 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].ribbon;
+
+const messageParts =
+  lang === "es"
+    ? {
+        before:
+          "Cada vez que llama un cliente en inglés y no puedes atender — ",
+        highlight: "ese cliente se va con la competencia",
+        after: ". Tu agente contesta en inglés aunque tú no estés.",
+      }
+    : {
+        before:
+          "Every time an English-speaking customer calls and you can't answer — ",
+        highlight: "they go to your competitor",
+        after:
+          ". Your agent handles it in English, even when you're not available.",
+      };
 ---
 
 <section class="ribbon-stat reveal-on-scroll py-10">
-  <div class="max-w-2xl mx-auto px-5 lg:px-8 text-center">
+  <div class="max-w-3xl mx-auto px-5 lg:px-8 text-center">
     <p
-      class="text-base sm:text-lg text-gray-200 leading-relaxed font-semibold"
+      class="text-xl sm:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-semibold"
     >
-      {t.message}
+      {messageParts.before}<span class="text-[#00D9FF] font-bold"
+        >{messageParts.highlight}</span
+      >{messageParts.after}
     </p>
     <p
       class="text-[10px] text-gray-500 mt-4 uppercase tracking-[0.18em] leading-relaxed"

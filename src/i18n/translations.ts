@@ -64,8 +64,6 @@ export const translations = {
     },
 
     ribbon: {
-      message:
-        "Cada vez que llama un cliente en inglés y no puedes atender — ese cliente se va con la competencia. Tu agente contesta en inglés aunque tú no estés.",
       source:
         "Fuente: MPI Data Hub / NIWAP 2024 · 44.9% de hispanohablantes en Florida con dominio limitado del inglés",
     },
@@ -731,8 +729,6 @@ export const translations = {
     },
 
     ribbon: {
-      message:
-        "Every time an English-speaking customer calls and you can't answer — they go to your competitor. Your agent handles it in English, even when you're not available.",
       source:
         "Source: MPI Data Hub / NIWAP 2024 · 44.9% of Florida Spanish speakers have limited English proficiency",
     },
