@@ -13,7 +13,7 @@ const diagPath = "/diagnostico";
 ---
 
 <section
-  class="relative min-h-[88vh] lg:min-h-[520px] flex items-center overflow-hidden"
+  class="relative min-h-[88vh] lg:min-h-[720px] flex items-center overflow-hidden"
 >
   <div class="absolute inset-0 -z-10" aria-hidden="true">
     <div
@@ -126,5 +126,15 @@ const diagPath = "/diagnostico";
 
   .hero-bit {
     filter: drop-shadow(0 0 60px rgba(0, 217, 255, 0.15));
+    -webkit-mask-image: radial-gradient(
+      ellipse 85% 85% at 50% 50%,
+      black 40%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 85% 85% at 50% 50%,
+      black 40%,
+      transparent 100%
+    );
   }
 </style>
