@@ -125,7 +125,7 @@ Copy, contexto y objetivo de cada publicación. Produce prompts de imagen para M
 - Investiga con web search antes de escribir.
 - Escribe en Markdown siguiendo la estructura de Astro Content Collections.
 - Hace commit al repositorio vía git CLI: https://github.com/coachgerardonavas-star/automate-it-website.git
-- Ruta local: c:\Users\Gerardo\Documents\automate-it-website
+- Ruta local: C:\automate-it-website
 - Cada post incluye: título con keyword principal, meta description, estructura H2/H3 coherente, CTA al final.
 
 4. SEO Y GEO — revisión y mejora continua
