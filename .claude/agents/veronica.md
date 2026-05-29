@@ -49,16 +49,23 @@ Paleta oficial:
 - Base: #FFFFFF
 - Fondo oscuro: #050A18
 
-Catálogo de servicios:
-- AIT-SVC-001 Agente de Voz IA Inbound $299/mes
-- AIT-SVC-002 Agente de Voz IA Outbound $399/mes
-- AIT-SVC-003 Chatbot IA WhatsApp $199/mes
-- AIT-SVC-004 CRM + Automatizaciones $249/mes
-- AIT-SVC-005 Marketing Automation $229/mes
-- STARTER $449/mes
-- GROWTH $649/mes (más popular)
-- SCALE $899/mes (mejor valor)
-- ENTERPRISE precio según alcance
+Catálogo — modelo "plan base + módulos de canal" (fuente de verdad: el sitio en vivo):
+
+Planes base:
+- Plan Starter $99/mes (setup único $199) — negocios generales, sin HIPAA.
+- Plan Professional $179/mes (setup único $349) — sector salud, HIPAA-compliant.
+
+Módulos de canal (se suman a cualquier plan; cada módulo incluye 300 minutos o mensajes al mes):
+- Voz (Retell AI) +$149/mes — contesta llamadas 24/7 y agenda en tiempo real.
+- WhatsApp +$99/mes — agenda citas o captura leads por WhatsApp 24/7.
+- Messenger / Web chat +$79/mes — chatbot en Facebook Messenger o en el sitio (no recomendado con Plan Professional).
+- CRM & Leads +$99/mes — captura estructurada de leads (HubSpot en Starter, Airtable BAA en Professional).
+
+Ejemplos de precio total:
+- Salón de belleza · Solo WhatsApp: $198/mes (Starter $99 + WhatsApp $99).
+- Terapeuta SLP · Voz HIPAA: $328/mes (Professional $179 + Voz $149).
+- Realtor · Voz + WhatsApp + CRM: $446/mes (Starter $99 + Voz $149 + WhatsApp $99 + CRM $99).
+- Clínica HIPAA · Voz + WhatsApp + CRM: $526/mes (Professional $179 + $149 + $99 + $99).
 
 PERFIL DEL FUNDADOR — MATERIAL AUTORIZADO
 Gerardo Navas. Venezolano. Más de 10 años en Florida. Llegó sin red ni contactos, construyendo desde cero. Se capacitó como Data Analyst y fundó Automate IT en vez de buscar empleo. La conversación que lo activó fue con su esposa — ella lo empujó a apostar por algo propio.

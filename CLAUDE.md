@@ -80,9 +80,10 @@ Disponibles como utilidades Tailwind y/o CSS vars:
 8. **CTA final** — Form inline 3 campos.
 9. **Footer** — Email, switcher idioma activo, links legales (con noindex hasta revisión legal).
 
-### Catálogo de dos capas
-- **Servicios individuales** (Sec 5): contratables sueltos. Precios desde $199/mes hasta $399/mes.
-- **Paquetes** (Sec 6): bundles con descuento implícito + servicios adicionales (Starter $449 / Growth $649 / Scale $899 / Enterprise cotización).
+### Catálogo — plan base + módulos de canal (fuente de verdad: el sitio en vivo)
+- **Planes base:** Plan Starter $99/mes (setup único $199, negocios generales sin HIPAA) · Plan Professional $179/mes (setup único $349, sector salud HIPAA-compliant).
+- **Módulos de canal** (se suman a cualquier plan; cada módulo incluye 300 min/mensajes al mes): Voz (Retell AI) +$149/mes · WhatsApp +$99/mes · Messenger / Web chat +$79/mes (no recomendado con Professional) · CRM & Leads +$99/mes.
+- **Ejemplos de precio total:** Solo WhatsApp $198/mes · Voz HIPAA $328/mes · Voz+WhatsApp+CRM $446/mes · Clínica HIPAA Voz+WhatsApp+CRM $526/mes.
 
 ## BIT — Mascota / copiloto del sistema
 BIT es la cara visible del sistema multi-agente. Aparece en:
