@@ -69,16 +69,16 @@ Disponibles como utilidades Tailwind y/o CSS vars:
 - Si en el futuro se actualiza el archivo de fuente, debe quedar en `public/fonts/manifold-cf-extrabold.woff2`. El @font-face vive en `src/styles/global.css` con `font-display: swap`.
 
 ## Sitemap (home one-page)
-1. **Hero** — Tagline "Your business, upgraded." + H1 + CTAs + línea "Conoce a BIT" con anchor a `#scale`.
-2. **Sección Dolor** — 3 cards cualitativas. Sin números no verificados.
-3. **Sección Transformación / Cómo funciona** — Timeline de 4 pasos: Diagnóstico → Propuesta → Setup → Go-live.
-4. **Sección Agentes en acción** — Mockup terminal con typewriter CSS-only mostrando agentes operando.
-5. **Sección Servicios individuales** — 5 servicios con SKU (AIT-SVC-001 a 005) y precio individual.
-<!-- TODO: renombrar #growth → #professional antes de distribuir URLs públicas -->
-6. **Sección Paquetes** — Starter / Growth / Scale / Enterprise (cada tier con `id` para anchor: `#starter`, `#growth`, `#scale`, `#enterprise`).
-7. **Sección Para quién** — Grid por rubro.
-8. **CTA final** — Form inline 3 campos.
-9. **Footer** — Email, switcher idioma activo, links legales (con noindex hasta revisión legal).
+1. **Hero** — Tagline "Your business, upgraded." + H1 + CTA principal a `/diagnostico` + línea "Conoce a BIT".
+2. **Sección Resultados** (`#resultados`) — métricas/proof points (`SeccionResultados.astro`).
+3. **Sección Dolor** (`#el-dolor`) — 3 cards cualitativas. Sin números no verificados.
+4. **Sección Transformación / Cómo funciona** (`#como-funciona`) — Timeline de 4 pasos: Diagnóstico → Propuesta → Setup → Go-live.
+5. **Sección Agentes en acción** (`#agentes`) — Mockup terminal con typewriter CSS-only mostrando agentes operando.
+6. **Sección Planes y canales** (`#planes`, `SeccionServicios.astro`) — plan base (Starter / Professional) + módulos de canal. Único anchor de precios.
+7. **Sección FAQ** (`#faq`, `SeccionPaquetes.astro`) — preguntas frecuentes. (El componente conserva el nombre `SeccionPaquetes` por histórico; hoy renderiza el FAQ.)
+8. **Sección Para quién** (`#para-quien`) — Grid por rubro.
+9. **CTA final** (`#cta-form`) — Form inline 3 campos.
+10. **Footer** — Email, switcher idioma activo, links legales (con noindex hasta revisión legal).
 
 ### Catálogo — plan base + módulos de canal (fuente de verdad: el sitio en vivo)
 - **Planes base:** Plan Starter $99/mes (setup único $199, negocios generales sin HIPAA) · Plan Professional $179/mes (setup único $349, sector salud HIPAA-compliant).
@@ -88,17 +88,15 @@ Disponibles como utilidades Tailwind y/o CSS vars:
 ## BIT — Mascota / copiloto del sistema
 BIT es la cara visible del sistema multi-agente. Aparece en:
 - Nav: avatar 28px con tooltip "Hola, soy BIT".
-- Hero: avatar 36px + línea "Conoce a BIT, tu copiloto de operación →" con anchor a `#scale`.
-- Sección Paquetes / Tier Scale: `mascota1.png` (BIT recostado) como elemento decorativo overflow top-right.
+- Hero: avatar 36px + línea "Conoce a BIT, tu copiloto de operación →".
 - Chatbot widget flotante (bottom-right, todas las páginas): trigger con avatar BIT + glow cyan + pulse.
-- Componente reutilizable: `src/components/BitAvatar.astro` (acepta `lang`, `size`, `showTooltip`). Renderiza `<img src="/assets/mascota.png">` con fondo transparente.
+- Componente reutilizable: `src/components/BitAvatar.astro` (acepta `lang`, `size`, `showTooltip`). Renderiza `<img src="/assets/mascota.webp">` con fondo transparente.
 - Activos:
-  - `public/assets/mascota.png` — BIT de pie (Nav, Hero, Chatbot)
-  - `public/assets/mascota1.png` — BIT recostado (Tier Scale)
+  - `public/assets/mascota.webp` — BIT (Nav, Hero, Chatbot)
 - Copy oficial en `translations.bit`: descripción, tooltip, anchorLabel, alt.
 
 ## Chatbot widget
-Widget flotante CSS-only + vanilla JS en `src/components/ChatbotWidget.astro`. Inyectado vía BaseLayout.astro (prop `chatbot` default `true`; se puede desactivar por página). Estado open/closed via atributo `data-open`. Quick actions a /diagnostico, /#paquetes, mailto. Input funcional pero **webhook pendiente Sprint 6+**: por ahora muestra mensaje "Este chat todavía no está conectado. Te respondemos por email a la brevedad."
+Widget flotante CSS-only + vanilla JS en `src/components/ChatbotWidget.astro`. Inyectado vía BaseLayout.astro (prop `chatbot` default `true`; se puede desactivar por página). Estado open/closed via atributo `data-open`. Quick actions a /diagnostico, /#planes, mailto. Input funcional pero **webhook pendiente Sprint 6+**: por ahora muestra mensaje "Este chat todavía no está conectado. Te respondemos por email a la brevedad."
 
 ## Reglas de copy y mensaje
 - Cero jerga hueca. Sustantivos concretos, verbos directos.
@@ -107,8 +105,8 @@ Widget flotante CSS-only + vanilla JS en `src/components/ChatbotWidget.astro`. I
 - Voz: incertidumbre honesta. "Ahorramos 10 horas/semana al cliente" ✓ · "Desbloqueamos el poder transformador de la IA" ✗
 
 ## Nota crítica — Sistema modular
-**No todos los clientes necesitan los 16+ agentes.** El sistema es modular según paquete (Starter / Growth / Scale / Enterprise).
-**No mencionar "16 agentes" como número fijo en copy.** Hablar de "equipos especializados" / "agentes" sin comprometer un número que no aplica a todos los paquetes. Solo en la card de Enterprise se puede referenciar "sistema multi-agente custom" o similar.
+**No todos los clientes necesitan los 16+ agentes.** El sistema es modular según el plan base (Starter / Professional) y los módulos de canal activados.
+**No mencionar "16 agentes" como número fijo en copy.** Hablar de "equipos especializados" / "agentes" sin comprometer un número que no aplica a toda configuración.
 
 ## Reglas — qué NO hacer
 - **No WordPress, no Calendly, no widgets de chat de terceros.** Todo se hostea en Astro + Cloudflare.
