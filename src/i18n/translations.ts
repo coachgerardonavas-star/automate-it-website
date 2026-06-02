@@ -358,7 +358,7 @@ export const translations = {
       eyebrow: "Blog",
       heading: "Pensamientos sobre automatización",
       subheading:
-        "Sin humo. Solo tácticas, números y mecanismos que ya hemos visto funcionar.",
+        "Solo tácticas, números y mecanismos que ya hemos visto funcionar.",
       readMore: "Leer →",
       byAuthor: "Por",
       publishedOn: "Publicado",
@@ -1021,7 +1021,7 @@ export const translations = {
       eyebrow: "Blog",
       heading: "Thoughts on automation",
       subheading:
-        "No fluff. Just tactics, numbers, and mechanisms we've seen work.",
+        "Just tactics, numbers, and mechanisms we've seen work.",
       readMore: "Read →",
       byAuthor: "By",
       publishedOn: "Published",
