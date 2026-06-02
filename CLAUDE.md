@@ -1,42 +1,83 @@
-# Automate IT — Website (Astro)
+# CLAUDE.md — automate-it-website
 
 ## Proyecto
-- **Nombre:** Automate IT — yourbizupgraded.com
-- **Repo:** coachgerardonavas-star/automate-it-website
-- **Rama principal:** `main`
-- **Deploy:** Cloudflare Pages — automático en cada push a `main`
+Sitio web one-page en Astro de Automate IT (yourbizupgraded.com): genera leads orgánicos de dueños de pequeños negocios hispanos en Florida para el servicio de recepción/comunicación automatizada con IA. Bilingüe ES/EN, sin scroll cinematográfico, foco en claridad, performance y deploy continuo.
 
-## Quién soy
-CEO y dueño de Automate IT (yourbizupgraded.com). Empresa de automatización empresarial con agentes de IA en n8n.
+## Stack
+- **Framework:** Astro `^4.16.0` (Astro 4.x) vía `@astrojs/cloudflare` 11.2.0
+- **Estilos:** Tailwind CSS `^3.4.13` vía `@astrojs/tailwind` `^5.1.0`
+- **UI/islas:** React 18.3.1 (`@astrojs/react` 3.6.3) — uso puntual
+- **CMS:** Keystatic (`@keystatic/astro` 5.0.6 / `@keystatic/core` 0.5.50)
+- **Iconos:** `lucide-astro` · **Fuentes:** `@fontsource/open-sans` (self-hosted)
+- **Node:** sin `.nvmrc` ni campo `engines` en package.json — no hay versión fijada en el repo (usar LTS 18+, compatible con Astro 4)
+- **Animaciones:** CSS puro + IntersectionObserver. **Sin GSAP. Sin Three.js.**
+- **Deploy:** Cloudflare Pages — auto-deploy al hacer push a `main` desde GitHub.
+- **Repo:** coachgerardonavas-star/automate-it-website · rama `main`
 
-## Qué estamos construyendo
-Sitio web one-page en Astro. Sin scroll cinematográfico Three.js. Foco en claridad de mensaje, performance y deploy continuo.
+## Comandos
+Definidos en `package.json` (todos vía Astro CLI):
+- `npm run dev` — servidor de desarrollo (`astro dev`, también `npm start`)
+- `npm run build` — build de producción (`astro build`)
+- `npm run preview` — preview del build (`astro preview`)
+- `npm run astro` — CLI de Astro directo
 
-## Stack — no negociable
-- **Framework:** Astro 4.x (última estable usada hoy: 4.16)
-- **Estilos:** Tailwind CSS 3 vía `@astrojs/tailwind` 5.x
-- **Animaciones:** CSS puro + Intersection Observer. **Sin GSAP. Sin Three.js. Sin Vite directo.**
-- **Blog:** Astro Content Collections. Schema en `src/content/config.ts`. Posts en `src/content/blog/*.md` con frontmatter `{ title, description, pubDate, lang, author, tags, draft }`. Listing en `/blog` y `/en/blog`, artículo dinámico en `/blog/[slug]` y `/en/blog/[slug]` filtrado por `lang` en `getStaticPaths`.
-- **i18n:** built-in Astro 4 i18n + estructura de carpetas. ES en root, EN en `/en/`. Strings centralizadas en `src/i18n/translations.ts` (objeto `{ es, en }`). Componentes aceptan `lang` prop con default `"es"`. Rutas: `/`, `/diagnostico`, `/privacidad`, `/terminos` y sus equivalentes EN `/en/`, `/en/diagnostic`, `/en/privacy`, `/en/terms`.
-- **Analytics e integraciones:** placeholders centralizados en `src/config/site.ts` con `GA_ID`, `SEARCH_CONSOLE_VERIFICATION`, `HUBSPOT_*`. BaseLayout solo emite las etiquetas/scripts cuando `isGAEnabled()` / `isSearchConsoleEnabled()` retornan true. Reemplazar los placeholders activa todo automáticamente.
-- **Performance:** Lighthouse mobile baseline 98/96/100/100 (Performance / Accessibility / Best Practices / SEO). FCP 1.6s, LCP 2.0s, TBT 0ms, CLS 0. Optimizaciones aplicadas: favicon SVG (no PNG 783KB), mascotas a webp 320px (110KB → 18KB), Open Sans self-hosted vía `@fontsource/open-sans` (sin Google Fonts third-party), Manifold CF preload, prose-blog scoped + `:global()` para no bundle globalmente.
-- **Deploy:** Cloudflare Pages — push a `main` = deploy automático
-- Si en algún momento se considera agregar una librería JS pesada, **detenerse** y buscar primero solución CSS pura. Solo proponer la librería al CEO antes de instalar.
+## Estructura clave
+- `src/i18n/translations.ts` — **fuente de verdad de TODO el copy ES y EN** (objeto `{ es, en }`). Nunca hardcodear texto en componentes.
+- `src/i18n/utils.ts` — helpers de i18n.
+- `src/config/site.ts` — config global: `GA_ID`, `HUBSPOT_*`, `SEARCH_CONSOLE_VERIFICATION`.
+- `src/components/` — Nav, Hero, `Seccion*.astro`, DiagnosticoForm, LegalContent, `BitAvatar.astro`, `ChatbotWidget.astro`.
+- `src/layouts/BaseLayout.astro` — layout base (acepta `lang` prop; inyecta chatbot y GA/Search Console condicionales).
+- `src/content/blog/` — posts Markdown (Astro Content Collections); schema en `src/content/config.ts`.
+- `src/pages/` — rutas ES en root, EN bajo `/en/`.
+- `src/lib/hubspot.ts` — integración HubSpot Forms API v3.
+- `src/styles/global.css` — tokens de marca + `@font-face`.
+- `public/assets/` — imágenes/mascota · `public/fonts/` — `manifold-cf-extrabold.woff2`.
+- `workers/` — Cloudflare Workers (ver sección "Workers activos").
+- Raíz: `astro.config.mjs`, `tailwind.config.mjs`, `keystatic.config.ts`.
+
+## Reglas de i18n
+- Todo el copy del sitio vive en `src/i18n/translations.ts`.
+- Siempre actualizar ES y EN juntos — nunca uno solo.
+- Nunca editar archivos compilados (`dist/`, `.astro/`) directamente.
+- Componentes reciben `lang` prop (default `"es"`). ES en root, EN bajo `/en/`.
+
+## Workers activos
+Cada uno tiene su `wrangler.toml` en `workers/<nombre>/`:
+- **bit-chat-3126** — chatbot BIT (Claude Haiku vía proxy seguro). `main = index.js`. CORS: yourbizupgraded.com + localhost:4321. Sin preview URLs. URL pública: `https://bit-chat-3126.coachgerardonavas.workers.dev`.
+- **health-check** — health check de URLs Tier 0 (cron `*/15 * * * *`). KV `STATE`; service bindings a `bit-chat-3126` y `stripe-checkout-automate`. `workers_dev=false`, sin preview URLs. account_id configurado.
+- **stripe-checkout** — pagos Stripe (worker `stripe-checkout-automate`). `main = src/index.ts`. Secret: `STRIPE_SECRET_KEY`. `workers_dev=true`.
+- **stripe-webhook** — webhook de Stripe (worker `stripe-webhook-automate`). `main = src/index.ts`. Secret: `STRIPE_WEBHOOK_SECRET`. `workers_dev=true`.
+
+## Reglas críticas del proyecto
+- **n8n NO es infraestructura interna** — es un producto que Automate IT vende e implementa para clientes (cuenta cloud cancelada, ZIP archivado). Nunca sugerir n8n para flujos internos de Automate IT; para automatización interna se usa Make cuando aplica.
+- **Frase PROHIBIDA en todo copy: "sin humo"** (ej. "IA sin humo"). No usarla nunca en ningún archivo de este repo (copy, componentes, blog, workers, manuales).
+- **El Manual Maestro vigente es `MANUAL_MAESTRO_v4.4.md`** (en este repo).
+- **El Manual de Instagram vigente es `Manual_Instagram_Automate_IT_v2_3.md`** (en el repo `automate-it`, NO en este).
+- ⚠️ **IntersectionObserver:** el observer que activa **todas** las animaciones `.reveal-on-scroll` vive dentro de `SeccionDolor.astro`. Si ese componente se elimina, mueve o condiciona su render, **todas** las animaciones de reveal dejan de funcionar. Antes de tocarlo, mover primero el observer a `BaseLayout.astro`.
+
+## Documentos de referencia en este repo
+- `MANUAL_MAESTRO_v4.4.md` — Manual Maestro del sistema multi-agente (vigente).
+- `WEBSITE_BRIEF.md` — brief del sitio web (fuente de verdad de diseño/mensaje).
+- `Automate_IT_Quienes_Somos_v2_5.md` — documento de identidad corporativa.
+- `plan_marketing_2026_v2_3.md` — plan de marketing 2026.
+- `README.md` — readme base del repo.
+
+## Stack — detalle no negociable
+- **Blog:** Astro Content Collections. Posts en `src/content/blog/*.md` con frontmatter `{ title, description, pubDate, lang, author, tags, draft }`. Listing en `/blog` y `/en/blog`; artículo dinámico `/blog/[slug]` y `/en/blog/[slug]` filtrado por `lang` en `getStaticPaths`.
+- **i18n:** built-in Astro 4 i18n + carpetas. Strings centralizadas en `src/i18n/translations.ts`. Rutas: `/`, `/diagnostico`, `/privacidad`, `/terminos` y equivalentes EN `/en/`, `/en/diagnostic`, `/en/privacy`, `/en/terms`.
+- **Analytics e integraciones:** placeholders en `src/config/site.ts`. BaseLayout emite scripts solo cuando `isGAEnabled()` / `isSearchConsoleEnabled()` son true.
+- **Performance:** Lighthouse mobile baseline 98/96/100/100. FCP 1.6s, LCP 2.0s, TBT 0ms, CLS 0. Favicon SVG, mascota webp 320px, Open Sans self-hosted, Manifold CF preload.
+- Antes de agregar una librería JS pesada, **detenerse** y buscar solución CSS pura; proponer al CEO antes de instalar.
 
 ## Integraciones activas
-- **HubSpot Forms API v3** — 3 formularios activos. Portal ID: `245810986`. Helper en `src/lib/hubspot.ts`.
-- **Cloudflare Worker `bit-chat-3126`** — chatbot BIT (Claude Haiku vía proxy seguro). Código en `workers/bit-chat-3126/`.
-- **Cloudflare Worker `stripe-checkout`** — pagos Stripe.
-- **Google Analytics 4** — `G-82JWGNDTLG`. Configurado en `src/config/site.ts`.
-- **Telegram interno** — Chat ID: `8348522203` (notificaciones internas).
-
-## Advertencia crítica — IntersectionObserver
-El `IntersectionObserver` que activa **todas** las animaciones `.reveal-on-scroll` del sitio vive dentro de `SeccionDolor.astro`. Si ese componente se elimina, se mueve fuera del homepage, o se condiciona su render, **todas** las animaciones de reveal del sitio dejarán de funcionar.
-
-**Antes de tocar `SeccionDolor.astro` (eliminarlo, moverlo, lazy-load, etc.):** mover primero el observer al `BaseLayout.astro` para que viva globalmente. No tocar el componente hasta hacer ese paso.
+- **HubSpot Forms API v3** — 3 formularios. Portal ID `245810986`. Helper `src/lib/hubspot.ts`.
+- **Worker `bit-chat-3126`** — chatbot BIT (Claude Haiku).
+- **Worker `stripe-checkout-automate`** — pagos Stripe.
+- **Google Analytics 4** — `G-82JWGNDTLG` en `src/config/site.ts`.
+- **Telegram interno** — Chat ID `8348522203`.
 
 ## Identidad de marca
-Tokens disponibles como utilidades Tailwind (`bg-brand-cyan`, etc.) y como CSS custom properties (`var(--color-cyan)`).
+Tokens como utilidades Tailwind (`bg-brand-cyan`, etc.) y CSS custom properties (`var(--color-cyan)`).
 
 ```
 --color-bg:        #050A18   bg-brand-bg
@@ -52,136 +93,69 @@ Tokens disponibles como utilidades Tailwind (`bg-brand-cyan`, etc.) y como CSS c
 Reglas estrictas del verde lima `#AADD00`: solo en estados "En vivo", "Activo", "Procesando", checks operativos, contadores en vivo. Prohibido en logo, fondos claros, cuerpo de texto, color dominante, junto a rojo de error.
 
 ### Design System v2.1 — tokens adicionales
-Disponibles como utilidades Tailwind y/o CSS vars:
-
-- **Neutrales (azul frío):** `neutral-0/50/100/200/300/400/500/600/700/800/900` (`bg-neutral-700`, `text-neutral-400`, etc.)
-- **Semánticos:** `info` (`#0052CC` / bg `#E6EEFB`), `success` (`#AADD00` / bg `#F2FBD6`), `warning` (`#F5A524` / bg `#FEF3DC`), `danger` (`#E5484D` / bg `#FDECED`)
-- **Lima extra:** `lime-300` `#D9F080`, `lime-400` `#C2EA40`, `lime` `#AADD00`, `lime-600` `#8BB800`. Alias semántico: `--live`.
+- **Neutrales (azul frío):** `neutral-0/50/100/200/300/400/500/600/700/800/900`.
+- **Semánticos:** `info` (`#0052CC` / bg `#E6EEFB`), `success` (`#AADD00` / bg `#F2FBD6`), `warning` (`#F5A524` / bg `#FEF3DC`), `danger` (`#E5484D` / bg `#FDECED`).
+- **Lima extra:** `lime-300` `#D9F080`, `lime-400` `#C2EA40`, `lime` `#AADD00`, `lime-600` `#8BB800`. Alias `--live`.
 - **Radii:** `rounded-xs` 4px, `rounded-sm` 6px, `rounded-md` 8px, `rounded-lg` 12px, `rounded-full` 999px.
-- **Sombras:** `shadow-xs/sm/md/lg` (capas) + `shadow-neon` (cyan glow) + `shadow-lime` (lima glow). CSS vars: `--glow-cyan-sm/md`, `--glow-lime-sm/md`.
+- **Sombras:** `shadow-xs/sm/md/lg` + `shadow-neon` (cyan) + `shadow-lime`. CSS vars `--glow-cyan-sm/md`, `--glow-lime-sm/md`.
 - **Rings de foco:** `--ring-cyan`, `--ring-lime`.
-- **Motion:** transición de hover estándar `200ms cubic-bezier(0.2, 0, 0, 1)` (utilidad Tailwind: `ease-brand`). Pulse 2s para alertas en vivo (`animate-pulse-live`). Entry fade+translate-Y(8px) 360ms (`animate-entry`). Sin scale en hover, sin bounce.
+- **Motion:** hover `200ms cubic-bezier(0.2,0,0,1)` (`ease-brand`). Pulse 2s (`animate-pulse-live`). Entry fade+translateY(8px) 360ms (`animate-entry`). Sin scale en hover, sin bounce.
 - **Iconos:** Lucide via `lucide-astro`. Trazo 2px, color default navy `#003DA5`. Tamaños 16/20/24/32/48px.
 
 ## Tipografía
-- **Títulos:** **Manifold CF ExtraBold** (auto-hosteada en `/public/fonts/`) con `Montserrat` como fallback. Stack: `'Manifold CF', Montserrat, system-ui, sans-serif`. Utilidad Tailwind: `font-heading`.
-- **Cuerpo:** Open Sans 400/600 (Google Fonts) — utilidad por defecto.
-- Si en el futuro se actualiza el archivo de fuente, debe quedar en `public/fonts/manifold-cf-extrabold.woff2`. El @font-face vive en `src/styles/global.css` con `font-display: swap`.
+- **Títulos:** **Manifold CF ExtraBold** (auto-hosteada en `/public/fonts/`) con `Montserrat` fallback. Stack `'Manifold CF', Montserrat, system-ui, sans-serif`. Utilidad `font-heading`.
+- **Cuerpo:** Open Sans 400/600 self-hosted (`@fontsource/open-sans`).
+- Archivo de fuente en `public/fonts/manifold-cf-extrabold.woff2`. `@font-face` en `src/styles/global.css` con `font-display: swap`.
 
 ## Sitemap (home one-page)
-1. **Hero** — Tagline "Your business, upgraded." + H1 + CTA principal a `/diagnostico` + línea "Conoce a BIT".
-2. **Sección Resultados** (`#resultados`) — métricas/proof points (`SeccionResultados.astro`).
-3. **Sección Dolor** (`#el-dolor`) — 3 cards cualitativas. Sin números no verificados.
-4. **Sección Transformación / Cómo funciona** (`#como-funciona`) — Timeline de 4 pasos: Diagnóstico → Propuesta → Setup → Go-live.
-5. **Sección Agentes en acción** (`#agentes`) — Mockup terminal con typewriter CSS-only mostrando agentes operando.
-6. **Sección Planes y canales** (`#planes`, `SeccionServicios.astro`) — plan base (Starter / Professional) + módulos de canal. Único anchor de precios.
-7. **Sección FAQ** (`#faq`, `SeccionPaquetes.astro`) — preguntas frecuentes. (El componente conserva el nombre `SeccionPaquetes` por histórico; hoy renderiza el FAQ.)
-8. **Sección Para quién** (`#para-quien`) — Grid por rubro.
-9. **CTA final** (`#cta-form`) — Form inline 3 campos.
-10. **Footer** — Email, switcher idioma activo, links legales (con noindex hasta revisión legal).
+1. **Hero** — "Your business, upgraded." + H1 + CTA a `/diagnostico` + línea "Conoce a BIT".
+2. **Resultados** (`#resultados`, `SeccionResultados.astro`).
+3. **Dolor** (`#el-dolor`, `SeccionDolor.astro`) — ⚠️ contiene el IntersectionObserver global.
+4. **Cómo funciona** (`#como-funciona`) — Timeline 4 pasos: Diagnóstico → Propuesta → Setup → Go-live.
+5. **Agentes en acción** (`#agentes`) — terminal con typewriter CSS-only.
+6. **Planes y canales** (`#planes`, `SeccionServicios.astro`) — único anchor de precios.
+7. **FAQ** (`#faq`, `SeccionPaquetes.astro` — conserva el nombre por histórico).
+8. **Para quién** (`#para-quien`).
+9. **CTA final** (`#cta-form`).
+10. **Footer** — email, switcher de idioma, links legales (noindex hasta revisión legal).
 
 ### Catálogo — plan base + módulos de canal (fuente de verdad: el sitio en vivo)
-- **Planes base:** Plan Starter $99/mes (setup único $199, negocios generales sin HIPAA) · Plan Professional $179/mes (setup único $349, sector salud HIPAA-compliant).
-- **Módulos de canal** (se suman a cualquier plan; cada módulo incluye 300 min/mensajes al mes): Voz (Retell AI) +$149/mes · WhatsApp +$99/mes · Messenger / Web chat +$79/mes (no recomendado con Professional) · CRM & Leads +$99/mes.
-- **Ejemplos de precio total:** Solo WhatsApp $198/mes · Voz HIPAA $328/mes · Voz+WhatsApp+CRM $446/mes · Clínica HIPAA Voz+WhatsApp+CRM $526/mes.
+- **Planes base:** Starter $99/mes (setup $199, sin HIPAA) · Professional $179/mes (setup $349, salud HIPAA).
+- **Módulos** (cada uno 300 min/mensajes/mes): Voz (Retell) +$149 · WhatsApp +$99 · Messenger/Web chat +$79 (no recomendado con Professional) · CRM & Leads +$99.
+- **Ejemplos:** Solo WhatsApp $198/mes · Voz HIPAA $328/mes · Voz+WhatsApp+CRM $446/mes · Clínica HIPAA Voz+WhatsApp+CRM $526/mes.
 
-## BIT — Mascota / copiloto del sistema
-BIT es la cara visible del sistema multi-agente. Aparece en:
-- Nav: avatar 28px con tooltip "Hola, soy BIT".
-- Hero: avatar 36px + línea "Conoce a BIT, tu copiloto de operación →".
-- Chatbot widget flotante (bottom-right, todas las páginas): trigger con avatar BIT + glow cyan + pulse.
-- Componente reutilizable: `src/components/BitAvatar.astro` (acepta `lang`, `size`, `showTooltip`). Renderiza `<img src="/assets/mascota.webp">` con fondo transparente.
-- Activos:
-  - `public/assets/mascota.webp` — BIT (Nav, Hero, Chatbot)
-- Copy oficial en `translations.bit`: descripción, tooltip, anchorLabel, alt.
+## BIT — Mascota / copiloto
+- Nav: avatar 28px con tooltip "Hola, soy BIT". Hero: avatar 36px + "Conoce a BIT…". Chatbot widget flotante (bottom-right).
+- Componente `src/components/BitAvatar.astro` (`lang`, `size`, `showTooltip`) → `<img src="/assets/mascota.webp">`.
+- Copy oficial en `translations.bit`.
 
 ## Chatbot widget
-Widget flotante CSS-only + vanilla JS en `src/components/ChatbotWidget.astro`. Inyectado vía BaseLayout.astro (prop `chatbot` default `true`; se puede desactivar por página). Estado open/closed via atributo `data-open`. Quick actions a /diagnostico, /#planes, mailto. Input funcional pero **webhook pendiente Sprint 6+**: por ahora muestra mensaje "Este chat todavía no está conectado. Te respondemos por email a la brevedad."
+`src/components/ChatbotWidget.astro` (CSS-only + vanilla JS), inyectado por BaseLayout (prop `chatbot` default `true`). Estado via `data-open`. Quick actions a /diagnostico, /#planes, mailto. Input funcional pero **webhook pendiente** (muestra fallback por email).
 
 ## Reglas de copy y mensaje
 - Cero jerga hueca. Sustantivos concretos, verbos directos.
-- **No prometer números no verificados.** Si no hay dato verificado, copy cualitativo. Si no hay dato, mecanismo.
-- Sin testimonios inventados. Si no hay testimonio real, esa sección no existe.
-- Voz: incertidumbre honesta. "Ahorramos 10 horas/semana al cliente" ✓ · "Desbloqueamos el poder transformador de la IA" ✗
+- **No prometer números no verificados.** Sin dato → copy cualitativo; sin dato → mecanismo.
+- Sin testimonios inventados.
+- Voz: incertidumbre honesta.
+- **Frase prohibida: "sin humo"** (ver Reglas críticas).
 
 ## Nota crítica — Sistema modular
-**No todos los clientes necesitan los 16+ agentes.** El sistema es modular según el plan base (Starter / Professional) y los módulos de canal activados.
-**No mencionar "16 agentes" como número fijo en copy.** Hablar de "equipos especializados" / "agentes" sin comprometer un número que no aplica a toda configuración.
+No todos los clientes necesitan todos los agentes. **No mencionar "16 agentes" como número fijo.** Hablar de "equipos especializados" / "agentes".
 
 ## Reglas — qué NO hacer
-- **No WordPress, no Calendly, no widgets de chat de terceros.** Todo se hostea en Astro + Cloudflare.
-- **No Three.js, no GSAP.** Stack archivado en rama `three-js-archive`.
-- **No testimonios falsos.** La sección de testimonios no existe hasta tener clientes reales con autorización.
-- **No prometer "magia con IA".** Cada claim necesita mecanismo concreto o número verificado.
-- **No emojis decorativos.** Iconografía vectorial (Lucide) sí.
-- **No copy genérico** tipo "transformamos tu negocio con IA". Sustantivos concretos, verbos directos.
-- **No `WidthType.PERCENTAGE` en tablas docx** — usar siempre `DXA` (regla para generadores de informes/propuestas).
+- No WordPress, no Calendly, no widgets de chat de terceros. Todo en Astro + Cloudflare.
+- No Three.js, no GSAP (archivado en rama `three-js-archive`).
+- No testimonios falsos. No prometer "magia con IA".
+- No emojis decorativos (Lucide sí).
+- No copy genérico tipo "transformamos tu negocio con IA".
+- No `WidthType.PERCENTAGE` en tablas docx — usar `DXA`.
 
 ## Reglas de trabajo
-- **Mobile-first.** Diseña a 375px primero, escala a desktop.
-- **No pedir permiso** para naming de archivos, estructura de carpetas, clases Tailwind, orden de CSS.
-- **Sí detenerse y reportar** antes de: cambiar una sección completa, salirse de los colores del brief, agregar una librería JS pesada, cambiar el stack.
-- **Lighthouse > 85 mobile** es requisito de go-live.
-- **Cada cambio debe ser visible y testeable en browser** antes de marcar como completado.
-- Cuando termina una tarea, reportar con formato:
-  - ✅ COMPLETADO: [una línea por item]
-  - 🔄 SIGUIENTE: [siguiente sprint/item]
-  - ⚠️ DECISIÓN PROPIA: [decisiones técnicas tomadas sin preguntar]
-  - ❓ NECESITO CONFIRMAR: [solo si bloquea sin input del CEO]
-
-## Estructura de carpetas
-```
-src/
-  components/      # Nav, Hero, Seccion*.astro, DiagnosticoForm, LegalContent, BitAvatar, ChatbotWidget
-  config/
-    site.ts        # GA_ID, HUBSPOT_*, Search Console — configuración global
-  content/
-    blog/          # posts Markdown (ver Astro Content Collections en Stack)
-    config.ts      # schema de la colección blog
-  i18n/
-    translations.ts  # TODAS las strings ES/EN — NUNCA hardcodear texto en componentes
-    utils.ts
-  layouts/         # BaseLayout.astro (acepta lang prop)
-  lib/
-    hubspot.ts     # integración HubSpot Forms API v3
-  pages/
-    index.astro          # ES home
-    diagnostico.astro    # ES /diagnostico
-    privacidad.astro     # ES /privacidad
-    terminos.astro       # ES /terminos
-    blog/                # ES /blog + /blog/[slug]
-    en/
-      index.astro        # EN home
-      diagnostic.astro   # EN /en/diagnostic
-      privacy.astro      # EN /en/privacy
-      terms.astro        # EN /en/terms
-      blog/              # EN /en/blog + /en/blog/[slug]
-  styles/          # global.css con tokens
-public/
-  assets/          # video, logo, imágenes estáticas
-  fonts/           # manifold-cf-extrabold.woff2
-workers/
-  bit-chat-3126/   # Cloudflare Worker — chatbot BIT (Claude Haiku proxy)
-  health-check/    # Cloudflare Worker — health check
-astro.config.mjs
-tailwind.config.mjs
-```
-
-## Email corporativo
-automateit@yourbizupgraded.com (lead notifications futuras vía HubSpot).
-
-## gstack
-Skills instaladas globalmente desde [garrytan/gstack](https://github.com/garrytan/gstack) en `~/.claude/skills/`.
-
-**Browsing web — preferir `/browse` de gstack.** Para cualquier navegación web (abrir páginas, scraping, screenshots, QA visual) usar el skill `/browse` por default. Si `/browse` no está disponible o falla en una tarea concreta, se permite caer a `mcp__claude-in-chrome__*` como respaldo — pero `/browse` es la primera opción siempre.
-
-**Skills disponibles (cuando relevantes a la tarea):**
-`/office-hours`, `/plan-ceo-review`, `/plan-eng-review`, `/plan-design-review`, `/design-consultation`, `/design-shotgun`, `/design-html`, `/review`, `/ship`, `/land-and-deploy`, `/canary`, `/benchmark`, `/browse`, `/connect-chrome`, `/qa`, `/qa-only`, `/design-review`, `/setup-browser-cookies`, `/setup-deploy`, `/setup-gbrain`, `/retro`, `/investigate`, `/document-release`, `/codex`, `/cso`, `/autoplan`, `/plan-devex-review`, `/devex-review`, `/careful`, `/freeze`, `/guard`, `/unfreeze`, `/gstack-upgrade`, `/learn`.
+- Mobile-first (diseña a 375px primero).
+- No pedir permiso para naming, estructura, clases Tailwind, orden CSS.
+- Sí detenerse y reportar antes de: cambiar una sección completa, salirse de los colores del brief, agregar librería JS pesada, cambiar el stack.
+- Lighthouse > 85 mobile = requisito de go-live.
+- Cada cambio visible y testeable en browser antes de marcar completado.
 
 ## Fuente de verdad
-Antes de tocar el sitio, leer en este orden:
-1. `WEBSITE_BRIEF_ASTRO_v2_2.md`
-2. `Manual_de_Marca_from_claude___Automate_IT.pdf`
-3. Este archivo `CLAUDE.md`
-
-Si algo en el código contradice el brief, **el brief gana** — salvo que el CEO actualice el brief explícitamente.
+Antes de tocar el sitio, leer en orden: 1) `WEBSITE_BRIEF.md` · 2) Manual de Marca (PDF) · 3) este `CLAUDE.md`. Si el código contradice el brief, **el brief gana** salvo que el CEO lo actualice.
