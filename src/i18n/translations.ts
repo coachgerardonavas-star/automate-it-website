@@ -358,7 +358,7 @@ export const translations = {
       eyebrow: "Blog",
       heading: "Pensamientos sobre automatización",
       subheading:
-        "Solo tácticas, números y mecanismos que ya hemos visto funcionar.",
+        "Cómo usar la IA en tu negocio, explicado simple y en 5 minutos. Sin hacerte sentir tonto por preguntar.",
       readMore: "Leer →",
       byAuthor: "Por",
       publishedOn: "Publicado",
@@ -1021,7 +1021,7 @@ export const translations = {
       eyebrow: "Blog",
       heading: "Thoughts on automation",
       subheading:
-        "Just tactics, numbers, and mechanisms we've seen work.",
+        "How to use AI in your business, explained simply in 5 minutes — without making you feel dumb for asking.",
       readMore: "Read →",
       byAuthor: "By",
       publishedOn: "Published",
