@@ -170,7 +170,7 @@
 
 - **Límite del expertise:** el contenido de valor puro solo vive dentro de lo que Automate IT sabe hacer — atención al cliente, comunicación, captura de leads, barrera del idioma, operar sin depender del dueño. Si el tema requiere expertise que Automate IT no tiene → no se propone.
 
-- **Humor y tono ligero:** el humor no es el protagonista — es el condimento. Máximo 10% de las piezas (≈1 de cada 10) — como el verde lima: condimento, no protagonista. Viene de situaciones que el prospecto reconoce. Nunca reírse del prospecto — reírse CON él.
+- **Humor y tono ligero:** el humor no es el protagonista — es el condimento. Máximo 10% de las piezas (≈1 de cada 10) — como el verde lima. Viene de situaciones que el prospecto reconoce. Nunca reírse del prospecto — reírse CON él.
 
 ## **4. BIT — Chatbot del sitio web (ACTUALIZADO v4.3)**
 
