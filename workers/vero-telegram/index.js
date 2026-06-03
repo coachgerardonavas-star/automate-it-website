@@ -125,6 +125,21 @@ EVALUACIÓN (domingo): prospecto comparando. CTA = diagnóstico gratuito en your
 Nunca usar lenguaje que haga sentir al prospecto que va tarde o que su competencia lo deja atrás.
 `;
 
+async function sendTelegram(env, chatId, text) {
+  try {
+    await fetch(
+      `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text })
+      }
+    );
+  } catch (e) {
+    console.error('vero-telegram: error al enviar a Telegram:', e);
+  }
+}
+
 export default {
   async fetch(request, env) {
     if (request.method !== 'POST') return new Response('OK');
@@ -135,12 +150,36 @@ export default {
     const message = body?.message;
     if (!message?.text) return new Response('OK');
 
-    const chatId = message.chat?.id?.toString();
-    if (chatId !== env.ALLOWED_CHAT_ID) return new Response('OK');
+    const chatId = message.chat?.id?.toString();      // dónde respondemos (grupo o directo)
+    const fromId = message.from?.id?.toString();      // quién envió (control de acceso)
+
+    console.log(`vero-telegram: chat_id=${chatId} from_id=${fromId}`);
+
+    // Solo Gerardo puede usar el bot — funciona igual en chat directo o en grupo
+    if (fromId !== env.ALLOWED_CHAT_ID) return new Response('OK');
 
     const userText = message.text;
 
-    // Llamar a Anthropic API
+    // ── Aprobaciones (antes de llamar a la API) ──────────────────
+    if (userText === 'Aprobado') {
+      await env.APPROVALS.put(
+        'vero_approval_status',
+        JSON.stringify({ status: 'approved', ts: Date.now() })
+      );
+      await sendTelegram(env, chatId, '✅ Brief aprobado. Vero va a publicar.');
+      return new Response('OK');
+    }
+
+    if (userText.startsWith('No me gusta')) {
+      await env.APPROVALS.put(
+        'vero_approval_status',
+        JSON.stringify({ status: 'rejected', reason: userText, ts: Date.now() })
+      );
+      await sendTelegram(env, chatId, 'Entendido. Vero genera una alternativa.');
+      return new Response('OK');
+    }
+
+    // ── Conversación normal con Vero (Anthropic API) ─────────────
     let reply = '⚠️ Error al procesar el mensaje.';
     try {
       const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
@@ -160,18 +199,11 @@ export default {
       const data = await aiResponse.json();
       reply = data.content?.[0]?.text || reply;
     } catch (e) {
+      console.error('vero-telegram: error al llamar a Anthropic:', e);
       reply = '⚠️ No pude conectarme al modelo. Intenta de nuevo.';
     }
 
-    // Responder por Telegram
-    await fetch(
-      `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text: reply })
-      }
-    );
+    await sendTelegram(env, chatId, reply);
 
     return new Response('OK');
   }
