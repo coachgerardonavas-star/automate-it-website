@@ -9,4 +9,4 @@ ALLOWED_CHAT_ID = "8348522203"
 # y pegar el ID devuelto en la línea id de abajo.
 [[kv_namespaces]]
 binding = "APPROVALS"
-id = "REEMPLAZAR_CON_ID_DE_vero-approvals"
+id = "5081ffc2fddd4bf088b7b1801523ecf1"

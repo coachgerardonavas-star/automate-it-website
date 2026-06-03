@@ -156,7 +156,7 @@ export default {
     console.log(`vero-telegram: chat_id=${chatId} from_id=${fromId}`);
 
     // Solo Gerardo puede usar el bot — funciona igual en chat directo o en grupo
-    if (fromId !== env.ALLOWED_CHAT_ID) return new Response('OK');
+    if (fromId?.toString() !== env.ALLOWED_CHAT_ID) return new Response('OK');
 
     const userText = message.text;
 
