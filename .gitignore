@@ -33,8 +33,14 @@ lighthouse-*.html
 
 # Skills installed locally via skills CLI / emilkowalski / gstack
 .agents/
-.claude/skills/
+.claude/skills/*
 skills-lock.json
+
+# Design skills tracked as permanent project context (see CLAUDE.md "Skills de diseño")
+!.claude/skills/impeccable/
+!.claude/skills/impeccable/**
+!.claude/skills/design-motion-principles/
+!.claude/skills/design-motion-principles/**
 
 # Temp work folders
 tmp-bit/

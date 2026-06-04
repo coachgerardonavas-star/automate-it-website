@@ -157,5 +157,13 @@ No todos los clientes necesitan todos los agentes. **No mencionar "16 agentes" c
 - Lighthouse > 85 mobile = requisito de go-live.
 - Cada cambio visible y testeable en browser antes de marcar completado.
 
+## Skills de diseño (contexto permanente)
+Instalados bajo `.claude/skills/` como contexto de diseño del proyecto. Auto-descubribles por Claude Code e invocables como slash-commands. **No reemplazan el brief ni el Design System v2.1** — son herramientas de criterio que se aplican _dentro_ de los tokens y reglas de marca de Automate IT (cyan acento, lima solo "live", Manifold CF, sin GSAP/Three.js, mobile-first 375px).
+
+- **`impeccable`** (Paul Bakaus · `pbakaus/impeccable`, v3.5.0) — fluidez de diseño frontend production-grade. SKILL.md + 28 referencias en `reference/` (craft, shape, audit, critique, polish, animate, bolder, colorize, delight, layout, typeset, clarify, distill, harden, optimize, etc.) + tooling de iteración live en navegador y detección de anti-patrones en `scripts/`. Útil para: jerarquía visual, contraste/accesibilidad, tipografía, color, layout, micro-interacciones, auditar UI. Invocar p.ej. `/impeccable polish`, `/impeccable critique`, `/impeccable audit`.
+- **`design-motion-principles`** (Kyle Zantos · `kylezantos/design-motion-principles`) — motion/interaction design destilado de Emil Kowalski, Jakub Krehel y Jhey Tompkins. Dos modos: *create* (componentes con motion intencional) y *audit* (detecta motion "AI-slop"). SKILL.md + `references/` (por diseñador, motion-cookbook, performance, accessibility) + `workflows/`. Alinea con la regla del repo: motion CSS puro + IntersectionObserver, ease-out exponencial, sin bounce, respetar `prefers-reduced-motion`.
+
+> Origen del segundo repo: el pedido citaba `carlzentos/design-motion-principles` (no existe); el repo real y vigente es `kylezantos/design-motion-principles`.
+
 ## Fuente de verdad
 Antes de tocar el sitio, leer en orden: 1) `WEBSITE_BRIEF.md` · 2) Manual de Marca (PDF) · 3) este `CLAUDE.md`. Si el código contradice el brief, **el brief gana** salvo que el CEO lo actualice.
