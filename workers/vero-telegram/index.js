@@ -127,7 +127,7 @@ Nunca usar lenguaje que haga sentir al prospecto que va tarde o que su competenc
 
 async function sendTelegram(env, chatId, text) {
   try {
-    const tgResponse = await fetch(
+    await fetch(
       `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
       {
         method: 'POST',
@@ -135,8 +135,6 @@ async function sendTelegram(env, chatId, text) {
         body: JSON.stringify({ chat_id: chatId, text })
       }
     );
-    const tgBody = await tgResponse.json();
-    console.log("Telegram sendMessage result:", JSON.stringify(tgBody));
   } catch (e) {
     console.error('vero-telegram: error al enviar a Telegram:', e);
   }
@@ -161,7 +159,6 @@ export default {
     if (fromId?.toString() !== env.ALLOWED_CHAT_ID) return new Response('OK');
 
     const userText = message.text;
-    console.log("security OK — processing message:", userText?.slice(0,50));
 
     // ── Aprobaciones (antes de llamar a la API) ──────────────────
     if (userText === 'Aprobado') {
@@ -184,7 +181,6 @@ export default {
 
     // ── Conversación normal con Vero (Anthropic API) ─────────────
     let reply = '⚠️ Error al procesar el mensaje.';
-    console.log("calling Anthropic API...");
     try {
       const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
@@ -201,14 +197,12 @@ export default {
         })
       });
       const data = await aiResponse.json();
-      console.log("Anthropic response type:", data?.type, "content blocks:", data?.content?.length);
       reply = data.content?.[0]?.text || reply;
     } catch (e) {
       console.error('vero-telegram: error al llamar a Anthropic:', e);
       reply = '⚠️ No pude conectarme al modelo. Intenta de nuevo.';
     }
 
-    console.log("sending reply, length:", reply?.length);
     await sendTelegram(env, chatId, reply);
 
     return new Response('OK');
