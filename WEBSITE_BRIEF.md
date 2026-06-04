@@ -154,6 +154,16 @@ Decisión registrada por el CEO: **no todos los clientes necesitan los 16 agente
 
 **Implicación para el Arquitecto (futura tarea, no en este sprint):** el Arquitecto debe modelar configuraciones variables, no construir un sistema fijo. Su primera tarea cuando arranquemos será mapear qué subset de agentes corresponde a cada paquete (Starter/Growth/Scale/Enterprise) según rubro del cliente.
 
+## 12. Deuda técnica
+
+**Deuda técnica — Performance**
+- [ ] Critical CSS inline para LCP del <h1> hero
+  - Contexto: LCP actual 7.5s en mobile, render delay 1,350ms. CSS de Astro (41KB) bloquea el paint inicial.
+  - Fix: extraer clases Tailwind críticas del Hero y <h1>, inyectarlas inline en <head>, cargar el resto non-blocking.
+  - Impacto estimado: Performance 75 → 85+, LCP 7.5s → ~4s
+  - Commits previos relacionados: e168d9a, 03dbf5f
+  - Prioridad: media — no bloquea ningún cliente ni conversión actual
+
 ---
 
 *Este documento es la fuente de verdad. Si Claude Code en alguna sesión propone algo que contradiga este brief, el brief gana — salvo que el CEO actualice este archivo explícitamente.*
