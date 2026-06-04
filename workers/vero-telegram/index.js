@@ -127,7 +127,7 @@ Nunca usar lenguaje que haga sentir al prospecto que va tarde o que su competenc
 
 async function sendTelegram(env, chatId, text) {
   try {
-    await fetch(
+    const tgResponse = await fetch(
       `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
       {
         method: 'POST',
@@ -135,6 +135,8 @@ async function sendTelegram(env, chatId, text) {
         body: JSON.stringify({ chat_id: chatId, text })
       }
     );
+    const tgBody = await tgResponse.json();
+    console.log("Telegram sendMessage result:", JSON.stringify(tgBody));
   } catch (e) {
     console.error('vero-telegram: error al enviar a Telegram:', e);
   }
