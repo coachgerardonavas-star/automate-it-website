@@ -15,7 +15,7 @@ const enHref = lang === "en" ? null : switchLangPath(currentPath, "en");
 const copyright = t.copyright.replace("{year}", String(year));
 ---
 
-<footer class="border-t border-white/5 bg-brand-bg pt-16 pb-10">
+<footer class="border-t border-white/10 bg-[var(--color-bg-dark)] pt-16 pb-10">
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 mb-12">
       <div class="md:col-span-5">
@@ -89,8 +89,8 @@ const copyright = t.copyright.replace("{year}", String(year));
       </div>
     </div>
 
-    <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center sm:justify-between">
-      <p class="text-xs text-white/40">
+    <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center sm:justify-between">
+      <p class="text-xs text-white/45">
         {copyright}
       </p>
 
@@ -103,7 +103,7 @@ const copyright = t.copyright.replace("{year}", String(year));
           esHref ? (
             <a
               href={esHref}
-              class="px-3 py-1.5 rounded border border-white/15 text-white/70 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
+              class="px-3 py-1.5 rounded border border-white/15 text-white/75 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
             >
               {t.langEs}
             </a>
@@ -120,7 +120,7 @@ const copyright = t.copyright.replace("{year}", String(year));
           enHref ? (
             <a
               href={enHref}
-              class="px-3 py-1.5 rounded border border-white/15 text-white/70 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
+              class="px-3 py-1.5 rounded border border-white/15 text-white/75 hover:text-brand-cyan hover:border-brand-cyan/40 transition-colors"
             >
               {t.langEn}
             </a>

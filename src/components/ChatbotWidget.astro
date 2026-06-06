@@ -130,6 +130,16 @@ const t = translations[lang].chatbot;
 </div>
 
 <style>
+  /* ============================================================
+     DECISIÓN DE DISEÑO (migración modo claro):
+     El panel del chatbot BIT mantiene una SUPERFICIE OSCURA interna
+     (neutral-800/900) a propósito: es una "isla" flotante con identidad
+     propia y el contraste interno (texto blanco sobre oscuro) funciona y
+     es legible. Por eso aquí se conservan los valores blancos/translúcidos
+     (rgba(255,255,255,…)) — no son texto claro-sobre-claro, sino blanco
+     sobre oscuro. Los acentos cyan se migraron al token decorativo
+     (#0099BB) y las acciones (burbuja de usuario, botón enviar) usan blue.
+     ============================================================ */
   .chatbot {
     position: fixed;
     bottom: 20px;
@@ -142,9 +152,9 @@ const t = translations[lang].chatbot;
     appearance: none;
     padding: 0;
     background: transparent;
-    border: 2px solid rgba(0, 217, 255, 0.4);
+    border: 2px solid rgba(0, 153, 187, 0.4);
     box-shadow:
-      0 0 20px rgba(0, 217, 255, 0.25),
+      0 0 20px rgba(0, 153, 187, 0.25),
       0 4px 16px rgba(0, 0, 0, 0.5);
     width: 64px;
     height: 80px;
@@ -156,9 +166,9 @@ const t = translations[lang].chatbot;
   }
 
   .chatbot-trigger:hover {
-    border-color: #00d9ff;
+    border-color: var(--color-cyan);
     box-shadow:
-      0 0 28px rgba(0, 217, 255, 0.45),
+      0 0 28px rgba(0, 153, 187, 0.45),
       0 4px 16px rgba(0, 0, 0, 0.5);
   }
 
@@ -285,8 +295,8 @@ const t = translations[lang].chatbot;
   .chatbot-message--user {
     align-self: flex-end;
     padding: 10px 13px;
-    background: var(--color-cyan);
-    color: var(--color-bg);
+    background: var(--color-blue);
+    color: var(--color-white);
     border-radius: var(--r-md) var(--r-md) var(--r-xs) var(--r-md);
     font-weight: 600;
   }
@@ -353,7 +363,7 @@ const t = translations[lang].chatbot;
 
   .chatbot-quick-action:hover {
     border-color: var(--color-cyan);
-    background: rgba(0, 217, 255, 0.08);
+    background: rgba(0, 153, 187, 0.08);
     color: var(--color-cyan);
   }
 
@@ -392,8 +402,8 @@ const t = translations[lang].chatbot;
     height: 38px;
     border-radius: var(--r-sm);
     border: none;
-    background: var(--color-cyan);
-    color: var(--color-bg);
+    background: var(--color-blue);
+    color: var(--color-white);
     font-size: 18px;
     font-weight: 700;
     cursor: pointer;
@@ -411,7 +421,7 @@ const t = translations[lang].chatbot;
     right: 0;
     width: 220px;
     background: var(--neutral-800);
-    border: 1px solid rgba(0, 217, 255, 0.35);
+    border: 1px solid rgba(0, 153, 187, 0.35);
     border-radius: var(--r-md);
     padding: 14px 14px 12px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
@@ -491,7 +501,7 @@ const t = translations[lang].chatbot;
   }
   .chatbot-welcome-lang:hover {
     border-color: var(--color-cyan);
-    background: rgba(0, 217, 255, 0.08);
+    background: rgba(0, 153, 187, 0.08);
     color: var(--color-cyan);
   }
   .chatbot-welcome-flag {

@@ -19,7 +19,7 @@ const backLabel =
   <div class="max-w-3xl mx-auto px-5 lg:px-8">
     <a
       href={homeHref}
-      class="inline-flex items-center gap-2 text-xs sm:text-sm text-white/55 hover:text-brand-cyan transition-colors mb-10"
+      class="inline-flex items-center gap-2 text-xs sm:text-sm text-[var(--color-text-muted)] hover:text-[var(--color-navy)] transition-colors mb-10"
     >
       {backLabel}
     </a>
@@ -28,13 +28,13 @@ const backLabel =
       <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-3">
         {docT.title}
       </h1>
-      <p class="text-xs sm:text-sm text-white/55">
+      <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
         {t.lastUpdated} {lastUpdated}
       </p>
     </header>
 
     <div
-      class="rounded-lg border border-yellow-400/30 bg-yellow-400/5 px-5 py-4 mb-10 text-xs sm:text-sm text-yellow-100/85"
+      class="rounded-lg border border-yellow-400/40 bg-yellow-50 px-5 py-4 mb-10 text-xs sm:text-sm text-yellow-800"
       role="note"
     >
       {docT.legalReviewNote}
@@ -47,7 +47,7 @@ const backLabel =
             <h2 class="font-heading text-xl sm:text-2xl mb-3">
               {section.heading}
             </h2>
-            <p class="text-sm sm:text-base text-white/75 leading-relaxed">
+            <p class="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed">
               {section.body}
             </p>
           </section>

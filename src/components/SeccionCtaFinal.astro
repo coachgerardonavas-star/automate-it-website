@@ -11,22 +11,22 @@ const t = translations[lang].ctaFinal;
 
 <section
   id="diagnostico"
-  class="py-20 sm:py-28 border-t border-white/5 reveal-on-scroll relative overflow-hidden"
+  class="py-20 sm:py-28 bg-[var(--color-blue)] border-t border-white/10 reveal-on-scroll relative overflow-hidden"
 >
   <div class="absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-[24rem] w-[60rem] rounded-full bg-brand-cyan/[0.05] blur-3xl"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 h-[24rem] w-[60rem] rounded-full bg-white/[0.06] blur-3xl"></div>
   </div>
 
   <div class="max-w-4xl mx-auto px-5 lg:px-8 text-center">
-    <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+    <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-white mb-4 font-semibold">
       {t.eyebrow}
     </p>
     <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
       {t.titleLine1}<br class="sm:hidden" />
       <span class="sm:inline"> {t.titleLine2}</span><br />
-      <span class="text-white/45">{t.titleLine3}</span>
+      <span class="text-white/60">{t.titleLine3}</span>
     </h2>
-    <p class="text-base sm:text-lg text-white/70 leading-relaxed mb-12 max-w-2xl mx-auto">
+    <p class="text-base sm:text-lg text-white/80 leading-relaxed mb-12 max-w-2xl mx-auto">
       {t.subtitle}
     </p>
 
@@ -47,7 +47,7 @@ const t = translations[lang].ctaFinal;
           placeholder={t.formNamePlaceholder}
           required
           autocomplete="name"
-          class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors"
+          class="w-full px-4 py-3 rounded bg-white/[0.08] border border-white/25 placeholder-white/50 text-white focus:outline-none focus:border-white transition-colors"
         />
       </label>
       <label class="block">
@@ -58,7 +58,7 @@ const t = translations[lang].ctaFinal;
           placeholder={t.formEmailPlaceholder}
           required
           autocomplete="email"
-          class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors"
+          class="w-full px-4 py-3 rounded bg-white/[0.08] border border-white/25 placeholder-white/50 text-white focus:outline-none focus:border-white transition-colors"
         />
       </label>
       <label class="block">
@@ -66,12 +66,12 @@ const t = translations[lang].ctaFinal;
         <select
           name="business_type"
           required
-          class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-brand-cyan transition-colors appearance-none cursor-pointer"
+          class="w-full px-4 py-3 rounded bg-white/[0.08] border border-white/25 text-white focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer"
         >
-          <option value="" class="bg-brand-bg">{t.formBizTypePlaceholder}</option>
+          <option value="" class="bg-[var(--color-bg-dark)] text-white">{t.formBizTypePlaceholder}</option>
           {
             t.businessTypes.map((bt) => (
-              <option value={bt} class="bg-brand-bg">
+              <option value={bt} class="bg-[var(--color-bg-dark)] text-white">
                 {bt}
               </option>
             ))
@@ -80,27 +80,27 @@ const t = translations[lang].ctaFinal;
       </label>
       <button
         type="submit"
-        class="btn-cta sm:col-span-3 inline-flex items-center justify-center px-6 py-3 rounded font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        class="btn-cta sm:col-span-3 inline-flex items-center justify-center px-6 py-3 rounded font-semibold bg-white text-[var(--color-blue)] hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {t.submitButton}
       </button>
     </form>
 
-    <p id="cta-error" class="hidden text-sm text-red-400 mb-2"></p>
+    <p id="cta-error" class="hidden text-sm text-red-200 mb-2"></p>
 
     <div
       id="cta-success"
-      class="hidden p-6 rounded-lg border border-brand-lime/40 bg-brand-lime/5 text-left"
+      class="hidden p-6 rounded-lg border border-brand-lime/50 bg-white/10 text-left"
       role="status"
       aria-live="polite"
     >
       <p class="font-heading text-xl mb-2 text-brand-lime">{t.successHeading}</p>
-      <p class="text-sm sm:text-base text-white/85">
+      <p class="text-sm sm:text-base text-white/90">
         {t.successBody}
       </p>
     </div>
 
-    <p class="mt-6 text-sm text-white/55">
+    <p class="mt-6 text-sm text-white/60">
       {t.privacyDisclaimer}
     </p>
   </div>

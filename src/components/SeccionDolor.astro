@@ -11,30 +11,30 @@ const t = translations[lang].dolor;
 
 <section
   id="el-dolor"
-  class="py-20 sm:py-28 border-t border-white/5 reveal-on-scroll"
+  class="py-20 sm:py-28 border-t border-[var(--color-border)] reveal-on-scroll"
 >
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <header class="max-w-3xl mb-12 sm:mb-16">
-      <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+      <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold">
         {t.eyebrow}
       </p>
       <h2 class="font-heading text-3xl sm:text-5xl leading-tight">
         {t.titleLine1}<br />
-        <span class="text-white/45">{t.titleLine2}</span>
+        <span class="text-[var(--color-text-muted)]">{t.titleLine2}</span>
       </h2>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
       {
         t.cards.map((card) => (
-          <article class="card-glow p-7 sm:p-8 rounded-lg bg-white/[0.025]">
-            <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-brand-cyan font-semibold mb-5">
+          <article class="card-glow p-7 sm:p-8 rounded-lg bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)]">
+            <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] font-semibold mb-5">
               {card.eyebrow}
             </p>
             <h3 class="font-heading text-xl sm:text-2xl mb-4 leading-snug">
               {card.title}
             </h3>
-            <p class="text-sm sm:text-base text-white/70 leading-relaxed">
+            <p class="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed">
               {card.body}
             </p>
           </article>

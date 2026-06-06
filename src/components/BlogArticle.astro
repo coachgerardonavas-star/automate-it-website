@@ -59,24 +59,24 @@ const { Content } = await post.render();
   <div class="max-w-3xl mx-auto px-5 lg:px-8">
     <a
       href={blogBase}
-      class="inline-flex items-center gap-2 text-xs sm:text-sm text-white/55 hover:text-brand-cyan transition-colors duration-200 ease-brand mb-10"
+      class="inline-flex items-center gap-2 text-xs sm:text-sm text-[var(--color-text-muted)] hover:text-[var(--color-navy)] transition-colors duration-200 ease-brand mb-10"
     >
       {t.backToBlog}
     </a>
 
     <header class="mb-10">
-      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold">
         {t.eyebrow}
       </p>
       <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-5">
         {post.data.title}
       </h1>
-      <p class="text-base text-white/65 leading-relaxed mb-6">
+      <p class="text-base text-[var(--color-text-secondary)] leading-relaxed mb-6">
         {post.data.description}
       </p>
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-white/55">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--color-text-muted)]">
         <span>
-          {t.byAuthor} <strong class="text-white/80">{post.data.author}</strong>
+          {t.byAuthor} <strong class="text-[var(--color-text-primary)]">{post.data.author}</strong>
         </span>
         <span aria-hidden="true">·</span>
         <span>{t.publishedOn} {dateFmt}</span>
@@ -84,7 +84,7 @@ const { Content } = await post.render();
       {post.data.tags.length > 0 && (
         <div class="mt-5 flex flex-wrap gap-2">
           {post.data.tags.map((tag) => (
-            <span class="px-2 py-1 rounded-xs text-[10px] tracking-widest uppercase bg-white/[0.04] border border-white/10 text-white/55">
+            <span class="px-2 py-1 rounded-xs text-[10px] tracking-widest uppercase bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-muted)]">
               {tag}
             </span>
           ))}
@@ -100,7 +100,7 @@ const { Content } = await post.render();
 
 <style>
   .prose-blog {
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--color-text-secondary);
     font-size: 16px;
     line-height: 1.75;
   }
@@ -113,7 +113,7 @@ const { Content } = await post.render();
     font-size: 1.6rem;
     line-height: 1.2;
     margin: 2.5rem 0 1rem;
-    color: var(--color-white);
+    color: var(--color-text-primary);
   }
   .prose-blog :global(h3) {
     font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
@@ -121,7 +121,7 @@ const { Content } = await post.render();
     font-size: 1.25rem;
     line-height: 1.25;
     margin: 2rem 0 0.75rem;
-    color: var(--color-white);
+    color: var(--color-text-primary);
   }
   .prose-blog :global(ul),
   .prose-blog :global(ol) {
@@ -132,33 +132,33 @@ const { Content } = await post.render();
     margin: 0.5rem 0;
   }
   .prose-blog :global(strong) {
-    color: var(--color-white);
+    color: var(--color-text-primary);
     font-weight: 700;
   }
   .prose-blog :global(a) {
-    color: var(--color-cyan);
+    color: var(--color-blue);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
   }
   .prose-blog :global(a:hover) {
-    color: var(--color-white);
+    color: var(--color-navy);
   }
   .prose-blog :global(hr) {
     border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--color-border);
     margin: 2rem 0;
   }
   .prose-blog :global(blockquote) {
     border-left: 3px solid var(--color-cyan);
     padding-left: 1rem;
     margin: 1.5rem 0;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-text-muted);
     font-style: italic;
   }
   .prose-blog :global(code) {
-    background: rgba(0, 217, 255, 0.08);
-    color: var(--color-cyan);
+    background: rgba(0, 153, 187, 0.08);
+    color: var(--color-blue);
     padding: 1px 6px;
     border-radius: var(--r-xs);
     font-family: "Courier New", monospace;

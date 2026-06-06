@@ -38,17 +38,17 @@ const heuristics = {
 ---
 
 <section
-  class="py-16 bg-[#050A18] border-t border-b border-brand-cyan/15 reveal-on-scroll"
+  class="py-16 bg-[var(--color-blue)] border-t border-b border-white/15 reveal-on-scroll"
 >
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
       {
         heuristics.map((item) => (
           <div class="flex flex-col">
-            <p class="font-heading font-extrabold text-5xl sm:text-6xl leading-[0.95] tracking-tight text-brand-cyan mb-3 sm:mb-4 break-words">
+            <p class="font-heading font-extrabold text-5xl sm:text-6xl leading-[0.95] tracking-tight text-white mb-3 sm:mb-4 break-words">
               {item.stat}
             </p>
-            <p class="text-sm text-white/70 leading-relaxed">{item.context}</p>
+            <p class="text-sm text-white/80 leading-relaxed">{item.context}</p>
           </div>
         ))
       }

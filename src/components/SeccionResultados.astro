@@ -11,14 +11,14 @@ const t = translations[lang].resultados;
 
 <section
   id="resultados"
-  class="py-20 sm:py-28 border-t border-white/5 reveal-on-scroll"
+  class="py-20 sm:py-28 border-t border-[var(--color-border)] reveal-on-scroll"
 >
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <header class="max-w-3xl mb-12 sm:mb-16">
-      <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+      <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold">
         {t.eyebrow}
       </p>
-      <p class="text-base sm:text-lg text-white/70 leading-relaxed">
+      <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed">
         {t.subtitle}
       </p>
     </header>
@@ -26,14 +26,14 @@ const t = translations[lang].resultados;
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 max-w-5xl">
       {
         t.cards.map((card) => (
-          <article class="flex flex-col p-7 sm:p-8 rounded-md bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors duration-200 ease-brand">
+          <article class="flex flex-col p-7 sm:p-8 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] border border-[var(--color-border)] hover:border-brand-cyan/40 transition-colors duration-200 ease-brand">
             <span
               class="text-3xl sm:text-4xl mb-4 leading-none select-none"
               aria-hidden="true"
             >
               {card.icon}
             </span>
-            <blockquote class="text-base sm:text-lg text-white/90 leading-relaxed font-heading font-normal">
+            <blockquote class="text-base sm:text-lg text-[var(--color-text-primary)] leading-relaxed font-heading font-normal">
               <span aria-hidden="true">“</span>{card.quote}<span aria-hidden="true">”</span>
             </blockquote>
           </article>
@@ -41,7 +41,7 @@ const t = translations[lang].resultados;
       }
     </div>
 
-    <p class="mt-8 text-sm text-white/55 italic">
+    <p class="mt-8 text-sm text-[var(--color-text-muted)] italic">
       {t.disclaimer}
     </p>
   </div>

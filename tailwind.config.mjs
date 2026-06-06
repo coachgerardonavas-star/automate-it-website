@@ -8,8 +8,8 @@ export default {
           bg: "#050A18",
           navy: "#003DA5",
           blue: "#0052CC",
-          cyan: "#00D9FF",
-          lime: "#AADD00",
+          cyan: "#0099BB",
+          lime: "#7AB000",
           gray: {
             400: "#97A0AF",
             900: "#091E42",

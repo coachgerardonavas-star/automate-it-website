@@ -52,6 +52,8 @@ const sizePx = `${size}px`;
     cursor: help;
   }
 
+  /* Tooltip flotante: se mantiene oscuro (neutral-700 + texto blanco) a
+     propósito — chip de alto contraste sobre fondo claro, convención estándar. */
   .bit-avatar--has-tooltip::after {
     content: attr(data-tooltip);
     position: absolute;

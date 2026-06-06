@@ -66,13 +66,36 @@
 
 ## 5. Identidad visual (extraída del Manual de Marca v2.1)
 
-### Colores oficiales
-- **Azul Principal:** `#0052CC`
-- **Navy:** `#003DA5`
-- **Cyan Neón:** `#00D9FF`
-- **Verde Lima** (acento, máx 10% presencia): `#AADD00`
-- **Fondo oscuro:** `#050A18`
-- **Sistema de grises canónicos:** definidos en `colors_and_type.css` (fuente de verdad).
+### Colores oficiales — Sistema modo claro (v3, junio 2026)
+
+> El sitio migró a **fondo blanco**. La fuente de verdad de color son los CSS custom properties (`:root`) en `src/styles/global.css`. Ver "Decisiones de identidad visual" al final.
+
+**Fondos**
+- Fondo principal `--color-bg`: `#FFFFFF`
+- Fondo suave `--color-bg-soft` / `--color-surface-soft`: `#F4F5F7`
+- Superficie `--color-surface`: `#FFFFFF`
+- Fondo oscuro (solo islas intencionales) `--color-bg-dark`: `#050A18`
+
+**Texto**
+- Primario `--color-text-primary`: `#050A18`
+- Secundario `--color-text-secondary`: `#344563`
+- Atenuado `--color-text-muted`: `#5E6C84`
+- Sutil `--color-text-subtle`: `#97A0AF`
+- Blanco (sobre islas oscuras/azules) `--color-white`: `#FFFFFF`
+
+**Marca — el acento de TEXTO es blue; el cyan es SOLO decorativo**
+- Azul principal `--color-blue`: `#0052CC` ← acento primario de texto (eyebrows, links, destacados, labels de íconos)
+- Navy `--color-navy`: `#003DA5` ← hover de botones/links, énfasis
+- Cyan `--color-cyan`: `#0099BB` ← **SOLO decorativo** (bordes de cards, íconos sin texto, separadores). Nunca como texto sobre fondo claro.
+- Lima `--color-lime`: `#7AB000` ← éxito (oscurecido desde `#AADD00` para legibilidad sobre blanco)
+
+**Bordes**
+- `--color-border`: `#E1E4E8`
+- `--color-border-strong`: `#C1C7D0`
+
+**Semánticos:** info `#0052CC` · success `#36B37E` · warning `#FF991F` · danger `#E5484D`
+
+**Sombras (neutras, sin neón):** `--shadow-card`, `--shadow-nav` (ver `:root`).
 
 ### Tipografía (CONFIRMADO)
 - **Títulos:** Montserrat 800 (Google Fonts, gratis). Tracking justo.
@@ -153,6 +176,18 @@ Decisión registrada por el CEO: **no todos los clientes necesitan los 16 agente
 **Implicación para el website:** la sección 4 ("Los agentes") **NO debe decir "16 agentes" como número fijo**. Debe hablar de "equipos especializados" en plural sin comprometer un número que no aplica a todos los paquetes. Para Enterprise sí se puede mencionar "hasta 16+ agentes" en la card específica.
 
 **Implicación para el Arquitecto (futura tarea, no en este sprint):** el Arquitecto debe modelar configuraciones variables, no construir un sistema fijo. Su primera tarea cuando arranquemos será mapear qué subset de agentes corresponde a cada paquete (Starter/Growth/Scale/Enterprise) según rubro del cliente.
+
+---
+
+## 12. Decisiones de identidad visual
+
+### Junio 2026 — Migración a modo claro total
+- **Decisión:** Migración a modo claro total (fondo blanco).
+- **Motivo:** El sitio oscuro con neón no comunicaba confianza al segmento objetivo (dueños de pequeños negocios hispanos). Fondo blanco con acentos azules transmite profesionalismo y claridad.
+- **Excepciones intencionales (islas):** BandaHeuristicas (azul), SeccionCtaFinal (azul), Footer (oscuro), terminal de SeccionAgentes (oscuro), ChatbotWidget (oscuro), tooltip de BitAvatar (oscuro).
+- **Tokens eliminados:** `--color-bg:#050A18` como fondo principal; neón puro `#00D9FF` como texto; `#AADD00` como acento de texto.
+- **Tokens añadidos:** `--color-bg-soft`, `--color-surface`, `--color-border`, `--color-border-strong`, `--color-text-primary` / `secondary` / `muted` / `subtle`, `--shadow-card`, `--shadow-nav`.
+- **Regla de cyan:** `--color-cyan` (#0099BB) queda restringido a uso decorativo (bordes, íconos sin texto, separadores). El acento de texto pasa a `--color-blue` (#0052CC) y el hover a `--color-navy` (#003DA5).
 
 ---
 

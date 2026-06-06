@@ -34,45 +34,45 @@ function fmtDate(d: Date) {
 <section class="py-16 sm:py-24">
   <div class="max-w-5xl mx-auto px-5 lg:px-8">
     <header class="mb-12 sm:mb-16">
-      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold">
         {t.eyebrow}
       </p>
       <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-4">
         {t.heading}
       </h1>
-      <p class="text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl">
+      <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">
         {t.subheading}
       </p>
     </header>
 
     {
       posts.length === 0 ? (
-        <p class="text-sm text-white/55">{t.noPosts}</p>
+        <p class="text-sm text-[var(--color-text-muted)]">{t.noPosts}</p>
       ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           {posts.map((post) => (
-            <article class="flex flex-col p-7 sm:p-8 rounded-md bg-white/[0.025] border border-white/5 hover:border-brand-cyan/40 transition-colors duration-200 ease-brand">
-              <p class="text-xs text-white/45 mb-3 font-mono">
+            <article class="flex flex-col p-7 sm:p-8 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] border border-[var(--color-border)] hover:border-brand-cyan/40 transition-colors duration-200 ease-brand">
+              <p class="text-xs text-[var(--color-text-subtle)] mb-3 font-mono">
                 {fmtDate(post.data.pubDate)}
               </p>
               <h2 class="font-heading text-xl sm:text-2xl mb-3 leading-snug">
                 <a
                   href={`${blogBase}/${post.slug}/`}
-                  class="hover:text-brand-cyan transition-colors duration-200 ease-brand"
+                  class="hover:text-[var(--color-navy)] transition-colors duration-200 ease-brand"
                 >
                   {post.data.title}
                 </a>
               </h2>
-              <p class="text-sm sm:text-base text-white/70 leading-relaxed mb-5 flex-1">
+              <p class="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed mb-5 flex-1">
                 {post.data.description}
               </p>
               <div class="flex items-center justify-between text-xs">
-                <span class="text-white/50">
+                <span class="text-[var(--color-text-muted)]">
                   {t.byAuthor} {post.data.author}
                 </span>
                 <a
                   href={`${blogBase}/${post.slug}/`}
-                  class="text-brand-cyan font-semibold"
+                  class="text-[var(--color-blue)] font-semibold"
                 >
                   {t.readMore}
                 </a>
@@ -80,7 +80,7 @@ function fmtDate(d: Date) {
               {post.data.tags.length > 0 && (
                 <div class="mt-5 flex flex-wrap gap-2">
                   {post.data.tags.map((tag) => (
-                    <span class="px-2 py-1 rounded-xs text-[10px] tracking-widest uppercase bg-white/[0.04] border border-white/10 text-white/55">
+                    <span class="px-2 py-1 rounded-xs text-[10px] tracking-widest uppercase bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-muted)]">
                       {tag}
                     </span>
                   ))}

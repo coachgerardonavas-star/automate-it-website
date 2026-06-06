@@ -31,11 +31,11 @@ const faqSchema = {
 
 <section
   id="faq"
-  class="py-20 sm:py-28 bg-[#080F22] border-t border-white/5 reveal-on-scroll scroll-mt-20"
+  class="py-20 sm:py-28 border-t border-[var(--color-border)] reveal-on-scroll scroll-mt-20"
 >
   <div class="max-w-3xl mx-auto px-5 lg:px-8">
     <header class="mb-10 sm:mb-12">
-      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-4 font-semibold">
+      <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold">
         {t.eyebrow}
       </p>
       <h2 class="font-heading text-3xl sm:text-5xl leading-tight">
@@ -43,16 +43,16 @@ const faqSchema = {
       </h2>
     </header>
 
-    <div class="border-t border-white/5">
+    <div class="border-t border-[var(--color-border)]">
       {
         t.faqs.map((faq) => (
-          <details class="faq-item border-b border-white/5">
-            <summary class="cursor-pointer list-none py-5 sm:py-6 flex items-start justify-between gap-4 hover:text-brand-cyan transition-colors duration-200 ease-brand">
+          <details class="faq-item border-b border-[var(--color-border)]">
+            <summary class="cursor-pointer list-none py-5 sm:py-6 flex items-start justify-between gap-4 hover:text-[var(--color-navy)] transition-colors duration-200 ease-brand">
               <h3 class="font-heading text-base sm:text-lg leading-snug pr-2">
                 {faq.q}
               </h3>
               <span
-                class="faq-icon shrink-0 text-brand-cyan text-2xl leading-none mt-0.5 select-none"
+                class="faq-icon shrink-0 text-[var(--color-blue)] text-2xl leading-none mt-0.5 select-none"
                 aria-hidden="true"
               >
                 <span class="faq-icon-closed">+</span>
@@ -60,7 +60,7 @@ const faqSchema = {
               </span>
             </summary>
             <div class="pb-5 sm:pb-6 pr-8 sm:pr-12">
-              <p class="text-sm sm:text-base text-white/75 leading-relaxed">
+              <p class="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed">
                 {faq.a}
               </p>
             </div>
@@ -102,7 +102,7 @@ const faqSchema = {
   }
 
   .faq-item[open] summary {
-    color: var(--color-cyan);
+    color: var(--color-blue);
   }
 
   @media (prefers-reduced-motion: reduce) {

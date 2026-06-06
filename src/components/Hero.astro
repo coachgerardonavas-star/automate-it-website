@@ -14,29 +14,29 @@ const diagPath = "/diagnostico";
 
 <section class="relative min-h-[88vh] lg:min-h-[720px] flex items-center overflow-hidden">
   <div class="absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/25 via-brand-bg to-brand-bg"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-blue/5 via-white to-white"></div>
     <div class="absolute -top-40 -right-32 h-[40rem] w-[40rem] rounded-full bg-brand-cyan/10 blur-3xl"></div>
-    <div class="absolute bottom-0 -left-40 h-[30rem] w-[30rem] rounded-full bg-brand-blue/15 blur-3xl"></div>
+    <div class="absolute bottom-0 -left-40 h-[30rem] w-[30rem] rounded-full bg-brand-blue/[0.08] blur-3xl"></div>
   </div>
 
   <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full">
-    <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-brand-cyan mb-6 font-semibold">
+    <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-6 font-semibold">
       {t.eyebrow}
     </p>
 
-    <h1 class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl [filter:drop-shadow(0_0_40px_rgba(0,217,255,0.06))]">
+    <h1 class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl">
       {t.h1Line1}<br />
-      <span class="text-brand-cyan">{t.h1Line2}</span>
+      <span class="text-[var(--color-blue)]">{t.h1Line2}</span>
     </h1>
 
-    <p class="mt-6 max-w-2xl text-base sm:text-lg text-white/75 leading-relaxed">
+    <p class="mt-6 max-w-2xl text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed">
       {t.subtitle}
     </p>
 
     <ul class="mt-8 space-y-4 sm:space-y-5 max-w-2xl">
       {
         t.bullets.map((bullet) => (
-          <li class="text-base sm:text-lg text-white/90 leading-relaxed">
+          <li class="text-base sm:text-lg text-[var(--color-text-primary)] leading-relaxed">
             {bullet}
           </li>
         ))
@@ -46,17 +46,17 @@ const diagPath = "/diagnostico";
     <div class="mt-10">
       <a
         href={diagPath}
-        class="btn-cta inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
+        class="btn-cta inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors duration-200 ease-brand"
       >
         {t.ctaPrimary}
       </a>
     </div>
 
-    <p class="mt-8 text-sm sm:text-base text-white/55 max-w-md">
+    <p class="mt-8 text-sm sm:text-base text-[var(--color-text-muted)] max-w-md">
       {t.microcopy}
     </p>
 
-    <ul class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-sm sm:text-xs text-white/70 max-w-3xl">
+    <ul class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-sm sm:text-xs text-[var(--color-text-secondary)] max-w-3xl">
       {
         t.trustBadges.map((badge) => (
           <li class="flex items-start gap-1.5 leading-snug">

@@ -20,7 +20,7 @@ const esHref = switchLangPath(currentPath, "es");
 const enHref = switchLangPath(currentPath, "en");
 ---
 
-<nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-bg/85 border-b border-white/5">
+<nav class="sticky top-0 z-50 backdrop-blur-md bg-white/85 border-b border-[var(--color-border)]">
   <input
     id="nav-mobile-toggle"
     type="checkbox"
@@ -42,10 +42,10 @@ const enHref = switchLangPath(currentPath, "en");
         style="object-fit:contain; display:block;"
       />
       <span class="font-heading text-base sm:text-lg tracking-tight">
-        AUTOMATE <span class="text-brand-cyan">IT</span>
+        AUTOMATE <span class="text-[var(--color-blue)]">IT</span>
       </span>
       <span
-        class="hidden sm:inline-flex items-center text-[10px] tracking-[0.22em] uppercase text-white/55 font-semibold pl-3 ml-1 border-l border-white/15"
+        class="hidden sm:inline-flex items-center text-[10px] tracking-[0.22em] uppercase text-[var(--color-text-muted)] font-semibold pl-3 ml-1 border-l border-[var(--color-border-strong)]"
         aria-label="Florida"
       >
         Florida
@@ -58,7 +58,7 @@ const enHref = switchLangPath(currentPath, "en");
           <li>
             <a
               href={l.href}
-              class="text-white/75 hover:text-white transition-colors duration-200 ease-brand"
+              class="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-200 ease-brand"
             >
               {l.label}
             </a>
@@ -142,7 +142,7 @@ const enHref = switchLangPath(currentPath, "en");
 
       <a
         href={ctaHref}
-        class="btn-cta hidden md:inline-flex items-center px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors duration-200 ease-brand"
+        class="btn-cta hidden md:inline-flex items-center px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors duration-200 ease-brand"
       >
         {t.cta}
       </a>
@@ -163,7 +163,7 @@ const enHref = switchLangPath(currentPath, "en");
 
   <div
     id="nav-mobile-panel"
-    class="nav-mobile-panel md:hidden border-t border-white/5 bg-brand-bg"
+    class="nav-mobile-panel md:hidden border-t border-[var(--color-border)] bg-white"
   >
     <ul class="px-5 py-3">
       {
@@ -171,7 +171,7 @@ const enHref = switchLangPath(currentPath, "en");
           <li>
             <a
               href={l.href}
-              class="block py-3 text-base text-white/85 hover:text-brand-cyan border-b border-white/5 last:border-b-0 transition-colors"
+              class="block py-3 text-base text-[var(--color-text-secondary)] hover:text-[var(--color-navy)] border-b border-[var(--color-border)] last:border-b-0 transition-colors"
             >
               {l.label}
             </a>
@@ -180,10 +180,10 @@ const enHref = switchLangPath(currentPath, "en");
       }
     </ul>
 
-    <div class="px-5 pb-5 pt-4 border-t border-white/5">
+    <div class="px-5 pb-5 pt-4 border-t border-[var(--color-border)]">
       <a
         href={ctaHref}
-        class="btn-cta block w-full text-center px-5 py-3 rounded-sm text-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 transition-colors"
+        class="btn-cta block w-full text-center px-5 py-3 rounded-sm text-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors"
       >
         {t.cta}
       </a>
@@ -211,7 +211,7 @@ const enHref = switchLangPath(currentPath, "en");
     left: 0;
     width: 100%;
     height: 2px;
-    background: #ffffff;
+    background: var(--color-text-primary);
     border-radius: 2px;
     transition:
       transform 220ms cubic-bezier(0.2, 0, 0, 1),
@@ -272,8 +272,8 @@ const enHref = switchLangPath(currentPath, "en");
     position: relative;
     display: inline-flex;
     align-items: center;
-    background: rgba(0, 82, 204, 0.1);
-    border: 1px solid rgba(0, 217, 255, 0.25);
+    background: rgba(0, 82, 204, 0.06);
+    border: 1px solid rgba(0, 153, 187, 0.3);
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
@@ -282,8 +282,8 @@ const enHref = switchLangPath(currentPath, "en");
       box-shadow 0.2s ease;
   }
   .lang-toggle:hover {
-    border-color: #00d9ff;
-    box-shadow: 0 0 16px rgba(0, 217, 255, 0.15);
+    border-color: #0099BB;
+    box-shadow: 0 0 16px rgba(0, 153, 187, 0.15);
   }
 
   .lang-toggle::before {
@@ -321,7 +321,7 @@ const enHref = switchLangPath(currentPath, "en");
     left: 3px;
     height: calc(100% - 6px);
     width: calc(50% - 3px);
-    background: #0052cc;
+    background: var(--color-blue);
     border-radius: 7px;
     box-shadow: 0 0 8px rgba(0, 82, 204, 0.6);
     transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
@@ -340,7 +340,7 @@ const enHref = switchLangPath(currentPath, "en");
     display: flex;
     align-items: center;
     gap: 6px;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--color-text-muted);
     position: relative;
     z-index: 1;
     user-select: none;
@@ -359,7 +359,7 @@ const enHref = switchLangPath(currentPath, "en");
     vertical-align: middle;
   }
   .lang-toggle-option:not(.is-active):hover {
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--color-text-primary);
   }
 
   /* Tooltip on-load (ES side only, 2s in → fade out at 5s) */
@@ -369,8 +369,8 @@ const enHref = switchLangPath(currentPath, "en");
     left: 50%;
     transform: translateX(-50%) translateY(6px);
     background: rgba(5, 10, 24, 0.95);
-    border: 1px solid rgba(0, 217, 255, 0.35);
-    color: #00d9ff;
+    border: 1px solid rgba(0, 153, 187, 0.35);
+    color: #0099BB;
     font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
     font-weight: 600;
     font-size: 11px;
@@ -391,7 +391,7 @@ const enHref = switchLangPath(currentPath, "en");
     left: 50%;
     transform: translateX(-50%);
     border: 5px solid transparent;
-    border-top-color: rgba(0, 217, 255, 0.35);
+    border-top-color: rgba(0, 153, 187, 0.35);
   }
   @keyframes langTipIn {
     to {

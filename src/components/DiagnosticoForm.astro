@@ -20,59 +20,59 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
   data-lang={lang}
 >
   <label class="block">
-    <span class="block text-sm font-semibold text-white/85 mb-2">{t.labels.name}</span>
+    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.name}</span>
     <input
       type="text"
       name="name"
       required
       autocomplete="name"
-      class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors"
+      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
     />
   </label>
 
   <label class="block">
-    <span class="block text-sm font-semibold text-white/85 mb-2">{t.labels.email}</span>
+    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.email}</span>
     <input
       type="email"
       name="email"
       required
       autocomplete="email"
-      class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors"
+      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
     />
   </label>
 
   <label class="block">
-    <span class="block text-sm font-semibold text-white/85 mb-2">{t.labels.phone}</span>
+    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.phone}</span>
     <input
       type="tel"
       name="phone"
       autocomplete="tel"
-      class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors"
+      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
     />
   </label>
 
   <label class="block">
-    <span class="block text-sm font-semibold text-white/85 mb-2">{t.labels.addressLabel}</span>
+    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.addressLabel}</span>
     <input
       type="text"
       name="address"
       autocomplete="address-level2"
       placeholder={t.labels.addressPlaceholder}
-      class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors"
+      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
     />
   </label>
 
   <label class="block">
-    <span class="block text-sm font-semibold text-white/85 mb-2">{t.labels.bizType}</span>
+    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.bizType}</span>
     <select
       name="business_type"
       required
-      class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 text-white focus:outline-none focus:border-brand-cyan transition-colors appearance-none cursor-pointer"
+      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors appearance-none cursor-pointer"
     >
-      <option value="" class="bg-brand-bg">{t.labels.bizTypePlaceholder}</option>
+      <option value="" class="bg-white">{t.labels.bizTypePlaceholder}</option>
       {
         businessTypes.map((bt) => (
-          <option value={bt} class="bg-brand-bg">
+          <option value={bt} class="bg-white">
             {bt}
           </option>
         ))
@@ -81,18 +81,18 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
   </label>
 
   <label class="block">
-    <span class="block text-sm font-semibold text-white/85 mb-2">{t.labels.problem}</span>
+    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.problem}</span>
     <textarea
       name="problem"
       rows="4"
       required
       placeholder={t.labels.problemPlaceholder}
-      class="w-full px-4 py-3 rounded bg-white/[0.04] border border-white/10 placeholder-white/40 text-white focus:outline-none focus:border-brand-cyan transition-colors resize-y"
+      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors resize-y"
     ></textarea>
   </label>
 
   <fieldset>
-    <legend class="block text-sm font-semibold text-white/85 mb-3">{t.labels.urgency}</legend>
+    <legend class="block text-sm font-semibold text-[var(--color-text-primary)] mb-3">{t.labels.urgency}</legend>
     <div class="space-y-2">
       {
         t.labels.urgencyOptions.map((opt) => (
@@ -102,9 +102,9 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
               name="urgency"
               value={opt.value}
               required
-              class="w-4 h-4 accent-brand-cyan cursor-pointer"
+              class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer"
             />
-            <span class="text-sm text-white/85">{opt.label}</span>
+            <span class="text-sm text-[var(--color-text-primary)]">{opt.label}</span>
           </label>
         ))
       }
@@ -117,11 +117,11 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
         type="checkbox"
         name="hipaa"
         value="yes"
-        class="mt-0.5 w-4 h-4 accent-brand-cyan cursor-pointer"
+        class="mt-0.5 w-4 h-4 accent-[var(--color-blue)] cursor-pointer"
       />
       <span class="flex-1">
-        <span class="block text-sm font-semibold text-white/85">{t.hipaaQuestion}</span>
-        <span class="block text-xs text-white/55 mt-1">{t.hipaaHint}</span>
+        <span class="block text-sm font-semibold text-[var(--color-text-primary)]">{t.hipaaQuestion}</span>
+        <span class="block text-xs text-[var(--color-text-muted)] mt-1">{t.hipaaHint}</span>
       </span>
     </label>
   </div>
@@ -129,16 +129,16 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
   <div class="pt-4">
     <button
       type="submit"
-      class="btn-cta w-full inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-brand-cyan text-brand-bg hover:bg-brand-cyan/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      class="btn-cta w-full inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
     >
       {t.submit}
     </button>
   </div>
 
-  <p class="text-xs text-white/55 pt-2">{t.privacyDisclaimer}</p>
+  <p class="text-xs text-[var(--color-text-muted)] pt-2">{t.privacyDisclaimer}</p>
 </form>
 
-<p id="diag-error" class="hidden text-sm text-red-400 mt-4" role="alert"></p>
+<p id="diag-error" class="hidden text-sm text-[var(--color-danger)] mt-4" role="alert"></p>
 
 <div
   id="diag-success"
@@ -147,7 +147,7 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
   aria-live="polite"
 >
   <p class="font-heading text-2xl mb-3 text-brand-lime">{t.successHeading}</p>
-  <p class="text-base text-white/85 leading-relaxed">{t.successBody}</p>
+  <p class="text-base text-[var(--color-text-primary)] leading-relaxed">{t.successBody}</p>
 </div>
 
 <script>

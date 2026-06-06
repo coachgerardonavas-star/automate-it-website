@@ -14,17 +14,51 @@
 }
 
 :root {
-  /* Brand */
-  --color-bg: #050A18;
-  --color-navy: #003DA5;
-  --color-blue: #0052CC;
-  --color-cyan: #00D9FF;
-  --color-lime: #AADD00;
-  --color-white: #FFFFFF;
+  /* ============================================================
+     MODO CLARO (v3) — fondo blanco. Tokens activos.
+     ============================================================ */
+
+  /* Fondos */
+  --color-bg:           #FFFFFF;
+  --color-bg-soft:      #F4F5F7;
+  --color-bg-dark:      #050A18;
+  --color-surface:      #FFFFFF;
+  --color-surface-soft: #F4F5F7;
+
+  /* Textos */
+  --color-text-primary:   #050A18;
+  --color-text-secondary: #344563;
+  --color-text-muted:     #5E6C84;
+  --color-text-subtle:    #97A0AF;
+  --color-white:          #FFFFFF;
+
+  /* Marca — acento de texto es blue; cyan SOLO decorativo */
+  --color-navy:   #003DA5;
+  --color-blue:   #0052CC;
+  --color-cyan:   #0099BB;   /* SOLO decorativo — nunca en texto sobre blanco */
+  --color-lime:   #7AB000;
+
+  /* Bordes */
+  --color-border:        #E1E4E8;
+  --color-border-strong: #C1C7D0;
+
+  /* Semánticos */
+  --color-success:    #36B37E;
+  --color-success-bg: #E3FCEF;
+  --color-warning:    #FF991F;
+  --color-warning-bg: #FEF3DC;
+  --color-danger:     #E5484D;
+  --color-danger-bg:  #FDECED;
+  --color-info:       #0052CC;
+  --color-info-bg:    #E6EEFB;
+
+  /* Sombras — sin neón, neutras */
+  --shadow-card: 0 1px 3px rgba(5,10,24,0.08), 0 4px 12px rgba(5,10,24,0.06);
+  --shadow-nav:  0 1px 0 #E1E4E8;
+
+  /* ---- Legacy (aún referenciados por componentes; se retiran en la migración) ---- */
   --color-gray-400: #97A0AF;
   --color-gray-900: #091E42;
-
-  /* Neutrals (azul frío) */
   --neutral-000: #FFFFFF;
   --neutral-50: #FAFBFD;
   --neutral-100: #F3F5F9;
@@ -36,33 +70,21 @@
   --neutral-700: #1F2740;
   --neutral-800: #141A2B;
   --neutral-900: #0A0E1A;
-
-  /* Semánticos */
-  --color-info: #0052CC;
-  --color-info-bg: #E6EEFB;
-  --color-success: #AADD00;
-  --color-success-bg: #F2FBD6;
-  --color-warning: #F5A524;
-  --color-warning-bg: #FEF3DC;
-  --color-danger: #E5484D;
-  --color-danger-bg: #FDECED;
-
-  /* Lima extra */
   --aitLime-300: #D9F080;
   --aitLime-400: #C2EA40;
   --aitLime-500: #AADD00;
   --aitLime-600: #8BB800;
-  --live: #AADD00;
+  --live: #36B37E;
 
-  /* Glows */
-  --glow-lime-sm: 0 0 8px rgba(170, 221, 0, 0.45);
-  --glow-lime-md: 0 0 18px rgba(170, 221, 0, 0.65);
-  --glow-cyan-sm: 0 0 8px rgba(0, 217, 255, 0.45);
-  --glow-cyan-md: 0 0 18px rgba(0, 217, 255, 0.65);
+  /* Glows decorativos — opacidad baja (modo claro) */
+  --glow-cyan-sm: 0 0 12px rgba(0,153,187,0.12);
+  --glow-cyan-md: 0 0 24px rgba(0,153,187,0.10);
+  --glow-lime-sm: 0 0 12px rgba(122,176,0,0.10);
+  --glow-lime-md: 0 0 24px rgba(122,176,0,0.10);
 
   /* Rings */
-  --ring-lime: 0 0 0 3px rgba(170, 221, 0, 0.35);
-  --ring-cyan: 0 0 0 3px rgba(0, 217, 255, 0.35);
+  --ring-lime: 0 0 0 3px rgba(122, 176, 0, 0.30);
+  --ring-cyan: 0 0 0 3px rgba(0, 153, 187, 0.30);
 
   /* Motion */
   --ease-brand: cubic-bezier(0.2, 0, 0, 1);
@@ -80,7 +102,7 @@
 
 html {
   background-color: var(--color-bg);
-  color: var(--color-white);
+  color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -92,9 +114,10 @@ body {
   font-weight: 400;
   line-height: 1.55;
   min-height: 100dvh;
-  background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='rgba(255,255,255,0.025)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-attachment: fixed;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  background-image: radial-gradient(circle, rgba(5,10,24,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 .section-divider {
@@ -104,22 +127,22 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 217, 255, 0.2) 30%,
-    rgba(0, 217, 255, 0.2) 70%,
+    rgba(0, 153, 187, 0.25) 30%,
+    rgba(0, 153, 187, 0.25) 70%,
     transparent 100%
   );
 }
 
 .card-glow {
-  border: 1px solid rgba(0, 217, 255, 0.12);
+  border: 1px solid var(--color-border);
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
 .card-glow:hover {
-  border-color: rgba(0, 217, 255, 0.45);
-  box-shadow: 0 0 24px rgba(0, 217, 255, 0.08);
+  border-color: rgba(0, 153, 187, 0.40);
+  box-shadow: var(--shadow-card);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -141,8 +164,8 @@ a {
 }
 
 ::selection {
-  background: var(--color-cyan);
-  color: var(--color-bg);
+  background: var(--color-blue);
+  color: var(--color-white);
 }
 
 /* Brand motion keyframes (CSS-only, sin GSAP) */

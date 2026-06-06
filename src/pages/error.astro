@@ -15,32 +15,32 @@ const t = translations[lang].errorPage;
     <div class="max-w-2xl mx-auto px-5 lg:px-8">
       <a
         href="/"
-        class="inline-block text-sm text-white/60 hover:text-brand-cyan transition-colors mb-8"
+        class="inline-block text-sm text-[var(--color-text-muted)] hover:text-[var(--color-navy)] transition-colors mb-8"
       >
         {t.backLink}
       </a>
 
       <header class="mb-10 flex flex-col items-start gap-5">
         <span
-          class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#FDECED]/10 text-[#E5484D]"
+          class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-danger/8 text-[var(--color-danger)]"
         >
           <CircleAlert size={32} strokeWidth={2} />
         </span>
         <h1 class="font-heading text-3xl sm:text-5xl leading-tight">
           {t.heading}
         </h1>
-        <p class="text-base sm:text-lg text-white/75 leading-relaxed">
+        <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed">
           {t.subheading}
         </p>
       </header>
 
-      <section class="space-y-4 text-white/80">
+      <section class="space-y-4 text-[var(--color-text-secondary)]">
         <p class="text-base">{t.bodyIntro}</p>
         <ul class="space-y-2 text-sm sm:text-base">
           {
             t.bullets.map((line) => (
               <li class="flex gap-3">
-                <span aria-hidden="true" class="text-brand-cyan">→</span>
+                <span aria-hidden="true" class="text-[var(--color-blue)]">→</span>
                 <span>{line}</span>
               </li>
             ))
@@ -50,7 +50,7 @@ const t = translations[lang].errorPage;
         <div class="pt-6">
           <a
             href="/#planes"
-            class="inline-flex items-center gap-2 rounded-md bg-brand-cyan px-5 py-3 text-sm font-semibold text-brand-bg transition-colors hover:bg-brand-cyan/90"
+            class="inline-flex items-center gap-2 rounded-md bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-navy)]"
           >
             {t.retryLink}
           </a>

@@ -16,32 +16,32 @@ const sessionId = Astro.url.searchParams.get("session_id") ?? "";
     <div class="max-w-2xl mx-auto px-5 lg:px-8">
       <a
         href="/"
-        class="inline-block text-sm text-white/60 hover:text-brand-cyan transition-colors mb-8"
+        class="inline-block text-sm text-[var(--color-text-muted)] hover:text-[var(--color-navy)] transition-colors mb-8"
       >
         {t.backLink}
       </a>
 
       <header class="mb-10 flex flex-col items-start gap-5">
         <span
-          class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-cyan/15 text-brand-cyan"
+          class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue"
         >
           <CircleCheck size={32} strokeWidth={2} />
         </span>
         <h1 class="font-heading text-3xl sm:text-5xl leading-tight">
           {t.heading}
         </h1>
-        <p class="text-base sm:text-lg text-white/75 leading-relaxed">
+        <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed">
           {t.subheading}
         </p>
       </header>
 
-      <section class="space-y-4 text-white/80">
+      <section class="space-y-4 text-[var(--color-text-secondary)]">
         <p class="text-base">{t.bodyIntro}</p>
         <ul class="space-y-2 text-sm sm:text-base">
           {
             t.bullets.map((line) => (
               <li class="flex gap-3">
-                <span aria-hidden="true" class="text-brand-cyan">→</span>
+                <span aria-hidden="true" class="text-[var(--color-blue)]">→</span>
                 <span>{line}</span>
               </li>
             ))
@@ -50,7 +50,7 @@ const sessionId = Astro.url.searchParams.get("session_id") ?? "";
 
         {
           sessionId && (
-            <p class="pt-6 text-xs text-white/40 break-all">
+            <p class="pt-6 text-xs text-[var(--color-text-subtle)] break-all">
               Ref: <span class="font-mono">{sessionId}</span>
             </p>
           )
