@@ -50,7 +50,14 @@ const diagPath = "/diagnostico";
         class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl"
       >
         {t.h1Line1}<br />
-        <span class="text-[var(--color-blue)]">{t.h1Line2}</span>
+        <span
+          id="typewriter"
+          class="text-[var(--color-blue)]"
+          aria-live="polite"
+          aria-label={t.h1Line2}
+        ><span id="typewriter-text">{t.h1Line2}</span><span
+            class="typewriter-cursor"
+            aria-hidden="true">|</span></span>
       </h1>
 
       <p
@@ -127,4 +134,91 @@ const diagPath = "/diagnostico";
       transparent 70%
     );
   }
+
+  .typewriter-cursor {
+    animation: blink 530ms step-end infinite;
+    color: var(--color-blue);
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* Reduced motion: frase 1 estática, sin animación ni cursor */
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-cursor {
+      display: none;
+    }
+  }
 </style>
+
+<script>
+  // Typewriter del hero — vanilla JS, sin dependencias.
+  const PHRASES = [
+    "nosotros contestamos.",
+    "nadie pierde una llamada.",
+    "tu negocio no para.",
+    "alguien siempre responde.",
+  ];
+
+  const TYPE_MS = 60; // velocidad de escritura por carácter
+  const DELETE_MS = 30; // velocidad de borrado por carácter
+  const HOLD_MS = 2000; // pausa al terminar de escribir una frase
+  const BETWEEN_MS = 400; // pausa antes de empezar la siguiente frase
+
+  const textEl = document.getElementById("typewriter-text");
+  const container = document.getElementById("typewriter");
+  const cursor = container?.querySelector(".typewriter-cursor");
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // Con reduced-motion no animamos: el SSR ya dejó la primera frase estática
+  // y el cursor está oculto vía CSS.
+  if (textEl && container && !prefersReducedMotion) {
+    let phraseIndex = 0;
+    // La primera frase ya viene renderizada desde el servidor.
+    let charIndex = PHRASES[0].length;
+    textEl.textContent = PHRASES[0];
+
+    const setCursor = (visible) => {
+      if (cursor) cursor.style.visibility = visible ? "visible" : "hidden";
+    };
+
+    const type = () => {
+      const current = PHRASES[phraseIndex];
+      setCursor(true); // el cursor reaparece al escribir
+      if (charIndex < current.length) {
+        charIndex += 1;
+        textEl.textContent = current.slice(0, charIndex);
+        window.setTimeout(type, TYPE_MS);
+      } else {
+        // Frase completa: pausa visible y luego borrar.
+        window.setTimeout(erase, HOLD_MS);
+      }
+    };
+
+    const erase = () => {
+      const current = PHRASES[phraseIndex];
+      setCursor(false); // el cursor desaparece durante el borrado
+      if (charIndex > 0) {
+        charIndex -= 1;
+        textEl.textContent = current.slice(0, charIndex);
+        window.setTimeout(erase, DELETE_MS);
+      } else {
+        phraseIndex = (phraseIndex + 1) % PHRASES.length;
+        window.setTimeout(type, BETWEEN_MS);
+      }
+    };
+
+    // Arranque: la frase 1 ya está visible; mantenemos la pausa y empezamos el loop.
+    window.setTimeout(erase, HOLD_MS);
+  }
+</script>
