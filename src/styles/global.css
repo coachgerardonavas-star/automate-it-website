@@ -167,6 +167,33 @@ body {
   }
 }
 
+/* Tilt 3D al hover. La perspectiva vive en el wrapper, no en la card. */
+.tilt-wrapper {
+  perspective: 800px;
+}
+
+.tilt-card {
+  /* Incluye border-color para no pisar el hover de .card-glow. */
+  transition:
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    border-color 200ms ease-out;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.tilt-card:hover {
+  box-shadow: var(--shadow-card), 0 12px 32px rgba(5, 10, 24, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card {
+    transition: none;
+    will-change: auto;
+    transform: none;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
   font-weight: 800;

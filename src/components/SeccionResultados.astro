@@ -52,10 +52,10 @@ const parsedCards = t.cards.map((card) => ({
       </p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl">
+    <div class="tilt-wrapper grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl">
       {
         parsedCards.map((card) => (
-          <article class="flex flex-col p-7 sm:p-8 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] border border-[var(--color-border)] hover:border-brand-cyan/40 transition-colors duration-200 ease-brand">
+          <article class="tilt-card flex flex-col p-7 sm:p-8 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] border border-[var(--color-border)] hover:border-brand-cyan/40 transition-colors duration-200 ease-brand">
             <p class="font-heading font-extrabold text-6xl sm:text-7xl leading-none text-[var(--color-navy)] mb-5 tracking-tight">
               <span aria-hidden="true">{card.prefix}</span><span
                 data-counter
@@ -153,4 +153,8 @@ const parsedCards = t.cards.map((card) => ({
     );
     counters.forEach((el) => observer.observe(el));
   }
+</script>
+
+<script>
+  import "../scripts/tiltCards.js";
 </script>

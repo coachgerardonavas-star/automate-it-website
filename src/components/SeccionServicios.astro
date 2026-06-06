@@ -93,13 +93,13 @@ const serviceSchemas = t.plans.map((plan, i) => {
       </p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-16 sm:mb-20">
+    <div class="tilt-wrapper grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-16 sm:mb-20">
       {
         t.plans.map((plan) => (
           <article
             id={`plan-${plan.sku.toLowerCase()}`}
             class:list={[
-              "relative flex flex-col p-6 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] scroll-mt-20",
+              "tilt-card relative flex flex-col p-6 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] scroll-mt-20",
               plan.badge
                 ? "border border-brand-lime/40 hover:border-brand-lime transition-all duration-200 ease-brand"
                 : "card-glow",
@@ -181,10 +181,10 @@ const serviceSchemas = t.plans.map((plan, i) => {
         </p>
       </header>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+      <div class="tilt-wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
         {
           t.modules.map((mod) => (
-            <article class="card-glow flex flex-col p-6 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)]">
+            <article class="tilt-card card-glow flex flex-col p-6 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)]">
               <div class="flex items-center justify-between mb-3">
                 <p class="font-mono text-xs sm:text-[10px] tracking-widest uppercase text-[var(--color-text-subtle)]">
                   {mod.sku}
@@ -299,6 +299,10 @@ const serviceSchemas = t.plans.map((plan, i) => {
     }
   }
 </style>
+
+<script>
+  import "../scripts/tiltCards.js";
+</script>
 
 <script is:inline define:vars={{ workerUrl: STRIPE_CHECKOUT_WORKER_URL }}>
   (function () {
