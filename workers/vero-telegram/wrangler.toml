@@ -1,0 +1,12 @@
+name = "vero-telegram"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+ALLOWED_CHAT_ID = "8348522203"
+
+# Crear con: npx wrangler kv namespace create "vero-approvals"
+# y pegar el ID devuelto en la línea id de abajo.
+[[kv_namespaces]]
+binding = "APPROVALS"
+id = "5081ffc2fddd4bf088b7b1801523ecf1"

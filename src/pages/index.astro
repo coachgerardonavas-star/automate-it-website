@@ -4,8 +4,11 @@ import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
 import SeccionResultados from "../components/SeccionResultados.astro";
 import SeccionDolor from "../components/SeccionDolor.astro";
-import BandaHeuristicas from "../components/BandaHeuristicas.astro";
+// import BandaHeuristicas from "../components/BandaHeuristicas.astro";
+// ^ Desactivada: sus 4 stats (85%, 62%, 5.2M, $126K) duplicaban 3 de las 3 stats
+//   visibles en SeccionResultados. Reactivar cuando haya datos diferenciados.
 import SeccionTransformacion from "../components/SeccionTransformacion.astro";
+import RibbonStat from "../components/RibbonStat.astro";
 import SeccionAgentes from "../components/SeccionAgentes.astro";
 import SeccionServicios from "../components/SeccionServicios.astro";
 import SeccionPaquetes from "../components/SeccionPaquetes.astro";
@@ -24,10 +27,11 @@ const lang = "es";
     <SeccionResultados lang={lang} />
     <hr class="section-divider" aria-hidden="true" />
     <SeccionDolor lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <BandaHeuristicas lang={lang} />
+    {/* <BandaHeuristicas lang={lang} /> — desactivada por duplicación con SeccionResultados */}
     <hr class="section-divider" aria-hidden="true" />
     <SeccionTransformacion lang={lang} />
+    <hr class="section-divider" aria-hidden="true" />
+    <RibbonStat lang={lang} />
     <hr class="section-divider" aria-hidden="true" />
     <SeccionAgentes lang={lang} />
     <hr class="section-divider" aria-hidden="true" />

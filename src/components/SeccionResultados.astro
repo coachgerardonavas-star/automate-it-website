@@ -7,6 +7,33 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].resultados;
+
+type CounterFormat = "int" | "k";
+
+function parseStat(stat: string): {
+  prefix: string;
+  target: number;
+  suffix: string;
+  format: CounterFormat;
+} {
+  const m = stat.match(/^(\$?)([0-9]+(?:\.[0-9]+)?)([%KMB]?)$/);
+  if (!m) return { prefix: "", target: 0, suffix: "", format: "int" };
+  const prefix = m[1] || "";
+  const numStr = m[2];
+  const suffix = m[3] || "";
+  let target = parseFloat(numStr);
+  let format: CounterFormat = "int";
+  if (suffix === "K") {
+    target = target * 1000;
+    format = "k";
+  }
+  return { prefix, target, suffix, format };
+}
+
+const parsedCards = t.cards.map((card) => ({
+  ...card,
+  ...parseStat(card.stat),
+}));
 ---
 
 <section
@@ -15,7 +42,9 @@ const t = translations[lang].resultados;
 >
   <div class="max-w-7xl mx-auto px-5 lg:px-8">
     <header class="max-w-3xl mb-12 sm:mb-16">
-      <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold">
+      <p
+        class="text-sm sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold"
+      >
         {t.eyebrow}
       </p>
       <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed">
@@ -23,19 +52,21 @@ const t = translations[lang].resultados;
       </p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 max-w-5xl">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl">
       {
-        t.cards.map((card) => (
+        parsedCards.map((card) => (
           <article class="flex flex-col p-7 sm:p-8 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] border border-[var(--color-border)] hover:border-brand-cyan/40 transition-colors duration-200 ease-brand">
-            <span
-              class="text-3xl sm:text-4xl mb-4 leading-none select-none"
-              aria-hidden="true"
-            >
-              {card.icon}
-            </span>
-            <blockquote class="text-base sm:text-lg text-[var(--color-text-primary)] leading-relaxed font-heading font-normal">
-              <span aria-hidden="true">“</span>{card.quote}<span aria-hidden="true">”</span>
-            </blockquote>
+            <p class="font-heading font-extrabold text-6xl sm:text-7xl leading-none text-[var(--color-navy)] mb-5 tracking-tight">
+              <span aria-hidden="true">{card.prefix}</span><span
+                data-counter
+                data-counter-value={card.target}
+                data-counter-format={card.format}
+                aria-label={card.stat}
+              >0</span><span aria-hidden="true">{card.suffix}</span>
+            </p>
+            <p class="text-base sm:text-lg text-[var(--color-text-primary)] leading-snug">
+              {card.consequence}
+            </p>
           </article>
         ))
       }
@@ -67,3 +98,59 @@ const t = translations[lang].resultados;
     }
   }
 </style>
+
+<script>
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  function formatValue(value: number, format: string): string {
+    if (format === "k") return String(Math.round(value / 1000));
+    return String(Math.round(value));
+  }
+
+  function animateCounter(el: HTMLElement) {
+    if (el.dataset.animated === "true") return;
+    el.dataset.animated = "true";
+
+    const target = parseFloat(el.dataset.counterValue || "0");
+    const format = el.dataset.counterFormat || "int";
+
+    if (reduceMotion) {
+      el.textContent = formatValue(target, format);
+      return;
+    }
+
+    const duration = 1800;
+    const start = performance.now();
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = formatValue(target * eased, format);
+      if (t < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const counters = document.querySelectorAll<HTMLElement>("[data-counter]");
+
+  if (reduceMotion) {
+    counters.forEach(animateCounter);
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    counters.forEach((el) => observer.observe(el));
+  }
+</script>

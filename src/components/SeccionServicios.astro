@@ -99,7 +99,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
           <article
             id={`plan-${plan.sku.toLowerCase()}`}
             class:list={[
-              "relative flex flex-col p-7 sm:p-8 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] scroll-mt-20",
+              "relative flex flex-col p-6 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] scroll-mt-20",
               plan.badge
                 ? "border border-brand-lime/40 hover:border-brand-lime transition-all duration-200 ease-brand"
                 : "card-glow",
@@ -147,7 +147,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
                   data-lang={lang}
                   data-label-default={t.checkoutLabel}
                   data-label-loading={t.checkoutLoading}
-                  class="btn-cta block w-full text-center px-5 py-3 rounded-sm text-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors duration-200 ease-brand disabled:opacity-60 disabled:cursor-not-allowed"
+                  class="btn-cta block mx-auto w-auto text-center px-8 py-3 rounded-sm text-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors duration-200 ease-brand disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {t.checkoutLabel}
                 </button>

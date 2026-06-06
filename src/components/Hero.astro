@@ -12,59 +12,119 @@ const t = copy.hero;
 const diagPath = "/diagnostico";
 ---
 
-<section class="relative min-h-[88vh] lg:min-h-[720px] flex items-center overflow-hidden">
+<section
+  class="relative min-h-[88vh] lg:min-h-[720px] flex items-center overflow-hidden"
+>
   <div class="absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute inset-0 bg-gradient-to-b from-brand-blue/5 via-white to-white"></div>
-    <div class="absolute -top-40 -right-32 h-[40rem] w-[40rem] rounded-full bg-brand-cyan/10 blur-3xl"></div>
-    <div class="absolute bottom-0 -left-40 h-[30rem] w-[30rem] rounded-full bg-brand-blue/[0.08] blur-3xl"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-brand-blue/5 via-white to-white"
+    >
+    </div>
+    <div
+      class="absolute -top-40 -right-32 h-[40rem] w-[40rem] rounded-full bg-brand-cyan/10 blur-3xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 -left-40 h-[30rem] w-[30rem] rounded-full bg-brand-blue/[0.08] blur-3xl"
+    >
+    </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full">
-    <p class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-6 font-semibold">
-      {t.eyebrow}
-    </p>
+  <div
+    class="hero-spotlight absolute inset-0 pointer-events-none"
+    aria-hidden="true"
+  >
+  </div>
 
-    <h1 class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl">
-      {t.h1Line1}<br />
-      <span class="text-[var(--color-blue)]">{t.h1Line2}</span>
-    </h1>
-
-    <p class="mt-6 max-w-2xl text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed">
-      {t.subtitle}
-    </p>
-
-    <ul class="mt-8 space-y-4 sm:space-y-5 max-w-2xl">
-      {
-        t.bullets.map((bullet) => (
-          <li class="text-base sm:text-lg text-[var(--color-text-primary)] leading-relaxed">
-            {bullet}
-          </li>
-        ))
-      }
-    </ul>
-
-    <div class="mt-10">
-      <a
-        href={diagPath}
-        class="btn-cta inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors duration-200 ease-brand"
+  <div
+    class="relative z-10 max-w-7xl mx-auto px-5 lg:px-8 py-20 sm:py-28 w-full grid lg:grid-cols-2 gap-10 lg:gap-12 items-stretch"
+  >
+    <div class="flex flex-col justify-center lg:col-span-1">
+      <p
+        class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-6 font-semibold"
       >
-        {t.ctaPrimary}
-      </a>
+        {t.eyebrow}
+      </p>
+
+      <h1
+        class="font-heading text-4xl sm:text-6xl lg:text-6xl xl:text-7xl leading-[1.04] max-w-4xl"
+      >
+        {t.h1Line1}<br />
+        <span class="text-[var(--color-blue)]">{t.h1Line2}</span>
+      </h1>
+
+      <p
+        class="mt-6 max-w-2xl text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed"
+      >
+        {t.subtitle}
+      </p>
+
+      <ul class="mt-8 space-y-4 sm:space-y-5 max-w-2xl">
+        {
+          t.bullets.map((bullet) => (
+            <li class="text-base sm:text-lg text-[var(--color-text-primary)] leading-relaxed">
+              {bullet}
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-10">
+        <a
+          href={diagPath}
+          class="btn-cta inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors duration-200 ease-brand"
+        >
+          {t.ctaPrimary}
+        </a>
+      </div>
+
+      <p class="mt-8 text-sm sm:text-base text-[var(--color-text-muted)] max-w-md">
+        {t.microcopy}
+      </p>
+
+      <ul
+        class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-sm sm:text-xs text-[var(--color-text-secondary)] max-w-3xl"
+      >
+        {
+          t.trustBadges.map((badge) => (
+            <li class="flex items-start gap-1.5 leading-snug">
+              <span aria-hidden="true">{badge.icon}</span>
+              <span>{badge.text}</span>
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
-    <p class="mt-8 text-sm sm:text-base text-[var(--color-text-muted)] max-w-md">
-      {t.microcopy}
-    </p>
-
-    <ul class="mt-12 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3 text-sm sm:text-xs text-[var(--color-text-secondary)] max-w-3xl">
-      {
-        t.trustBadges.map((badge) => (
-          <li class="flex items-start gap-1.5 leading-snug">
-            <span aria-hidden="true">{badge.icon}</span>
-            <span>{badge.text}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <div
+      class="hidden lg:flex lg:col-span-1 items-center justify-center relative"
+      aria-hidden="true"
+    >
+      <div
+        class="w-full max-w-lg xl:max-w-xl rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-[var(--shadow-card)]"
+      >
+        <img
+          src="/assets/bit-inbound.png"
+          alt=""
+          aria-hidden="true"
+          width="1280"
+          height="720"
+          loading="eager"
+          decoding="async"
+          class="w-full h-auto block"
+        />
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .hero-spotlight {
+    z-index: 0;
+    background: radial-gradient(
+      ellipse 60% 50% at 30% 50%,
+      rgba(0, 82, 204, 0.05) 0%,
+      transparent 70%
+    );
+  }
+</style>

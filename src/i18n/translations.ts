@@ -42,31 +42,59 @@ export const translations = {
     },
 
     resultados: {
-      eyebrow: "Lo que nos dicen después de la primera semana",
-      subtitle: "Resultados típicos de nuestros clientes en Florida",
+      eyebrow: "Lo que pasa cuando no contestas",
+      subtitle:
+        "La consecuencia es inmediata y medible. No es opinión — son datos de la industria.",
       cards: [
         {
-          icon: "📞",
-          quote:
-            "Mis clientes ya no se van con la competencia. Alguien siempre contesta.",
+          stat: "62%",
+          consequence: "Llaman al siguiente negocio en Google. Inmediatamente.",
         },
         {
-          icon: "🕐",
-          quote:
-            "Me libero horas cada semana que antes perdía contestando llamadas de rutina.",
+          stat: "85%",
+          consequence: "No vuelven a intentarlo. Nunca.",
         },
         {
-          icon: "🌐",
-          quote:
-            "Mis clientes en inglés se atienden solos. Yo me enfoco en el trabajo.",
-        },
-        {
-          icon: "😴",
-          quote:
-            "El viernes en la noche recibí una cita agendada. Yo estaba dormido.",
+          stat: "$126K",
+          consequence:
+            "Es lo que pierde un negocio promedio al año. Solo en llamadas.",
         },
       ],
-      disclaimer: "Resultados típicos. Cada negocio es distinto.",
+      disclaimer: "Datos de la industria de servicios en EE.UU., 2024–2026.",
+    },
+
+    ribbon: {
+      source:
+        "Fuente: MPI Data Hub / NIWAP 2024 · 44.9% de hispanohablantes en Florida con dominio limitado del inglés",
+    },
+
+    banda: {
+      stats: [
+        {
+          stat: "85%",
+          label:
+            "de las personas que no logran contactar un negocio no vuelven a llamar",
+          source: "PATLive / SchedulingKit 2026",
+        },
+        {
+          stat: "62%",
+          label:
+            "de los negocios pequeños no contestan la mayoría de sus llamadas",
+          source: "411 Locals / getaira.io 2026",
+        },
+        {
+          stat: "5.2M",
+          label:
+            "personas hablan español en casa en Florida — muchas esperan que alguien conteste en inglés",
+          source: "MPI Data Hub / NIWAP 2024",
+        },
+        {
+          stat: "$126K",
+          label:
+            "en ingresos pierde al año el negocio promedio por llamadas no contestadas",
+          source: "SchedulingKit / Dialzara 2026",
+        },
+      ],
     },
 
     dolor: {
@@ -283,7 +311,7 @@ export const translations = {
       examples: [
         { label: "Salón de belleza · Solo WhatsApp", total: "$198/mes", detail: "Starter $99 + WhatsApp $99" },
         { label: "Terapeuta SLP · Voz HIPAA", total: "$328/mes", detail: "Professional $179 + Voz $149" },
-        { label: "Consultora · Voz + WhatsApp + CRM", total: "$446/mes", detail: "Starter $99 + $149 + $99 + $99" },
+        { label: "Realtor · Voz + WhatsApp + CRM", total: "$446/mes", detail: "Starter $99 + Voz $149 + WhatsApp $99 + CRM $99" },
         { label: "Clínica HIPAA · Voz + WhatsApp + CRM", total: "$526/mes", detail: "Professional $179 + $149 + $99 + $99" },
       ],
       cta: "Agenda tu diagnóstico gratuito",
@@ -330,7 +358,7 @@ export const translations = {
       eyebrow: "Blog",
       heading: "Pensamientos sobre automatización",
       subheading:
-        "Sin humo. Solo tácticas, números y mecanismos que ya hemos visto funcionar.",
+        "Cómo usar la IA en tu negocio, explicado simple y en 5 minutos. Sin hacerte sentir tonto por preguntar.",
       readMore: "Leer →",
       byAuthor: "Por",
       publishedOn: "Publicado",
@@ -679,31 +707,57 @@ export const translations = {
     },
 
     resultados: {
-      eyebrow: "What we hear after the first week",
-      subtitle: "Typical results from our Florida clients",
+      eyebrow: "What happens when you don't answer",
+      subtitle:
+        "The consequence is immediate and measurable. Not opinion — industry data.",
       cards: [
         {
-          icon: "📞",
-          quote:
-            "My clients stopped going to competitors. Someone always picks up.",
+          stat: "62%",
+          consequence: "Call the next business on Google. Immediately.",
         },
         {
-          icon: "🕐",
-          quote:
-            "I get back hours every week I used to lose answering routine calls.",
+          stat: "85%",
+          consequence: "Never try again. Ever.",
         },
         {
-          icon: "🌐",
-          quote:
-            "My English-speaking clients handle themselves. I focus on the work.",
-        },
-        {
-          icon: "😴",
-          quote:
-            "Friday night I woke up to a booked appointment. I was already asleep.",
+          stat: "$126K",
+          consequence:
+            "Is what the average business loses per year. From missed calls alone.",
         },
       ],
-      disclaimer: "Typical results. Every business is different.",
+      disclaimer: "U.S. service industry data, 2024–2026.",
+    },
+
+    ribbon: {
+      source:
+        "Source: MPI Data Hub / NIWAP 2024 · 44.9% of Florida Spanish speakers have limited English proficiency",
+    },
+
+    banda: {
+      stats: [
+        {
+          stat: "85%",
+          label: "of callers who don't reach a business won't call back",
+          source: "PATLive / SchedulingKit 2026",
+        },
+        {
+          stat: "62%",
+          label: "of small businesses miss most of their incoming calls",
+          source: "411 Locals / getaira.io 2026",
+        },
+        {
+          stat: "5.2M",
+          label:
+            "people speak Spanish at home in Florida — many need someone to answer in English",
+          source: "MPI Data Hub / NIWAP 2024",
+        },
+        {
+          stat: "$126K",
+          label:
+            "average annual revenue lost by small businesses from missed calls",
+          source: "SchedulingKit / Dialzara 2026",
+        },
+      ],
     },
 
     dolor: {
@@ -920,7 +974,7 @@ export const translations = {
       examples: [
         { label: "Beauty salon · WhatsApp only", total: "$198/mo", detail: "Starter $99 + WhatsApp $99" },
         { label: "SLP Therapist · HIPAA Voice", total: "$328/mo", detail: "Professional $179 + Voice $149" },
-        { label: "Consultant · Voice + WhatsApp + CRM", total: "$446/mo", detail: "Starter $99 + $149 + $99 + $99" },
+        { label: "Realtor · Voice + WhatsApp + CRM", total: "$446/mo", detail: "Starter $99 + Voice $149 + WhatsApp $99 + CRM $99" },
         { label: "HIPAA Clinic · Voice + WhatsApp + CRM", total: "$526/mo", detail: "Professional $179 + $149 + $99 + $99" },
       ],
       cta: "Book your free diagnosis",
@@ -967,7 +1021,7 @@ export const translations = {
       eyebrow: "Blog",
       heading: "Thoughts on automation",
       subheading:
-        "No fluff. Just tactics, numbers, and mechanisms we've seen work.",
+        "How to use AI in your business, explained simply in 5 minutes — without making you feel dumb for asking.",
       readMore: "Read →",
       byAuthor: "By",
       publishedOn: "Published",
