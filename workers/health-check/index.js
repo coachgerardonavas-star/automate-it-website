@@ -33,6 +33,10 @@ const SERVICES = [
 
 const TELEGRAM_CHAT_ID = "8348522203";
 const FETCH_TIMEOUT_MS = 10000;
+// Fallos consecutivos requeridos antes de alertar. Con cron */15, exige que el
+// servicio falle 2 ticks seguidos (~15 min) y así evita falsos positivos por
+// blips de red o edges fríos. Una caída real igual avisa, solo ~1 ciclo después.
+const CONFIRMATION_THRESHOLD = 2;
 
 export default {
   async scheduled(_event, env, _ctx) {
@@ -43,36 +47,61 @@ export default {
 async function checkService(svc, env) {
   try {
     const result = await pingService(svc, env);
-    const currentState = result.ok ? "ok" : "down";
+    const isDown = !result.ok;
     const stateKey = `state:${svc.key}`;
     const stored = await env.STATE.get(stateKey, { type: "json" });
     const previousState = stored?.status ?? "ok";
+    const previousFails = stored?.fails ?? 0;
     const nowIso = new Date().toISOString();
 
-    if (previousState === "ok" && currentState === "down") {
-      await sendAlert(env, svc, result, nowIso);
-      await env.STATE.put(
-        stateKey,
-        JSON.stringify({ status: "down", since: nowIso }),
-      );
+    // El servicio estaba considerado operativo.
+    if (previousState === "ok") {
+      if (!isDown) {
+        // Sigue sano: limpia cualquier racha de fallos pendiente.
+        if (!stored || previousFails !== 0) {
+          await env.STATE.put(
+            stateKey,
+            JSON.stringify({
+              status: "ok",
+              since: stored?.since ?? nowIso,
+              fails: 0,
+            }),
+          );
+        }
+        return;
+      }
+
+      // Falló estando "ok": cuenta el fallo y solo alerta tras N consecutivos.
+      const fails = previousFails + 1;
+      if (fails >= CONFIRMATION_THRESHOLD) {
+        await sendAlert(env, svc, result, nowIso);
+        await env.STATE.put(
+          stateKey,
+          JSON.stringify({ status: "down", since: nowIso, fails }),
+        );
+      } else {
+        // Fallo no confirmado todavía: registra la racha sin alertar.
+        await env.STATE.put(
+          stateKey,
+          JSON.stringify({
+            status: "ok",
+            since: stored?.since ?? nowIso,
+            fails,
+          }),
+        );
+      }
       return;
     }
 
-    if (previousState === "down" && currentState === "ok") {
+    // El servicio estaba considerado caído: solo actúa si se recuperó.
+    if (!isDown) {
       await sendRecovery(env, svc, stored?.since, nowIso);
       await env.STATE.put(
         stateKey,
-        JSON.stringify({ status: "ok", since: nowIso }),
-      );
-      return;
-    }
-
-    if (!stored) {
-      await env.STATE.put(
-        stateKey,
-        JSON.stringify({ status: currentState, since: nowIso }),
+        JSON.stringify({ status: "ok", since: nowIso, fails: 0 }),
       );
     }
+    // Sigue caído: ya se alertó, no se hace nada hasta que recupere.
   } catch (err) {
     console.error(
       `checkService failed for ${svc.key}: ${err?.message || err?.name || err}`,
