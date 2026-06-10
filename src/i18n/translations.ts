@@ -25,7 +25,7 @@ export const translations = {
       h1Line1: "Mientras tú trabajas,",
       h1Line2: "nosotros contestamos.",
       subtitle:
-        "Alguien siempre contesta, no importa la hora ni el idioma.",
+        "El teléfono, el WhatsApp y el chat de tu negocio — contestando solos, en un solo sistema. Yo te lo instalo; tú enciendes el switch.",
       bullets: [
         "📞 Contesta llamadas mientras atiendes a tus clientes.",
         "💬 Responde WhatsApp mientras estás con tu familia.",
@@ -693,7 +693,7 @@ export const translations = {
       h1Line1: "While you work,",
       h1Line2: "we answer.",
       subtitle:
-        "Someone always picks up, no matter the time or language.",
+        "Your business's phone, WhatsApp and chat — answering on their own, in one system. I set it up; you flip the switch.",
       bullets: [
         "📞 Answers calls while you're with your clients.",
         "💬 Responds to WhatsApp while you're with your family.",
