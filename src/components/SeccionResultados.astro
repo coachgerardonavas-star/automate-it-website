@@ -67,6 +67,11 @@ const parsedCards = t.cards.map((card) => ({
             <p class="text-base sm:text-lg text-[var(--color-text-primary)] leading-snug">
               {card.consequence}
             </p>
+            {card.source && (
+              <p class="mt-4 text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                {card.source}
+              </p>
+            )}
           </article>
         ))
       }

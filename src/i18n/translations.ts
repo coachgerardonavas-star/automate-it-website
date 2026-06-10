@@ -49,15 +49,18 @@ export const translations = {
         {
           stat: "62%",
           consequence: "Llaman al siguiente negocio en Google. Inmediatamente.",
+          source: "411 Locals / getaira.io 2024 · PATLive",
         },
         {
           stat: "85%",
           consequence: "No vuelven a intentarlo. Nunca.",
+          source: "BIA/Kelsey · PATLive · AnswerConnect · Forbes",
         },
         {
           stat: "$126K",
           consequence:
-            "Es lo que pierde un negocio promedio al año. Solo en llamadas.",
+            "Es lo que pierde un negocio promedio al año. Solo en llamadas. Promedio — varía por industria (salón ~$35K, dental ~$150K+).",
+          source: "AMBS Call Center",
         },
       ],
       disclaimer: "Datos de la industria de servicios en EE.UU., 2024–2026.",
@@ -714,15 +717,18 @@ export const translations = {
         {
           stat: "62%",
           consequence: "Call the next business on Google. Immediately.",
+          source: "411 Locals / getaira.io 2024 · PATLive",
         },
         {
           stat: "85%",
           consequence: "Never try again. Ever.",
+          source: "BIA/Kelsey · PATLive · AnswerConnect · Forbes",
         },
         {
           stat: "$126K",
           consequence:
-            "Is what the average business loses per year. From missed calls alone.",
+            "Is what the average business loses per year. From missed calls alone. Average — varies by industry (salon ~$35K, dental ~$150K+).",
+          source: "AMBS Call Center",
         },
       ],
       disclaimer: "U.S. service industry data, 2024–2026.",
