@@ -313,9 +313,9 @@ export const translations = {
       examplesEyebrow: "Ejemplos de precio total",
       examples: [
         { label: "Salón de belleza · Solo WhatsApp", total: "$198/mes", detail: "Starter $99 + WhatsApp $99" },
-        { label: "Terapeuta SLP · Voz HIPAA", total: "$328/mes", detail: "Professional $179 + Voz $149" },
+        { label: "Contratista · Voz", total: "$248/mes", detail: "Starter $99 + Voz $149" },
+        { label: "Consultorio · Voz HIPAA", total: "$328/mes", detail: "Professional $179 + Voz $149" },
         { label: "Realtor · Voz + WhatsApp + CRM", total: "$446/mes", detail: "Starter $99 + Voz $149 + WhatsApp $99 + CRM $99" },
-        { label: "Clínica HIPAA · Voz + WhatsApp + CRM", total: "$526/mes", detail: "Professional $179 + $149 + $99 + $99" },
       ],
       cta: "Agenda tu diagnóstico gratuito",
       ctaHint: "¿No sabes qué módulos necesitas? El diagnóstico te lo dice.",
@@ -979,9 +979,9 @@ export const translations = {
       examplesEyebrow: "Total price examples",
       examples: [
         { label: "Beauty salon · WhatsApp only", total: "$198/mo", detail: "Starter $99 + WhatsApp $99" },
-        { label: "SLP Therapist · HIPAA Voice", total: "$328/mo", detail: "Professional $179 + Voice $149" },
+        { label: "Contractor · Voice", total: "$248/mo", detail: "Starter $99 + Voice $149" },
+        { label: "Medical office · HIPAA Voice", total: "$328/mo", detail: "Professional $179 + Voice $149" },
         { label: "Realtor · Voice + WhatsApp + CRM", total: "$446/mo", detail: "Starter $99 + Voice $149 + WhatsApp $99 + CRM $99" },
-        { label: "HIPAA Clinic · Voice + WhatsApp + CRM", total: "$526/mo", detail: "Professional $179 + $149 + $99 + $99" },
       ],
       cta: "Book your free diagnosis",
       ctaHint: "Not sure which modules you need? The diagnosis will tell you.",
