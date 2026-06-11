@@ -12,7 +12,7 @@ set "SCRIPT=%~dp0git-sync.bat"
 
 echo Registrando tarea "%TASKNAME%"
 echo   Script:    %SCRIPT%
-echo   Frecuencia: cada 15 minutos
+echo   Frecuencia: diaria a las 04:30
 echo.
 
 if not exist "%SCRIPT%" (
@@ -20,7 +20,7 @@ if not exist "%SCRIPT%" (
     exit /b 1
 )
 
-schtasks /Create /TN "%TASKNAME%" /TR "%SCRIPT%" /SC MINUTE /MO 15 /F
+schtasks /Create /TN "%TASKNAME%" /TR "%SCRIPT%" /SC DAILY /ST 04:30 /F
 if errorlevel 1 (
     echo [ERROR] No se pudo crear la tarea "%TASKNAME%".
     exit /b 1
