@@ -38,3 +38,11 @@ skills-lock.json
 
 # Temp work folders
 tmp-bit/
+
+# Imágenes generadas (banco de imágenes IA) — no versionar
+banco/
+
+# Credenciales de cuenta de servicio de Google (NUNCA commitear)
+service-account.json
+*.sa.json
+*-service-account.json
