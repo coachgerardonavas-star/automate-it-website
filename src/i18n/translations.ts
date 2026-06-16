@@ -579,8 +579,8 @@ export const translations = {
       empresaLinks: [
         { label: "Diagnóstico", href: "/diagnostico" },
         { label: "Blog", href: "/blog" },
-        { label: "Privacidad", href: "/privacidad" },
-        { label: "Términos", href: "/terminos" },
+        { label: "Privacidad", href: "/privacy-policy" },
+        { label: "Términos", href: "/terms" },
       ],
       copyright: "© {year} Automate IT LLC. Todos los derechos reservados.",
       switcherLabel: "Idioma",
@@ -594,79 +594,51 @@ export const translations = {
         title: "Política de privacidad",
         sections: [
           {
-            heading: "Resumen",
-            body: "Recopilamos solo los datos que tú nos das (nombre, email, teléfono, descripción de tu operación) para coordinar tu diagnóstico y, si decides contratarnos, configurar tus agentes. No vendemos ni compartimos esa información con terceros con fines comerciales.",
+            heading: "Quién recopila tus datos",
+            body: "Este sitio y los servicios asociados son operados por Automate IT LLC. Para cualquier asunto relacionado con tus datos personales puedes contactarnos en automateit@yourbizupgraded.com.",
           },
           {
             heading: "Qué datos recopilamos",
-            body: "Datos de contacto que tú nos compartes vía formularios (nombre, email, teléfono, tipo de negocio, descripción del problema). Datos técnicos básicos del navegador (analytics agregado, sin perfilado individual). No usamos cookies de seguimiento de terceros.",
+            body: "Recopilamos únicamente los datos que tú nos proporcionas: nombre, teléfono, correo electrónico y los mensajes que nos envías por WhatsApp o a través del formulario web.",
           },
           {
-            heading: "Cómo los usamos",
-            body: "Para responder tu solicitud, agendar el diagnóstico, enviarte la propuesta. Si te volvemos cliente, los datos se usan para configurar y operar los agentes contratados. No usamos tus datos para entrenar modelos generales de IA — el conocimiento de tu negocio queda contigo.",
+            heading: "Para qué usamos tus datos",
+            body: "Usamos tus datos para responder tus consultas, enviarte información sobre nuestro servicio y mejorar nuestros sistemas de automatización.",
           },
           {
-            heading: "Con quién los compartimos",
-            body: "Subprocesadores estrictamente necesarios para operar el servicio (proveedor de email transaccional, infraestructura de los agentes, CRM interno). Lista completa disponible bajo solicitud. Compliance de los subprocesadores revisado anualmente.",
+            heading: "No vendemos tus datos",
+            body: "No vendemos, alquilamos ni compartimos tus datos personales con terceros con fines comerciales.",
           },
           {
-            heading: "Tus derechos",
-            body: "Puedes pedir copia de tus datos, corrección, eliminación o portabilidad escribiendo a automateit@yourbizupgraded.com. Respondemos en menos de 30 días.",
-          },
-          {
-            heading: "Compliance regulado",
-            body: "Para clientes en healthcare ofrecemos BAA bajo HIPAA. Para otros clientes con datos sensibles, definimos acuerdos contractuales caso por caso.",
-          },
-          {
-            heading: "Contacto",
-            body: "Cualquier duda sobre privacidad: automateit@yourbizupgraded.com.",
+            heading: "Eliminación de tus datos",
+            body: "Puedes solicitar la eliminación de tus datos en cualquier momento escribiéndonos a automateit@yourbizupgraded.com. Procesaremos tu solicitud lo antes posible.",
           },
         ],
-        legalReviewNote:
-          "Este documento es una plantilla pendiente de revisión legal antes del go-live público.",
       },
       terms: {
         title: "Términos de servicio",
         sections: [
           {
-            heading: "Aceptación",
-            body: "Al usar este sitio o cualquier servicio de Automate IT aceptas estos términos. Si no estás de acuerdo, no uses el servicio.",
+            heading: "Proveedor del servicio",
+            body: "El servicio es provisto por Automate IT LLC, una empresa registrada en el Estado de Florida, Estados Unidos.",
           },
           {
-            heading: "Descripción del servicio",
-            body: "Automate IT diseña, implementa y opera agentes de IA que ejecutan tareas operativas para tu negocio (recepción de llamadas, follow-up, administración, integración con tus sistemas). El alcance específico se define en la propuesta firmada con cada cliente.",
+            heading: "Automatización en tu nombre",
+            body: "Al contratar el servicio, el cliente acepta que el sistema de automatización de Automate IT responde y actúa en su nombre en los canales configurados (llamadas, WhatsApp, formularios y similares).",
           },
           {
-            heading: "Suscripción y facturación",
-            body: "Los planes Starter y Professional se facturan mensualmente por adelantado. Sin permanencia mínima: cancelas con 30 días de aviso por escrito y la suscripción termina al final del período pagado.",
+            heading: "Sin garantía de resultados",
+            body: "Automate IT no garantiza resultados específicos de ventas ni de negocio. El servicio consiste en la implementación y operación de los sistemas de automatización acordados.",
           },
           {
-            heading: "Setup y entregables",
-            body: "El setup inicial está incluido en el precio. El cronograma típico es 2–4 semanas hasta go-live, dependiendo de la complejidad de las integraciones. Cualquier extensión de alcance se cotiza por separado.",
+            heading: "Cancelación",
+            body: "El servicio puede ser cancelado por cualquiera de las partes con 30 días de aviso por escrito.",
           },
           {
-            heading: "Disponibilidad y SLA",
-            body: "Mejor esfuerzo en ambos planes. SLA contractual disponible bajo acuerdo por escrito. Mantenimientos planificados se notifican con 48 horas de anticipación.",
-          },
-          {
-            heading: "Propiedad intelectual",
-            body: "Tus datos y configuraciones operativas son tuyos. Los agentes, prompts, código y arquitectura desarrollados son propiedad de Automate IT, licenciados a ti durante la suscripción activa.",
-          },
-          {
-            heading: "Limitación de responsabilidad",
-            body: "Hacemos lo posible por que los agentes operen correctamente, pero no garantizamos resultados específicos de negocio. La responsabilidad de Automate IT está limitada al monto facturado en los últimos 12 meses.",
-          },
-          {
-            heading: "Cambios a estos términos",
-            body: "Si modificamos estos términos te avisamos con 30 días de anticipación al email registrado.",
-          },
-          {
-            heading: "Contacto",
-            body: "automateit@yourbizupgraded.com.",
+            heading: "Ley aplicable",
+            body: "Estos términos se rigen por las leyes del Estado de Florida, Estados Unidos.",
           },
         ],
-        legalReviewNote:
-          "Este documento es una plantilla pendiente de revisión legal antes del go-live público.",
       },
     },
   },
@@ -1244,7 +1216,7 @@ export const translations = {
       empresaLinks: [
         { label: "Diagnostic", href: "/en/diagnostic" },
         { label: "Blog", href: "/en/blog" },
-        { label: "Privacy", href: "/en/privacy" },
+        { label: "Privacy", href: "/en/privacy-policy" },
         { label: "Terms", href: "/en/terms" },
       ],
       copyright: "© {year} Automate IT LLC. All rights reserved.",
@@ -1259,79 +1231,51 @@ export const translations = {
         title: "Privacy policy",
         sections: [
           {
-            heading: "Summary",
-            body: "We only collect the data you give us (name, email, phone, description of your operation) to coordinate your diagnostic and, if you decide to hire us, configure your agents. We don't sell or share that information with third parties for commercial purposes.",
+            heading: "Who collects your data",
+            body: "This website and its associated services are operated by Automate IT LLC. For any matter related to your personal data, you can contact us at automateit@yourbizupgraded.com.",
           },
           {
             heading: "What data we collect",
-            body: "Contact data you share via forms (name, email, phone, business type, problem description). Basic technical browser data (aggregate analytics, no individual profiling). We don't use third-party tracking cookies.",
+            body: "We only collect the data you provide to us: name, phone number, email address, and the messages you send us via WhatsApp or through the web form.",
           },
           {
-            heading: "How we use it",
-            body: "To respond to your request, schedule the diagnostic, send you the proposal. If you become a client, the data is used to configure and operate the contracted agents. We don't use your data to train general AI models — your business knowledge stays with you.",
+            heading: "How we use your data",
+            body: "We use your data to respond to your inquiries, send you information about our service, and improve our automation systems.",
           },
           {
-            heading: "Who we share it with",
-            body: "Subprocessors strictly required to operate the service (transactional email provider, agent infrastructure, internal CRM). Full list available on request. Subprocessor compliance is reviewed annually.",
+            heading: "We don't sell your data",
+            body: "We do not sell, rent, or share your personal data with third parties for commercial purposes.",
           },
           {
-            heading: "Your rights",
-            body: "You can request a copy of your data, correction, deletion, or portability by writing to automateit@yourbizupgraded.com. We respond within 30 days.",
-          },
-          {
-            heading: "Regulated compliance",
-            body: "For healthcare clients we offer BAA under HIPAA. For other clients with sensitive data, we set up case-by-case contractual arrangements.",
-          },
-          {
-            heading: "Contact",
-            body: "Any privacy questions: automateit@yourbizupgraded.com.",
+            heading: "Deleting your data",
+            body: "You can request the deletion of your data at any time by writing to us at automateit@yourbizupgraded.com. We will process your request as soon as possible.",
           },
         ],
-        legalReviewNote:
-          "This document is a template pending legal review before public go-live.",
       },
       terms: {
         title: "Terms of service",
         sections: [
           {
-            heading: "Acceptance",
-            body: "By using this site or any Automate IT service you accept these terms. If you don't agree, don't use the service.",
+            heading: "Service provider",
+            body: "The service is provided by Automate IT LLC, a company registered in the State of Florida, United States.",
           },
           {
-            heading: "Service description",
-            body: "Automate IT designs, implements, and operates AI agents that execute operational tasks for your business (call reception, follow-up, admin, integration with your systems). The specific scope is defined in the proposal signed with each client.",
+            heading: "Automation on your behalf",
+            body: "By contracting the service, the client agrees that Automate IT's automation system responds and acts on their behalf across the configured channels (calls, WhatsApp, forms, and similar).",
           },
           {
-            heading: "Subscription and billing",
-            body: "Starter and Professional plans are billed monthly in advance. No minimum commitment: cancel with 30 days written notice and the subscription ends at the end of the paid period.",
+            heading: "No guarantee of results",
+            body: "Automate IT does not guarantee specific sales or business results. The service consists of implementing and operating the agreed automation systems.",
           },
           {
-            heading: "Setup and deliverables",
-            body: "Initial setup is included in the price. Typical timeline is 2–4 weeks to go-live, depending on integration complexity. Any scope extension is quoted separately.",
+            heading: "Cancellation",
+            body: "The service may be cancelled by either party with 30 days' written notice.",
           },
           {
-            heading: "Availability and SLA",
-            body: "Best effort on both plans. Contractual SLA available under written agreement. Planned maintenance is announced 48 hours in advance.",
-          },
-          {
-            heading: "Intellectual property",
-            body: "Your data and operational configurations are yours. The agents, prompts, code, and architecture developed are owned by Automate IT, licensed to you during active subscription.",
-          },
-          {
-            heading: "Limitation of liability",
-            body: "We do our best to ensure agents operate correctly, but we don't guarantee specific business outcomes. Automate IT's liability is limited to the amount billed in the last 12 months.",
-          },
-          {
-            heading: "Changes to these terms",
-            body: "If we modify these terms we'll notify you 30 days in advance at the registered email.",
-          },
-          {
-            heading: "Contact",
-            body: "automateit@yourbizupgraded.com.",
+            heading: "Governing law",
+            body: "These terms are governed by the laws of the State of Florida, United States.",
           },
         ],
-        legalReviewNote:
-          "This document is a template pending legal review before public go-live.",
       },
     },
   },

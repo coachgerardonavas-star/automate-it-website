@@ -11,43 +11,35 @@ const { lang = "es", doc, lastUpdated } = Astro.props;
 const t = translations[lang].legal;
 const docT = doc === "privacy" ? t.privacy : t.terms;
 const homeHref = lang === "en" ? "/en/" : "/";
-const backLabel =
-  lang === "en" ? "← Back to home" : "← Volver a la home";
+const backLabel = lang === "en" ? "← Back to home" : "← Volver al inicio";
 ---
 
-<section class="py-16 sm:py-24">
+<section class="bg-[#050A18] text-white min-h-screen py-16 sm:py-24">
   <div class="max-w-3xl mx-auto px-5 lg:px-8">
     <a
       href={homeHref}
-      class="inline-flex items-center gap-2 text-xs sm:text-sm text-[var(--color-text-muted)] hover:text-[var(--color-navy)] transition-colors mb-10"
+      class="inline-flex items-center gap-2 text-xs sm:text-sm text-white/55 hover:text-brand-cyan transition-colors mb-10"
     >
       {backLabel}
     </a>
 
-    <header class="mb-10">
-      <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-3">
+    <header class="mb-12">
+      <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-3 text-white">
         {docT.title}
       </h1>
-      <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+      <p class="text-xs sm:text-sm text-white/50">
         {t.lastUpdated} {lastUpdated}
       </p>
     </header>
-
-    <div
-      class="rounded-lg border border-yellow-400/40 bg-yellow-50 px-5 py-4 mb-10 text-xs sm:text-sm text-yellow-800"
-      role="note"
-    >
-      {docT.legalReviewNote}
-    </div>
 
     <div class="space-y-10">
       {
         docT.sections.map((section) => (
           <section>
-            <h2 class="font-heading text-xl sm:text-2xl mb-3">
+            <h2 class="font-heading text-xl sm:text-2xl mb-3 text-white">
               {section.heading}
             </h2>
-            <p class="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed">
+            <p class="text-sm sm:text-base text-white/80 leading-relaxed">
               {section.body}
             </p>
           </section>

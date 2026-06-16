@@ -29,4 +29,11 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  // Legal pages moved to canonical /privacy-policy and /terms URLs.
+  // Old paths 301-redirect so existing links and SEO equity are preserved.
+  redirects: {
+    "/privacidad": "/privacy-policy",
+    "/terminos": "/terms",
+    "/en/privacy": "/en/privacy-policy",
+  },
 });

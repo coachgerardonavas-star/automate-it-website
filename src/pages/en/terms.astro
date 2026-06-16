@@ -6,11 +6,11 @@ import LegalContent from "../../components/LegalContent.astro";
 import { translations } from "../../i18n/translations";
 
 const lang = "en";
-const lastUpdated = "April 2026";
+const lastUpdated = "June 2026";
 const title = `${translations[lang].legal.terms.title} · Automate IT`;
 ---
 
-<BaseLayout lang={lang} title={title} noindex={true}>
+<BaseLayout lang={lang} title={title}>
   <Nav lang={lang} />
   <main>
     <LegalContent lang={lang} doc="terms" lastUpdated={lastUpdated} />

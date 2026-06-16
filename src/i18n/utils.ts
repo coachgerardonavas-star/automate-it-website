@@ -28,10 +28,6 @@ export function switchLangPath(currentPath: string, target: Lang): string {
   const equivalences: Record<string, string> = {
     "/diagnostico": "/diagnostic",
     "/diagnostic": "/diagnostico",
-    "/privacidad": "/privacy",
-    "/privacy": "/privacidad",
-    "/terminos": "/terms",
-    "/terms": "/terminos",
     "/gracias": "/thanks",
     "/thanks": "/gracias",
     "/error": "/error",
