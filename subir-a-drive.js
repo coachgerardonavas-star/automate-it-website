@@ -36,16 +36,19 @@ function cargarSA(keyFile) {
 }
 
 // Firma un JWT y lo intercambia por un access_token OAuth2
-async function obtenerToken(sa) {
+async function obtenerToken(sa, subject) {
   const now = Math.floor(Date.now() / 1000);
   const header = b64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
-  const claim = b64url(JSON.stringify({
+  const payload = {
     iss: sa.client_email,
     scope: 'https://www.googleapis.com/auth/drive',
     aud: sa.token_uri || 'https://oauth2.googleapis.com/token',
     iat: now,
     exp: now + 3600,
-  }));
+  };
+  // Delegación de dominio: la SA impersona a este usuario (usa SU cuota de Drive).
+  if (subject) payload.sub = subject;
+  const claim = b64url(JSON.stringify(payload));
   const unsigned = `${header}.${claim}`;
   const signature = crypto.createSign('RSA-SHA256').update(unsigned).sign(sa.private_key);
   const jwt = `${unsigned}.${b64url(signature)}`;
@@ -129,8 +132,9 @@ async function subirArchivo(file, folderId, token) {
 // API pública: sube todas las imágenes de una carpeta local a la carpeta de Drive
 export async function subirCarpetaADrive(dir, folderId, opciones = {}) {
   const keyFile = opciones.keyFile || process.env.GOOGLE_SA_KEYFILE || 'service-account.json';
+  const subject = opciones.subject || process.env.GOOGLE_IMPERSONATE_SUBJECT || '';
   const sa = cargarSA(keyFile);
-  const token = await obtenerToken(sa);
+  const token = await obtenerToken(sa, subject);
 
   const archivos = fs.readdirSync(dir)
     .filter(f => /\.(png|jpe?g|webp)$/i.test(f))
