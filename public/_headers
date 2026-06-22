@@ -1,0 +1,16 @@
+# Cabeceras de caché — Cloudflare Pages las aplica al desplegar.
+#
+# Assets con hash de contenido que genera Astro (/_astro/*.css, *.js): el nombre
+# del archivo cambia cada vez que cambia el contenido, así que el navegador puede
+# guardarlos para siempre sin revalidar. immutable evita re-chequeos innecesarios.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fuentes: nombre estable pero cambian muy rara vez. Caché de 1 año.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Imágenes y otros estáticos en /assets (nombre NO versionado): caché de 30 días.
+# Si se reemplaza una imagen con el mismo nombre, tarda hasta 30 días en propagar.
+/assets/*
+  Cache-Control: public, max-age=2592000
