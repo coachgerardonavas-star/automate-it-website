@@ -237,7 +237,7 @@ export const translations = {
           price: "$99",
           priceUnit: "/mes",
           setup: "Setup único: $199",
-          description: "Para negocios generales. Sin HIPAA.",
+          description: "Para negocios que no manejan datos de salud.",
           features: [
             "Onboarding + configuración inicial",
             "Soporte básico por email",
@@ -252,7 +252,7 @@ export const translations = {
           price: "$179",
           priceUnit: "/mes",
           setup: "Setup único: $349",
-          description: "Para sector salud. HIPAA-compliant.",
+          description: "Para negocios que requieren cumplimiento HIPAA.",
           features: [
             "Todo lo del plan Starter",
             "Gestión de BAAs con Retell AI, Cal.com y Twilio",
@@ -314,7 +314,7 @@ export const translations = {
       examples: [
         { label: "Salón de belleza · Solo WhatsApp", total: "$198/mes", detail: "Starter $99 + WhatsApp $99" },
         { label: "Contratista · Voz", total: "$248/mes", detail: "Starter $99 + Voz $149" },
-        { label: "Consultorio · Voz HIPAA", total: "$328/mes", detail: "Professional $179 + Voz $149" },
+        { label: "Negocio regulado · Voz HIPAA", total: "$328/mes", detail: "Professional $179 + Voz $149" },
         { label: "Realtor · Voz + WhatsApp + CRM", total: "$446/mes", detail: "Starter $99 + Voz $149 + WhatsApp $99 + CRM $99" },
       ],
       cta: "Agenda tu diagnóstico gratuito",
@@ -391,7 +391,7 @@ export const translations = {
         },
         {
           q: "¿Qué es HIPAA y por qué importa?",
-          a: "HIPAA es la ley federal de EE.UU. que protege la información de salud de los pacientes. Si eres terapeuta, SLP o clínica, necesitas el Plan Professional — garantiza que Retell AI, Cal.com y Twilio operen bajo BAA firmado. Automate IT no custodia información de pacientes (PHI) en ningún caso.",
+          a: "HIPAA es la ley federal de EE.UU. que protege la información de salud de los pacientes. Si tu negocio maneja información de pacientes o datos de salud regulados, necesitas el Plan Professional — garantiza que Retell AI, Cal.com y Twilio operen bajo BAA firmado. Automate IT no custodia información de pacientes (PHI) en ningún caso.",
         },
         {
           q: "¿Puedo agregar módulos después de firmar?",
@@ -551,7 +551,7 @@ export const translations = {
       },
       hipaaQuestion: "¿Manejas información de pacientes bajo HIPAA?",
       hipaaHint:
-        "Terapeutas, SLPs, clínicas y cualquier práctica de salud en EE.UU. deben cumplir HIPAA.",
+        "Negocios que manejan información de pacientes bajo regulación federal de salud deben cumplir HIPAA.",
       submit: "Solicitar diagnóstico",
       submitting: "Enviando…",
       successHeading: "Recibido.",
@@ -890,7 +890,7 @@ export const translations = {
           price: "$179",
           priceUnit: "/mo",
           setup: "One-time setup: $349",
-          description: "For healthcare. HIPAA-compliant.",
+          description: "For businesses requiring HIPAA compliance.",
           features: [
             "Everything in Starter",
             "BAA management with Retell AI, Cal.com & Twilio",
@@ -952,7 +952,7 @@ export const translations = {
       examples: [
         { label: "Beauty salon · WhatsApp only", total: "$198/mo", detail: "Starter $99 + WhatsApp $99" },
         { label: "Contractor · Voice", total: "$248/mo", detail: "Starter $99 + Voice $149" },
-        { label: "Medical office · HIPAA Voice", total: "$328/mo", detail: "Professional $179 + Voice $149" },
+        { label: "Regulated business · HIPAA Voice", total: "$328/mo", detail: "Professional $179 + Voice $149" },
         { label: "Realtor · Voice + WhatsApp + CRM", total: "$446/mo", detail: "Starter $99 + Voice $149 + WhatsApp $99 + CRM $99" },
       ],
       cta: "Book your free diagnosis",
@@ -1029,7 +1029,7 @@ export const translations = {
         },
         {
           q: "What is HIPAA and why does it matter?",
-          a: "HIPAA is the U.S. federal law protecting patient health information. If you're a therapist, SLP, or clinic, you need the Professional Plan — it guarantees Retell AI, Cal.com, and Twilio operate under signed BAA. Automate IT never holds patient information (PHI).",
+          a: "HIPAA is the U.S. federal law protecting patient health information. If your business handles patient data or regulated health information, you need the Professional Plan — it guarantees Retell AI, Cal.com, and Twilio operate under signed BAA. Automate IT never holds patient information (PHI).",
         },
         {
           q: "Can I add modules after signing?",
@@ -1188,7 +1188,7 @@ export const translations = {
       },
       hipaaQuestion: "Do you handle patient information under HIPAA?",
       hipaaHint:
-        "Therapists, SLPs, clinics, and any U.S. healthcare practice must comply with HIPAA.",
+        "Businesses handling patient information under federal health regulations must comply with HIPAA.",
       submit: "Request diagnostic",
       submitting: "Sending…",
       successHeading: "Got it.",
