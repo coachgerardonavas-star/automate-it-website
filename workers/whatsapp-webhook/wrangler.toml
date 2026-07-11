@@ -1,0 +1,12 @@
+name = "whatsapp-webhook"
+main = "index.js"
+compatibility_date = "2026-07-06"
+workers_dev = true
+account_id = "0eb99d5fd784e62ca2519c2ca0627ea5"
+
+[[routes]]
+pattern = "yourbizupgraded.com/whatsapp-webhook*"
+zone_name = "yourbizupgraded.com"
+
+[observability]
+enabled = true
