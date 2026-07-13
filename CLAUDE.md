@@ -51,16 +51,18 @@ Cada uno tiene su `wrangler.toml` en `workers/<nombre>/`:
 ## Reglas críticas del proyecto
 - **n8n NO es infraestructura interna** — es un producto que Automate IT vende e implementa para clientes (cuenta cloud cancelada, ZIP archivado). Nunca sugerir n8n para flujos internos de Automate IT; para automatización interna se usa Make cuando aplica.
 - **Frase PROHIBIDA en todo copy: "sin humo"** (ej. "IA sin humo"). No usarla nunca en ningún archivo de este repo (copy, componentes, blog, workers, manuales).
-- **El Manual Maestro vigente es `MANUAL_MAESTRO_v4.4.md`** (en este repo).
-- **El Manual de Instagram vigente es `Manual_Instagram_Automate_IT_v2_3.md`** (en el repo `automate-it`, NO en este).
+- **El Manual Maestro vigente es `MANUAL_MAESTRO_v4_9.md`** (en este repo).
+- **El Manual de Instagram vigente es `Manual_Instagram_Automate_IT_v2_7.md`** (en el repo `automate-it`, NO en este).
 - ⚠️ **IntersectionObserver:** el observer que activa **todas** las animaciones `.reveal-on-scroll` vive dentro de `SeccionDolor.astro`. Si ese componente se elimina, mueve o condiciona su render, **todas** las animaciones de reveal dejan de funcionar. Antes de tocarlo, mover primero el observer a `BaseLayout.astro`.
 
 ## Documentos de referencia en este repo
-- `MANUAL_MAESTRO_v4.4.md` — Manual Maestro del sistema multi-agente (vigente).
+- `MANUAL_MAESTRO_v4_9.md` — Manual Maestro del sistema multi-agente (vigente).
+- `BrandScript_Automate_IT_v1_1.md` — BrandScript de marca (vigente).
+- `Manual_de_Marca_v2_5.docx` — manual de marca visual/verbal (vigente).
+- `Quienes_Somos_v2_9.docx` — documento de identidad corporativa (vigente).
 - `WEBSITE_BRIEF.md` — brief del sitio web (fuente de verdad de diseño/mensaje).
-- `Automate_IT_Quienes_Somos_v2_5.md` — documento de identidad corporativa.
-- `plan_marketing_2026_v2_3.md` — plan de marketing 2026.
 - `README.md` — readme base del repo.
+- `archive/` — versiones superadas de los manuales de arriba, conservadas por trazabilidad (no vigentes): `MANUAL_MAESTRO_v4.4.md`, `Automate_IT_Quienes_Somos_v2_5.md`, `plan_marketing_2026_v2_3.md`.
 
 ## Stack — detalle no negociable
 - **Blog:** Astro Content Collections. Posts en `src/content/blog/*.md` con frontmatter `{ title, description, pubDate, lang, author, tags, draft }`. Listing en `/blog` y `/en/blog`; artículo dinámico `/blog/[slug]` y `/en/blog/[slug]` filtrado por `lang` en `getStaticPaths`.
