@@ -26,8 +26,8 @@ Cloudflare Worker que sirve el chatbot BIT. Recibe el historial de conversación
 
 - **Modelo:** Claude Haiku 4.5. Speed/cost optimizado, sin extended thinking (no soportado en Haiku).
 - **Historial:** se truncan los mensajes a los últimos 10 antes de enviar. Si el primero queda en `role: "assistant"`, se descarta hasta que el array empiece con `role: "user"` (requisito de Anthropic).
-- **System prompt:** constante `SYSTEM_PROMPT` en `index.js`. Define voz, planes, módulos, escalation a humano, ventana de soporte 24h/4h, política de cancelación. Cualquier cambio requiere redeploy.
-- **Cache control:** `ephemeral` en system block. Haiku 4.5 tiene minimum cacheable de 4096 tokens — el prompt actual no llega, así que el cache no activa hasta que se expanda. La marca queda preparada para cuando sea necesario.
+- **System prompt:** array de tres bloques en `index.js` — `VOICE_PROFILE`, `ANTI_AI_WRITING_STYLE` (contenido embebido de los .md homónimos en esta carpeta) y `SYSTEM_PROMPT` (planes, módulos, escalation a humano, ventana de soporte 24h/4h, política de cancelación). Cualquier cambio requiere redeploy.
+- **Cache control:** `ephemeral` en los tres bloques del system array (breakpoints independientes). Haiku 4.5 tiene minimum cacheable de 4096 tokens; con los tres bloques combinados el prompt ya lo supera, así que el cache sí activa.
 - **Sin streaming:** el widget cliente espera respuesta completa. Latency típica: 2-5s.
 
 ## Cliente que consume
@@ -79,6 +79,8 @@ Está como template literal al inicio de `index.js`. Para cambios:
 3. La nueva versión recibe la próxima request — no hay invalidación de caché que esperar
 
 El archivo [SYSTEM_PROMPT_draft.md](./SYSTEM_PROMPT_draft.md) es la versión histórica/draft. **No se carga automáticamente** — es solo referencia para revisar antes de editar el embedded.
+
+[voice-profile.md](./voice-profile.md) y [anti-ai-writing-style.md](./anti-ai-writing-style.md) tampoco se cargan automáticamente (Cloudflare Workers no lee archivos en runtime) — su contenido está duplicado como las constantes `VOICE_PROFILE` y `ANTI_AI_WRITING_STYLE` en `index.js`. Si se edita uno de estos .md, hay que copiar el cambio a la constante correspondiente y redeploy.
 
 ## Costo estimado
 
