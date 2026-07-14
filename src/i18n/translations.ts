@@ -21,7 +21,7 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "Recepcionista IA para negocios en Florida · Desde $99/mes",
+      eyebrow: "Recepcionista IA para negocios en Florida · Desde $198/mes",
       h1Line1: "Mientras tú trabajas,",
       h1Line2: "nosotros contestamos.",
       subtitle:
@@ -661,7 +661,7 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "AI Receptionist for Florida businesses · From $99/mo",
+      eyebrow: "AI Receptionist for Florida businesses · From $198/mo",
       h1Line1: "While you work,",
       h1Line2: "we answer.",
       subtitle:
