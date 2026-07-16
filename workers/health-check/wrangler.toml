@@ -9,7 +9,7 @@ preview_urls = false
 enabled = true
 
 [triggers]
-crons = ["*/15 * * * *"]
+crons = ["*/5 * * * *"]
 
 [[kv_namespaces]]
 binding = "STATE"

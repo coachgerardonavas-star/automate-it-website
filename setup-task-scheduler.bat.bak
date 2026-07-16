@@ -1,0 +1,34 @@
+@echo off
+setlocal
+
+set "REPO=C:\automate-it-website"
+set "SCRIPT=%REPO%\git-sync.bat"
+set "TASKNAME=AutomateIT-GitSync"
+
+REM --- Verificar que existe git-sync.bat ---
+if not exist "%SCRIPT%" (
+    echo ERROR: No se encuentra %SCRIPT%
+    echo Crea primero git-sync.bat en la raiz del repositorio.
+    exit /b 1
+)
+
+REM --- Registrar la tarea: diaria 04:30, ventana oculta, usuario actual ---
+REM La accion se lanza via PowerShell con ventana oculta (-WindowStyle Hidden)
+REM para que no aparezca consola. /IT usa el token interactivo del usuario
+REM actual sin necesidad de almacenar la contrasena (corre con sesion iniciada).
+schtasks /Create /TN "%TASKNAME%" /TR "powershell -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -Command & '%SCRIPT%'" /SC DAILY /ST 04:30 /RU "%USERNAME%" /IT /RL LIMITED /F
+
+if errorlevel 1 (
+    echo.
+    echo ERROR: No se pudo crear la tarea programada "%TASKNAME%".
+    exit /b 1
+)
+
+echo.
+echo Tarea "%TASKNAME%" creada correctamente.
+echo Se ejecutara todos los dias a las 04:30 (usuario %USERNAME%, ventana oculta).
+echo.
+schtasks /Query /TN "%TASKNAME%"
+
+endlocal
+exit /b 0

@@ -1,0 +1,7 @@
+name = "ai-committee"
+main = "index.js"
+compatibility_date = "2026-05-20"
+preview_urls = false
+
+[vars]
+ALLOWED_ORIGIN = "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000"

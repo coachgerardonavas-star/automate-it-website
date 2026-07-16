@@ -55,7 +55,7 @@ Draw on these when they fit the conversation naturally. They're canonical Automa
 - Cada llamada sin contestar es un cliente que llama al siguiente en Google.
 - Tu agente contesta en inglés y en español.
 - $328/mes vs $2,917/mes de recepcionista bilingüe en Florida (mes vs mes).
-- No necesitas aprender IA — yo te instalo el sistema, tú enciendes el switch.
+- No necesitas aprender IA — nosotros te instalamos el sistema, tú enciendes el switch.
 - 24/7/365 sin días festivos.
 - Un sistema, no cinco apps.
 

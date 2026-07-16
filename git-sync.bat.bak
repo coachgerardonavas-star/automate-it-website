@@ -1,0 +1,61 @@
+@echo off
+setlocal enabledelayedexpansion
+
+set "REPO=C:\automate-it-website"
+set "LOG=C:\Users\Autom\git-sync-log.txt"
+
+REM --- Acceder al repositorio ---
+cd /d "%REPO%"
+if errorlevel 1 (
+    echo ============================================================>> "%LOG%"
+    echo [!date! !time!] ERROR: no se pudo acceder a %REPO%>> "%LOG%"
+    exit /b 1
+)
+
+echo ============================================================>> "%LOG%"
+echo [!date! !time!] Iniciando git-sync en %REPO%>> "%LOG%"
+
+REM --- Intentar guardar cambios locales con stash ---
+REM Se decide segun la SALIDA real de git stash: si contiene
+REM "No local changes to save" no se guardo nada, asi que NO se hara pop.
+set "STASHED=0"
+set "STASH_OUT=%TEMP%\git-sync-stash.txt"
+echo [!date! !time!] git stash push>> "%LOG%"
+git stash push -m "git-sync-auto" > "!STASH_OUT!" 2>&1
+type "!STASH_OUT!">> "%LOG%"
+findstr /C:"No local changes to save" "!STASH_OUT!" >nul
+if errorlevel 1 (
+    REM findstr NO encontro el mensaje -^> git stash si guardo cambios
+    set "STASHED=1"
+    echo [!date! !time!] Cambios locales guardados en stash.>> "%LOG%"
+) else (
+    echo [!date! !time!] Sin cambios locales, no se hace stash.>> "%LOG%"
+)
+del "!STASH_OUT!" >nul 2>&1
+
+REM --- Traer cambios de origin/main ---
+echo [!date! !time!] git pull origin main>> "%LOG%"
+git pull origin main>> "%LOG%" 2>&1
+if errorlevel 1 (
+    echo [!date! !time!] ERROR: git pull fallo.>> "%LOG%"
+    if "!STASHED!"=="1" (
+        echo [!date! !time!] Restaurando stash tras fallo de pull -^> git stash pop>> "%LOG%"
+        git stash pop>> "%LOG%" 2>&1
+    )
+    exit /b 1
+)
+
+REM --- Restaurar cambios locales si se hizo stash ---
+if "!STASHED!"=="1" (
+    echo [!date! !time!] git stash pop>> "%LOG%"
+    git stash pop>> "%LOG%" 2>&1
+    if errorlevel 1 (
+        echo [!date! !time!] ERROR: CONFLICTO en git stash pop. Resolver manualmente.>> "%LOG%"
+        echo [!date! !time!] Los cambios siguen en el stash. NO se hace nada mas.>> "%LOG%"
+        exit /b 2
+    )
+)
+
+echo [!date! !time!] git-sync completado correctamente.>> "%LOG%"
+endlocal
+exit /b 0
