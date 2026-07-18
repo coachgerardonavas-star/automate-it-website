@@ -282,13 +282,18 @@ const t = translations[lang].chatbot;
     outline: none;
   }
 
-  .chatbot-message {
+  /* :global() below: appendMessage()/showTyping() in the <script> tag create
+     these elements at runtime via document.createElement, so Astro's
+     build-time scoping attribute never lands on them — scoped rules would
+     silently never match, leaving message text unstyled (default black) on
+     the dark panel background. */
+  :global(.chatbot-message) {
     max-width: 88%;
     font-size: 14px;
     line-height: 1.5;
   }
 
-  .chatbot-message--bot {
+  :global(.chatbot-message--bot) {
     align-self: flex-start;
     padding: 10px 13px;
     background: var(--neutral-700);
@@ -296,7 +301,7 @@ const t = translations[lang].chatbot;
     border-radius: var(--r-md) var(--r-md) var(--r-md) var(--r-xs);
   }
 
-  .chatbot-message--user {
+  :global(.chatbot-message--user) {
     align-self: flex-end;
     padding: 10px 13px;
     background: var(--color-blue);
@@ -305,21 +310,21 @@ const t = translations[lang].chatbot;
     font-weight: 600;
   }
 
-  .chatbot-message--typing {
+  :global(.chatbot-message--typing) {
     align-self: flex-start;
     padding: 10px 16px;
     background: var(--neutral-700);
     border-radius: var(--r-md) var(--r-md) var(--r-md) var(--r-xs);
   }
 
-  .chatbot-typing-dots {
+  :global(.chatbot-typing-dots) {
     display: flex;
     gap: 4px;
     align-items: center;
     height: 18px;
   }
 
-  .chatbot-typing-dots span {
+  :global(.chatbot-typing-dots span) {
     width: 6px;
     height: 6px;
     border-radius: 999px;
@@ -327,15 +332,15 @@ const t = translations[lang].chatbot;
     animation: typing-bounce 1.2s ease-in-out infinite;
   }
 
-  .chatbot-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-  .chatbot-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  :global(.chatbot-typing-dots span:nth-child(2)) { animation-delay: 0.2s; }
+  :global(.chatbot-typing-dots span:nth-child(3)) { animation-delay: 0.4s; }
 
   @keyframes typing-bounce {
     0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
     30% { transform: translateY(-4px); opacity: 1; }
   }
 
-  .chatbot-message--error {
+  :global(.chatbot-message--error) {
     align-self: stretch;
     text-align: center;
     font-size: 12px;
@@ -343,7 +348,7 @@ const t = translations[lang].chatbot;
     padding: 6px 8px;
   }
 
-  .chatbot-message p { margin: 0; }
+  :global(.chatbot-message p) { margin: 0; }
 
   .chatbot-quick-actions {
     display: flex;
@@ -547,6 +552,7 @@ const t = translations[lang].chatbot;
   const quickActions = document.getElementById("chatbot-quick-actions");
 
   const history = [];
+  let leadHandoffSent = false;
 
   const i18n = {
     es: { error: "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com" },
@@ -685,7 +691,7 @@ const t = translations[lang].chatbot;
       const res = await fetch(BIT_WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, leadHandoffSent }),
       });
       removeTyping();
       if (!res.ok) {
@@ -696,6 +702,7 @@ const t = translations[lang].chatbot;
       }
       const data = await res.json();
       const reply = data.reply || "";
+      if (data.leadHandoffSent === true) leadHandoffSent = true;
       if (reply) {
         appendMessage(reply, "bot");
         history.push({ role: "assistant", content: reply });
