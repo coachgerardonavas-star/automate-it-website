@@ -358,6 +358,19 @@ const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VERSION = "2023-06-01";
 const MAX_HISTORY = 10;
 const MAX_TOKENS = 1024;
+const LEAD_WEBHOOK_URL = "https://hook.us2.make.com/cmjya50q5hnde4skcq84trinjlxfrcno";
+
+const LEAD_CLASSIFIER_PROMPT = `Eres un sistema de calificación de leads para Automate IT. Analiza esta conversación de chat web y devuelve SOLO un JSON válido sin markdown ni explicaciones:
+{
+  "firstname": "nombre si lo mencionó o null",
+  "phone": "teléfono tal cual lo escribió el visitante, o null si no lo dio",
+  "email": "email si lo mencionó o null",
+  "tipo_de_negocio": "una de estas opciones exactas: Clínica dental, Firma legal / Notaría, Servicios del hogar, Inmobiliaria, SLP / Clínica de salud, Consultor / Freelancer, Salón / Spa, Terapeuta / Psicólogo, Restaurante / Comida, Otro. Elige la más parecida, u Otro si no aplica ninguna, o null si no se mencionó ningún negocio",
+  "descripcion": "resumen del problema principal en máximo 15 palabras o null",
+  "urgencia": "una de estas opciones exactas: Esta semana, Este mes, El próximo mes, Solo estoy explorando. Null si no hay señal clara",
+  "idioma_conversacion": "Español, Inglés o Mixto",
+  "lead_score": "CALIENTE, TIBIO o FRIO. CALIENTE solo si tiene negocio real, mostró interés genuino (preguntó precio/demo/cómo funciona) Y dio su teléfono. TIBIO = interesado pero sin teléfono aún o sin urgencia clara. FRIO = solo curiosidad, no es dueño de negocio, spam."
+}`;
 
 export default {
   async fetch(request, env) {
@@ -404,6 +417,8 @@ export default {
     if (!body || !Array.isArray(body.messages) || body.messages.length === 0) {
       return json({ error: "Missing or empty messages array" }, 400, corsHeaders);
     }
+
+    const leadHandoffSent = body.leadHandoffSent === true;
 
     for (const m of body.messages) {
       if (!m || typeof m !== "object") {
