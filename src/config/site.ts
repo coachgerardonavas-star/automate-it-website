@@ -9,7 +9,7 @@
  *   - HUBSPOT_FORM_GUID_*            HubSpot form GUIDs (one per form)
  */
 
-export const GA_ID = "G-82JWGNDTLG"; // active
+export const GA_ID = "G-PCJWLQ97K6"; // active — propiedad del CEO (reemplaza a la vieja G-82JWGNDTLG, 23-jul-2026)
 export const SEARCH_CONSOLE_VERIFICATION =
   "HEhyqCcIvI_0Rvx4GSThqCx9NbfhE7i9Ktu1PjgJQqw"; // active
 

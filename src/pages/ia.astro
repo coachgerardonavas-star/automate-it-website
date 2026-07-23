@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const lang = "es" as const;
+
+// Payment Link del $1 (cobra $1.00, pide teléfono, confirma en 15 min).
+const STRIPE_URL = "https://book.stripe.com/28E28q0zO5cX8KBa7PafS02";
+
+const steps = [
+  "Pagas $1 y reservas 15 minutos.",
+  "Me cuentas qué tarea te quita más tiempo.",
+  "Ponemos la IA a trabajar en eso — y te enseño a usarla.",
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title="Da tu primer paso con la IA — por $1 | Automate IT"
+  description="Por $1 y 15 minutos, pon la IA a trabajar en una tarea de tu negocio y llévatela funcionando el mismo día."
+  noindex={true}
+  chatbot={false}
+>
+  <Nav lang={lang} />
+
+  <main class="relative overflow-hidden">
+    <section class="relative max-w-6xl mx-auto px-5 lg:px-8 pt-10 pb-24">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_360px] gap-8 items-center">
+        <!-- Columna de texto -->
+        <div>
+          <p class="text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase text-[var(--color-blue)] mb-5">
+            Automate IT · en 15 minutos
+          </p>
+
+          <h1 class="font-heading leading-[1.02] text-4xl sm:text-6xl mb-5">
+            Por <span class="text-[var(--color-blue)]">$1</span>, da tu primer
+            paso con la IA en tu negocio.
+          </h1>
+
+          <p class="text-2xl sm:text-3xl font-semibold text-[var(--color-blue)] mb-10">
+            Listo para usar el mismo día.
+          </p>
+
+          <ol class="space-y-4 mb-10 max-w-xl">
+            {
+              steps.map((s, i) => (
+                <li class="flex gap-4 items-start">
+                  <span class="font-heading text-lg text-[var(--color-blue)] w-8 shrink-0">
+                    0{i + 1}
+                  </span>
+                  <span class="text-lg text-[var(--color-text-secondary)] leading-snug">
+                    {s}
+                  </span>
+                </li>
+              ))
+            }
+          </ol>
+
+          <a
+            href={STRIPE_URL}
+            class="inline-flex items-center gap-3 bg-[var(--color-blue)] hover:bg-[var(--color-navy)] text-white font-semibold text-lg px-9 py-4 rounded-xl transition-colors"
+          >
+            Reservar por $1
+            <span aria-hidden="true">→</span>
+          </a>
+
+          <p class="mt-5 text-sm tracking-wide uppercase text-[var(--color-text-muted)]">
+            15 minutos · una tarea concreta
+          </p>
+
+          <p class="mt-10 max-w-xl text-sm text-[var(--color-text-muted)] leading-relaxed border-t border-[var(--color-border)] pt-6">
+            Es tu <strong class="text-[var(--color-text-secondary)]">primer paso</strong> con
+            la IA aplicada a una tarea que hoy te quita tiempo — no el sistema
+            completo que contesta por ti (eso es un servicio aparte). Te la llevas
+            funcionando el mismo día.
+          </p>
+        </div>
+
+        <!-- Bit, la mascota -->
+        <div class="hidden lg:flex justify-center items-end">
+          <img
+            src="/assets/bit-callme.png"
+            alt="Bit, el asistente de IA de Automate IT"
+            width="360"
+            height="620"
+            loading="eager"
+            class="w-[340px] h-auto drop-shadow-[0_24px_45px_rgba(20,40,80,0.22)]"
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</BaseLayout>
