@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const lang = "es" as const;
+const lastUpdated = "julio 2026";
+
+const sections = [
+  {
+    heading: "1. Qué es este servicio",
+    body: "Una sesión introductoria de acompañamiento de aproximadamente 15 minutos sobre el uso de inteligencia artificial en tu negocio. Es orientación práctica; no incluye instalación de sistemas ni soporte continuo (esos son servicios aparte).",
+  },
+  {
+    heading: "2. Qué NO es",
+    body: "No es asesoría legal, médica, fiscal, contable, financiera ni laboral. Para esos temas, consulta a un profesional licenciado en la materia.",
+  },
+  {
+    heading: "3. Sin garantía de resultados",
+    body: 'Las sugerencias y configuraciones se ofrecen "tal cual". Los resultados dependen de tu negocio y de cómo apliques lo mostrado.',
+  },
+  {
+    heading: "4. Tu información",
+    body: "Declaras que tu negocio opera de forma legal y que los datos que compartes son veraces. No compartas información confidencial ni datos personales de terceros (clientes, pacientes, empleados). Si tu negocio maneja información de salud protegida (HIPAA) u otra información sensible, no la compartas en esta sesión.",
+  },
+  {
+    heading: "5. Pago",
+    body: "El monto de $1 es simbólico y no reembolsable, dada la naturaleza inmediata del servicio.",
+  },
+  {
+    heading: "6. Privacidad",
+    body: "Tus datos de contacto se usan solo para coordinar y prestar este servicio; no se venden a terceros.",
+  },
+  {
+    heading: "7. Aceptación",
+    body: "Al marcar la casilla y continuar, aceptas estos términos. Se registran fecha, hora y dirección IP como constancia de tu aceptación.",
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title="Términos y Condiciones — Consultoría de $1 · Automate IT"
+  description="Términos y condiciones de la consultoría introductoria de $1 de Automate IT."
+  chatbot={false}
+>
+  <Nav lang={lang} />
+  <main>
+    <section class="bg-[#050A18] text-white min-h-screen py-16 sm:py-24">
+      <div class="max-w-3xl mx-auto px-5 lg:px-8">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-xs sm:text-sm text-white/55 hover:text-brand-cyan transition-colors mb-10"
+        >
+          ← Volver al inicio
+        </a>
+
+        <header class="mb-12">
+          <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-3 text-white">
+            Términos y Condiciones — Consultoría de $1
+          </h1>
+          <p class="text-xs sm:text-sm text-white/50">
+            Última actualización: {lastUpdated}
+          </p>
+        </header>
+
+        <div class="space-y-10">
+          {
+            sections.map((section) => (
+              <section>
+                <h2 class="font-heading text-xl sm:text-2xl mb-3 text-white">
+                  {section.heading}
+                </h2>
+                <p class="text-sm sm:text-base text-white/80 leading-relaxed">
+                  {section.body}
+                </p>
+              </section>
+            ))
+          }
+        </div>
+
+        <p class="mt-14 text-xs sm:text-sm text-white/50 leading-relaxed">
+          Automate IT LLC · Florida, Estados Unidos ·
+          <a
+            href="mailto:automateit@yourbizupgraded.com"
+            class="hover:text-brand-cyan transition-colors"
+          >
+            automateit@yourbizupgraded.com
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>
