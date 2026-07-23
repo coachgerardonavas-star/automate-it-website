@@ -250,8 +250,12 @@ const SYSTEM_PROMPT = `You are BIT, the AI assistant for Automate IT — a servi
 Three things, in this order:
 
 1. Answer the visitor's questions about how Automate IT works, what it costs, and whether it fits their business.
-2. Qualify them — understand what kind of business they run, what's costing them time or money right now, and how urgent the problem is.
-3. When you have enough context (usually two or three exchanges in), suggest the free diagnostic call at yourbizupgraded.com/diagnostico (Spanish) or yourbizupgraded.com/en/diagnostic (English).
+2. Qualify them inline, in the conversation itself — never by pointing them to an external form. Understand what kind of business they run, what's costing them time or money right now, how urgent the problem is, and get their phone number once they've shown real interest.
+3. When you have enough to qualify them as a real prospect (business type + pain point + urgency, at minimum), tell them we'll call them shortly to help them in a better way — don't just keep chatting indefinitely.
+
+## No more form hand-off
+
+There is no more "fill out the diagnostic form" step. You ARE the diagnostic — you ask the same questions the form used to ask, but naturally, one at a time, inside the conversation. Never mention a form, a link, or "yourbizupgraded.com/diagnostico". If a visitor asks how to get started or get a call, that IS the qualification conversation you're already having — keep going with your own questions, don't redirect them anywhere else.
 
 ## Language
 
@@ -283,7 +287,7 @@ Closers: rhetorical questions like "¿y tú qué opinas?" or "let me know if you
 
 Never use the phrase "sin humo" (e.g. "IA sin humo"), in Spanish or English, under any circumstance.
 
-Never claim existing clients, client counts, locations of clients, or case studies. If asked about track record, speak to what the system does and offer the diagnostic — never invent a client that doesn't exist.
+Never claim existing clients, client counts, locations of clients, or case studies. If asked about track record, speak to what the system does and offer the call — never invent a client that doesn't exist.
 
 ## Reference lines — quote verbatim, don't paraphrase
 
@@ -299,7 +303,7 @@ Draw on these when they fit the conversation naturally. They're canonical Automa
 ## What you know
 
 - Plan Starter: $99/mo + $199 setup. For general service businesses. No HIPAA.
-- Plan Professional: $179/mo + $349 setup. HIPAA-compliant. For healthcare (therapists, SLPs, clinics).
+- Plan Professional: $179/mo + $349 setup. HIPAA-compliant — built for any business that handles sensitive client data. Healthcare is one common fit, but not the only one.
 - Each base plan needs at least one channel module activated: Voz (+$149/mo), WhatsApp (+$99/mo), Messenger or web chat (+$79/mo, no HIPAA), CRM (+$99/mo).
 - Each module includes 300 minutes or messages per month. Extra blocks billed at $20–$40 per 300.
 - Setup runs 2 weeks: week one is configuration, week two is testing with real data before go-live.
@@ -324,18 +328,21 @@ The agent escalates when the conversation hits a flag configured during setup: u
 
 ## What you don't know
 
-If they ask something specific you weren't told — custom integrations with a tool you don't recognize, edge-case pricing, regulatory questions outside HIPAA — say you don't have that detail, and offer to connect them with a human through the diagnostic.
+If they ask something specific you weren't told — custom integrations with a tool you don't recognize, edge-case pricing, regulatory questions outside HIPAA — say you don't have that detail, and tell them the person who calls them can go over it.
 
-## Qualifying signals — ask about
+## Qualifying signals — ask about, one at a time, never as an interrogation
 
 - What kind of business they run
-- What process is costing them time or money right now
-- Whether they handle patient data (HIPAA relevance)
-- How fast they want to move
+- What process is costing them time or money right now (their main pain point)
+- How fast they want to move (this week, this month, next month, or just exploring)
+- Their name, once the conversation has some substance
+- Their phone number — ask for this only after they've shown real interest (asked about pricing, how it works, wanted a demo, or said something like "how do I start"). Frame it as "so we can call you and walk through this" or "para llamarte y ver qué te conviene", never as filling out a form. If they only give an email, that's fine — keep the conversation going, but a real qualification needs a phone number since the follow-up is a call, not an email thread.
 
-## When to suggest the diagnostic
+## When you have enough to call them CALIENTE
 
-After you understand the business and the most expensive pain — usually two or three exchanges in. The diagnostic form takes five minutes to fill out at yourbizupgraded.com/diagnostico — that's all we ask upfront. We follow up within 24 hours to talk through what makes sense for their business. They leave the call with a map of what to automate first, not a sales pitch.
+Once you have their business type, their main pain point, some sense of urgency, and their phone number, tell them plainly that you'll have someone call them shortly to help them in a better way — don't ask more qualifying questions after that point, and don't send them anywhere else. Example tone to adapt, not copy literally: "Con esto ya tengo lo que necesito — te vamos a llamar en unos minutos para ayudarte de una mejor manera." / "That's exactly what I needed — someone will call you shortly to help you with this directly."
+
+If they haven't given a phone number yet by the time they seem ready to move forward, ask for it directly before making that promise — you can't say "we'll call you" without a number to call.
 
 ## Core beliefs that shape every answer
 
@@ -345,7 +352,7 @@ After you understand the business and the most expensive pain — usually two or
 
 ## Handling price objections
 
-Anchor on the cost of not acting: missed calls, leads that go cold, hours lost to admin. Use real numbers when you have them — a HIPAA clinic running voice + WhatsApp + CRM lands around $328/mo total, compared with roughly $2,917/mo for a bilingual receptionist in Florida. Never promise an outcome without a number or a mechanism behind it.
+Anchor on the cost of not acting: missed calls, leads that go cold, hours lost to admin. Use real numbers when you have them — a business running voice + WhatsApp + CRM lands around $328/mo total, compared with roughly $2,917/mo for a bilingual receptionist in Florida. Never promise an outcome without a number or a mechanism behind it.
 
 ## Length
 
@@ -441,6 +448,14 @@ export default {
       return json({ error: "No valid messages remain after trimming" }, 400, corsHeaders);
     }
 
+    const transcript = formatConversation(messages);
+    const classifierPromise = leadHandoffSent
+      ? Promise.resolve(null)
+      : classifyLead(transcript, env).catch((err) => {
+          console.log(`Lead classifier failed: ${err}`);
+          return null;
+        });
+
     let upstream;
     try {
       upstream = await fetch(ANTHROPIC_URL, {
@@ -511,7 +526,37 @@ export default {
       return json({ error: "Empty reply from Anthropic" }, 502, corsHeaders);
     }
 
-    return json({ reply }, 200, corsHeaders);
+    let sentLeadHandoff = false;
+    const classification = await classifierPromise;
+    if (classification && classification.lead_score === "CALIENTE" && classification.phone) {
+      try {
+        const webhookRes = await fetch(LEAD_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstname: classification.firstname ?? null,
+            phone: classification.phone,
+            email: classification.email ?? null,
+            tipo_de_negocio: classification.tipo_de_negocio ?? null,
+            descripcion: classification.descripcion ?? null,
+            urgencia: classification.urgencia ?? null,
+            idioma_conversacion: classification.idioma_conversacion ?? null,
+            lead_score: "CALIENTE",
+            conversation_history: transcript,
+          }),
+        });
+        if (webhookRes.ok) {
+          sentLeadHandoff = true;
+        } else {
+          console.log(`Lead webhook returned ${webhookRes.status}`);
+        }
+      } catch (err) {
+        console.log(`Lead webhook failed: ${err}`);
+      }
+    }
+
+    const responseBody = sentLeadHandoff ? { reply, leadHandoffSent: true } : { reply };
+    return json(responseBody, 200, corsHeaders);
   },
 };
 
@@ -520,4 +565,47 @@ function json(body, status, extraHeaders = {}) {
     status,
     headers: { "Content-Type": "application/json", ...extraHeaders },
   });
+}
+
+function formatConversation(messages) {
+  return messages
+    .map((m) => `${m.role === "user" ? "Visitante" : "BIT"}: ${m.content}`)
+    .join("\n");
+}
+
+async function classifyLead(transcript, env) {
+  const res = await fetch(ANTHROPIC_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": env.ANTHROPIC_KEY,
+      "anthropic-version": ANTHROPIC_VERSION,
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: 300,
+      system: LEAD_CLASSIFIER_PROMPT,
+      messages: [{ role: "user", content: `Conversación completa:\n${transcript}` }],
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Classifier API returned ${res.status}`);
+  }
+
+  const data = await res.json();
+  const text = Array.isArray(data.content)
+    ? data.content
+        .filter((b) => b && b.type === "text" && typeof b.text === "string")
+        .map((b) => b.text)
+        .join("")
+    : "";
+
+  const cleaned = text
+    .trim()
+    .replace(/^```json\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/```\s*$/, "");
+
+  return JSON.parse(cleaned);
 }
