@@ -5,20 +5,20 @@ import Footer from "../components/Footer.astro";
 
 const lang = "es" as const;
 
-// Payment Link del $1 (cobra $1.00, pide teléfono, confirma en 15 min).
+// Payment Link del $1 (cobra $1.00, pide teléfono + horario, confirma en 15 min).
 const STRIPE_URL = "https://book.stripe.com/28E28q0zO5cX8KBa7PafS02";
 
 const steps = [
   "Pagas $1 y reservas 15 minutos.",
-  "Me cuentas qué tarea te quita más tiempo.",
-  "Ponemos la IA a trabajar en eso — y te enseño a usarla.",
+  "Encontramos por dónde se te escapa el tiempo — tu Mapa de Fugas.",
+  "Ponemos la IA a tapar una de esas fugas, y te enseño a usarla.",
 ];
 ---
 
 <BaseLayout
   lang={lang}
-  title="Da tu primer paso con la IA — por $1 | Automate IT"
-  description="Por $1 y 15 minutos, pon la IA a trabajar en una tarea de tu negocio y llévatela funcionando el mismo día."
+  title="Tu Mapa de Fugas — por $1 | Automate IT"
+  description="Por $1 y 15 minutos, te mostramos cuánto tiempo te roba el trabajo repetitivo y dejamos la IA tapando una fuga el mismo día."
   noindex={true}
   chatbot={false}
 >
@@ -30,16 +30,16 @@ const steps = [
         <!-- Columna de texto -->
         <div>
           <p class="text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase text-[var(--color-blue)] mb-5">
-            Automate IT · en 15 minutos
+            El Mapa de Fugas · en 15 minutos
           </p>
 
           <h1 class="font-heading leading-[1.02] text-4xl sm:text-6xl mb-5">
-            Por <span class="text-[var(--color-blue)]">$1</span>, da tu primer
-            paso con la IA en tu negocio.
+            Por <span class="text-[var(--color-blue)]">$1</span>, te muestro
+            cuánto tiempo te roba el trabajo repetitivo.
           </h1>
 
           <p class="text-2xl sm:text-3xl font-semibold text-[var(--color-blue)] mb-10">
-            Listo para usar el mismo día.
+            Y dejo la IA tapando una fuga — el mismo día.
           </p>
 
           <ol class="space-y-4 mb-10 max-w-xl">
@@ -66,14 +66,16 @@ const steps = [
           </a>
 
           <p class="mt-5 text-sm tracking-wide uppercase text-[var(--color-text-muted)]">
-            15 minutos · una tarea concreta
+            15 minutos · una fuga tapada
           </p>
 
           <p class="mt-10 max-w-xl text-sm text-[var(--color-text-muted)] leading-relaxed border-t border-[var(--color-border)] pt-6">
-            Es tu <strong class="text-[var(--color-text-secondary)]">primer paso</strong> con
-            la IA aplicada a una tarea que hoy te quita tiempo — no el sistema
-            completo que contesta por ti (eso es un servicio aparte). Te la llevas
-            funcionando el mismo día.
+            A todo lo que copias, reenvías y repites a mano para que tu negocio
+            funcione lo llamamos <strong class="text-[var(--color-text-secondary)]">El
+            Trabajo Pegamento</strong> — trabajo invisible que te come las horas.
+            Por $1 te muestro dónde está y tapamos una fuga con IA. Es tu primer
+            paso, no el sistema completo que contesta por ti (eso es un servicio
+            aparte).
           </p>
         </div>
 
