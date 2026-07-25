@@ -1,0 +1,491 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const lang = "es" as const;
+
+// CTA de esta página = pedido de llamada (callback), NO un calendario con hora fija.
+// El prospecto deja sus datos + su mejor horario, y Gerardo llama cuando puede
+// (tiene empleo de 8h). Los botones hacen scroll al formulario de abajo (#hablemos).
+
+// Los 3 niveles de precio (decisión CEO 24-jul-2026).
+const planes = [
+  {
+    nombre: "Esencial",
+    detalle: "5–6 procesos documentados + agentes instalados",
+    precio: "$4,500",
+    destacado: false,
+  },
+  {
+    nombre: "Completo",
+    detalle: "7–8 procesos documentados + agentes instalados",
+    precio: "$6,000",
+    destacado: true,
+  },
+  {
+    nombre: "Regulado / Grande",
+    detalle: "Empresa HIPAA (salud, legal, finanzas) o 25–30 empleados",
+    precio: "$8,000",
+    destacado: false,
+  },
+];
+
+// Las 3 semanas del sprint.
+const semanas = [
+  {
+    n: "Semana 1",
+    titulo: "Mapa de Fugas",
+    body: "Nos sentamos contigo y con tu gente clave a entender cómo opera tu negocio de verdad. Al final de la semana tienes un mapa de dónde se fuga tiempo y dinero — con tus números, no con promedios de folleto.",
+    inversion: "Tú inviertes: 3 sesiones cortas.",
+  },
+  {
+    n: "Semana 2",
+    titulo: "La Memoria Operativa",
+    body: "Convertimos todo eso en el documento vivo de tu empresa: los 6 a 8 procesos que hoy viven en cabezas, escritos en cuatro niveles — desde la visión general hasta las plantillas del día a día. Usamos IA para producirlo rápido; tú solo validas.",
+    inversion: "Tú inviertes: 1 sesión de validación.",
+  },
+  {
+    n: "Semana 3",
+    titulo: "Agentes en operación",
+    body: "Sobre esa memoria instalamos los agentes de IA que ejecutan los procesos repetitivos y los conectamos a lo que ya usas: CRM, calendario, WhatsApp, email. Te entregamos todo funcionando, con tablero de métricas y un plan de 90 días.",
+    inversion: "Tú inviertes: 1 sesión de arranque.",
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title="La Memoria Operativa — automatiza tu pyme | Automate IT"
+  description="Para empresas de 10 a 30 empleados en Florida. En 3 semanas documentamos cómo opera tu negocio y lo convertimos en la memoria que tus agentes de IA necesitan para trabajar sin ti."
+>
+  <Nav lang={lang} />
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="relative overflow-hidden">
+      <div class="max-w-5xl mx-auto px-5 lg:px-8 pt-14 pb-20 sm:pt-20 sm:pb-28">
+        <p
+          class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-6 font-semibold"
+        >
+          Para empresas de 10 a 30 empleados en Florida
+        </p>
+        <h1 class="font-heading text-4xl sm:text-6xl leading-[1.04] max-w-4xl">
+          No puedes automatizar lo que solo vive en tu cabeza.
+        </h1>
+        <p
+          class="mt-6 max-w-2xl text-lg sm:text-xl text-[var(--color-text-secondary)] leading-relaxed"
+        >
+          En 3 semanas documentamos cómo opera tu negocio de verdad — no cómo
+          crees que opera — y lo convertimos en la memoria que tus agentes de IA
+          necesitan para trabajar sin ti.
+        </p>
+        <div class="mt-10">
+          <a
+            href="#hablemos"
+            class="inline-flex items-center gap-3 bg-[var(--color-blue)] hover:bg-[var(--color-navy)] text-white font-semibold text-lg px-8 py-4 rounded-xl transition-colors duration-200 ease-brand"
+          >
+            Quiero que me llamen
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <p class="mt-6 text-sm text-[var(--color-text-muted)] max-w-md">
+          No tienes que agendar una hora. Dejas tus datos y yo te llamo cuando te
+          quede bien — sin costo y sin compromiso.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- ===== EL ENEMIGO ===== -->
+    <section class="py-20 sm:py-28">
+      <div class="max-w-4xl mx-auto px-5 lg:px-8">
+        <p
+          class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold"
+        >
+          El problema real
+        </p>
+        <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
+          Tu empresa sabe cómo operar.<br />
+          <span class="text-[var(--color-text-muted)]"
+            >El problema es que nadie lo escribió.</span
+          >
+        </h2>
+        <p
+          class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl mb-6"
+        >
+          Cómo se cotiza un trabajo, cómo se atiende a un cliente nuevo, cómo se
+          cierra el mes: eso existe, pero vive en tu cabeza, en la de tu mano
+          derecha y en un par de chats de WhatsApp. Por eso pasan tres cosas:
+        </p>
+        <ul class="space-y-3 max-w-2xl mb-8">
+          <li class="text-base sm:text-lg text-[var(--color-text-secondary)]">
+            → Cada vez que alguien renuncia, se va un pedazo de la empresa con él.
+          </li>
+          <li class="text-base sm:text-lg text-[var(--color-text-secondary)]">
+            → Todo lo importante sigue pasando por ti, aunque ya tengas equipo.
+          </li>
+          <li class="text-base sm:text-lg text-[var(--color-text-secondary)]">
+            → Probaste ChatGPT y te decepcionó — porque le pediste que trabajara
+            en un negocio del que no tiene memoria.
+          </li>
+        </ul>
+        <p
+          class="text-base sm:text-lg text-[var(--color-text-primary)] leading-relaxed max-w-2xl font-semibold"
+        >
+          A eso le llamamos la Amnesia Operativa. Y es la razón #1 por la que la
+          IA "no funciona" en empresas que sí tienen con qué pagarla.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- ===== LA TESIS ===== -->
+    <section class="py-20 sm:py-28 bg-[var(--color-bg-soft)]">
+      <div class="max-w-4xl mx-auto px-5 lg:px-8 text-center">
+        <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
+          La IA no falla por las herramientas.<br />Falla por falta de contexto.
+        </h2>
+        <p
+          class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl mx-auto"
+        >
+          No necesitas más software. Ya tienes suficiente. Lo que no tienes es el
+          negocio documentado de forma que una IA — o un empleado nuevo — pueda
+          ejecutarlo sin adivinar. Primero se documenta. Después se automatiza. En
+          ese orden. Al revés no funciona, y es el error que casi todos cometen.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- ===== EL MÉTODO (3 SEMANAS) ===== -->
+    <section class="py-20 sm:py-28">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <header class="max-w-3xl mb-12 sm:mb-16">
+          <p
+            class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold"
+          >
+            Cómo lo hacemos
+          </p>
+          <h2 class="font-heading text-3xl sm:text-5xl leading-tight">
+            De tu cabeza a un sistema que trabaja sin ti.<br />
+            <span class="text-[var(--color-text-muted)]">En 3 semanas.</span>
+          </h2>
+        </header>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          {
+            semanas.map((s) => (
+              <article class="card-glow p-7 sm:p-8 rounded-lg bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)] flex flex-col">
+                <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] font-semibold mb-3">
+                  {s.n}
+                </p>
+                <h3 class="font-heading text-xl sm:text-2xl mb-4 leading-snug">
+                  {s.titulo}
+                </h3>
+                <p class="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed mb-6 grow">
+                  {s.body}
+                </p>
+                <p class="text-sm text-[var(--color-text-muted)] font-semibold border-t border-[var(--color-border)] pt-4">
+                  {s.inversion}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- ===== EL ENTREGABLE ===== -->
+    <section class="py-20 sm:py-28">
+      <div class="max-w-4xl mx-auto px-5 lg:px-8">
+        <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
+          Sales con un activo, no con una factura.
+        </h2>
+        <p
+          class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl mb-4"
+        >
+          La Memoria Operativa es tuya para siempre. Si mañana contratas a
+          alguien, lo pones a producir en días en vez de meses. Si abres una
+          segunda sucursal, ya sabes exactamente cómo se replica. Si otro
+          proveedor de IA llega después, ya tiene con qué trabajar.
+        </p>
+        <p
+          class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl"
+        >
+          La mayoría de la gente paga por un servicio que se acaba cuando dejas de
+          pagar. Aquí pagas una vez y te quedas con la memoria de tu empresa
+          documentada. Los agentes son la consecuencia; el activo es lo que se
+          queda.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- ===== PRECIOS ===== -->
+    <section class="py-20 sm:py-28 bg-[var(--color-bg-soft)]">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <header class="max-w-3xl mb-12">
+          <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
+            Compáralo con la alternativa real.
+          </h2>
+          <p
+            class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl"
+          >
+            Un asistente administrativo en Florida cuesta entre $1,200 y $2,500 al
+            mes. Tarda 2 a 3 meses en ser productivo, trabaja ocho horas al día, y
+            se va de vacaciones. Y cuando renuncia, se lleva todo lo que aprendió.
+            La Memoria Operativa se documenta una vez, trabaja 24/7 a través de tus
+            agentes, y no se va.
+          </p>
+        </header>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          {
+            planes.map((p) => (
+              <article
+                class={`p-7 sm:p-8 rounded-lg shadow-[var(--shadow-card)] flex flex-col ${p.destacado ? "bg-[var(--color-blue)] text-white" : "bg-[var(--color-bg)]"}`}
+              >
+                <h3 class="font-heading text-xl sm:text-2xl mb-2">{p.nombre}</h3>
+                <p
+                  class={`text-sm leading-relaxed mb-6 grow ${p.destacado ? "text-white/80" : "text-[var(--color-text-secondary)]"}`}
+                >
+                  {p.detalle}
+                </p>
+                <p class="font-heading text-4xl">{p.precio}</p>
+                <p
+                  class={`text-xs uppercase tracking-wide mt-1 ${p.destacado ? "text-white/70" : "text-[var(--color-text-muted)]"}`}
+                >
+                  Pago único
+                </p>
+              </article>
+            ))
+          }
+        </div>
+        <p class="mt-8 text-sm text-[var(--color-text-muted)] max-w-2xl">
+          El servicio mensual de los agentes (desde $99/mes) arranca después del
+          sprint y se cobra aparte.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- ===== HIPAA ===== -->
+    <section class="py-20 sm:py-28">
+      <div class="max-w-4xl mx-auto px-5 lg:px-8">
+        <p
+          class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold"
+        >
+          Si manejas información sensible
+        </p>
+        <h2 class="font-heading text-3xl sm:text-4xl leading-tight mb-6">
+          Esto no es negociable.
+        </h2>
+        <p
+          class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl"
+        >
+          Salud, legal, finanzas: si tu empresa maneja datos regulados, no puedes
+          poner esa información en cualquier herramienta de IA. Nosotros ya
+          operamos bajo HIPAA para clientes del sector salud en Florida, con los
+          acuerdos (BAA) que la ley exige. Esa es la diferencia entre contratar a
+          un especialista y contratar a un freelancer que aprendió con tutoriales.
+        </p>
+      </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- ===== PARA QUIÉN NO ES ===== -->
+    <section class="py-20 sm:py-28 bg-[var(--color-bg-soft)]">
+      <div class="max-w-4xl mx-auto px-5 lg:px-8">
+        <h2 class="font-heading text-3xl sm:text-4xl leading-tight mb-8">
+          Esto no es para todos.
+        </h2>
+        <ul class="space-y-4 max-w-2xl">
+          <li class="text-base sm:text-lg text-[var(--color-text-secondary)]">
+            → No es para empresas de menos de 10 empleados — para ese caso tenemos
+            <a
+              href="/"
+              class="text-[var(--color-blue)] hover:text-[var(--color-navy)] underline underline-offset-2"
+              >otra solución más sencilla</a
+            >.
+          </li>
+          <li class="text-base sm:text-lg text-[var(--color-text-secondary)]">
+            → No es para el dueño que no va a estar presente en las sesiones. La
+            mitad del conocimiento de tu empresa está en tu cabeza; sin ti, no hay
+            Memoria Operativa.
+          </li>
+          <li class="text-base sm:text-lg text-[var(--color-text-secondary)]">
+            → No es para quien busca "probar la IA" sin cambiar cómo opera.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true" />
+
+    <!-- ===== GARANTÍA + CTA FINAL (pedido de llamada) ===== -->
+    <section id="hablemos" class="py-20 sm:py-28 scroll-mt-20">
+      <div class="max-w-2xl mx-auto px-5 lg:px-8">
+        <header class="text-center mb-10">
+          <p class="text-sm text-[var(--color-text-muted)] mb-6">
+            Garantía de 7 días desde el arranque. Si en la primera semana sientes
+            que esto no es para tu empresa, te devolvemos todo.
+          </p>
+          <h2 class="font-heading text-3xl sm:text-5xl leading-tight mb-5">
+            Deja de ser el cuello de botella de tu propia empresa.
+          </h2>
+          <p
+            class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-xl mx-auto"
+          >
+            Déjame tus datos y te llamo yo — sin agendar una hora fija. Elige tu
+            mejor momento y me acomodo. En la llamada te digo con honestidad si tu
+            empresa está lista para esto o no.
+          </p>
+        </header>
+
+        <form id="empresas-form" class="space-y-5" novalidate>
+          <label class="block">
+            <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">Tu nombre</span>
+            <input type="text" name="name" required autocomplete="name"
+              class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors" />
+          </label>
+
+          <label class="block">
+            <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">Empresa</span>
+            <input type="text" name="company" required autocomplete="organization"
+              class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors" />
+          </label>
+
+          <label class="block">
+            <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">Teléfono <span class="text-[var(--color-text-muted)] font-normal">(para llamarte)</span></span>
+            <input type="tel" name="phone" required autocomplete="tel"
+              class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors" />
+          </label>
+
+          <label class="block">
+            <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">Email</span>
+            <input type="email" name="email" required autocomplete="email"
+              class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors" />
+          </label>
+
+          <label class="block">
+            <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">¿Cuántos empleados son?</span>
+            <select name="employees" required
+              class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors appearance-none cursor-pointer">
+              <option value="" class="bg-white">Elige una opción</option>
+              <option value="menos de 10" class="bg-white">Menos de 10</option>
+              <option value="10 a 20" class="bg-white">10 a 20</option>
+              <option value="20 a 30" class="bg-white">20 a 30</option>
+              <option value="mas de 30" class="bg-white">Más de 30</option>
+            </select>
+          </label>
+
+          <label class="block">
+            <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">¿Cuándo es buen momento para llamarte?</span>
+            <select name="best_time" required
+              class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors appearance-none cursor-pointer">
+              <option value="" class="bg-white">Elige una opción</option>
+              <option value="Entre semana en la manana (antes de 9am)" class="bg-white">Entre semana en la mañana (antes de 9am)</option>
+              <option value="Entre semana al mediodia (12-2pm)" class="bg-white">Entre semana al mediodía (12–2pm)</option>
+              <option value="Entre semana en la tarde/noche (despues de 6pm)" class="bg-white">Entre semana en la tarde/noche (después de 6pm)</option>
+              <option value="Fin de semana" class="bg-white">Fin de semana</option>
+              <option value="Cualquier momento, deja mensaje" class="bg-white">Cualquier momento, deja mensaje</option>
+            </select>
+          </label>
+
+          <label class="block">
+            <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">¿Qué te gustaría resolver? <span class="text-[var(--color-text-muted)] font-normal">(opcional)</span></span>
+            <textarea name="notes" rows="3"
+              placeholder="Ej.: todo pasa por mí, quiero que el negocio funcione sin depender de mi cabeza."
+              class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors resize-y"></textarea>
+          </label>
+
+          <div class="pt-2">
+            <button type="submit"
+              class="btn-cta w-full inline-flex items-center justify-center px-6 py-4 rounded-xl font-semibold text-lg bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+              Quiero que me llamen
+            </button>
+          </div>
+          <p class="text-xs text-[var(--color-text-muted)] pt-1">
+            Sin costo y sin compromiso. Tus datos no se comparten con terceros.
+          </p>
+        </form>
+
+        <p id="empresas-error" class="hidden text-sm text-[var(--color-danger)] mt-4" role="alert"></p>
+
+        <div id="empresas-success" class="hidden p-8 rounded-lg border border-brand-lime/40 bg-brand-lime/5 text-center" role="status" aria-live="polite">
+          <p class="font-heading text-2xl mb-3 text-brand-lime">¡Listo! Recibí tus datos.</p>
+          <p class="text-base text-[var(--color-text-primary)] leading-relaxed">
+            Yo te llamo — no tienes que agendar nada. Te contacto en el horario que
+            elegiste, dentro de las próximas 48 horas.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    import { submitToHubSpot } from "../lib/hubspot";
+    import { HUBSPOT_FORM_GUID_DIAGNOSTICO } from "../config/site";
+
+    const form = document.getElementById("empresas-form") as HTMLFormElement | null;
+    const error = document.getElementById("empresas-error");
+    const success = document.getElementById("empresas-success");
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!form || !error || !success) return;
+
+      error.classList.add("hidden");
+      error.textContent = "";
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Enviando…";
+      }
+
+      const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+
+      const message =
+        `Empleados: ${data.employees ?? ""} | Mejor horario: ${data.best_time ?? ""}` +
+        (data.notes ? `\n\nQuiere resolver: ${data.notes}` : "") +
+        `\n\n[origen: /empresas — La Memoria Operativa]`;
+
+      try {
+        await submitToHubSpot(HUBSPOT_FORM_GUID_DIAGNOSTICO, [
+          { name: "firstname", value: data.name ?? "" },
+          { name: "email", value: data.email ?? "" },
+          { name: "phone", value: data.phone ?? "" },
+          { name: "company", value: data.company ?? "" },
+          { name: "message", value: message },
+        ]);
+        form.classList.add("hidden");
+        success.classList.remove("hidden");
+        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (err) {
+        console.error("[lead] empresas HubSpot error:", err);
+        error.textContent =
+          "No se pudo enviar. Escríbeme directo a automateit@yourbizupgraded.com y te llamo.";
+        error.classList.remove("hidden");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Quiero que me llamen";
+        }
+      }
+    });
+  </script>
+
+  <Footer lang={lang} />
+</BaseLayout>
