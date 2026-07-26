@@ -21,9 +21,9 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "Automatización con IA para dueños de negocio · Planes desde $99/mes",
-      h1Line1: "Tú no eres el software",
-      h1Line2: "que falta entre tus herramientas.",
+      eyebrow: "Automatización con IA para dueños de negocio · Desde $198/mes",
+      h1Line1: "Cada herramienta toca por su lado.",
+      h1Line2: "Nosotros las ponemos a tocar juntas.",
       subtitle:
         "Cada vez que copias algo de WhatsApp a tu CRM, que reenvías una factura, que confirmas una cita ya confirmada — estás haciendo de integración humana. Instalamos los agentes que cierran esas brechas.",
       bullets: [
@@ -661,9 +661,9 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "AI automation for business owners · Plans from $99/mo",
-      h1Line1: "You are not the software",
-      h1Line2: "missing between your tools.",
+      eyebrow: "AI automation for business owners · From $198/mo",
+      h1Line1: "Every tool plays on its own.",
+      h1Line2: "We get them playing together.",
       subtitle:
         "Every time you copy something from WhatsApp into your CRM, forward an invoice, or confirm an appointment that was already confirmed — you're working as human integration. We install the agents that close those gaps.",
       bullets: [
