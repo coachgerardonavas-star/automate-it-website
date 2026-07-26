@@ -21,17 +21,17 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "Recepcionista IA para negocios en Florida · Desde $198/mes",
-      h1Line1: "Mientras tú trabajas,",
-      h1Line2: "nosotros contestamos.",
+      eyebrow: "Automatización con IA para dueños de negocio · Planes desde $99/mes",
+      h1Line1: "Tú no eres el software",
+      h1Line2: "que falta entre tus herramientas.",
       subtitle:
-        "El teléfono, el WhatsApp y el chat de tu negocio — contestando solos, en un solo sistema. Yo te lo instalo; tú enciendes el switch.",
+        "Cada vez que copias algo de WhatsApp a tu CRM, que reenvías una factura, que confirmas una cita ya confirmada — estás haciendo de integración humana. Instalamos los agentes que cierran esas brechas.",
       bullets: [
-        "📞 Contesta llamadas mientras atiendes a tus clientes.",
-        "💬 Responde WhatsApp mientras estás con tu familia.",
-        "🗓️ Agenda citas mientras estás dormido.",
+        "📞 Contesta y agenda sin que tú toques el teléfono.",
+        "💬 Responde WhatsApp y da seguimiento solo.",
+        "🔁 Pasa la información de una herramienta a otra sin ti.",
       ],
-      ctaPrimary: "Agenda tu diagnóstico gratuito",
+      ctaPrimary: "Descubre tu Mapa de Fugas — gratis",
       microcopy: "Formulario de 5 minutos. Sin costo. Sin compromiso.",
       trustBadges: [
         { icon: "🔒", text: "Tus datos no se venden" },
@@ -661,17 +661,17 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "AI Receptionist for Florida businesses · From $198/mo",
-      h1Line1: "While you work,",
-      h1Line2: "we answer.",
+      eyebrow: "AI automation for business owners · Plans from $99/mo",
+      h1Line1: "You are not the software",
+      h1Line2: "missing between your tools.",
       subtitle:
-        "Your business's phone, WhatsApp and chat — answering on their own, in one system. I set it up; you flip the switch.",
+        "Every time you copy something from WhatsApp into your CRM, forward an invoice, or confirm an appointment that was already confirmed — you're working as human integration. We install the agents that close those gaps.",
       bullets: [
-        "📞 Answers calls while you're with your clients.",
-        "💬 Responds to WhatsApp while you're with your family.",
-        "🗓️ Books appointments while you're asleep.",
+        "📞 Answers and books without you touching the phone.",
+        "💬 Replies on WhatsApp and follows up on its own.",
+        "🔁 Moves information between your tools without you.",
       ],
-      ctaPrimary: "Book your free diagnosis",
+      ctaPrimary: "Get your Leak Map — free",
       microcopy: "5-minute form. No cost. No commitment.",
       trustBadges: [
         { icon: "🔒", text: "Your data is never sold" },
