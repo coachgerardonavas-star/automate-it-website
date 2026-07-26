@@ -55,6 +55,7 @@ const diagPath = "/diagnostico";
           class="text-[var(--color-blue)]"
           aria-live="polite"
           aria-label={t.h1Line2}
+          data-phrases={JSON.stringify(t.heroPhrases)}
         ><span id="typewriter-text">{t.h1Line2}</span><span
             class="typewriter-cursor"
             aria-hidden="true">|</span></span>
@@ -161,13 +162,8 @@ const diagPath = "/diagnostico";
 
 <script>
   // Typewriter del hero — vanilla JS, sin dependencias.
-  const PHRASES = [
-    "nosotros contestamos.",
-    "nadie pierde una llamada.",
-    "tu negocio no para.",
-    "alguien siempre responde.",
-  ];
-
+  // Las frases vienen de translations.ts (`hero.heroPhrases`) por el atributo
+  // data-phrases, para que sigan al titular y respeten el idioma de la página.
   const TYPE_MS = 60; // velocidad de escritura por carácter
   const DELETE_MS = 30; // velocidad de borrado por carácter
   const HOLD_MS = 2000; // pausa al terminar de escribir una frase
@@ -175,6 +171,14 @@ const diagPath = "/diagnostico";
 
   const textEl = document.getElementById("typewriter-text");
   const container = document.getElementById("typewriter");
+
+  let PHRASES = [];
+  try {
+    PHRASES = JSON.parse(container?.dataset.phrases || "[]");
+  } catch {
+    PHRASES = [];
+  }
+  if (!PHRASES.length && textEl) PHRASES = [textEl.textContent || ""];
   const cursor = container?.querySelector(".typewriter-cursor");
 
   const prefersReducedMotion = window.matchMedia(

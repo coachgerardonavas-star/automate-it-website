@@ -24,6 +24,14 @@ export const translations = {
       eyebrow: "Automatización con IA para dueños de negocio · Desde $198/mes",
       h1Line1: "Cada herramienta toca por su lado.",
       h1Line2: "Nosotros las ponemos a tocar juntas.",
+      // Frases del typewriter. Todas tienen que continuar h1Line1 y sonar a
+      // la misma idea (el Trabajo Pegamento), no al monotema del teléfono.
+      heroPhrases: [
+        "Nosotros las ponemos a tocar juntas.",
+        "Tú dejas de ser el pegamento.",
+        "La información pasa sola de una a otra.",
+        "Y tu negocio suena como uno solo.",
+      ],
       subtitle:
         "Cada vez que copias algo de WhatsApp a tu CRM, que reenvías una factura, que confirmas una cita ya confirmada — estás haciendo de integración humana. Instalamos los agentes que cierran esas brechas.",
       bullets: [
@@ -31,8 +39,9 @@ export const translations = {
         "💬 Responde WhatsApp y da seguimiento solo.",
         "🔁 Pasa la información de una herramienta a otra sin ti.",
       ],
-      ctaPrimary: "Pide la Radiografía de tu Operación — gratis",
-      microcopy: "Formulario de 5 minutos. Sin costo. Sin compromiso.",
+      ctaPrimary: "Agenda tu diagnóstico gratuito",
+      microcopy:
+        "Formulario de 5 minutos. Con él hacemos la Radiografía de tu Operación. Sin costo. Sin compromiso.",
       trustBadges: [
         { icon: "🔒", text: "Tus datos no se venden" },
         { icon: "🤐", text: "Conversaciones privadas" },
@@ -657,6 +666,12 @@ export const translations = {
       eyebrow: "AI automation for business owners · From $198/mo",
       h1Line1: "Every tool plays on its own.",
       h1Line2: "We get them playing together.",
+      heroPhrases: [
+        "We get them playing together.",
+        "You stop being the glue.",
+        "Information moves on its own.",
+        "And your business sounds like one.",
+      ],
       subtitle:
         "Every time you copy something from WhatsApp into your CRM, forward an invoice, or confirm an appointment that was already confirmed — you're working as human integration. We install the agents that close those gaps.",
       bullets: [
@@ -664,8 +679,9 @@ export const translations = {
         "💬 Replies on WhatsApp and follows up on its own.",
         "🔁 Moves information between your tools without you.",
       ],
-      ctaPrimary: "Get your Operations X-Ray — free",
-      microcopy: "5-minute form. No cost. No commitment.",
+      ctaPrimary: "Book your free diagnosis",
+      microcopy:
+        "5-minute form. We turn it into your Operations X-Ray. No cost. No commitment.",
       trustBadges: [
         { icon: "🔒", text: "Your data is never sold" },
         { icon: "🤐", text: "Conversations stay private" },
