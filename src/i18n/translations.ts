@@ -131,7 +131,7 @@ export const translations = {
         {
           n: "01",
           title: "Diagnóstico",
-          body: "Completas un formulario de 5 minutos. Te llamamos en menos de 24 horas para revisar tu operación e identificar dónde se te está yendo el tiempo y los leads. Sales de la llamada con un mapa claro.",
+          body: "Completas el formulario de diagnóstico — son 5 minutos. Con eso hacemos la Radiografía de tu Operación: revisamos cómo trabajas hoy y detectamos dónde se te está yendo el tiempo y los clientes. Sales de la llamada sabiendo exactamente dónde te podemos ayudar primero.",
         },
         {
           n: "02",
@@ -247,6 +247,10 @@ export const translations = {
         },
         {
           sku: "PROFESSIONAL",
+          // Oculto por decisión del CEO (26-jul-2026): ~1% de clientes necesita
+          // HIPAA y mostrarlo confunde al 99% restante. La ficha se conserva
+          // completa; se vende solo cuando el prospecto lo pide.
+          hidden: true,
           name: "Plan Professional",
           badge: "HIPAA ✓",
           price: "$179",
@@ -303,7 +307,7 @@ export const translations = {
       examples: [
         { label: "Salón de belleza · Solo WhatsApp", total: "$198/mes", detail: "Starter $99 + WhatsApp $99" },
         { label: "Contratista · Voz", total: "$248/mes", detail: "Starter $99 + Voz $149" },
-        { label: "Negocio regulado · Voz HIPAA", total: "$328/mes", detail: "Professional $179 + Voz $149" },
+        { label: "Clínica estética · WhatsApp + CRM", total: "$297/mes", detail: "Starter $99 + WhatsApp $99 + CRM $99" },
         { label: "Realtor · Voz + WhatsApp", total: "$347/mes", detail: "Starter $99 + Voz $149 + WhatsApp $99" },
       ],
       cta: "Agenda tu diagnóstico gratuito",
@@ -364,11 +368,11 @@ export const translations = {
       faqs: [
         {
           q: "¿Puedo empezar solo con un módulo?",
-          a: "Sí. El plan base ($99 Starter o $179 Professional) requiere al menos 1 módulo activo. Puedes empezar con WhatsApp por $99/mes adicional y agregar voz o CRM después.",
+          a: "Sí. El plan base ($99) requiere al menos 1 módulo activo. Puedes empezar con WhatsApp por $99/mes adicional y agregar voz o CRM después.",
         },
         {
           q: "¿Qué pasa si supero los 300 minutos o mensajes?",
-          a: "Se facturan bloques adicionales de 300 unidades. Voz: $35 (Starter) / $40 (Professional). WhatsApp: $25/$30. CRM: $20/$25. Siempre bloque completo, nunca fracciones.",
+          a: "Se facturan bloques adicionales de 300 unidades. Voz: $35. WhatsApp: $25. CRM: $20. Siempre bloque completo, nunca fracciones.",
         },
         {
           q: "¿El setup fee es reembolsable?",
@@ -380,7 +384,7 @@ export const translations = {
         },
         {
           q: "¿Qué es HIPAA y por qué importa?",
-          a: "HIPAA es la ley federal de EE.UU. que protege la información de salud de los pacientes. Si tu negocio maneja información de pacientes o datos de salud regulados, necesitas el Plan Professional — garantiza que Retell AI, Cal.com y Twilio operen bajo BAA firmado. Automate IT no custodia información de pacientes (PHI) en ningún caso.",
+          a: "HIPAA es la ley federal de EE.UU. que protege la información de salud de los pacientes. Si tu negocio maneja información de pacientes o datos de salud regulados, tenemos una configuración HIPAA-compliant disponible — con Retell AI, Cal.com y Twilio operando bajo BAA firmado. No aparece en la página porque aplica a pocos negocios: escríbenos y la cotizamos. Automate IT no custodia información de pacientes (PHI) en ningún caso.",
         },
         {
           q: "¿Puedo agregar módulos después de firmar?",
@@ -388,7 +392,7 @@ export const translations = {
         },
         {
           q: "¿El sistema de IA escucha o guarda mis conversaciones con clientes?",
-          a: "No. Automate IT no almacena ni tiene acceso al contenido de las conversaciones. Los datos de llamadas y mensajes quedan en los sistemas de los proveedores (Retell AI, Twilio) bajo sus propios términos de privacidad. Para clientes del sector salud con Plan Professional, todos los proveedores operan bajo BAA firmado y no pueden usar datos de pacientes para entrenar modelos de IA.",
+          a: "No. Automate IT no almacena ni tiene acceso al contenido de las conversaciones. Los datos de llamadas y mensajes quedan en los sistemas de los proveedores (Retell AI, Twilio) bajo sus propios términos de privacidad. Para clientes del sector salud con configuración HIPAA, todos los proveedores operan bajo BAA firmado y no pueden usar datos de pacientes para entrenar modelos de IA.",
         },
         {
           q: "¿Puedo usar este servicio si soy abogado o manejo información confidencial de clientes?",
@@ -396,7 +400,7 @@ export const translations = {
         },
         {
           q: "¿Qué pasa si el agente falla o da información incorrecta?",
-          a: "Monitoreamos el sistema en tiempo real. Si el agente comete un error, lo corregimos en 24 horas hábiles. Para clientes Professional, el tiempo de respuesta es de 4 horas. Siempre hay un humano detrás del sistema.",
+          a: "Monitoreamos el sistema en tiempo real. Si el agente comete un error, lo corregimos en 24 horas hábiles. Con soporte prioritario, el tiempo de respuesta es de 4 horas. Siempre hay un humano detrás del sistema.",
         },
         {
           q: "¿Cuánto tiempo tarda el setup?",
@@ -440,14 +444,14 @@ export const translations = {
           pain: "Tus clientes angloparlantes cuelgan o se van con la competencia porque la primera conversación se siente forzada.",
           solution:
             "Atención bilingüe que detecta el idioma y responde con la misma claridad en inglés que en español.",
-          tier: "Plan Professional",
+          tier: "Plan Starter",
         },
         {
           name: "Pierdes clientes que nunca supiste que existieron",
           pain: "No tienes registro de cuántas llamadas o mensajes se quedaron sin contestar mientras trabajabas.",
           solution:
             "Cada interacción queda registrada con quién, cuándo y qué pidió, y un follow-up automático cierra el lazo.",
-          tier: "Plan Professional",
+          tier: "Plan Starter",
         },
       ],
     },
@@ -758,7 +762,7 @@ export const translations = {
         {
           n: "01",
           title: "Diagnostic",
-          body: "Fill out a 5-minute form. We call you within 24 hours to review your operation and identify where your time and leads are leaking. You leave the call with a clear map.",
+          body: "Fill out the diagnostic form — it takes 5 minutes. We turn it into your Operations X-Ray: we review how you work today and pinpoint where your time and customers are leaking. You leave the call knowing exactly where we can help you first.",
         },
         {
           n: "02",
@@ -874,6 +878,7 @@ export const translations = {
         },
         {
           sku: "PROFESSIONAL",
+          hidden: true, // see the Spanish block — hidden by the CEO's call, 26-jul-2026
           name: "Professional Plan",
           badge: "HIPAA ✓",
           price: "$179",
@@ -930,7 +935,7 @@ export const translations = {
       examples: [
         { label: "Beauty salon · WhatsApp only", total: "$198/mo", detail: "Starter $99 + WhatsApp $99" },
         { label: "Contractor · Voice", total: "$248/mo", detail: "Starter $99 + Voice $149" },
-        { label: "Regulated business · HIPAA Voice", total: "$328/mo", detail: "Professional $179 + Voice $149" },
+        { label: "Aesthetic clinic · WhatsApp + CRM", total: "$297/mo", detail: "Starter $99 + WhatsApp $99 + CRM $99" },
         { label: "Realtor · Voice + WhatsApp", total: "$347/mo", detail: "Starter $99 + Voice $149 + WhatsApp $99" },
       ],
       cta: "Book your free diagnosis",
@@ -991,11 +996,11 @@ export const translations = {
       faqs: [
         {
           q: "Can I start with just one module?",
-          a: "Yes. The base plan ($99 Starter or $179 Professional) requires at least 1 active module. You can start with WhatsApp at $99/mo extra and add Voice or CRM later.",
+          a: "Yes. The base plan ($99) requires at least 1 active module. You can start with WhatsApp at $99/mo extra and add Voice or CRM later.",
         },
         {
           q: "What happens if I exceed 300 minutes or messages?",
-          a: "Additional 300-unit blocks are billed. Voice: $35 (Starter) / $40 (Professional). WhatsApp: $25/$30. CRM: $20/$25. Always full block, never fractions.",
+          a: "Additional 300-unit blocks are billed. Voice: $35. WhatsApp: $25. CRM: $20. Always full block, never fractions.",
         },
         {
           q: "Is the setup fee refundable?",
@@ -1007,7 +1012,7 @@ export const translations = {
         },
         {
           q: "What is HIPAA and why does it matter?",
-          a: "HIPAA is the U.S. federal law protecting patient health information. If your business handles patient data or regulated health information, you need the Professional Plan — it guarantees Retell AI, Cal.com, and Twilio operate under signed BAA. Automate IT never holds patient information (PHI).",
+          a: "HIPAA is the U.S. federal law protecting patient health information. If your business handles patient data or regulated health information, we have a HIPAA-compliant setup available — with Retell AI, Cal.com, and Twilio operating under signed BAA. It isn't listed on the page because it applies to few businesses: write to us and we'll quote it. Automate IT never holds patient information (PHI).",
         },
         {
           q: "Can I add modules after signing?",
@@ -1015,7 +1020,7 @@ export const translations = {
         },
         {
           q: "Does the AI system listen to or store my conversations with clients?",
-          a: "No. Automate IT doesn't store or have access to the content of conversations. Call and message data stays in the providers' systems (Retell AI, Twilio) under their own privacy terms. For healthcare clients on Plan Professional, all providers operate under signed BAA and cannot use patient data to train AI models.",
+          a: "No. Automate IT doesn't store or have access to the content of conversations. Call and message data stays in the providers' systems (Retell AI, Twilio) under their own privacy terms. For healthcare clients on the HIPAA setup, all providers operate under signed BAA and cannot use patient data to train AI models.",
         },
         {
           q: "Can I use this service if I'm a lawyer or handle confidential client information?",
@@ -1023,7 +1028,7 @@ export const translations = {
         },
         {
           q: "What happens if the agent fails or gives wrong information?",
-          a: "We monitor the system in real time. If the agent makes a mistake, we fix it within 24 business hours. Professional plan clients get a 4-hour response time. There is always a human behind the system.",
+          a: "We monitor the system in real time. If the agent makes a mistake, we fix it within 24 business hours. Priority support clients get a 4-hour response time. There is always a human behind the system.",
         },
         {
           q: "How long does setup take?",
@@ -1067,14 +1072,14 @@ export const translations = {
           pain: "Your English-speaking customers hang up or go to a competitor because the first conversation feels forced.",
           solution:
             "Bilingual reception that detects the language and responds with the same clarity in English as in Spanish.",
-          tier: "Plan Professional",
+          tier: "Plan Starter",
         },
         {
           name: "You're losing customers you never knew about",
           pain: "You have no record of how many calls or messages went unanswered while you were working.",
           solution:
             "Every interaction is logged with who, when, and what they asked, and an automatic follow-up closes the loop.",
-          tier: "Plan Professional",
+          tier: "Plan Starter",
         },
       ],
     },

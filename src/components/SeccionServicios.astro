@@ -95,7 +95,10 @@ const serviceSchemas = t.plans.map((plan, i) => {
 
     <div class="tilt-wrapper grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-16 sm:mb-20">
       {
-        t.plans.map((plan) => (
+        /* Los planes con `hidden: true` (hoy el Professional/HIPAA) no se
+           muestran: se venden solo cuando el prospecto los pide. La ficha
+           completa sigue en translations.ts, no se borró. */
+        t.plans.filter((plan) => !("hidden" in plan && plan.hidden)).map((plan) => (
           <article
             id={`plan-${plan.sku.toLowerCase()}`}
             class:list={[
@@ -189,15 +192,6 @@ const serviceSchemas = t.plans.map((plan, i) => {
                 <p class="font-mono text-xs sm:text-[10px] tracking-widest uppercase text-[var(--color-text-subtle)]">
                   {mod.sku}
                 </p>
-                {mod.hipaa ? (
-                  <span class="font-mono text-[10px] sm:text-[9px] tracking-wider uppercase text-brand-lime">
-                    HIPAA ✓
-                  </span>
-                ) : (
-                  <span class="font-mono text-[10px] sm:text-[9px] tracking-wider uppercase text-[var(--color-text-subtle)]">
-                    no HIPAA
-                  </span>
-                )}
               </div>
               <h3 class="font-heading text-lg sm:text-xl mb-3 leading-snug">
                 {mod.name}
@@ -205,29 +199,20 @@ const serviceSchemas = t.plans.map((plan, i) => {
               <p class="text-sm sm:text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5 flex-1">
                 {mod.description}
               </p>
+              {/* Solo se muestran los precios del plan Starter. Los del
+                  Professional siguen en translations.ts (pricePro / setupPro),
+                  pero no se publican. */}
               <div class="space-y-2 pt-4 border-t border-[var(--color-border)] text-sm sm:text-xs">
                 <div class="flex justify-between gap-2">
-                  <span class="text-[var(--color-text-muted)]">Starter</span>
+                  <span class="text-[var(--color-text-muted)]">Mensual</span>
                   <span class="text-[var(--color-text-primary)] font-mono text-right">
                     {mod.priceStarter}
                   </span>
                 </div>
-                <div class="flex justify-between gap-2">
-                  <span class="text-[var(--color-text-muted)]">Professional</span>
-                  <span class="text-[var(--color-text-primary)] font-mono text-right">
-                    {mod.pricePro}
-                  </span>
-                </div>
                 <div class="flex justify-between gap-2 text-sm sm:text-xs text-[var(--color-text-muted)]">
                   <span>{mod.setupStarter}</span>
-                  <span>{mod.setupPro}</span>
                 </div>
               </div>
-              {"hipaaNote" in mod && mod.hipaaNote && (
-                <p class="mt-3 text-sm sm:text-xs text-[var(--color-text-muted)] italic leading-snug">
-                  {mod.hipaaNote}
-                </p>
-              )}
               <a
                 href={diagPath}
                 class="mt-4 inline-block text-sm sm:text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-navy)] transition-colors"
