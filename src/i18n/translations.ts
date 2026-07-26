@@ -31,7 +31,7 @@ export const translations = {
         "💬 Responde WhatsApp y da seguimiento solo.",
         "🔁 Pasa la información de una herramienta a otra sin ti.",
       ],
-      ctaPrimary: "Descubre tu Mapa de Fugas — gratis",
+      ctaPrimary: "Pide la Radiografía de tu Operación — gratis",
       microcopy: "Formulario de 5 minutos. Sin costo. Sin compromiso.",
       trustBadges: [
         { icon: "🔒", text: "Tus datos no se venden" },
@@ -264,7 +264,7 @@ export const translations = {
       ],
       modulesEyebrow: "Módulos de canal",
       modulesSubtitle:
-        "Un canal es la forma en que tus clientes te contactan: voz, WhatsApp, Messenger / web chat o CRM. Se suma a cualquier plan base — tú activas solo los que tu negocio usa. Cada módulo incluye 300 minutos o mensajes al mes.",
+        "Un canal es la forma en que tus clientes te contactan: voz, WhatsApp o CRM. Se suma a cualquier plan base — tú activas solo los que tu negocio usa. Cada módulo incluye 300 minutos o mensajes al mes.",
       moduleDiagnosticHint:
         "¿Dudas si este canal te sirve? El diagnóstico te lo dice — es gratis.",
       modules: [
@@ -289,17 +289,6 @@ export const translations = {
           description: "Chatbot que agenda citas o captura leads por WhatsApp 24/7.",
         },
         {
-          sku: "MESSENGER",
-          name: "Messenger / Web chat",
-          hipaa: false,
-          hipaaNote: "No recomendado con Plan Professional",
-          priceStarter: "+$79/mes",
-          pricePro: "No recomendado",
-          setupStarter: "Setup +$79",
-          setupPro: "Setup +$99",
-          description: "Chatbot en Facebook Messenger o integrado en tu sitio web.",
-        },
-        {
           sku: "CRM",
           name: "CRM & Leads",
           hipaa: true,
@@ -315,7 +304,7 @@ export const translations = {
         { label: "Salón de belleza · Solo WhatsApp", total: "$198/mes", detail: "Starter $99 + WhatsApp $99" },
         { label: "Contratista · Voz", total: "$248/mes", detail: "Starter $99 + Voz $149" },
         { label: "Negocio regulado · Voz HIPAA", total: "$328/mes", detail: "Professional $179 + Voz $149" },
-        { label: "Realtor · Voz + WhatsApp + CRM", total: "$446/mes", detail: "Starter $99 + Voz $149 + WhatsApp $99 + CRM $99" },
+        { label: "Realtor · Voz + WhatsApp", total: "$347/mes", detail: "Starter $99 + Voz $149 + WhatsApp $99" },
       ],
       cta: "Agenda tu diagnóstico gratuito",
       ctaHint: "¿No sabes qué módulos necesitas? El diagnóstico te lo dice.",
@@ -671,7 +660,7 @@ export const translations = {
         "💬 Replies on WhatsApp and follows up on its own.",
         "🔁 Moves information between your tools without you.",
       ],
-      ctaPrimary: "Get your Leak Map — free",
+      ctaPrimary: "Get your Operations X-Ray — free",
       microcopy: "5-minute form. No cost. No commitment.",
       trustBadges: [
         { icon: "🔒", text: "Your data is never sold" },
@@ -902,7 +891,7 @@ export const translations = {
       ],
       modulesEyebrow: "Channel modules",
       modulesSubtitle:
-        "A channel is how your customers reach you: voice, WhatsApp, Messenger / web chat, or CRM. Add it to any base plan — you only activate the ones your business actually uses. Each module includes 300 minutes or messages per month.",
+        "A channel is how your customers reach you: voice, WhatsApp, or CRM. Add it to any base plan — you only activate the ones your business actually uses. Each module includes 300 minutes or messages per month.",
       moduleDiagnosticHint:
         "Not sure if this channel fits? The diagnostic will tell you — it's free.",
       modules: [
@@ -927,17 +916,6 @@ export const translations = {
           description: "Chatbot booking appointments or capturing leads via WhatsApp 24/7.",
         },
         {
-          sku: "MESSENGER",
-          name: "Messenger / Web chat",
-          hipaa: false,
-          hipaaNote: "Not recommended with Professional Plan",
-          priceStarter: "+$79/mo",
-          pricePro: "Not recommended",
-          setupStarter: "Setup +$79",
-          setupPro: "Setup +$99",
-          description: "Chatbot on Facebook Messenger or integrated into your website.",
-        },
-        {
           sku: "CRM",
           name: "CRM & Leads",
           hipaa: true,
@@ -953,7 +931,7 @@ export const translations = {
         { label: "Beauty salon · WhatsApp only", total: "$198/mo", detail: "Starter $99 + WhatsApp $99" },
         { label: "Contractor · Voice", total: "$248/mo", detail: "Starter $99 + Voice $149" },
         { label: "Regulated business · HIPAA Voice", total: "$328/mo", detail: "Professional $179 + Voice $149" },
-        { label: "Realtor · Voice + WhatsApp + CRM", total: "$446/mo", detail: "Starter $99 + Voice $149 + WhatsApp $99 + CRM $99" },
+        { label: "Realtor · Voice + WhatsApp", total: "$347/mo", detail: "Starter $99 + Voice $149 + WhatsApp $99" },
       ],
       cta: "Book your free diagnosis",
       ctaHint: "Not sure which modules you need? The diagnosis will tell you.",
