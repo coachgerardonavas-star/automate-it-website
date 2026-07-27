@@ -22,24 +22,25 @@ export const translations = {
 
     hero: {
       eyebrow: "Automatización con IA para dueños de negocio · Desde $198/mes",
-      h1Line1: "Cada herramienta toca por su lado.",
-      h1Line2: "Nosotros las ponemos a tocar juntas.",
-      // Frases del typewriter. Todas tienen que continuar h1Line1 y sonar a
-      // la misma idea (el Trabajo Pegamento), no al monotema del teléfono.
+      h1Line1: "Recupera el control",
+      h1Line2: "de tu negocio.",
+      // Frases del typewriter: completan h1Line1 y van de lo grande a lo
+      // cotidiano. Nunca poner funcionalidades aquí — el titular dejaría de
+      // vender una transformación y pasaría a ser una lista de features.
       heroPhrases: [
-        "Nosotros las ponemos a tocar juntas.",
-        "Tú dejas de ser el pegamento.",
-        "La información pasa sola de una a otra.",
-        "Y tu negocio suena como uno solo.",
+        "de tu negocio.",
+        "de tu día.",
+        "de tu agenda.",
+        "de tus fines de semana.",
       ],
       subtitle:
-        "Cada vez que copias algo de WhatsApp a tu CRM, que reenvías una factura, que confirmas una cita ya confirmada — estás haciendo de integración humana. Instalamos los agentes que cierran esas brechas.",
+        "Conectamos las herramientas que ya usas — WhatsApp, correo, CRM, calendario — para que el trabajo manual que hoy haces tú se haga solo. Es tu negocio: no tienes por qué hacerlo todo.",
       bullets: [
-        "📞 Contesta y agenda sin que tú toques el teléfono.",
-        "💬 Responde WhatsApp y da seguimiento solo.",
-        "🔁 Pasa la información de una herramienta a otra sin ti.",
+        "✅ Cada cliente recibe respuesta, aunque estés ocupado.",
+        "🔁 El seguimiento deja de depender de tu memoria.",
+        "📂 La información llega sola a donde va.",
       ],
-      ctaPrimary: "Agenda tu diagnóstico gratuito",
+      ctaPrimary: "Descubre dónde se te va el tiempo",
       microcopy:
         "Formulario de 5 minutos. Con él hacemos la Radiografía de tu Operación. Sin costo. Sin compromiso.",
       trustBadges: [
@@ -664,22 +665,22 @@ export const translations = {
 
     hero: {
       eyebrow: "AI automation for business owners · From $198/mo",
-      h1Line1: "Every tool plays on its own.",
-      h1Line2: "We get them playing together.",
+      h1Line1: "Take back control",
+      h1Line2: "of your business.",
       heroPhrases: [
-        "We get them playing together.",
-        "You stop being the glue.",
-        "Information moves on its own.",
-        "And your business sounds like one.",
+        "of your business.",
+        "of your day.",
+        "of your calendar.",
+        "of your weekends.",
       ],
       subtitle:
-        "Every time you copy something from WhatsApp into your CRM, forward an invoice, or confirm an appointment that was already confirmed — you're working as human integration. We install the agents that close those gaps.",
+        "We connect the tools you already use — WhatsApp, email, CRM, calendar — so the manual work you do today gets done on its own. It's your business: you shouldn't have to do all of it.",
       bullets: [
-        "📞 Answers and books without you touching the phone.",
-        "💬 Replies on WhatsApp and follows up on its own.",
-        "🔁 Moves information between your tools without you.",
+        "✅ Every customer gets an answer, even when you're busy.",
+        "🔁 Follow-up stops depending on your memory.",
+        "📂 Information lands where it belongs, on its own.",
       ],
-      ctaPrimary: "Book your free diagnosis",
+      ctaPrimary: "See where your time is going",
       microcopy:
         "5-minute form. We turn it into your Operations X-Ray. No cost. No commitment.",
       trustBadges: [
