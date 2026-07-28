@@ -20,11 +20,11 @@
 
 Promesa central (voz casual, no tagline):
 
-> "Automatizo tu negocio para que crezcas sin contratar más gente."
+> "Tus herramientas ya trabajan. Nosotros las conectamos. Tú recuperas el control."
 
 Descripción en conversación informal:
 
-> "Pongo robots a trabajar para pequeños negocios."
+> "Conecto las herramientas de un negocio para que el dueño deje de hacer ese trabajo a mano."
 
 Creencias que nos diferencian (presentes, explícita o implícitamente, en toda pieza de marca):
 
@@ -90,6 +90,9 @@ Excepción con sentido común: rompe cualquiera de estas reglas antes de escribi
 | "escalable" | Solo si se explica qué escala y cómo |
 | "ecosistema" | Jerga de startup que no aplica |
 | "transformamos tu negocio" | Inflado, promesa sin sustancia |
+
+| "instalamos agentes de IA" | Demasiado técnico y trillado como marketing de IA. Se nombran las herramientas del cliente (WhatsApp, correo, CRM, calendario), no la tecnología. Decisión del CEO, 27-jul-2026 |
+| "El Trabajo Pegamento" | Es el nombre INTERNO del villano. En copy de cliente se describe con ejemplos concretos (copiar de WhatsApp al CRM, reenviar la factura), nunca con la etiqueta |
 
 Frase prohibida adicional: "sin humo" (ej. "IA sin humo") — no usar nunca, en nada.
 

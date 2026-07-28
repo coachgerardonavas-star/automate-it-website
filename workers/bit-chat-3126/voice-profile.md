@@ -23,11 +23,11 @@
 
 **Promesa central (voz casual, no tagline):**
 
-> "Automatizo tu negocio para que crezcas sin contratar más gente."
+> "Tus herramientas ya trabajan. Nosotros las conectamos. Tú recuperas el control."
 
 **Descripción en conversación informal:**
 
-> "Pongo robots a trabajar para pequeños negocios."
+> "Conecto las herramientas de un negocio para que el dueño deje de hacer ese trabajo a mano."
 
 **Creencias que nos diferencian:**
 
