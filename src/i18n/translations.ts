@@ -112,23 +112,23 @@ export const translations = {
 
     dolor: {
       eyebrow: "El antes",
-      titleLine1: "Si no contestas rápido,",
-      titleLine2: "el siguiente negocio en Google sí lo hace.",
+      titleLine1: "Tu negocio no necesita más aplicaciones.",
+      titleLine2: "Necesita que las que ya tienes trabajen juntas.",
       cards: [
         {
-          eyebrow: "Recepción",
-          title: "Llamadas que nunca contestaste",
-          body: "Cada una era un cliente listo para comprar. Cada una se fue a la competencia mientras tú estabas en otra junta.",
+          eyebrow: "Clientes",
+          title: "Mensajes que se quedan sin respuesta",
+          body: "Llegan por teléfono, por WhatsApp, por el formulario. Tú estás trabajando. Para cuando contestas, ya buscaron a otro.",
         },
         {
           eyebrow: "Seguimiento",
-          title: "Leads que se enfriaron",
-          body: "Tu CRM tiene contactos de hace meses. Sin un primer follow-up rápido, ya no te recuerdan.",
+          title: "Clientes que preguntaron y nunca volviste a llamar",
+          body: "Cotizaste, quedaron en pensarlo, y ahí murió. No porque no te importara — porque el seguimiento depende de tu memoria.",
         },
         {
-          eyebrow: "Operación",
-          title: "Horas que se fueron en tareas repetitivas",
-          body: "Pegas información de WhatsApp al CRM, del CRM al Excel, del Excel al email. No es operación, es desperdicio.",
+          eyebrow: "Información",
+          title: "El trabajo de pasar todo de un lado a otro",
+          body: "Del mensaje al calendario. Del correo al CRM. Del presupuesto al Excel. Ese trabajo no aparece en ningún reporte, pero es el que te consume el día.",
         },
       ],
     },
@@ -141,22 +141,17 @@ export const translations = {
         {
           n: "01",
           title: "Diagnóstico",
-          body: "Completas el formulario de diagnóstico — son 5 minutos. Con eso hacemos la Radiografía de tu Operación: revisamos cómo trabajas hoy y detectamos dónde se te está yendo el tiempo y los clientes. Sales de la llamada sabiendo exactamente dónde te podemos ayudar primero.",
+          body: "Completas el formulario de diagnóstico — son 5 minutos. Con eso hacemos la Radiografía de tu Operación: dónde entra el trabajo, dónde se enfría y dónde se te va el tiempo. Sales con un plan claro de qué arreglar primero, lo hagas con nosotros o no.",
         },
         {
           n: "02",
-          title: "Propuesta",
-          body: "Plan a medida: qué procesos automatizar, qué agentes los ejecutan, en qué orden. Precio cerrado antes de empezar.",
+          title: "Implementación",
+          body: "Conectamos tus herramientas, ordenamos los procesos y ponemos a funcionar solo el trabajo repetitivo. Entrenamos a tu equipo para que opere desde el primer día. Sin migrar nada y sin cambiar las herramientas que ya usas.",
         },
         {
           n: "03",
-          title: "Setup",
-          body: "Configuramos los agentes y los conectamos a tus sistemas: CRM, email, calendario, WhatsApp, lo que uses. Sin migrar nada.",
-        },
-        {
-          n: "04",
-          title: "Go-live",
-          body: "Tu equipo de IA empieza a operar. Métricas reales desde el primer día y ajuste continuo durante el primer mes.",
+          title: "Optimización",
+          body: "Tu negocio cambia y el sistema cambia contigo. Seguimos ajustando procesos y sumando automatizaciones para que crezcas sin que crezca el desorden.",
         },
       ],
     },
@@ -425,12 +420,12 @@ export const translations = {
 
     paraQuien: {
       eyebrow: "Para quién es esto",
-      titleLine1: "Si las llamadas te llegan a ti",
-      titleLine2: "y eres tú quien tiene que contestar.",
+      titleLine1: "Si ya tienes clientes llegando",
+      titleLine2: "y eres tú quien sostiene todo.",
       subtitle:
-        "Hecho para dueños de negocios donde el primer contacto con el cliente llega por teléfono o WhatsApp, y no hay quien lo agarre a tiempo. Si te ves en estas situaciones, empezamos por el dolor más caro.",
+        "Hecho para dueños que ya tienen demanda: usas tres o cuatro herramientas, pasas información de una a otra a mano, y si te tomas una semana libre algo se rompe. Si te ves aquí, empezamos por lo que más te cuesta.",
       footer:
-        "Esto no es para ti si ya tienes recepcionista a tiempo completo, si tu equipo pasa de 15 personas con procesos cerrados, o si el primer contacto con tus clientes no llega por teléfono ni WhatsApp. Cualquier otro caso, hablemos en el diagnóstico.",
+        "Esto no es para ti si todavía estás consiguiendo tus primeros clientes — primero hay que vender, automatizar viene después. Tampoco si buscas el precio más bajo del mercado, o si quieres probar la IA sin cambiar nada de cómo operas. Cualquier otro caso, hablemos en el diagnóstico.",
       painLabel: "Lo que pasa hoy",
       solutionLabel: "Empezamos por",
       recommendedLabel: "Recomendado:",
@@ -468,15 +463,15 @@ export const translations = {
 
     ctaFinal: {
       eyebrow: "Diagnóstico gratuito",
-      titleLine1: "5 minutos.",
-      titleLine2: "Sin compromiso.",
-      titleLine3: "Sales con un mapa, no con una cotización.",
+      titleLine1: "¿Listo para recuperar",
+      titleLine2: "el control de tu negocio?",
+      titleLine3: "5 minutos. Sin compromiso.",
       subtitle:
-        "Llena el formulario y te contactamos en menos de 24 horas para entregarte tu diagnóstico personalizado. Hablamos de tu operación, identificamos los 2–3 procesos más caros, te decimos qué automatizamos primero. Sin venta dura.",
+        "Cuéntanos cómo trabajas hoy y te decimos qué está frenando tu crecimiento y qué arreglaríamos primero. Te contactamos en menos de 24 horas con tu Radiografía de tu Operación. Sin venta dura.",
       formNamePlaceholder: "Tu nombre",
       formEmailPlaceholder: "Tu email",
       formBizTypePlaceholder: "Tipo de negocio",
-      submitButton: "Solicitar diagnóstico gratuito",
+      submitButton: "Quiero recuperar el control",
       submitting: "Enviando…",
       errorAllFields: "Revisa los 3 campos antes de enviar.",
       errorSubmitFallback:
@@ -750,23 +745,23 @@ export const translations = {
 
     dolor: {
       eyebrow: "The before",
-      titleLine1: "If you don't answer fast,",
-      titleLine2: "the next business on Google will.",
+      titleLine1: "Your business doesn't need more apps.",
+      titleLine2: "It needs the ones you have to work together.",
       cards: [
         {
-          eyebrow: "Reception",
-          title: "Calls you never answered",
-          body: "Each one was a customer ready to buy. Each one went to the competitor while you were in another meeting.",
+          eyebrow: "Customers",
+          title: "Messages that go unanswered",
+          body: "They come in by phone, by WhatsApp, through the form. You're working. By the time you reply, they already called someone else.",
         },
         {
           eyebrow: "Follow-up",
-          title: "Leads that went cold",
-          body: "Your CRM has contacts from months ago. Without a quick first follow-up, they don't remember you anymore.",
+          title: "Customers who asked, and you never called back",
+          body: "You quoted, they said they'd think about it, and that was that. Not because you didn't care — because follow-up depends on your memory.",
         },
         {
-          eyebrow: "Operations",
-          title: "Hours lost to repetitive tasks",
-          body: "Pasting info from WhatsApp to CRM, CRM to Excel, Excel to email. That's not operations, it's waste.",
+          eyebrow: "Information",
+          title: "The work of moving everything from one place to another",
+          body: "Message to calendar. Email to CRM. Quote to spreadsheet. That work shows up in no report, but it's what eats your day.",
         },
       ],
     },
@@ -783,18 +778,13 @@ export const translations = {
         },
         {
           n: "02",
-          title: "Proposal",
-          body: "Tailored plan: which processes to automate, which agents run them, in what order. Fixed price before we start.",
+          title: "Implementation",
+          body: "We connect your tools, put your processes in order, and get the repetitive work running on its own. We train your team so it works from day one. No migration, and no swapping the tools you already use.",
         },
         {
           n: "03",
-          title: "Setup",
-          body: "We configure the agents and connect them to your stack: CRM, email, calendar, WhatsApp, whatever you use. No migration needed.",
-        },
-        {
-          n: "04",
-          title: "Go-live",
-          body: "Your AI team starts operating. Real metrics from day one and ongoing tuning during the first month.",
+          title: "Optimization",
+          body: "Your business changes and the system changes with it. We keep tuning processes and adding automations so you grow without the mess growing too.",
         },
       ],
     },
@@ -1060,12 +1050,12 @@ export const translations = {
 
     paraQuien: {
       eyebrow: "Who it's for",
-      titleLine1: "If the calls come to you",
-      titleLine2: "and you're the one who has to answer.",
+      titleLine1: "If customers are already coming in",
+      titleLine2: "and you're the one holding it all up.",
       subtitle:
-        "Built for business owners where the first customer contact comes in by phone or WhatsApp, and no one is there to catch it in time. If any of these match your day, we start with the most expensive pain first.",
+        "Built for owners who already have demand: you use three or four tools, you move information between them by hand, and if you take a week off something breaks. If that's your day, we start with what costs you most.",
       footer:
-        "This isn't for you if you already have a full-time receptionist, if your team is past 15 people with locked-down processes, or if first contact with your customers doesn't come through phone or WhatsApp. Anything else, let's talk in the diagnostic.",
+        "This isn't for you if you're still landing your first customers — selling comes first, automating comes after. Nor if you're looking for the cheapest price on the market, or if you want to try AI without changing how you operate. Anything else, let's talk in the diagnostic.",
       painLabel: "What's happening now",
       solutionLabel: "We start with",
       recommendedLabel: "Recommended:",
@@ -1103,15 +1093,15 @@ export const translations = {
 
     ctaFinal: {
       eyebrow: "Free diagnostic",
-      titleLine1: "5 minutes.",
-      titleLine2: "No commitment.",
-      titleLine3: "You leave with a map, not a sales pitch.",
+      titleLine1: "Ready to take back",
+      titleLine2: "control of your business?",
+      titleLine3: "5 minutes. No commitment.",
       subtitle:
-        "Fill out the form and we'll contact you within 24 hours to deliver your personalized diagnosis. We talk about your operation, identify the 2–3 most expensive processes, and tell you what to automate first. No hard sell.",
+        "Tell us how you work today and we'll tell you what's slowing your growth and what we'd fix first. We contact you within 24 hours with your Operations X-Ray. No hard sell.",
       formNamePlaceholder: "Your name",
       formEmailPlaceholder: "Your email",
       formBizTypePlaceholder: "Business type",
-      submitButton: "Request free diagnostic",
+      submitButton: "I want to take back control",
       submitting: "Sending…",
       errorAllFields: "Check the 3 fields before sending.",
       errorSubmitFallback:
