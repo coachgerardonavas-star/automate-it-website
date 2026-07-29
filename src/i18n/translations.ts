@@ -41,6 +41,8 @@ export const translations = {
         "📂 La información llega sola a donde va.",
       ],
       ctaPrimary: "Descubre dónde se te va el tiempo",
+      heroImageAlt:
+        "Ilustración isométrica: WhatsApp, Google Calendar, QuickBooks, HubSpot, Instagram y Gmail apilados como capas de un mismo sistema, conectadas al equipo, al almacén y a la operación del negocio.",
       microcopy:
         "Formulario de 5 minutos. Con él hacemos la Radiografía de tu Operación. Sin costo. Sin compromiso.",
       trustBadges: [
@@ -676,6 +678,8 @@ export const translations = {
         "📂 Information lands where it belongs, on its own.",
       ],
       ctaPrimary: "See where your time is going",
+      heroImageAlt:
+        "Isometric illustration: WhatsApp, Google Calendar, QuickBooks, HubSpot, Instagram and Gmail stacked as layers of a single system, connected to the team, the warehouse and the day-to-day operation.",
       microcopy:
         "5-minute form. We turn it into your Operations X-Ray. No cost. No commitment.",
       trustBadges: [
