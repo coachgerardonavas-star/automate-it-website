@@ -1,0 +1,479 @@
+---
+/**
+ * Intake post-venta de la Consultoría de Negocios para Emprendedores.
+ *
+ * Copy inline (no en translations.ts) porque es una página suelta en español,
+ * igual que terminos-consulta.astro. Si algún día recibe gente en inglés,
+ * mover el copy a translations.ts y pasar `lang`.
+ *
+ * Las secciones temáticas se muestran según lo que la persona marque arriba.
+ * Al ocultar una sección sus campos quedan DESHABILITADOS, no solo invisibles:
+ * así salen de la validación del navegador y del FormData. Un campo requerido
+ * y oculto es lo que bloquea envíos sin explicar por qué.
+ */
+const WORKER_URL = "https://consultoria-intake.coachgerardonavas.workers.dev";
+
+const inputClass =
+  "w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors";
+const labelClass =
+  "block text-sm font-semibold text-[var(--color-text-primary)] mb-2";
+const legendClass =
+  "block text-sm font-semibold text-[var(--color-text-primary)] mb-3";
+
+const problemas = [
+  { value: "atencion", label: "No contesto llamadas o mensajes a tiempo y pierdo clientes" },
+  { value: "web", label: "No tengo página web, o la que tengo no me convence" },
+  { value: "redes", label: "Necesito ayuda con redes sociales o marketing digital" },
+  { value: "otro", label: "Otro" },
+];
+
+const comoContesta = [
+  "Yo mismo todo el tiempo",
+  "Tengo a alguien que ayuda a veces",
+  "Uso buzón de voz",
+  "Se me pierden bastantes",
+];
+
+const llamadasPerdidas = [
+  "Entre 1 y 5",
+  "Entre 6 y 15",
+  "Entre 16 y 30",
+  "No sé exactamente, pero es bastante",
+];
+
+const tieneWeb = ["Sí, funciona bien", "Sí, pero necesita mejorarse", "No tengo"];
+
+const estiloWeb = [
+  "Moderna y minimalista",
+  "Colorida y llamativa",
+  "Profesional y corporativa",
+  "Cálida y cercana",
+  "No sé, necesito guía",
+];
+
+const complica = [
+  "Grabar contenido",
+  "Diseñar o editar imágenes y videos",
+  "Escribir el texto o caption",
+  "Saber qué publicar",
+  "Tener constancia",
+  "Entender qué funciona y qué no",
+];
+
+const redes = ["Instagram", "Facebook", "TikTok", "LinkedIn", "Google Business", "Ninguna todavía"];
+
+const paletas = [
+  "Azules y verdes (confianza, calma)",
+  "Naranjas y rojos (energía, urgencia)",
+  "Neutros y tierra (elegancia, minimalismo)",
+  "Colores vivos y variados",
+  "No tengo preferencia todavía",
+];
+
+const tiposNegocio = [
+  "Realtor / Bienes raíces",
+  "Entrenador personal / Fitness",
+  "Compañía de mudanzas",
+  "Roofing / Techos",
+  "Asesoría financiera",
+  "Plomería",
+  "Electricista",
+  "Landscaping / Jardinería",
+  "Limpieza",
+  "Salón / Barbería",
+  "Restaurante",
+  "Automotriz",
+  "Servicios legales",
+  "Contabilidad",
+  "Creador de contenido / Influencer",
+  "Otro",
+];
+
+const tamanos = ["Solo yo", "Entre 2 y 5", "Entre 6 y 15", "Más de 16"];
+
+const urgencias = ["Ya mismo", "Este mes", "En los próximos 3 meses", "Solo estoy explorando"];
+---
+
+<form id="cons-form" class="space-y-10" novalidate data-worker={WORKER_URL}>
+  <input type="hidden" name="ref" id="cons-ref" />
+
+  <fieldset>
+    <legend class={legendClass}>
+      ¿Cuál es tu problema principal ahora mismo? <span class="text-[var(--color-text-muted)] font-normal">(marca todo lo que aplique)</span>
+    </legend>
+    <div class="space-y-2">
+      {
+        problemas.map((p) => (
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              name="problema"
+              value={p.value}
+              data-driver
+              class="mt-1 w-4 h-4 accent-[var(--color-blue)] cursor-pointer"
+            />
+            <span class="text-sm text-[var(--color-text-primary)]">{p.label}</span>
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <label class="block">
+    <span class={labelClass}>
+      Si pudieras automatizar UNA sola actividad para que tu negocio avance como quieres, ¿cuál sería?
+    </span>
+    <input type="text" name="automatizar" required class={inputClass} />
+  </label>
+
+  <!-- Rama: solo si marcó "otro" -->
+  <div data-branch="otro" hidden>
+    <label class="block">
+      <span class={labelClass}>Cuéntanos con tus palabras qué necesitas</span>
+      <textarea name="problema_otro" rows="4" class={`${inputClass} resize-y`}></textarea>
+    </label>
+  </div>
+
+  <!-- Rama A: atención -->
+  <div data-branch="atencion" hidden class="space-y-8 pt-2 border-t border-[var(--color-border)]">
+    <fieldset>
+      <legend class={legendClass}>¿Cómo contestas llamadas o mensajes hoy?</legend>
+      <div class="space-y-2">
+        {
+          comoContesta.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="como_contesta" value={o} required class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class={legendClass}>¿Cuántas llamadas o mensajes crees que se te escapan por semana?</legend>
+      <div class="space-y-2">
+        {
+          llamadasPerdidas.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="llamadas_perdidas" value={o} required class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Rama B: web y marca -->
+  <div data-branch="web" hidden class="space-y-8 pt-2 border-t border-[var(--color-border)]">
+    <fieldset>
+      <legend class={legendClass}>¿Tienes página web hoy?</legend>
+      <div class="space-y-2">
+        {
+          tieneWeb.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="tiene_web" value={o} required class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class={legendClass}>¿Cómo te gustaría que se viera?</legend>
+      <div class="space-y-2">
+        {
+          estiloWeb.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="estilo_web" value={o} class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <label class="block">
+      <span class={labelClass}>Describe tu marca en 3 palabras</span>
+      <input type="text" name="marca_3_palabras" class={inputClass} />
+    </label>
+  </div>
+
+  <!-- Rama C: redes -->
+  <div data-branch="redes" hidden class="space-y-8 pt-2 border-t border-[var(--color-border)]">
+    <fieldset>
+      <legend class={legendClass}>¿Qué se te complica más?</legend>
+      <div class="space-y-2">
+        {
+          complica.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="complica" value={o} class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class={legendClass}>¿En qué redes estás hoy?</legend>
+      <div class="space-y-2">
+        {
+          redes.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" name="redes" value={o} class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Marca: se muestra si eligió web O redes. Una sola vez, nunca duplicada. -->
+  <div data-branch="marca" hidden class="pt-2 border-t border-[var(--color-border)]">
+    <fieldset>
+      <legend class={legendClass}>¿Con qué paleta de colores se identifica tu marca?</legend>
+      <div class="space-y-2">
+        {
+          paletas.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="paleta" value={o} class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="space-y-6 pt-2 border-t border-[var(--color-border)]">
+    <label class="block">
+      <span class={labelClass}>Nombre de tu negocio</span>
+      <input type="text" name="negocio" required class={inputClass} />
+    </label>
+
+    <label class="block">
+      <span class={labelClass}>Tipo de negocio</span>
+      <select name="tipo_negocio" required class={`${inputClass} appearance-none cursor-pointer`}>
+        <option value="" class="bg-white">Selecciona una opción</option>
+        {tiposNegocio.map((o) => <option value={o} class="bg-white">{o}</option>)}
+      </select>
+    </label>
+
+    <fieldset>
+      <legend class={legendClass}>¿Cuántas personas trabajan contigo hoy?</legend>
+      <div class="space-y-2">
+        {
+          tamanos.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="tamano" value={o} required class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class={legendClass}>¿Qué tan pronto quieres resolver esto?</legend>
+      <div class="space-y-2">
+        {
+          urgencias.map((o) => (
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="urgencia" value={o} required class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+              <span class="text-sm text-[var(--color-text-primary)]">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="space-y-6 pt-2 border-t border-[var(--color-border)]">
+    <label class="block">
+      <span class={labelClass}>Tu nombre completo</span>
+      <input type="text" name="nombre" required autocomplete="name" class={inputClass} />
+    </label>
+
+    <label class="block">
+      <span class={labelClass}>Email</span>
+      <input type="email" name="email" required autocomplete="email" class={inputClass} />
+      <span class="block text-xs text-[var(--color-text-muted)] mt-1">
+        Usa el mismo con el que hiciste el registro.
+      </span>
+    </label>
+
+    <label class="block">
+      <span class={labelClass}>Teléfono</span>
+      <input type="tel" name="telefono" required autocomplete="tel" class={inputClass} />
+    </label>
+
+    <label class="block">
+      <span class={labelClass}>
+        ¿Hay algo que no te hayamos preguntado y que quieras contarnos?
+        <span class="text-[var(--color-text-muted)] font-normal">(opcional)</span>
+      </span>
+      <textarea name="algo_mas" rows="4" class={`${inputClass} resize-y`}></textarea>
+    </label>
+  </div>
+
+  <div class="space-y-4 pt-2 border-t border-[var(--color-border)]">
+    <label class="flex items-start gap-3 cursor-pointer">
+      <input type="checkbox" name="terminos" required class="mt-1 w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+      <span class="text-sm text-[var(--color-text-primary)]">
+        He leído y acepto los <a
+          href="/terminos-consultoria-emprendedores"
+          target="_blank"
+          rel="noopener"
+          class="text-[var(--color-blue)] underline hover:no-underline">Términos y Condiciones</a> de la Consultoría de Negocios para Emprendedores.
+      </span>
+    </label>
+
+    <label class="flex items-start gap-3 cursor-pointer">
+      <input type="checkbox" name="permiso_marketing" class="mt-1 w-4 h-4 accent-[var(--color-blue)] cursor-pointer" />
+      <span class="flex-1">
+        <span class="block text-sm text-[var(--color-text-primary)]">
+          Autorizo a Automate IT LLC a mencionar mi nombre, el nombre de mi negocio, mi logo y mis comentarios en sus materiales de marketing.
+        </span>
+        <span class="block text-xs text-[var(--color-text-muted)] mt-1">
+          Opcional. Si lo dejas sin marcar recibes exactamente el mismo servicio.
+        </span>
+      </span>
+    </label>
+  </div>
+
+  <div class="pt-2">
+    <button
+      type="submit"
+      class="btn-cta w-full inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+    >
+      Enviar mis respuestas
+    </button>
+  </div>
+</form>
+
+<p id="cons-error" class="hidden text-sm text-[var(--color-danger)] mt-4" role="alert"></p>
+
+<div
+  id="cons-success"
+  class="hidden p-8 rounded-lg border border-brand-lime/40 bg-brand-lime/5"
+  role="status"
+  aria-live="polite"
+>
+  <p class="font-heading text-2xl mb-3 text-brand-lime">Listo, ya lo tenemos.</p>
+  <p class="text-base text-[var(--color-text-primary)] leading-relaxed">
+    Gracias por tomarte el tiempo. Con esto ya sabemos de qué hablar, así que la
+    sesión la usamos para resolver, no para preguntarte lo que ya nos contaste.
+    Te escribimos para coordinar el horario.
+  </p>
+</div>
+
+<script>
+  const form = document.getElementById("cons-form") as HTMLFormElement | null;
+  const errorEl = document.getElementById("cons-error");
+  const successEl = document.getElementById("cons-success");
+  const refEl = document.getElementById("cons-ref") as HTMLInputElement | null;
+
+  if (form && errorEl && successEl) {
+    // Stripe redirige con ?ref=<session_id>. Lo guardamos para poder amarrar
+    // esta entrevista con su canje exacto.
+    if (refEl) {
+      refEl.value = new URLSearchParams(window.location.search).get("ref") ?? "";
+    }
+
+    const branches = Array.from(
+      form.querySelectorAll<HTMLElement>("[data-branch]")
+    );
+    const drivers = Array.from(
+      form.querySelectorAll<HTMLInputElement>("[data-driver]")
+    );
+
+    const setBranch = (el: HTMLElement, visible: boolean) => {
+      el.hidden = !visible;
+      // Deshabilitar es lo que saca los campos de la validación y del FormData.
+      // Con solo ocultarlos, un requerido invisible bloquea el envío en silencio.
+      el.querySelectorAll<HTMLInputElement>("input, select, textarea").forEach(
+        (field) => {
+          field.disabled = !visible;
+        }
+      );
+    };
+
+    const sync = () => {
+      const picked = new Set(
+        drivers.filter((d) => d.checked).map((d) => d.value)
+      );
+      for (const el of branches) {
+        const key = el.dataset.branch;
+        const visible =
+          key === "marca"
+            ? picked.has("web") || picked.has("redes")
+            : !!key && picked.has(key);
+        setBranch(el, visible);
+      }
+    };
+
+    drivers.forEach((d) => d.addEventListener("change", sync));
+    sync();
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.classList.add("hidden");
+      errorEl.textContent = "";
+
+      if (!drivers.some((d) => d.checked)) {
+        errorEl.textContent = "Marca al menos un problema para empezar.";
+        errorEl.classList.remove("hidden");
+        return;
+      }
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Enviando…";
+      }
+
+      const fd = new FormData(form);
+      const multi = ["problema", "estilo_web", "complica", "redes"];
+      const payload: Record<string, unknown> = {};
+      for (const key of multi) payload[key] = fd.getAll(key).map(String);
+      for (const [key, value] of fd.entries()) {
+        if (multi.includes(key)) continue;
+        payload[key] = String(value);
+      }
+      payload.terminos = fd.get("terminos") !== null;
+      payload.permiso_marketing = fd.get("permiso_marketing") !== null;
+
+      try {
+        const res = await fetch(form.dataset.worker ?? "", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          const body = (await res.json().catch(() => ({}))) as { error?: string };
+          throw new Error(body.error ?? `HTTP ${res.status}`);
+        }
+        form.classList.add("hidden");
+        successEl.classList.remove("hidden");
+        successEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (err) {
+        console.error("[consultoria] intake error:", err);
+        errorEl.textContent =
+          "No pudimos guardar tus respuestas. Vuelve a intentar en un momento, o escríbenos a automateit@yourbizupgraded.com y lo resolvemos.";
+        errorEl.classList.remove("hidden");
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Enviar mis respuestas";
+        }
+      }
+    });
+  }
+</script>

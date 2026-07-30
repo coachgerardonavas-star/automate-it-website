@@ -1,0 +1,18 @@
+name = "consultoria-intake"
+main = "src/index.ts"
+compatibility_date = "2025-10-01"
+workers_dev = true
+
+# Secrets (no van en este archivo):
+#   wrangler secret put HUBSPOT_TOKEN       # private app token, pat-na1-*
+#   wrangler secret put TELEGRAM_BOT_TOKEN  # el mismo bot que vero-telegram
+
+[vars]
+ALLOWED_ORIGINS = "https://yourbizupgraded.com,https://www.yourbizupgraded.com,http://localhost:4321"
+TELEGRAM_CHAT_ID = "8348522203"
+# Pipeline "WhatsApp Leads", etapa "Calificado".
+DEAL_PIPELINE = "default"
+DEAL_STAGE = "presentationscheduled"
+
+[observability]
+enabled = true

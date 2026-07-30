@@ -1,0 +1,315 @@
+/**
+ * consultoria-intake
+ *
+ * Receives the post-purchase intake form from /consultoria and, server-side:
+ *   1. upserts the contact in HubSpot (by email),
+ *   2. attaches a note with every answer, verbatim,
+ *   3. opens a deal in "WhatsApp Leads" at the "Calificado" stage,
+ *   4. pings Telegram so Gerardo knows without checking anything.
+ *
+ * Why a Worker instead of posting to HubSpot from the browser like
+ * DiagnosticoForm does:
+ *   - the Telegram token cannot live in client JS,
+ *   - the alert must not depend on the tab staying open,
+ *   - the Forms API v3 silently drops any field that is not defined on the
+ *     form, so we use the CRM API, which fails loudly instead.
+ *
+ * This form is POST-SALE. It deliberately writes through a different path
+ * than the pre-sale /diagnostico form so no outbound workflow keyed to that
+ * form ever fires for these people.
+ */
+
+export interface Env {
+  HUBSPOT_TOKEN: string;
+  TELEGRAM_BOT_TOKEN?: string;
+  TELEGRAM_CHAT_ID?: string;
+  ALLOWED_ORIGINS: string;
+  DEAL_PIPELINE: string;
+  DEAL_STAGE: string;
+}
+
+const HUBSPOT_API = "https://api.hubapi.com";
+
+/** HubSpot default association type IDs. */
+const ASSOC_NOTE_TO_CONTACT = 202;
+const ASSOC_DEAL_TO_CONTACT = 3;
+
+interface Payload {
+  nombre?: string;
+  email?: string;
+  telefono?: string;
+  negocio?: string;
+  tipo_negocio?: string;
+  tamano?: string;
+  urgencia?: string;
+  problema?: string[];
+  problema_otro?: string;
+  automatizar?: string;
+  como_contesta?: string;
+  llamadas_perdidas?: string;
+  tiene_web?: string;
+  estilo_web?: string[];
+  marca_3_palabras?: string;
+  complica?: string[];
+  redes?: string[];
+  paleta?: string;
+  algo_mas?: string;
+  terminos?: boolean;
+  permiso_marketing?: boolean;
+  ref?: string;
+}
+
+function corsHeaders(origin: string | null, env: Env): Record<string, string> {
+  const allowed = env.ALLOWED_ORIGINS.split(",").map((o) => o.trim());
+  const ok = origin && allowed.includes(origin);
+  return {
+    "Access-Control-Allow-Origin": ok ? origin : allowed[0],
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+  };
+}
+
+function json(
+  body: unknown,
+  status: number,
+  extra: Record<string, string>
+): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", ...extra },
+  });
+}
+
+function list(values: string[] | undefined): string {
+  if (!values || !values.length) return "—";
+  return values.join(", ");
+}
+
+/** Human-readable transcript of the interview, stored as a HubSpot note. */
+function buildNote(p: Payload): string {
+  const rows: Array<[string, string]> = [
+    ["Problema principal", list(p.problema)],
+    ["Otro (en sus palabras)", p.problema_otro || "—"],
+    ["Actividad que automatizaría", p.automatizar || "—"],
+    ["Cómo contesta hoy", p.como_contesta || "—"],
+    ["Se le escapan por semana", p.llamadas_perdidas || "—"],
+    ["Tiene página web", p.tiene_web || "—"],
+    ["Estilo que quiere", list(p.estilo_web)],
+    ["Marca en 3 palabras", p.marca_3_palabras || "—"],
+    ["Qué se le complica (redes)", list(p.complica)],
+    ["Redes donde está", list(p.redes)],
+    ["Paleta de colores", p.paleta || "—"],
+    ["Tipo de negocio", p.tipo_negocio || "—"],
+    ["Tamaño del equipo", p.tamano || "—"],
+    ["Urgencia", p.urgencia || "—"],
+    ["Algo más que quiera contar", p.algo_mas || "—"],
+    [
+      "Permiso para usar su caso en marketing",
+      p.permiso_marketing ? "SÍ" : "no",
+    ],
+    ["Sesión de Stripe", p.ref || "—"],
+  ];
+
+  return [
+    "ENTREVISTA — Consultoría de Negocios para Emprendedores",
+    "",
+    ...rows.map(([k, v]) => `${k}: ${v}`),
+  ].join("\n");
+}
+
+async function hubspot(
+  env: Env,
+  path: string,
+  method: string,
+  body: unknown
+): Promise<Record<string, unknown>> {
+  const res = await fetch(`${HUBSPOT_API}${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${env.HUBSPOT_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(`HubSpot ${method} ${path} -> ${res.status}: ${text.slice(0, 300)}`);
+  }
+  return text ? (JSON.parse(text) as Record<string, unknown>) : {};
+}
+
+/** Upsert by email so a returning client updates instead of duplicating. */
+async function upsertContact(env: Env, p: Payload): Promise<string> {
+  const props: Record<string, string> = {
+    email: String(p.email),
+    // Post-sale intake: these people are not cold leads.
+    lifecyclestage: "opportunity",
+  };
+  if (p.nombre) {
+    const parts = p.nombre.trim().split(/\s+/);
+    props.firstname = parts[0];
+    if (parts.length > 1) props.lastname = parts.slice(1).join(" ");
+  }
+  if (p.telefono) props.phone = p.telefono;
+  if (p.negocio) props.company = p.negocio;
+  if (p.tipo_negocio) props.industry = p.tipo_negocio;
+
+  const out = await hubspot(env, "/crm/v3/objects/contacts/batch/upsert", "POST", {
+    inputs: [{ idProperty: "email", id: String(p.email), properties: props }],
+  });
+
+  const results = out.results as Array<{ id: string }> | undefined;
+  const id = results?.[0]?.id;
+  if (!id) throw new Error("HubSpot upsert returned no contact id");
+  return id;
+}
+
+async function createNote(
+  env: Env,
+  contactId: string,
+  p: Payload
+): Promise<void> {
+  await hubspot(env, "/crm/v3/objects/notes", "POST", {
+    properties: {
+      hs_note_body: buildNote(p),
+      hs_timestamp: new Date().toISOString(),
+    },
+    associations: [
+      {
+        to: { id: contactId },
+        types: [
+          {
+            associationCategory: "HUBSPOT_DEFINED",
+            associationTypeId: ASSOC_NOTE_TO_CONTACT,
+          },
+        ],
+      },
+    ],
+  });
+}
+
+async function createDeal(
+  env: Env,
+  contactId: string,
+  p: Payload
+): Promise<void> {
+  const name = p.negocio || p.nombre || String(p.email);
+  await hubspot(env, "/crm/v3/objects/deals", "POST", {
+    properties: {
+      dealname: `Consultoría Emprendedores — ${name}`,
+      pipeline: env.DEAL_PIPELINE,
+      dealstage: env.DEAL_STAGE,
+      amount: "0",
+    },
+    associations: [
+      {
+        to: { id: contactId },
+        types: [
+          {
+            associationCategory: "HUBSPOT_DEFINED",
+            associationTypeId: ASSOC_DEAL_TO_CONTACT,
+          },
+        ],
+      },
+    ],
+  });
+}
+
+function escapeHtml(v: unknown): string {
+  return String(v ?? "—")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+async function notifyTelegram(env: Env, p: Payload): Promise<void> {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
+    console.warn("[consultoria-intake] Telegram not configured");
+    return;
+  }
+  const text = [
+    "📝 <b>Entrevista completada</b>",
+    "",
+    `<b>Nombre:</b> ${escapeHtml(p.nombre)}`,
+    `<b>Negocio:</b> ${escapeHtml(p.negocio)} — ${escapeHtml(p.tipo_negocio)}`,
+    `<b>Email:</b> ${escapeHtml(p.email)}`,
+    `<b>Teléfono:</b> ${escapeHtml(p.telefono)}`,
+    "",
+    `<b>Problema:</b> ${escapeHtml(list(p.problema))}`,
+    `<b>Automatizaría:</b> ${escapeHtml(p.automatizar)}`,
+    `<b>Urgencia:</b> ${escapeHtml(p.urgencia)}`,
+    `<b>Permiso de marketing:</b> ${p.permiso_marketing ? "SÍ" : "no"}`,
+    "",
+    "Las respuestas completas quedaron como nota en HubSpot.",
+  ].join("\n");
+
+  try {
+    const res = await fetch(
+      `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: env.TELEGRAM_CHAT_ID,
+          text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true,
+        }),
+      }
+    );
+    if (!res.ok) {
+      console.error("[consultoria-intake] Telegram", res.status, await res.text());
+    }
+  } catch (e) {
+    console.error("[consultoria-intake] Telegram error", e);
+  }
+}
+
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const origin = request.headers.get("Origin");
+    const cors = corsHeaders(origin, env);
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: cors });
+    }
+    if (request.method !== "POST") {
+      return json({ error: "Method not allowed" }, 405, cors);
+    }
+    if (!env.HUBSPOT_TOKEN) {
+      console.error("[consultoria-intake] HUBSPOT_TOKEN missing");
+      return json({ error: "Server not configured" }, 500, cors);
+    }
+
+    let p: Payload;
+    try {
+      p = (await request.json()) as Payload;
+    } catch {
+      return json({ error: "Invalid JSON" }, 400, cors);
+    }
+
+    if (!p.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email)) {
+      return json({ error: "Email inválido" }, 400, cors);
+    }
+    if (!p.terminos) {
+      return json({ error: "Falta aceptar los términos" }, 400, cors);
+    }
+
+    try {
+      const contactId = await upsertContact(env, p);
+      // Sequential on purpose: note and deal both need the contact id, and a
+      // partial write is easier to reason about than a partial parallel one.
+      await createNote(env, contactId, p);
+      await createDeal(env, contactId, p);
+      await notifyTelegram(env, p);
+      return json({ ok: true }, 200, cors);
+    } catch (e) {
+      // The person already "paid" and filled a long form — never lose the
+      // answers to a HubSpot hiccup. Log them so they are recoverable.
+      console.error("[consultoria-intake] failed", e);
+      console.error("[consultoria-intake] payload", JSON.stringify(p));
+      return json({ error: "No pudimos guardar tus respuestas" }, 502, cors);
+    }
+  },
+};

@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import ConsultoriaForm from "../components/ConsultoriaForm.astro";
+
+const lang = "es" as const;
+---
+
+<BaseLayout
+  lang={lang}
+  title="Cuéntanos sobre tu negocio · Automate IT"
+  description="Entrevista previa a tu Consultoría de Negocios para Emprendedores."
+  noindex={true}
+  chatbot={false}
+>
+  <Nav lang={lang} />
+  <main>
+    <section class="py-16 sm:py-24">
+      <div class="max-w-2xl mx-auto px-5 lg:px-8">
+        <header class="mb-12">
+          <p
+            class="font-sans text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-5 font-semibold"
+          >
+            Paso 1 de 2
+          </p>
+          <h1
+            class="font-heading text-3xl sm:text-5xl leading-tight mb-5 text-[var(--color-text-primary)]"
+          >
+            Cuéntanos sobre tu negocio
+          </h1>
+          <p
+            class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed"
+          >
+            Son unas 10 preguntas y te toma menos de 5 minutos. Con esto llegamos
+            a la sesión sabiendo de qué hablar, y usamos los 30 minutos para
+            resolver en vez de para preguntarte lo básico.
+          </p>
+        </header>
+
+        <ConsultoriaForm />
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>
