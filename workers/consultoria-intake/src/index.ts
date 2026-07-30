@@ -297,11 +297,21 @@ export default {
     }
 
     try {
+      // Contact and note carry the actual value: who they are and what they
+      // answered. Both must succeed or the person is told to retry.
       const contactId = await upsertContact(env, p);
-      // Sequential on purpose: note and deal both need the contact id, and a
-      // partial write is easier to reason about than a partial parallel one.
       await createNote(env, contactId, p);
-      await createDeal(env, contactId, p);
+
+      // The deal is bookkeeping. It needs scopes the contact/note path does
+      // not, so it can 403 on its own — and a person who just filled a long
+      // form must never see an error because a pipeline card failed to open.
+      // Log it and move on; the interview is already safe in the note.
+      try {
+        await createDeal(env, contactId, p);
+      } catch (e) {
+        console.error("[consultoria-intake] deal skipped", e);
+      }
+
       await notifyTelegram(env, p);
       return json({ ok: true }, 200, cors);
     } catch (e) {
