@@ -11,6 +11,11 @@
 
 export interface Env {
   STRIPE_WEBHOOK_SECRET: string;
+  /** Same bot as vero-telegram. Set with `wrangler secret put TELEGRAM_BOT_TOKEN`. */
+  TELEGRAM_BOT_TOKEN?: string;
+  TELEGRAM_CHAT_ID?: string;
+  /** Payment link for "Consultoría de Negocios para Emprendedores", to tag the alert. */
+  CONSULTORIA_PAYMENT_LINK?: string;
 }
 
 interface StripeEvent {
@@ -93,6 +98,89 @@ async function verifyStripeSignature(
   return parsed.signatures.some((sig) => constantTimeEqual(sig, expected));
 }
 
+function escapeHtml(value: unknown): string {
+  return String(value ?? "—")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function formatAmount(amount: unknown, currency: unknown): string {
+  if (typeof amount !== "number") return "—";
+  const code = String(currency ?? "usd").toUpperCase();
+  return `$${(amount / 100).toFixed(2)} ${code}`;
+}
+
+async function notifyTelegram(env: Env, text: string): Promise<void> {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
+    console.warn("[stripe-webhook] Telegram not configured, alert skipped");
+    return;
+  }
+  try {
+    const res = await fetch(
+      `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: env.TELEGRAM_CHAT_ID,
+          text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true,
+        }),
+      }
+    );
+    if (!res.ok) {
+      console.error("[stripe-webhook] Telegram failed", res.status, await res.text());
+    }
+  } catch (e) {
+    console.error("[stripe-webhook] Telegram error", e);
+  }
+}
+
+/**
+ * Builds the alert for a completed checkout.
+ *
+ * A 100% promo code brings the total to $0, and Stripe then creates NO
+ * payment_intent and NO charge — `payment_status` arrives as
+ * "no_payment_required", never "paid". So we must not gate on "paid" here or
+ * every courtesy redemption would go unnoticed.
+ */
+function buildCheckoutAlert(obj: Record<string, unknown>, env: Env): string {
+  const details = (obj.customer_details ?? {}) as Record<string, unknown>;
+  const email = details.email ?? obj.customer_email;
+  const paymentStatus = String(obj.payment_status ?? "");
+  const isCourtesy = paymentStatus === "no_payment_required";
+  const isConsultoria =
+    !!env.CONSULTORIA_PAYMENT_LINK &&
+    obj.payment_link === env.CONSULTORIA_PAYMENT_LINK;
+
+  const heading = isConsultoria
+    ? isCourtesy
+      ? "🎟️ <b>Consultoría canjeada (cortesía)</b>"
+      : "💵 <b>Consultoría pagada</b>"
+    : isCourtesy
+      ? "🎟️ <b>Checkout completado sin cobro</b>"
+      : "💵 <b>Pago recibido</b>";
+
+  const lines = [
+    heading,
+    "",
+    `<b>Nombre:</b> ${escapeHtml(details.name)}`,
+    `<b>Email:</b> ${escapeHtml(email)}`,
+    `<b>Teléfono:</b> ${escapeHtml(details.phone)}`,
+    `<b>Total:</b> ${formatAmount(obj.amount_total, obj.currency)}`,
+    `<b>Estado:</b> ${escapeHtml(paymentStatus)}`,
+    `<b>Sesión:</b> <code>${escapeHtml(obj.id)}</code>`,
+  ];
+
+  if (isConsultoria) {
+    lines.push("", "⏳ Falta que complete el formulario de diagnóstico.");
+  }
+
+  return lines.join("\n");
+}
+
 function logHandledEvent(event: StripeEvent): void {
   const obj = event.data?.object ?? {};
   const summary: Record<string, unknown> = {
@@ -126,7 +214,11 @@ function logHandledEvent(event: StripeEvent): void {
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<Response> {
     if (request.method !== "POST") {
       return new Response("Method not allowed", { status: 405 });
     }
@@ -160,6 +252,13 @@ export default {
 
     if (HANDLED_EVENTS.has(event.type)) {
       logHandledEvent(event);
+
+      if (event.type === "checkout.session.completed") {
+        const obj = event.data?.object ?? {};
+        // waitUntil so Stripe gets its 200 immediately and stops retrying,
+        // regardless of how slow Telegram is.
+        ctx.waitUntil(notifyTelegram(env, buildCheckoutAlert(obj, env)));
+      }
     } else {
       console.log("[stripe-webhook] ignored", event.id, event.type);
     }

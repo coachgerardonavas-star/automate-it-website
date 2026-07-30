@@ -3,8 +3,15 @@ main = "src/index.ts"
 compatibility_date = "2025-10-01"
 workers_dev = true
 
-# Set STRIPE_WEBHOOK_SECRET (whsec_*):
-#   wrangler secret put STRIPE_WEBHOOK_SECRET
+# Secrets (no van en este archivo):
+#   wrangler secret put STRIPE_WEBHOOK_SECRET   # whsec_*
+#   wrangler secret put TELEGRAM_BOT_TOKEN      # el mismo bot que vero-telegram
+
+[vars]
+TELEGRAM_CHAT_ID = "8348522203"
+# Payment link de "Consultoría de Negocios para Emprendedores".
+# Sirve para etiquetar el aviso; el webhook funciona igual sin esto.
+CONSULTORIA_PAYMENT_LINK = "plink_1TygKBAHnOzMvXBgGcp7rmdN"
 
 [observability]
 enabled = true

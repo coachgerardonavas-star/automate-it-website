@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const lang = "es" as const;
+const lastUpdated = "julio 2026";
+
+const sections = [
+  {
+    heading: "1. Qué es este servicio",
+    body: "Una sesión de consultoría de negocio de aproximadamente 30 minutos, precedida por un cuestionario de diagnóstico que completas por tu cuenta. La sesión cubre orientación práctica sobre tu presencia digital, tu marca y las oportunidades de automatización de tu operación. Es orientación exploratoria.",
+  },
+  {
+    heading: "2. Qué NO incluye",
+    body: "No incluye la ejecución de ningún trabajo. No incluye diseño de logo ni identidad visual, no incluye diseño ni desarrollo de página web, no incluye producción de contenido, no incluye gestión de redes sociales y no incluye instalación de automatizaciones. Todos esos son servicios aparte. Si de la sesión surge una propuesta de trabajo, se formaliza en un documento independiente con su propio alcance y precio.",
+  },
+  {
+    heading: "3. Qué NO es",
+    body: "No es asesoría legal, médica, fiscal, contable, financiera, laboral ni de inversión. Para esos temas, consulta a un profesional licenciado en la materia.",
+  },
+  {
+    heading: "4. Sin garantía de resultados",
+    body: 'Las sugerencias, recomendaciones y ejemplos se ofrecen "tal cual". No se garantiza aumento de seguidores, de tráfico, de ventas, de posicionamiento en buscadores ni resultado comercial de ningún tipo. Los resultados dependen de tu negocio, de tu mercado y de cómo apliques lo conversado.',
+  },
+  {
+    heading: "5. Tu información",
+    body: "Declaras que tu negocio opera de forma legal y que los datos que compartes son veraces. No compartas información confidencial ni datos personales de terceros (clientes, pacientes, empleados), ni subas archivos que los contengan. Si tu negocio maneja información de salud protegida (HIPAA) u otra información sensible regulada, no la compartas en el cuestionario ni en la sesión.",
+  },
+  {
+    heading: "6. Precio y cortesía",
+    body: "El precio de lista de esta consultoría es de $500 USD. Cuando se entrega mediante un código promocional de cortesía, el monto a pagar es $0. La cortesía es por única vez, no genera obligación de contratación futura para ninguna de las partes, y no constituye un descuento aplicable a otros servicios de Automate IT LLC.",
+  },
+  {
+    heading: "7. Herramientas de terceros e inteligencia artificial",
+    body: "Para preparar y entregar las recomendaciones se pueden utilizar herramientas de inteligencia artificial y servicios de terceros. Las recomendaciones son sugerencias, no productos terminados, y debes validarlas antes de aplicarlas en tu negocio. Cualquier referencia visual, ejemplo o borrador que se muestre durante la sesión es ilustrativo y no constituye una entrega.",
+  },
+  {
+    heading: "8. Privacidad",
+    body: "Tus datos de contacto y las respuestas del cuestionario se usan solo para preparar y prestar este servicio, y para dar seguimiento comercial. No se venden a terceros.",
+  },
+  {
+    heading: "9. Uso de tu caso (opcional)",
+    body: "El permiso para mencionar tu nombre, el nombre de tu negocio, tu logo, tus palabras o los resultados obtenidos en materiales de marketing de Automate IT LLC es OPCIONAL y se solicita en una casilla aparte. No marcarla no afecta en nada el servicio que recibes. Si la marcas, puedes revocar el permiso en cualquier momento escribiendo a automateit@yourbizupgraded.com.",
+  },
+  {
+    heading: "10. Aceptación",
+    body: "Al marcar la casilla de aceptación y continuar, aceptas estos términos. Se registran fecha, hora y dirección IP como constancia de tu aceptación.",
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title="Términos y Condiciones — Consultoría de Negocios para Emprendedores · Automate IT"
+  description="Términos y condiciones de la Consultoría de Negocios para Emprendedores de Automate IT."
+  chatbot={false}
+>
+  <Nav lang={lang} />
+  <main>
+    <section class="bg-[#050A18] text-white min-h-screen py-16 sm:py-24">
+      <div class="max-w-3xl mx-auto px-5 lg:px-8">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-xs sm:text-sm text-white/55 hover:text-brand-cyan transition-colors mb-10"
+        >
+          ← Volver al inicio
+        </a>
+
+        <header class="mb-12">
+          <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-3 text-white">
+            Términos y Condiciones — Consultoría de Negocios para Emprendedores
+          </h1>
+          <p class="text-xs sm:text-sm text-white/50">
+            Última actualización: {lastUpdated}
+          </p>
+        </header>
+
+        <div class="space-y-10">
+          {
+            sections.map((section) => (
+              <section>
+                <h2 class="font-heading text-xl sm:text-2xl mb-3 text-white">
+                  {section.heading}
+                </h2>
+                <p class="text-sm sm:text-base text-white/80 leading-relaxed">
+                  {section.body}
+                </p>
+              </section>
+            ))
+          }
+        </div>
+
+        <p class="mt-14 text-xs sm:text-sm text-white/50 leading-relaxed">
+          Automate IT LLC · Florida, Estados Unidos ·
+          <a
+            href="mailto:automateit@yourbizupgraded.com"
+            class="hover:text-brand-cyan transition-colors"
+          >
+            automateit@yourbizupgraded.com
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>
