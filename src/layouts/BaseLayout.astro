@@ -33,7 +33,9 @@ const htmlLang = lang === "en" ? "en" : "es";
 const enableGA = isGAEnabled();
 const enableSC = isSearchConsoleEnabled();
 const canonicalUrl = Astro.url.href;
-const ogImageUrl = "https://yourbizupgraded.com/assets/logo-hero.png";
+// Lockup sobre fondo blanco sólido: las redes sociales componen la imagen de
+// Open Graph sobre fondos impredecibles, así que aquí no sirve transparencia.
+const ogImageUrl = "https://yourbizupgraded.com/assets/logo-og.png";
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -98,7 +100,9 @@ const websiteSchema = {
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <link
       rel="preload"
