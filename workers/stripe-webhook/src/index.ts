@@ -141,16 +141,19 @@ async function notifyTelegram(env: Env, text: string): Promise<void> {
 /**
  * Builds the alert for a completed checkout.
  *
- * A 100% promo code brings the total to $0, and Stripe then creates NO
- * payment_intent and NO charge — `payment_status` arrives as
- * "no_payment_required", never "paid". So we must not gate on "paid" here or
- * every courtesy redemption would go unnoticed.
+ * A 100% promo code brings the total to $0 and Stripe creates NO
+ * payment_intent and NO charge — but, verified against live sessions, it
+ * still reports `payment_status: "paid"`, not "no_payment_required". So
+ * payment_status is useless both as a gate and as a signal here: gating on
+ * "paid" is not what saves us, and reading it tells us nothing about whether
+ * money moved. `amount_total === 0` is the reliable test for a courtesy
+ * redemption.
  */
 function buildCheckoutAlert(obj: Record<string, unknown>, env: Env): string {
   const details = (obj.customer_details ?? {}) as Record<string, unknown>;
   const email = details.email ?? obj.customer_email;
   const paymentStatus = String(obj.payment_status ?? "");
-  const isCourtesy = paymentStatus === "no_payment_required";
+  const isCourtesy = obj.amount_total === 0;
   const isConsultoria =
     !!env.CONSULTORIA_PAYMENT_LINK &&
     obj.payment_link === env.CONSULTORIA_PAYMENT_LINK;
