@@ -110,16 +110,28 @@ const diagPath = "/diagnostico";
       <div
         class="w-full max-w-md xl:max-w-lg rounded-2xl overflow-hidden border border-[var(--color-border)] shadow-[var(--shadow-card)]"
       >
-        <img
-          src="/assets/hero-ecosistema.webp"
-          alt={t.heroImageAlt}
-          width="754"
-          height="1024"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          class="w-full h-auto block"
-        />
+        {/*
+          El contenedor está oculto bajo lg, pero `display:none` NO impide que
+          el navegador descargue la imagen — y con fetchpriority="high" la baja
+          antes que nada. En móvil eso son 37 KB que nadie ve, compitiendo con
+          el LCP real, que ahí es el titular.
+
+          <picture> sí lo evita: bajo lg el navegador resuelve al GIF
+          transparente de 1x1 del <img> y nunca pide el webp.
+        */}
+        <picture>
+          <source media="(min-width: 1024px)" srcset="/assets/hero-ecosistema.webp" />
+          <img
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt={t.heroImageAlt}
+            width="754"
+            height="1024"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="w-full h-auto block"
+          />
+        </picture>
       </div>
     </div>
   </div>
