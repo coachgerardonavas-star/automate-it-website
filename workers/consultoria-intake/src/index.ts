@@ -266,6 +266,147 @@ async function notifyTelegram(env: Env, p: Payload): Promise<void> {
   }
 }
 
+/* ------------------------------------------------------------------ *
+ * Firma del Acuerdo de Colaboración (ruta /acuerdo)
+ *
+ * ESIGN Act y UETA no exigen un garabato: exigen intención de firmar,
+ * consentimiento para hacerlo por medios electrónicos, que la firma quede
+ * asociada al documento, y que el firmante pueda conservar una copia. Un
+ * nombre escrito a mano alzada por teclado, con casillas explícitas, fecha,
+ * IP y la VERSIÓN del texto aceptado cumple eso — y a diferencia de una
+ * imagen de firma, cabe entero en una nota y no se pierde.
+ * ------------------------------------------------------------------ */
+
+interface FirmaPayload {
+  nombre?: string;
+  email?: string;
+  cuenta?: string;
+  firma?: string;
+  acepta?: boolean;
+  aceptaFtc?: boolean;
+  aceptaElectronica?: boolean;
+  version?: string;
+}
+
+function buildFirmaNote(p: FirmaPayload, meta: Record<string, string>): string {
+  return [
+    "ACUERDO DE COLABORACIÓN — FIRMADO",
+    "",
+    `Nombre legal: ${p.nombre ?? "—"}`,
+    `Firma escrita: ${p.firma ?? "—"}`,
+    `Email: ${p.email ?? "—"}`,
+    `Cuenta / red: ${p.cuenta ?? "—"}`,
+    "",
+    `Acepta el acuerdo: ${p.acepta ? "SÍ" : "no"}`,
+    `Acepta divulgar la colaboración (FTC): ${p.aceptaFtc ? "SÍ" : "no"}`,
+    `Consiente firmar electrónicamente: ${p.aceptaElectronica ? "SÍ" : "no"}`,
+    "",
+    `Versión del documento: ${p.version ?? "—"}`,
+    `Fecha y hora (UTC): ${meta.fecha}`,
+    `IP: ${meta.ip}`,
+    `Navegador: ${meta.ua}`,
+  ].join("\n");
+}
+
+async function handleFirma(
+  request: Request,
+  env: Env,
+  cors: Record<string, string>
+): Promise<Response> {
+  let p: FirmaPayload;
+  try {
+    p = (await request.json()) as FirmaPayload;
+  } catch {
+    return json({ error: "Invalid JSON" }, 400, cors);
+  }
+
+  if (!p.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email)) {
+    return json({ error: "Email inválido" }, 400, cors);
+  }
+  if (!p.nombre || !p.firma) {
+    return json({ error: "Falta el nombre o la firma" }, 400, cors);
+  }
+  // La firma escrita debe coincidir con el nombre legal: es lo que demuestra
+  // que el acto de firmar fue deliberado y no un clic distraído.
+  if (p.firma.trim().toLowerCase() !== p.nombre.trim().toLowerCase()) {
+    return json({ error: "La firma debe coincidir con tu nombre completo" }, 400, cors);
+  }
+  if (!p.acepta || !p.aceptaFtc || !p.aceptaElectronica) {
+    return json({ error: "Faltan aceptaciones obligatorias" }, 400, cors);
+  }
+
+  const meta = {
+    fecha: new Date().toISOString(),
+    ip: request.headers.get("CF-Connecting-IP") ?? "—",
+    ua: (request.headers.get("User-Agent") ?? "—").slice(0, 180),
+  };
+
+  try {
+    const contactId = await upsertContact(env, {
+      email: p.email,
+      nombre: p.nombre,
+      negocio: p.cuenta,
+    });
+    await hubspot(env, "/crm/v3/objects/notes", "POST", {
+      properties: {
+        hs_note_body: buildFirmaNote(p, meta),
+        hs_timestamp: meta.fecha,
+      },
+      associations: [
+        {
+          to: { id: contactId },
+          types: [
+            {
+              associationCategory: "HUBSPOT_DEFINED",
+              associationTypeId: ASSOC_NOTE_TO_CONTACT,
+            },
+          ],
+        },
+      ],
+    });
+
+    ctxSafeTelegram(env, [
+      "✍️ <b>Acuerdo de Colaboración firmado</b>",
+      "",
+      `<b>Nombre:</b> ${escapeHtml(p.nombre)}`,
+      `<b>Email:</b> ${escapeHtml(p.email)}`,
+      `<b>Cuenta:</b> ${escapeHtml(p.cuenta)}`,
+      `<b>Versión:</b> ${escapeHtml(p.version)}`,
+      `<b>IP:</b> ${escapeHtml(meta.ip)}`,
+    ].join("\n"));
+
+    return json({ ok: true, fecha: meta.fecha }, 200, cors);
+  } catch (e) {
+    console.error("[consultoria-intake] firma fallida", e);
+    console.error("[consultoria-intake] payload firma", JSON.stringify(p), JSON.stringify(meta));
+    return json({ error: "No pudimos registrar tu firma" }, 502, cors);
+  }
+}
+
+/** Telegram sin bloquear la respuesta ni tumbarla si falla. */
+function ctxSafeTelegram(env: Env, text: string): void {
+  void (async () => {
+    if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+    try {
+      await fetch(
+        `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: env.TELEGRAM_CHAT_ID,
+            text,
+            parse_mode: "HTML",
+            disable_web_page_preview: true,
+          }),
+        }
+      );
+    } catch (e) {
+      console.error("[consultoria-intake] Telegram error", e);
+    }
+  })();
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get("Origin");
@@ -280,6 +421,10 @@ export default {
     if (!env.HUBSPOT_TOKEN) {
       console.error("[consultoria-intake] HUBSPOT_TOKEN missing");
       return json({ error: "Server not configured" }, 500, cors);
+    }
+
+    if (new URL(request.url).pathname.replace(/\/+$/, "") === "/acuerdo") {
+      return handleFirma(request, env, cors);
     }
 
     let p: Payload;
