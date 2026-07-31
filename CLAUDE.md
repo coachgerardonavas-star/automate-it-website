@@ -46,10 +46,16 @@ Cada uno tiene su `wrangler.toml` en `workers/<nombre>/`:
 - **bit-chat-3126** — chatbot BIT (Claude Haiku vía proxy seguro). `main = index.js`. CORS: yourbizupgraded.com + localhost:4321. Sin preview URLs. URL pública: `https://bit-chat-3126.coachgerardonavas.workers.dev`.
 - **health-check** — health check de URLs Tier 0 (cron `*/15 * * * *`). KV `STATE`; service bindings a `bit-chat-3126` y `stripe-checkout-automate`. `workers_dev=false`, sin preview URLs. account_id configurado.
 - **stripe-checkout** — pagos Stripe (worker `stripe-checkout-automate`). `main = src/index.ts`. Secret: `STRIPE_SECRET_KEY`. `workers_dev=true`.
-- **stripe-webhook** — webhook de Stripe (worker `stripe-webhook-automate`). `main = src/index.ts`. Secret: `STRIPE_WEBHOOK_SECRET`. `workers_dev=true`.
+- **stripe-webhook** — webhook de Stripe (worker `stripe-webhook-automate`). `main = src/index.ts`. Secrets: `STRIPE_WEBHOOK_SECRET`, `TELEGRAM_BOT_TOKEN`. Avisa por Telegram al completarse un checkout. Registrado en Stripe como endpoint `we_1TzFZcAHnOzMvXBg9DrZxbdG`, escuchando solo `checkout.session.completed`.
+- **consultoria-intake** — recibe el formulario de `/consultoria` y la firma de `/acuerdo-colaboracion` (ruta `/acuerdo`). Escribe en HubSpot con la **CRM API** (contacto + nota + deal) y avisa por Telegram. Secrets: `HUBSPOT_TOKEN`, `TELEGRAM_BOT_TOKEN`.
 
 ## Reglas críticas del proyecto
-- **n8n NO es infraestructura interna** — es un producto que Automate IT vende e implementa para clientes (cuenta cloud cancelada, ZIP archivado). Nunca sugerir n8n para flujos internos de Automate IT; para automatización interna se usa Make cuando aplica.
+- 🚫 **n8n queda FUERA por completo** (decisión del CEO, 31-jul-2026): ni como infraestructura interna **ni como producto para vender a clientes**. Esto revierte la regla anterior, que lo mantenía como producto vendible. No proponerlo, no cotizarlo, no reactivarlo sin que el CEO lo diga explícitamente. Para automatización interna se usa Make o Workers propios.
+- **Los agentes por departamento NO se rehacen con n8n.** Cuando se retomen, se montan sobre el worker `vero-telegram`, que ya recibe de Telegram, llama a la API de Anthropic y responde. Un agente = ese worker escuchando otro grupo con otro prompt.
+- ⚠️ **Cobros de $0 (cupón 100%): Stripe reporta `payment_status: "paid"`, NO `"no_payment_required"`.** Verificado contra sesiones reales en vivo. `amount_total === 0` es la única prueba confiable de que fue cortesía. Nunca filtrar por `payment_status` para distinguir un canje gratis de un pago real.
+- ⚠️ **Dos webhooks de Stripe escuchan `checkout.session.completed`**: el worker propio y uno de Make ("Contrato C — Bienvenida post-pago", escenario `5182085`). El de Make manda un correo de bienvenida y **debe** conservar su filtro `amount_total > 0`; sin él le escribe "tu pago fue procesado" a quien canjea la consultoría gratis. Ya pasó con una persona real el 30-jul-2026.
+- **Jotform está descartado como herramienta.** Su API no escribe condiciones ni propiedades de preguntas — devuelve `200` y descarta en silencio. El formulario `262096329984067` quedó archivado (no borrado). Todo formulario nuevo se construye en el sitio.
+- **HubSpot: usar la CRM API, no Forms API v3.** Forms v3 descarta sin avisar cualquier campo que no esté definido en el formulario (verificado: `firstname` entró, `message` no, ambos con `200`). La CRM API falla ruidosamente.
 - **Frase PROHIBIDA en todo copy: "sin humo"** (ej. "IA sin humo"). No usarla nunca en ningún archivo de este repo (copy, componentes, blog, workers, manuales).
 - **El Manual Maestro vigente es `MANUAL_MAESTRO_v4_9.md`** (en este repo).
 - **El Manual de Instagram vigente es `Manual_Instagram_Automate_IT_v2_7.md`** (en el repo `automate-it`, NO en este).
@@ -72,11 +78,28 @@ Cada uno tiene su `wrangler.toml` en `workers/<nombre>/`:
 - Antes de agregar una librería JS pesada, **detenerse** y buscar solución CSS pura; proponer al CEO antes de instalar.
 
 ## Integraciones activas
-- **HubSpot Forms API v3** — 3 formularios. Portal ID `245810986`. Helper `src/lib/hubspot.ts`.
+- **HubSpot Forms API v3** — 3 formularios (pre-venta). Portal ID `245810986`. Helper `src/lib/hubspot.ts`. Solo para los formularios viejos; lo nuevo va por CRM API desde `consultoria-intake`.
+- **HubSpot CRM API** — vía `consultoria-intake`. Pipeline de deals: **"Ventas"** (`default`), etapa de entrada **"Calificado"** (`presentationscheduled`).
 - **Worker `bit-chat-3126`** — chatbot BIT (Claude Haiku).
 - **Worker `stripe-checkout-automate`** — pagos Stripe.
 - **Google Analytics 4** — `G-82JWGNDTLG` en `src/config/site.ts`.
 - **Telegram interno** — Chat ID `8348522203`.
+
+## Oferta "Consultoría de Negocios para Emprendedores" (creada 30-jul-2026)
+Entrada post-venta para emprendedores y creadores. Precio de lista $500 como anclaje; se entrega **gratis** con el código promocional `NEGOCIOS` (100%).
+
+- Producto `prod_UydFV5nchoZszF` · precio `price_1TyfzRAHnOzMvXBguhKANBSS` · cupón `QUWSd8Lw` · código `promo_1Tyg0nAHnOzMvXBgYjgzTo9t` (compartido, tope 200 canjes).
+- Link a repartir: `https://buy.stripe.com/4gM6oGeqEcFp9OF3JrafS03?prefilled_promo_code=NEGOCIOS` — el parámetro aplica el cupón solo, la persona ve $0 sin escribir nada.
+- Al completar el checkout, Stripe redirige a `/consultoria?ref=<session_id>`.
+
+**Rutas nuevas:**
+- `/consultoria` — entrevista de 10 preguntas, `noindex`. Las ramas temáticas se muestran según lo marcado, y al ocultarse sus campos quedan **deshabilitados** (no solo invisibles): un `required` oculto bloquea el envío sin explicar por qué.
+- `/acuerdo-colaboracion` — acuerdo de trueque con creadores + firma electrónica, `noindex`. Sube `VERSION` si cambias una palabra del texto, o no se puede demostrar qué se firmó.
+- `/terminos-consultoria-emprendedores` y `/en/consulting-terms` — términos. Mantener ES y EN sincronizados.
+- `/guias/*` — lead magnets públicos e indexables a propósito.
+- `/d/*` — documentos de cliente. Nombre con sufijo aleatorio + `X-Robots-Tag: noindex` en `public/_headers`. **No es privacidad**: cualquiera con el link entra.
+
+> No agregar `Disallow: /d/` al robots.txt: bloquear el rastreo impide que el buscador lea la cabecera `noindex`, y la URL podría indexarse igual si alguien la enlaza.
 
 ## Identidad de marca
 Tokens como utilidades Tailwind (`bg-brand-cyan`, etc.) y CSS custom properties (`var(--color-cyan)`).
