@@ -14,3 +14,17 @@
 # Si se reemplaza una imagen con el mismo nombre, tarda hasta 30 días en propagar.
 /assets/*
   Cache-Control: public, max-age=2592000
+
+# Guías públicas (lead magnets). Se comparten, se indexan y traen tráfico:
+# aquí SÍ queremos que Google las encuentre. Caché corta porque una guía se
+# corrige más seguido que una imagen.
+/guias/*
+  Cache-Control: public, max-age=86400
+
+# Documentos de cliente (propuestas con sus cifras). Nombre con sufijo
+# aleatorio y fuera del índice de buscadores: quien no tenga el link exacto
+# no llega. OJO — esto NO es privacidad real: cualquiera con el link entra.
+# Para datos sensibles de verdad hace falta autenticación, no un nombre raro.
+/d/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: private, max-age=0, must-revalidate
