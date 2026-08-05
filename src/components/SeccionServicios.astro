@@ -1,8 +1,6 @@
 ---
 import { translations, type Lang } from "../i18n/translations";
 import { jsonLd } from "../lib/jsonld";
-import { STRIPE_PRICES } from "../lib/stripe";
-import { STRIPE_CHECKOUT_WORKER_URL } from "../config/site";
 
 interface Props {
   lang?: Lang;
@@ -12,26 +10,22 @@ const { lang = "es" } = Astro.props;
 const t = translations[lang].servicios;
 const diagPath = lang === "en" ? "/en/diagnostic" : "/diagnostico";
 
-const planPriceBySku: Record<string, { monthly: string; setup: string }> = {
-  STARTER: {
-    monthly: STRIPE_PRICES.STARTER_BASE.monthly,
-    setup: STRIPE_PRICES.STARTER_BASE.setup,
-  },
-  PROFESSIONAL: {
-    monthly: STRIPE_PRICES.PROFESSIONAL_BASE.monthly,
-    setup: STRIPE_PRICES.PROFESSIONAL_BASE.setup,
-  },
-};
+// El sitio ya no vende por autoservicio: el modelo es diagnóstico → SOW
+// firmado → 50% al firmar → instalación → suscripción a los 30 días con
+// mínimo de 3 meses. Nada de eso cabe en un botón de checkout, así que el
+// CTA de cada plan lleva al diagnóstico. Ver `src/lib/stripe.ts`.
 
 const serviceNames =
   lang === "es"
     ? [
-        "Plan Starter — Recepcionista IA",
-        "Plan Professional HIPAA — Recepcionista IA",
+        "Asistente — Miembro digital",
+        "Estratega — Miembro digital",
+        "Manager — Miembro digital",
       ]
     : [
-        "Starter Plan — AI Receptionist",
-        "Professional HIPAA Plan — AI Receptionist",
+        "Assistant — Digital team member",
+        "Strategist — Digital team member",
+        "Manager — Digital team member",
       ];
 
 const orgRef = {
@@ -93,7 +87,7 @@ const serviceSchemas = t.plans.map((plan, i) => {
       </p>
     </header>
 
-    <div class="tilt-wrapper grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-16 sm:mb-20">
+    <div class="tilt-wrapper grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-16 sm:mb-20">
       {
         /* Los planes con `hidden: true` (hoy el Professional/HIPAA) no se
            muestran: se venden solo cuando el prospecto los pide. La ficha
@@ -139,30 +133,14 @@ const serviceSchemas = t.plans.map((plan, i) => {
                 </li>
               ))}
             </ul>
-            {planPriceBySku[plan.sku] && (
-              <div class="mt-6">
-                <button
-                  type="button"
-                  data-stripe-checkout
-                  data-price-monthly={planPriceBySku[plan.sku].monthly}
-                  data-price-setup={planPriceBySku[plan.sku].setup}
-                  data-plan-name={plan.name}
-                  data-lang={lang}
-                  data-label-default={t.checkoutLabel}
-                  data-label-loading={t.checkoutLoading}
-                  class="btn-cta block mx-auto w-auto text-center px-8 py-3 rounded-sm text-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors duration-200 ease-brand disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {t.checkoutLabel}
-                </button>
-                <p
-                  data-stripe-error
-                  class="hidden mt-2 text-sm text-[var(--color-danger)]"
-                  role="alert"
-                >
-                  {t.checkoutError}
-                </p>
-              </div>
-            )}
+            <div class="mt-6">
+              <a
+                href={diagPath}
+                class="btn-cta block mx-auto w-auto text-center px-8 py-3 rounded-sm text-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] transition-colors duration-200 ease-brand"
+              >
+                {t.checkoutLabel}
+              </a>
+            </div>
             <a
               href={diagPath}
               class="mt-4 inline-block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-navy)] transition-colors"
@@ -174,56 +152,10 @@ const serviceSchemas = t.plans.map((plan, i) => {
       }
     </div>
 
-    <div class="mb-16 sm:mb-20">
-      <header class="mb-8 sm:mb-10">
-        <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-3 font-semibold">
-          {t.modulesEyebrow}
-        </p>
-        <p class="text-base sm:text-base text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-          {t.modulesSubtitle}
-        </p>
-      </header>
-
-      <div class="tilt-wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-        {
-          t.modules.map((mod) => (
-            <article class="tilt-card card-glow flex flex-col p-6 rounded-md bg-[var(--color-bg-soft)] shadow-[var(--shadow-card)]">
-              <div class="flex items-center justify-between mb-3">
-                <p class="font-mono text-xs sm:text-[10px] tracking-widest uppercase text-[var(--color-text-subtle)]">
-                  {mod.sku}
-                </p>
-              </div>
-              <h3 class="font-heading text-lg sm:text-xl mb-3 leading-snug">
-                {mod.name}
-              </h3>
-              <p class="text-sm sm:text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5 flex-1">
-                {mod.description}
-              </p>
-              {/* Solo se muestran los precios del plan Starter. Los del
-                  Professional siguen en translations.ts (pricePro / setupPro),
-                  pero no se publican. */}
-              <div class="space-y-2 pt-4 border-t border-[var(--color-border)] text-sm sm:text-xs">
-                <div class="flex justify-between gap-2">
-                  <span class="text-[var(--color-text-muted)]">Mensual</span>
-                  <span class="text-[var(--color-text-primary)] font-mono text-right">
-                    {mod.priceStarter}
-                  </span>
-                </div>
-                <div class="flex justify-between gap-2 text-sm sm:text-xs text-[var(--color-text-muted)]">
-                  <span>{mod.setupStarter}</span>
-                </div>
-              </div>
-              <a
-                href={diagPath}
-                class="mt-4 inline-block text-sm sm:text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-navy)] transition-colors"
-              >
-                {t.moduleDiagnosticHint}
-              </a>
-            </article>
-          ))
-        }
-      </div>
-    </div>
+    {/* El grid de "módulos de canal" (Voz / WhatsApp / CRM) se eliminó el
+        5-ago-2026: el catálogo dejó de venderse por canales y pasó a venderse
+        por nivel de autonomía. Un cliente ya no elige canales — elige cuánto
+        quiere delegar, y qué herramientas se usan lo define el SOW. */}
 
     <div class="mb-12 sm:mb-14">
       <p class="text-sm sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-6 font-semibold">
@@ -289,48 +221,8 @@ const serviceSchemas = t.plans.map((plan, i) => {
   import "../scripts/tiltCards.js";
 </script>
 
-<script is:inline define:vars={{ workerUrl: STRIPE_CHECKOUT_WORKER_URL }}>
-  (function () {
-    var buttons = document.querySelectorAll("[data-stripe-checkout]");
-    if (!buttons.length || !workerUrl) return;
-
-    buttons.forEach(function (btn) {
-      btn.addEventListener("click", async function () {
-        var defaultLabel = btn.getAttribute("data-label-default") || "";
-        var loadingLabel = btn.getAttribute("data-label-loading") || "";
-        var errorEl = btn.parentElement
-          ? btn.parentElement.querySelector("[data-stripe-error]")
-          : null;
-
-        btn.disabled = true;
-        btn.textContent = loadingLabel;
-        if (errorEl) errorEl.classList.add("hidden");
-
-        try {
-          var res = await fetch(workerUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              priceIdMonthly: btn.getAttribute("data-price-monthly"),
-              priceIdSetup: btn.getAttribute("data-price-setup"),
-              planName: btn.getAttribute("data-plan-name"),
-              lang: btn.getAttribute("data-lang"),
-            }),
-          });
-          var data = await res.json().catch(function () {
-            return null;
-          });
-          if (res.ok && data && typeof data.url === "string") {
-            window.location.href = data.url;
-            return;
-          }
-          throw new Error("checkout-failed");
-        } catch (err) {
-          btn.disabled = false;
-          btn.textContent = defaultLabel;
-          if (errorEl) errorEl.classList.remove("hidden");
-        }
-      });
-    });
-  })();
-</script>
+{/* El script de checkout de autoservicio se eliminó el 5-ago-2026 junto con
+    el botón que lo disparaba. Apuntaba a Price IDs de sandbox, así que nunca
+    pudo cobrar de verdad — y el modelo comercial nuevo pasa por SOW firmado,
+    no por un botón. El worker `stripe-checkout` sigue desplegado pero el
+    sitio ya no lo llama. */}

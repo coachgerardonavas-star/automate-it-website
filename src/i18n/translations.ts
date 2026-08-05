@@ -21,7 +21,7 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "Automatización con IA para dueños de negocio · Desde $198/mes",
+      eyebrow: "Un miembro digital para tu equipo · Desde $200/mes",
       h1Line1: "Recupera el control",
       h1Line2: "de tu negocio.",
       // Frases del typewriter: completan h1Line1 y van de lo grande a lo
@@ -34,7 +34,7 @@ export const translations = {
         "de tus fines de semana.",
       ],
       subtitle:
-        "Conectamos las herramientas que ya usas — WhatsApp, correo, CRM, calendario — para que el trabajo manual que hoy haces tú se haga solo. Es tu negocio: no tienes por qué hacerlo todo.",
+        "Incorporamos a tu equipo un miembro digital que se encarga del trabajo repetitivo que hoy haces tú — dentro de las herramientas que ya usas. Es tu negocio: no tienes por qué hacerlo todo.",
       bullets: [
         "✅ Cada cliente recibe respuesta, aunque estés ocupado.",
         "🔁 El seguimiento deja de depender de tu memoria.",
@@ -229,97 +229,87 @@ export const translations = {
     },
 
     servicios: {
-      eyebrow: "Planes y canales",
-      titleLine1: "Elige tu plan base.",
-      titleLine2: "Activa tus canales.",
+      eyebrow: "Tu equipo digital",
+      titleLine1: "No compras software.",
+      titleLine2: "Incorporas a alguien que hace el trabajo.",
       subtitle:
-        "Empieza con el plan correcto y suma los módulos que tu negocio necesita. Sin paquete cerrado.",
+        "Tres miembros, según cuánto quieras delegar. El primero hace. El segundo además decide. El tercero además coordina.",
       planDiagnosticHint:
-        "¿No sabes si este plan es para ti? El diagnóstico te lo dice — es gratis.",
+        "¿No sabes cuál te toca? El diagnóstico te lo dice — es gratis.",
       plans: [
         {
-          sku: "STARTER",
-          name: "Plan Starter",
+          sku: "ASISTENTE",
+          name: "Asistente",
           badge: "",
-          price: "$99",
+          price: "$200",
           priceUnit: "/mes",
-          setup: "Setup único: $199",
-          description: "Para negocios que no manejan datos de salud.",
+          setup: "Incorporación: $1,000",
+          description: "Hace por ti. Se encarga de un proceso completo de tu negocio, de principio a fin.",
           features: [
-            "Onboarding + configuración inicial",
-            "Soporte básico por email",
-            "Reporte mensual de uso",
-            "Compatible con todos los módulos",
+            "Contesta cuando tú no puedes",
+            "Agenda sin que lo escribas dos veces",
+            "Guarda cada contacto donde debe quedar",
+            "Recuerda y da seguimiento por ti",
+            "Sigue tus reglas — no decide por su cuenta",
           ],
         },
         {
-          sku: "PROFESSIONAL",
-          // Oculto por decisión del CEO (26-jul-2026): ~1% de clientes necesita
-          // HIPAA y mostrarlo confunde al 99% restante. La ficha se conserva
-          // completa; se vende solo cuando el prospecto lo pide.
-          hidden: true,
-          name: "Plan Professional",
-          badge: "HIPAA ✓",
-          price: "$179",
+          sku: "ESTRATEGA",
+          name: "Estratega",
+          badge: "",
+          price: "$400",
           priceUnit: "/mes",
-          setup: "Setup único: $349",
-          description: "Para negocios que requieren cumplimiento HIPAA.",
+          setup: "Incorporación: $2,000",
+          description: "Piensa contigo. Hasta tres procesos conectados, y ya toma decisiones repetitivas solo.",
           features: [
-            "Todo lo del plan Starter",
-            "Gestión de BAAs con Retell AI, Cal.com y Twilio",
-            "Configuración HIPAA-compliant de todos los módulos",
-            "Soporte prioritario — respuesta en 24h hábiles",
-            "Auditoría de configuración trimestral",
+            "Todo lo que hace el Asistente",
+            "Decide a quién atender primero",
+            "Manda cada caso a la persona correcta",
+            "Detecta lo que se sale de lo normal",
+            "Te avisa cuando algo necesita tu criterio",
+          ],
+        },
+        {
+          sku: "MANAGER",
+          name: "Manager",
+          badge: "",
+          price: "$600",
+          priceUnit: "/mes",
+          setup: "Incorporación: $3,000",
+          description: "Coordina para ti. Lleva una operación completa y sabe en qué punto va cada caso.",
+          features: [
+            "Todo lo que hace el Estratega",
+            "Lleva cada caso de principio a fin",
+            "Coordina entre personas, zonas o sedes",
+            "Vigila plazos y actúa antes de que venzan",
+            "Te reporta el estado sin que se lo pidas",
           ],
         },
       ],
-      modulesEyebrow: "Módulos de canal",
-      modulesSubtitle:
-        "Un canal es la forma en que tus clientes te contactan: voz, WhatsApp o CRM. Se suma a cualquier plan base — tú activas solo los que tu negocio usa. Cada módulo incluye 300 minutos o mensajes al mes.",
-      moduleDiagnosticHint:
-        "¿Dudas si este canal te sirve? El diagnóstico te lo dice — es gratis.",
-      modules: [
-        {
-          sku: "VOZ",
-          name: "Voz (Retell AI)",
-          hipaa: true,
-          priceStarter: "+$149/mes",
-          pricePro: "+$149/mes",
-          setupStarter: "Setup +$149",
-          setupPro: "Setup +$199",
-          description: "Agente que contesta llamadas 24/7 y agenda citas en tiempo real.",
-        },
-        {
-          sku: "WHATSAPP",
-          name: "WhatsApp",
-          hipaa: true,
-          priceStarter: "+$99/mes",
-          pricePro: "+$99/mes",
-          setupStarter: "Setup +$99",
-          setupPro: "Setup +$149",
-          description: "Chatbot que agenda citas o captura leads por WhatsApp 24/7.",
-        },
-        {
-          sku: "CRM",
-          name: "CRM & Leads",
-          hipaa: true,
-          priceStarter: "+$99/mes",
-          pricePro: "+$99/mes",
-          setupStarter: "Setup +$99",
-          setupPro: "Setup +$149",
-          description: "Captura estructurada de leads. HubSpot (Starter) o Airtable BAA (Professional).",
-        },
-      ],
-      examplesEyebrow: "Ejemplos de precio total",
+      examplesEyebrow: "¿Cuál me toca?",
       examples: [
-        { label: "Salón de belleza · Solo WhatsApp", total: "$198/mes", detail: "Starter $99 + WhatsApp $99" },
-        { label: "Contratista · Voz", total: "$248/mes", detail: "Starter $99 + Voz $149" },
-        { label: "Clínica estética · WhatsApp + CRM", total: "$297/mes", detail: "Starter $99 + WhatsApp $99 + CRM $99" },
-        { label: "Realtor · Voz + WhatsApp", total: "$347/mes", detail: "Starter $99 + Voz $149 + WhatsApp $99" },
+        {
+          label: "«Hay cosas que solo puedo hacer yo»",
+          detail: "Trabajo repetitivo que depende de que estés disponible",
+          total: "Asistente",
+        },
+        {
+          label: "«No sé a quién atender primero»",
+          detail: "Te llegan más contactos de los que puedes priorizar a mano",
+          total: "Estratega",
+        },
+        {
+          label: "«Se me descoordina la operación»",
+          detail: "Varios procesos y varias personas, y nadie ve el estado completo",
+          total: "Manager",
+        },
       ],
       cta: "Agenda tu diagnóstico gratuito",
-      ctaHint: "¿No sabes qué módulos necesitas? El diagnóstico te lo dice.",
-      checkoutLabel: "Empezar ahora",
+      ctaHint: "El diagnóstico te dice cuál necesitas primero — lo hagas con nosotros o no.",
+      checkoutLabel: "Empezar por aquí",
+      // checkoutLoading/checkoutError quedan sin uso desde el 5-ago-2026: el
+      // botón dejó de disparar checkout y ahora lleva al diagnóstico. Se
+      // conservan por si vuelve el autoservicio.
       checkoutLoading: "Procesando...",
       checkoutError: "Hubo un problema. Intenta de nuevo.",
     },
@@ -374,8 +364,8 @@ export const translations = {
       title: "Lo que siempre preguntan",
       faqs: [
         {
-          q: "¿Puedo empezar solo con un módulo?",
-          a: "Sí. El plan base ($99) requiere al menos 1 módulo activo. Puedes empezar con WhatsApp por $99/mes adicional y agregar voz o CRM después.",
+          q: "¿Puedo empezar por lo más chico?",
+          a: "Sí, y es lo normal. Casi todos empiezan con un Asistente ($1,000 de incorporación + $200/mes) encargándose de un solo proceso. Cuando el negocio pide más, se sube de nivel — no se compran piezas sueltas.",
         },
         {
           q: "¿Qué pasa si supero los 300 minutos o mensajes?",
@@ -383,7 +373,7 @@ export const translations = {
         },
         {
           q: "¿El setup fee es reembolsable?",
-          a: "No. Cubre 4-8 horas de configuración, integración y pruebas por módulo activo. Se paga una sola vez al firmar.",
+          a: "No. Cubre la configuración, la conexión a tus herramientas y las pruebas hasta dejarlo funcionando. Se paga 50% al firmar y 50% cuando la instalación termina.",
         },
         {
           q: "¿Puedo cancelar cuando quiera?",
@@ -394,8 +384,8 @@ export const translations = {
           a: "HIPAA es la ley federal de EE.UU. que protege la información de salud de los pacientes. Si tu negocio maneja información de pacientes o datos de salud regulados, tenemos una configuración HIPAA-compliant disponible — con Retell AI, Cal.com y Twilio operando bajo BAA firmado. No aparece en la página porque aplica a pocos negocios: escríbenos y la cotizamos. Automate IT no custodia información de pacientes (PHI) en ningún caso.",
         },
         {
-          q: "¿Puedo agregar módulos después de firmar?",
-          a: "Sí, en cualquier momento. El costo se prorratea al ciclo de facturación vigente. Para eliminar un módulo necesitas 15 días de aviso y solo se procesa al inicio del siguiente ciclo.",
+          q: "¿Puedo subir de nivel después?",
+          a: "Sí, cuando quieras. Se sube de nivel cuando el sistema tiene que empezar a decidir o a coordinar algo que hoy no hace — no cuando quieres más herramientas. La diferencia de incorporación se cotiza aparte y la mensualidad nueva arranca en el siguiente ciclo.",
         },
         {
           q: "¿El sistema de IA escucha o guarda mis conversaciones con clientes?",
@@ -403,7 +393,7 @@ export const translations = {
         },
         {
           q: "¿Puedo usar este servicio si soy abogado o manejo información confidencial de clientes?",
-          a: "Sí. Los abogados en Florida están sujetos a las Reglas de Conducta Profesional del Florida Bar (Rule 1.6 — Confidencialidad), que exigen medidas razonables para proteger información del cliente — pero no requieren un compliance tecnológico específico como HIPAA. El Plan Starter es suficiente para firmas legales. Si deseas, podemos configurar el agente para que no grabe conversaciones y para que los datos de leads vayan únicamente a tu CRM privado.",
+          a: "Sí. Los abogados en Florida están sujetos a las Reglas de Conducta Profesional del Florida Bar (Rule 1.6 — Confidencialidad), que exigen medidas razonables para proteger información del cliente — pero no requieren un compliance tecnológico específico como HIPAA. Un Asistente es suficiente para firmas legales. Si deseas, podemos configurar el agente para que no grabe conversaciones y para que los datos de leads vayan únicamente a tu CRM privado.",
         },
         {
           q: "¿Qué pasa si el agente falla o da información incorrecta?",
@@ -437,28 +427,28 @@ export const translations = {
           pain: "Las llamadas y los WhatsApp llegan mientras estás atendiendo. O contestas tarde o se quedan sin respuesta.",
           solution:
             "Recepción 24/7 que contesta de inmediato, califica al cliente y agenda en tu calendario.",
-          tier: "Plan Starter",
+          tier: "Asistente",
         },
         {
           name: "Eres el dueño y el recepcionista",
           pain: "Cada lead nuevo pasa por ti. Pierdes horas del día contestando antes de cobrar la primera factura.",
           solution:
             "Un agente toma el primer contacto, filtra curiosos y solo te pasa los clientes listos para hablar.",
-          tier: "Plan Starter",
+          tier: "Asistente",
         },
         {
           name: "Te llaman en inglés y respondes a medias",
           pain: "Tus clientes angloparlantes cuelgan o se van con la competencia porque la primera conversación se siente forzada.",
           solution:
             "Atención bilingüe que detecta el idioma y responde con la misma claridad en inglés que en español.",
-          tier: "Plan Starter",
+          tier: "Asistente",
         },
         {
           name: "Pierdes clientes que nunca supiste que existieron",
           pain: "No tienes registro de cuántas llamadas o mensajes se quedaron sin contestar mientras trabajabas.",
           solution:
             "Cada interacción queda registrada con quién, cuándo y qué pidió, y un follow-up automático cierra el lazo.",
-          tier: "Plan Starter",
+          tier: "Asistente",
         },
       ],
     },
@@ -661,7 +651,7 @@ export const translations = {
     },
 
     hero: {
-      eyebrow: "AI automation for business owners · From $198/mo",
+      eyebrow: "A digital team member · From $200/mo",
       h1Line1: "Take back control",
       h1Line2: "of your business.",
       heroPhrases: [
@@ -671,7 +661,7 @@ export const translations = {
         "of your weekends.",
       ],
       subtitle:
-        "We connect the tools you already use — WhatsApp, email, CRM, calendar — so the manual work you do today gets done on its own. It's your business: you shouldn't have to do all of it.",
+        "We add a digital team member who takes over the repetitive work you do today — inside the tools you already use. It's your business: you shouldn't have to do all of it.",
       bullets: [
         "✅ Every customer gets an answer, even when you're busy.",
         "🔁 Follow-up stops depending on your memory.",
@@ -864,94 +854,84 @@ export const translations = {
     },
 
     servicios: {
-      eyebrow: "Plans & channels",
-      titleLine1: "Choose your base plan.",
-      titleLine2: "Activate your channels.",
+      eyebrow: "Your digital team",
+      titleLine1: "You're not buying software.",
+      titleLine2: "You're adding someone who does the work.",
       subtitle:
-        "Start with the right plan and add the modules your business needs. No bundled packages.",
+        "Three members, depending on how much you want to hand off. The first one does. The second also decides. The third also coordinates.",
       planDiagnosticHint:
-        "Not sure if this plan is for you? The diagnostic will tell you — it's free.",
+        "Not sure which one you need? The diagnostic will tell you — it's free.",
       plans: [
         {
-          sku: "STARTER",
-          name: "Starter Plan",
+          sku: "ASISTENTE",
+          name: "Assistant",
           badge: "",
-          price: "$99",
+          price: "$200",
           priceUnit: "/mo",
-          setup: "One-time setup: $199",
-          description: "For general businesses. No HIPAA.",
+          setup: "Onboarding: $1,000",
+          description: "Does it for you. Takes over one full process in your business, start to finish.",
           features: [
-            "Onboarding + initial configuration",
-            "Basic email support",
-            "Monthly usage report",
-            "Compatible with all modules",
+            "Answers when you can't",
+            "Books appointments without double entry",
+            "Saves every contact where it belongs",
+            "Remembers and follows up for you",
+            "Follows your rules — doesn't decide on its own",
           ],
         },
         {
-          sku: "PROFESSIONAL",
-          hidden: true, // see the Spanish block — hidden by the CEO's call, 26-jul-2026
-          name: "Professional Plan",
-          badge: "HIPAA ✓",
-          price: "$179",
+          sku: "ESTRATEGA",
+          name: "Strategist",
+          badge: "",
+          price: "$400",
           priceUnit: "/mo",
-          setup: "One-time setup: $349",
-          description: "For businesses requiring HIPAA compliance.",
+          setup: "Onboarding: $2,000",
+          description: "Thinks with you. Up to three connected processes, and makes the repetitive calls on its own.",
           features: [
-            "Everything in Starter",
-            "BAA management with Retell AI, Cal.com & Twilio",
-            "HIPAA-compliant configuration for all active modules",
-            "Priority support — 24 business-hour response",
-            "Quarterly configuration audit",
+            "Everything the Assistant does",
+            "Decides who to attend to first",
+            "Routes each case to the right person",
+            "Flags whatever falls outside the norm",
+            "Tells you when something needs your judgment",
+          ],
+        },
+        {
+          sku: "MANAGER",
+          name: "Manager",
+          badge: "",
+          price: "$600",
+          priceUnit: "/mo",
+          setup: "Onboarding: $3,000",
+          description: "Coordinates for you. Runs a full operation and knows where every case stands.",
+          features: [
+            "Everything the Strategist does",
+            "Carries each case from start to finish",
+            "Coordinates across people, areas or locations",
+            "Watches deadlines and acts before they hit",
+            "Reports the status without being asked",
           ],
         },
       ],
-      modulesEyebrow: "Channel modules",
-      modulesSubtitle:
-        "A channel is how your customers reach you: voice, WhatsApp, or CRM. Add it to any base plan — you only activate the ones your business actually uses. Each module includes 300 minutes or messages per month.",
-      moduleDiagnosticHint:
-        "Not sure if this channel fits? The diagnostic will tell you — it's free.",
-      modules: [
-        {
-          sku: "VOZ",
-          name: "Voice (Retell AI)",
-          hipaa: true,
-          priceStarter: "+$149/mo",
-          pricePro: "+$149/mo",
-          setupStarter: "Setup +$149",
-          setupPro: "Setup +$199",
-          description: "Agent answering calls 24/7 and booking appointments in real time.",
-        },
-        {
-          sku: "WHATSAPP",
-          name: "WhatsApp",
-          hipaa: true,
-          priceStarter: "+$99/mo",
-          pricePro: "+$99/mo",
-          setupStarter: "Setup +$99",
-          setupPro: "Setup +$149",
-          description: "Chatbot booking appointments or capturing leads via WhatsApp 24/7.",
-        },
-        {
-          sku: "CRM",
-          name: "CRM & Leads",
-          hipaa: true,
-          priceStarter: "+$99/mo",
-          pricePro: "+$99/mo",
-          setupStarter: "Setup +$99",
-          setupPro: "Setup +$149",
-          description: "Structured lead capture. HubSpot (Starter) or Airtable BAA (Professional).",
-        },
-      ],
-      examplesEyebrow: "Total price examples",
+      examplesEyebrow: "Which one do I need?",
       examples: [
-        { label: "Beauty salon · WhatsApp only", total: "$198/mo", detail: "Starter $99 + WhatsApp $99" },
-        { label: "Contractor · Voice", total: "$248/mo", detail: "Starter $99 + Voice $149" },
-        { label: "Aesthetic clinic · WhatsApp + CRM", total: "$297/mo", detail: "Starter $99 + WhatsApp $99 + CRM $99" },
-        { label: "Realtor · Voice + WhatsApp", total: "$347/mo", detail: "Starter $99 + Voice $149 + WhatsApp $99" },
+        {
+          label: "“There are things only I can do”",
+          detail: "Repetitive work that depends on you being available",
+          total: "Assistant",
+        },
+        {
+          label: "“I don't know who to attend to first”",
+          detail: "More contacts coming in than you can prioritize by hand",
+          total: "Strategist",
+        },
+        {
+          label: "“The operation falls out of sync”",
+          detail: "Several processes and several people, and nobody sees the whole picture",
+          total: "Manager",
+        },
       ],
       cta: "Book your free diagnosis",
-      ctaHint: "Not sure which modules you need? The diagnosis will tell you.",
-      checkoutLabel: "Get started",
+      ctaHint: "The diagnosis tells you which one you need first — whether you do it with us or not.",
+      checkoutLabel: "Start here",
       checkoutLoading: "Processing...",
       checkoutError: "Something went wrong. Please try again.",
     },
@@ -1006,8 +986,8 @@ export const translations = {
       title: "What people always ask",
       faqs: [
         {
-          q: "Can I start with just one module?",
-          a: "Yes. The base plan ($99) requires at least 1 active module. You can start with WhatsApp at $99/mo extra and add Voice or CRM later.",
+          q: "Can I start with the smallest one?",
+          a: "Yes, and that's the norm. Almost everyone starts with an Assistant ($1,000 onboarding + $200/mo) handling a single process. When the business asks for more, you move up a level — you don't buy loose pieces.",
         },
         {
           q: "What happens if I exceed 300 minutes or messages?",
@@ -1015,7 +995,7 @@ export const translations = {
         },
         {
           q: "Is the setup fee refundable?",
-          a: "No. It covers 4-8 hours of configuration, integration, and testing per active module. Paid once at signing.",
+          a: "No. It covers configuration, connecting your tools, and testing until it's working. You pay 50% at signing and 50% when the installation is done.",
         },
         {
           q: "Can I cancel anytime?",
@@ -1026,8 +1006,8 @@ export const translations = {
           a: "HIPAA is the U.S. federal law protecting patient health information. If your business handles patient data or regulated health information, we have a HIPAA-compliant setup available — with Retell AI, Cal.com, and Twilio operating under signed BAA. It isn't listed on the page because it applies to few businesses: write to us and we'll quote it. Automate IT never holds patient information (PHI).",
         },
         {
-          q: "Can I add modules after signing?",
-          a: "Yes, anytime. The cost prorates to the current billing cycle. To remove a module you need 15 days notice, processed at the start of the next cycle.",
+          q: "Can I move up a level later?",
+          a: "Yes, anytime. You move up a level when the system has to start deciding or coordinating something it doesn't do today — not when you want more tools. The onboarding difference is quoted separately and the new monthly starts on the next cycle.",
         },
         {
           q: "Does the AI system listen to or store my conversations with clients?",
@@ -1035,7 +1015,7 @@ export const translations = {
         },
         {
           q: "Can I use this service if I'm a lawyer or handle confidential client information?",
-          a: "Yes. Florida attorneys are subject to the Florida Bar Rules of Professional Conduct (Rule 1.6 — Confidentiality), which require reasonable measures to protect client information — but don't require specific technical compliance like HIPAA. The Starter Plan is sufficient for law firms. If you wish, we can configure the agent not to record conversations and to send lead data only to your private CRM.",
+          a: "Yes. Florida attorneys are subject to the Florida Bar Rules of Professional Conduct (Rule 1.6 — Confidentiality), which require reasonable measures to protect client information — but don't require specific technical compliance like HIPAA. An Assistant is sufficient for law firms. If you wish, we can configure the agent not to record conversations and to send lead data only to your private CRM.",
         },
         {
           q: "What happens if the agent fails or gives wrong information?",
@@ -1069,28 +1049,28 @@ export const translations = {
           pain: "Calls and WhatsApp come in while you're with a customer. Either you reply late or they go unanswered.",
           solution:
             "24/7 reception that answers instantly, qualifies the customer, and books in your calendar.",
-          tier: "Plan Starter",
+          tier: "Assistant",
         },
         {
           name: "You're the owner and the receptionist",
           pain: "Every new lead runs through you. Hours of the day go to first contact before you bill a single client.",
           solution:
             "An agent handles the first touch, filters out tire-kickers, and only routes customers ready to talk.",
-          tier: "Plan Starter",
+          tier: "Assistant",
         },
         {
           name: "They call in English and you answer halfway",
           pain: "Your English-speaking customers hang up or go to a competitor because the first conversation feels forced.",
           solution:
             "Bilingual reception that detects the language and responds with the same clarity in English as in Spanish.",
-          tier: "Plan Starter",
+          tier: "Assistant",
         },
         {
           name: "You're losing customers you never knew about",
           pain: "You have no record of how many calls or messages went unanswered while you were working.",
           solution:
             "Every interaction is logged with who, when, and what they asked, and an automatic follow-up closes the loop.",
-          tier: "Plan Starter",
+          tier: "Assistant",
         },
       ],
     },
