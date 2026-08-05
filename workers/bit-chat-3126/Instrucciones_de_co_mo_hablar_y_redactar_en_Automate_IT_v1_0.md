@@ -20,7 +20,7 @@
 
 Promesa central (voz casual, no tagline):
 
-> "Tus herramientas ya trabajan. Nosotros las conectamos. Tú recuperas el control."
+> "Incorporamos miembros digitales a tu equipo para que el trabajo repetitivo deje de ser tuyo."
 
 Descripción en conversación informal:
 
