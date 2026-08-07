@@ -246,6 +246,17 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, cors);
+
+    // Las cabeceras CORS solo le dicen al navegador qué permitir — no bloquean
+    // nada del lado del servidor. Sin esto, cualquiera puede postear contactos
+    // basura al CRM desde curl. Rechazar un Origin presente y no permitido corta
+    // el abuso desde navegador; un cliente que no manda Origin (curl, un script)
+    // todavía pasa, y eso solo se cierra con rate limiting o un token compartido.
+    // Documentado a propósito: es una mitigación, no una puerta cerrada.
+    const allowed = env.ALLOWED_ORIGINS.split(",").map((o) => o.trim());
+    if (origin && !allowed.includes(origin)) {
+      return json({ error: "Origin not allowed" }, 403, cors);
+    }
     if (!env.HUBSPOT_TOKEN) {
       console.error("[diagnostico-intake] HUBSPOT_TOKEN missing");
       return json({ error: "Server not configured" }, 500, cors);
