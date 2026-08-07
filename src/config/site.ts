@@ -20,6 +20,14 @@ export const HUBSPOT_FORM_GUID_CHATBOT = "cd8b13bd-f8b9-4876-acc8-69be4df0027c";
 
 export const BIT_WORKER_URL = "https://bit-chat-3126.coachgerardonavas.workers.dev";
 
+// El diagnóstico dejó de postear a la Forms API v3 el 7-ago-2026: esa API
+// descarta en silencio todo campo no definido en el formulario, y por eso
+// `tipo_de_negocio` y `urgencia` estaban vacíos en todos los contactos del CRM.
+// Ahora va por Worker con CRM API, que falla ruidosamente. Ver
+// `workers/diagnostico-intake`.
+export const DIAGNOSTICO_WORKER_URL =
+  "https://diagnostico-intake.coachgerardonavas.workers.dev";
+
 // Replace with the deployed URL of `workers/stripe-checkout` once it's live in Cloudflare.
 // While set to the placeholder, the checkout buttons will not POST anywhere.
 export const STRIPE_CHECKOUT_WORKER_URL =

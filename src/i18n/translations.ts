@@ -528,9 +528,37 @@ export const translations = {
         addressPlaceholder: "Ciudad, Estado (ej: Orlando, FL)",
         bizType: "Tipo de negocio",
         bizTypePlaceholder: "Selecciona tu rubro",
-        problem: "El problema más caro de tu día",
+        problem: "El trabajo que más tiempo te quita",
+        // El placeholder es el marco en el que la gente responde. El anterior
+        // ponía un ejemplo de llamadas perdidas, así que inducía a todos a
+        // describir su problema como telefónico — el monotema que se abandonó
+        // el 28-jul-2026. Este es neutro de canal a propósito.
         problemPlaceholder:
-          "Ej.: pierdo 4 llamadas al día porque estoy en consultas. Cada una vale entre $200 y $800.",
+          "Ej.: cada cotización la escribo a mano, la paso al calendario y después al Excel. Se me va media mañana.",
+        bizTypeOptions: [
+          { value: "Servicios del hogar", label: "Servicios del hogar / Contratista" },
+          { value: "Inmobiliaria", label: "Inmobiliaria" },
+          { value: "Salón / Spa", label: "Salón / Spa" },
+          { value: "Firma legal / Notaría", label: "Firma legal / Notaría" },
+          { value: "Restaurante / Comida", label: "Restaurante / Comida" },
+          { value: "Consultor / Freelancer", label: "Consultor / Freelancer" },
+          { value: "Otro", label: "Otro" },
+        ],
+        pain: "¿Por dónde te duele más?",
+        painOptions: [
+          { value: "solo_yo", label: "Hay cosas que solo puedo hacer yo, y ahí se me va el día" },
+          { value: "prioridad", label: "Me llega más de lo que puedo atender y no sé por dónde empezar" },
+          { value: "coordinacion", label: "Se me descoordina la operación entre varias personas o etapas" },
+        ],
+        teamSize: "¿Cuántas personas trabajan en el negocio, contándote?",
+        teamSizePlaceholder: "Selecciona",
+        teamSizeOptions: [
+          { value: "solo", label: "Solo yo" },
+          { value: "2_5", label: "2 a 5" },
+          { value: "6_15", label: "6 a 15" },
+          { value: "16_30", label: "16 a 30" },
+          { value: "30_plus", label: "Más de 30" },
+        ],
         urgency: "Urgencia",
         urgencyOptions: [
           { value: "now", label: "Para ayer — quiero arrancar ya" },
@@ -539,9 +567,14 @@ export const translations = {
           { value: "exploring", label: "Solo explorando, sin prisa" },
         ],
       },
-      hipaaQuestion: "¿Manejas información de pacientes bajo HIPAA?",
+      hipaaQuestion: "¿Tu negocio maneja información de pacientes?",
       hipaaHint:
-        "Negocios que manejan información de pacientes bajo regulación federal de salud deben cumplir HIPAA.",
+        "Historias clínicas, datos de salud o cualquier información protegida bajo HIPAA.",
+      outOfScopeHeading: "Gracias por tomarte el tiempo.",
+      outOfScopeHipaa:
+        "Ahora mismo no estamos tomando negocios que manejen información de pacientes — es una decisión nuestra, no algo tuyo. Guardamos tus datos y si eso cambia te avisamos. Si mientras tanto quieres una recomendación sobre por dónde empezar por tu cuenta, escríbenos y te la damos sin compromiso.",
+      outOfScopeSize:
+        "Con más de 30 personas, lo que tu operación necesita es de otro tamaño y no es lo que hacemos bien. Guardamos tus datos y te escribimos si podemos recomendarte a alguien que sí.",
       submit: "Solicitar diagnóstico",
       submitting: "Enviando…",
       successHeading: "Recibido.",
@@ -1149,9 +1182,35 @@ export const translations = {
         addressPlaceholder: "City, State (e.g.: Orlando, FL)",
         bizType: "Business type",
         bizTypePlaceholder: "Select your industry",
-        problem: "The most expensive problem in your day",
+        problem: "The work that eats most of your time",
+        // Channel-neutral on purpose — see the Spanish note.
         problemPlaceholder:
-          "Ex.: I miss 4 calls a day because I'm with patients. Each one is worth $200–$800.",
+          "Ex.: I write every estimate by hand, copy it to the calendar, then to a spreadsheet. That's half my morning.",
+        // `value` is always the Spanish HubSpot enum; only the label is translated.
+        bizTypeOptions: [
+          { value: "Servicios del hogar", label: "Home services / Contractor" },
+          { value: "Inmobiliaria", label: "Real estate" },
+          { value: "Salón / Spa", label: "Salon / Spa" },
+          { value: "Firma legal / Notaría", label: "Law firm" },
+          { value: "Restaurante / Comida", label: "Restaurant / Food" },
+          { value: "Consultor / Freelancer", label: "Consultant / Freelancer" },
+          { value: "Otro", label: "Other" },
+        ],
+        pain: "Where does it hurt most?",
+        painOptions: [
+          { value: "solo_yo", label: "There are things only I can do, and that's where my day goes" },
+          { value: "prioridad", label: "More comes in than I can handle and I don't know where to start" },
+          { value: "coordinacion", label: "The operation falls out of sync across people or stages" },
+        ],
+        teamSize: "How many people work in the business, including you?",
+        teamSizePlaceholder: "Select",
+        teamSizeOptions: [
+          { value: "solo", label: "Just me" },
+          { value: "2_5", label: "2 to 5" },
+          { value: "6_15", label: "6 to 15" },
+          { value: "16_30", label: "16 to 30" },
+          { value: "30_plus", label: "More than 30" },
+        ],
         urgency: "Urgency",
         urgencyOptions: [
           { value: "now", label: "ASAP — I needed this yesterday" },
@@ -1160,9 +1219,14 @@ export const translations = {
           { value: "exploring", label: "Just exploring, no rush" },
         ],
       },
-      hipaaQuestion: "Do you handle patient information under HIPAA?",
+      hipaaQuestion: "Does your business handle patient information?",
       hipaaHint:
-        "Businesses handling patient information under federal health regulations must comply with HIPAA.",
+        "Medical records, health data, or anything protected under HIPAA.",
+      outOfScopeHeading: "Thanks for taking the time.",
+      outOfScopeHipaa:
+        "We're not currently taking on businesses that handle patient information — that's our call, not something about you. We'll keep your details and let you know if that changes. In the meantime, if you'd like a recommendation on where to start on your own, just write us.",
+      outOfScopeSize:
+        "With more than 30 people, what your operation needs is a different size of job and not something we do well. We'll keep your details and reach out if we can point you to someone who does.",
       submit: "Request diagnostic",
       submitting: "Sending…",
       successHeading: "Got it.",

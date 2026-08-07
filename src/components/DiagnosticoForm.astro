@@ -7,7 +7,10 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].diagnosticoPage;
-const businessTypes = translations[lang].ctaFinal.businessTypes;
+// Pares valor/etiqueta: el value siempre es el de HubSpot (en español),
+// la etiqueta cambia con el idioma. Antes value=label, así que la versión en
+// inglés mandaba valores que HubSpot rechaza.
+const businessTypes = t.labels.bizTypeOptions;
 ---
 
 <form
@@ -18,6 +21,8 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
   data-submit-label={t.submit}
   data-error-fallback={t.errorSubmitFallback}
   data-lang={lang}
+  data-out-hipaa={t.outOfScopeHipaa}
+  data-out-size={t.outOfScopeSize}
 >
   <label class="block">
     <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.name}</span>
@@ -72,8 +77,8 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
       <option value="" class="bg-white">{t.labels.bizTypePlaceholder}</option>
       {
         businessTypes.map((bt) => (
-          <option value={bt} class="bg-white">
-            {bt}
+          <option value={bt.value} class="bg-white">
+            {bt.label}
           </option>
         ))
       }
@@ -89,6 +94,46 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
       placeholder={t.labels.problemPlaceholder}
       class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors resize-y"
     ></textarea>
+  </label>
+
+  {/* La pregunta que decide el plan. Va antes de urgencia a propósito: es la
+      única del formulario cuya respuesta cambia lo que se cotiza. */}
+  <fieldset>
+    <legend class="block text-sm font-semibold text-[var(--color-text-primary)] mb-3">{t.labels.pain}</legend>
+    <div class="space-y-2">
+      {
+        t.labels.painOptions.map((opt) => (
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input
+              type="radio"
+              name="pain"
+              value={opt.value}
+              required
+              class="mt-1 w-4 h-4 accent-[var(--color-blue)] cursor-pointer shrink-0"
+            />
+            <span class="text-sm text-[var(--color-text-primary)]">{opt.label}</span>
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <label class="block">
+    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.teamSize}</span>
+    <select
+      name="team_size"
+      required
+      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
+    >
+      <option value="" class="bg-white">{t.labels.teamSizePlaceholder}</option>
+      {
+        t.labels.teamSizeOptions.map((opt) => (
+          <option value={opt.value} class="bg-white">
+            {opt.label}
+          </option>
+        ))
+      }
+    </select>
   </label>
 
   <fieldset>
@@ -141,6 +186,16 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
 <p id="diag-error" class="hidden text-sm text-[var(--color-danger)] mt-4" role="alert"></p>
 
 <div
+  id="diag-outofscope"
+  class="hidden p-8 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-soft)]"
+  role="status"
+  aria-live="polite"
+>
+  <p class="font-heading text-2xl mb-3 text-[var(--color-text-primary)]">{t.outOfScopeHeading}</p>
+  <p id="diag-outofscope-body" class="text-base text-[var(--color-text-secondary)] leading-relaxed"></p>
+</div>
+
+<div
   id="diag-success"
   class="hidden p-8 rounded-lg border border-brand-lime/40 bg-brand-lime/5"
   role="status"
@@ -151,8 +206,7 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
 </div>
 
 <script>
-  import { submitToHubSpot } from "../lib/hubspot";
-  import { HUBSPOT_FORM_GUID_DIAGNOSTICO } from "../config/site";
+  import { DIAGNOSTICO_WORKER_URL } from "../config/site";
 
   const form = document.getElementById("diag-form") as HTMLFormElement | null;
   const error = document.getElementById("diag-error");
@@ -187,26 +241,48 @@ const businessTypes = translations[lang].ctaFinal.businessTypes;
     const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
     const lang = form.dataset.lang ?? "es";
 
-    const metaPieces = [
-      data.urgency ? `urgency: ${data.urgency}` : "",
-      `hipaa: ${data.hipaa === "yes" ? "yes" : "no"}`,
-      `lang: ${lang}`,
-    ].filter(Boolean);
-    const message = `${data.problem ?? ""}\n\n[${metaPieces.join(" | ")}]`;
-
     try {
-      await submitToHubSpot(HUBSPOT_FORM_GUID_DIAGNOSTICO, [
-        { name: "firstname", value: data.name ?? "" },
-        { name: "email", value: data.email ?? "" },
-        { name: "phone", value: data.phone ?? "" },
-        { name: "address", value: data.address ?? "" },
-        { name: "industry", value: data.business_type ?? "" },
-        { name: "message", value: message },
-      ]);
+      // Worker con CRM API, no Forms API v3: esa descartaba en silencio todo
+      // campo no definido en el formulario de HubSpot. Ver config/site.ts.
+      const res = await fetch(DIAGNOSTICO_WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name ?? "",
+          email: data.email ?? "",
+          phone: data.phone ?? "",
+          address: data.address ?? "",
+          business_type: data.business_type ?? "",
+          problem: data.problem ?? "",
+          pain: data.pain ?? "",
+          team_size: data.team_size ?? "",
+          urgency: data.urgency ?? "",
+          hipaa: data.hipaa === "yes" ? "yes" : "no",
+          lang,
+        }),
+      });
+      if (!res.ok) throw new Error(`worker ${res.status}`);
+      const out = (await res.json()) as { outOfScope?: boolean; reason?: string };
+
+      // Si queda fuera de alcance se le dice aquí mismo, no se le deja
+      // esperando una llamada que no va a llegar.
+      if (out.outOfScope) {
+        const box = document.getElementById("diag-outofscope");
+        const msg = document.getElementById("diag-outofscope-body");
+        if (box && msg) {
+          msg.textContent =
+            out.reason === "hipaa"
+              ? (form.dataset.outHipaa ?? "")
+              : (form.dataset.outSize ?? "");
+          form.classList.add("hidden");
+          box.classList.remove("hidden");
+          return;
+        }
+      }
       form.classList.add("hidden");
       success.classList.remove("hidden");
     } catch (err) {
-      console.error("[lead] diagnostic HubSpot error:", err);
+      console.error("[lead] diagnostic worker error:", err);
       error.textContent = form.dataset.errorFallback ?? "";
       error.classList.remove("hidden");
       restoreBtn();
