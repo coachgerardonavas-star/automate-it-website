@@ -19,15 +19,24 @@ const SERVICES = [
     action: "Revisar logs del worker en Cloudflare y estado de Anthropic.",
   },
   {
-    key: "stripe-checkout",
-    name: "Stripe Checkout Worker",
-    binding: "STRIPE_CHECKOUT",
+    // Reemplaza a `stripe-checkout` el 9-ago-2026. Ese worker sigue desplegado
+    // pero el sitio dejó de llamarlo el 5-ago, cuando se quitó el checkout de
+    // autoservicio: se estaba vigilando como Tier 0 un camino muerto.
+    //
+    // Éste sí es Tier 0 de verdad. Es el ÚNICO camino por el que un lead llega
+    // al CRM desde el sitio. Si se cae no hay error visible en ningún lado: los
+    // leads simplemente no llegan. Eso ya pasó — el formulario estuvo roto dos
+    // meses y medio y nadie se enteró porque nada alertaba.
+    key: "diagnostico-intake",
+    name: "diagnostico-intake (Worker del diagnóstico)",
+    binding: "DIAGNOSTICO_INTAKE",
     path: "/health",
     impact:
-      "Cobros en vivo bloqueados — no se pueden contratar nuevos planes.",
-    fallback: "inactivo (sin checkout, no hay forma alternativa de cobrar).",
+      "Formulario de diagnóstico caído — ningún lead entra al CRM y el visitante ve un error al enviar.",
+    fallback:
+      "inactivo (no hay vía alternativa: el sitio ya no postea a HubSpot desde el navegador).",
     action:
-      "URGENTE (Tier 0) — revisar logs del worker, dashboard de Cloudflare y status de Stripe.",
+      "URGENTE (Tier 0) — revisar logs del worker, el secreto HUBSPOT_TOKEN y el status de HubSpot.",
   },
 ];
 

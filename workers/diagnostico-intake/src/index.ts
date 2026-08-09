@@ -245,6 +245,15 @@ export default {
     const cors = corsHeaders(origin, env);
 
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
+
+    // Sonda para `health-check`, que hace GET /health cada 5 minutos. Este es
+    // el unico camino por el que un lead llega al CRM: si se cae, los leads
+    // desaparecen en silencio — que es exactamente lo que paso durante dos
+    // meses y medio con el formulario estatico.
+    if (new URL(request.url).pathname.replace(/\/+$/, "") === "/health") {
+      return json({ ok: true, service: "diagnostico-intake" }, 200, cors);
+    }
+
     if (request.method !== "POST") return json({ error: "Method not allowed" }, 405, cors);
 
     // Las cabeceras CORS solo le dicen al navegador qué permitir — no bloquean

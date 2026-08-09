@@ -20,5 +20,5 @@ binding = "BIT_CHAT"
 service = "bit-chat-3126"
 
 [[services]]
-binding = "STRIPE_CHECKOUT"
-service = "stripe-checkout-automate"
+binding = "DIAGNOSTICO_INTAKE"
+service = "diagnostico-intake"
