@@ -418,6 +418,21 @@ export default {
     if (request.method !== "POST") {
       return json({ error: "Method not allowed" }, 405, cors);
     }
+
+    // Las cabeceras CORS solo le dicen al navegador qué permitir — no bloquean
+    // nada del lado del servidor. Este worker no tenía ningún filtro: cualquiera
+    // podía postear contactos al CRM y, peor, falsificar un registro de firma
+    // en /acuerdo (que guarda nombre, IP y timestamp como evidencia legal).
+    // Va antes del enrutado a /acuerdo a propósito, para que cubra ambos caminos.
+    // Mismo patrón que `diagnostico-intake`. Rechazar un Origin presente y no
+    // permitido corta el abuso desde navegador; un cliente que no manda Origin
+    // (curl, un script) todavía pasa, y eso solo se cierra con rate limiting o
+    // un token compartido. Es una mitigación, no una puerta cerrada.
+    const allowed = env.ALLOWED_ORIGINS.split(",").map((o) => o.trim());
+    if (origin && !allowed.includes(origin)) {
+      return json({ error: "Origin not allowed" }, 403, cors);
+    }
+
     if (!env.HUBSPOT_TOKEN) {
       console.error("[consultoria-intake] HUBSPOT_TOKEN missing");
       return json({ error: "Server not configured" }, 500, cors);
