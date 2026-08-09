@@ -14,5 +14,19 @@ TELEGRAM_CHAT_ID = "8348522203"
 DEAL_PIPELINE = "default"
 DEAL_STAGE = "presentationscheduled"
 
+# Rate limiter nativo de Cloudflare, por IP. Cierra el hueco que el filtro de
+# Origin deja abierto a proposito (un cliente sin cabecera Origin lo pasa,
+# porque las llamadas servidor-a-servidor tampoco la mandan).
+#
+# 5 envios por minuto y por IP, igual que diagnostico-intake. Cubre tambien la
+# firma del acuerdo, que registra nombre, IP y timestamp como evidencia legal.
+#
+# namespace_id es un identificador local del worker, distinto en cada uno.
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "2002"
+simple = { limit = 5, period = 60 }
+
 [observability]
 enabled = true

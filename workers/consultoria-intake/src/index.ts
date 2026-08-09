@@ -26,6 +26,11 @@ export interface Env {
   ALLOWED_ORIGINS: string;
   DEAL_PIPELINE: string;
   DEAL_STAGE: string;
+  // Rate limiter nativo de Cloudflare. Cierra lo que el filtro de Origin no
+  // puede: un cliente sin cabecera Origin (curl, un script) lo pasa a
+  // proposito. Importa mas aqui que en diagnostico-intake, porque el endpoint
+  // de acuerdo registra firmas con nombre, IP y timestamp como evidencia legal.
+  RATE_LIMITER?: { limit: (opts: { key: string }) => Promise<{ success: boolean }> };
 }
 
 const HUBSPOT_API = "https://api.hubapi.com";
@@ -431,6 +436,19 @@ export default {
     const allowed = env.ALLOWED_ORIGINS.split(",").map((o) => o.trim());
     if (origin && !allowed.includes(origin)) {
       return json({ error: "Origin not allowed" }, 403, cors);
+    }
+
+    // Limite por IP, tambien antes del enrutado para que cubra la firma del
+    // acuerdo. Si el binding no existe (despliegue viejo), NO se bloquea:
+    // perder un intake real o una firma legitima por una proteccion mal
+    // configurada es peor que el abuso que evita.
+    const ip = request.headers.get("CF-Connecting-IP");
+    if (env.RATE_LIMITER && ip) {
+      const { success } = await env.RATE_LIMITER.limit({ key: ip });
+      if (!success) {
+        console.log(`[consultoria-intake] rate limited ${ip}`);
+        return json({ error: "Demasiados intentos. Espera un momento." }, 429, cors);
+      }
     }
 
     if (!env.HUBSPOT_TOKEN) {

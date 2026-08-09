@@ -11,5 +11,21 @@ workers_dev = true
 ALLOWED_ORIGINS = "https://yourbizupgraded.com,https://www.yourbizupgraded.com,http://localhost:4321"
 TELEGRAM_CHAT_ID = "8348522203"
 
+# Rate limiter nativo de Cloudflare, por IP. Cierra el hueco que el filtro de
+# Origin deja abierto: un cliente sin cabecera Origin (curl, un script) lo pasa
+# a proposito, porque las llamadas servidor-a-servidor tampoco la mandan.
+#
+# 5 envios por minuto y por IP. Generoso para una persona real (llena el
+# formulario una vez, dos si se equivoco) y estrecho para un script, que
+# necesita volumen para ensuciar el CRM.
+#
+# El namespace_id es un identificador local del worker, no un recurso que haya
+# que crear en el dashboard. Debe ser distinto en cada worker.
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "2001"
+simple = { limit = 5, period = 60 }
+
 [observability]
 enabled = true

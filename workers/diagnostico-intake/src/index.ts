@@ -26,6 +26,10 @@ export interface Env {
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHAT_ID?: string;
   ALLOWED_ORIGINS: string;
+  // Rate limiter nativo de Cloudflare. Cierra lo que el filtro de Origin no
+  // puede: un cliente que no manda cabecera Origin (curl, un script) pasaba
+  // el filtro porque las llamadas servidor-a-servidor tampoco la mandan.
+  RATE_LIMITER?: { limit: (opts: { key: string }) => Promise<{ success: boolean }> };
 }
 
 const HUBSPOT_API = "https://api.hubapi.com";
@@ -266,6 +270,23 @@ export default {
     if (origin && !allowed.includes(origin)) {
       return json({ error: "Origin not allowed" }, 403, cors);
     }
+
+    // Lo que cierra el hueco que el filtro de Origin deja abierto a proposito.
+    // Va por IP: una persona real llena este formulario una vez, dos si se
+    // equivoco. Un script que quiera ensuciar el CRM necesita volumen, y ahi
+    // es donde topa. El limite se define en wrangler.toml, no aqui.
+    // Si el binding no existe (despliegue viejo), NO se bloquea: perder un
+    // lead real por una proteccion mal configurada es peor que el abuso que
+    // evita, y este worker es la unica puerta al CRM.
+    const ip = request.headers.get("CF-Connecting-IP");
+    if (env.RATE_LIMITER && ip) {
+      const { success } = await env.RATE_LIMITER.limit({ key: ip });
+      if (!success) {
+        console.log(`[diagnostico-intake] rate limited ${ip}`);
+        return json({ error: "Demasiados intentos. Espera un momento." }, 429, cors);
+      }
+    }
+
     if (!env.HUBSPOT_TOKEN) {
       console.error("[diagnostico-intake] HUBSPOT_TOKEN missing");
       return json({ error: "Server not configured" }, 500, cors);
