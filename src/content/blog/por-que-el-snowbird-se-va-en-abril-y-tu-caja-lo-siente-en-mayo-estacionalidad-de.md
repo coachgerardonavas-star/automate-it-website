@@ -72,7 +72,7 @@ Si contrataste personal temporal en enero, despídelo con respeto en abril. Si p
 
 ### 4. Considerar automatización como gasto fijo más bajo que personal adicional
 
-Un agente de voz automatizado que contesta llamadas 24/7 cuesta $328/mes. Un recepcionista bilingüe de medio tiempo en Florida cuesta más de $1,500/mes. Cuando llega mayo y tienes que elegir qué gastos cortar, el sistema automatizado sigue funcionando — sin drama, sin indemnización, sin culpa.
+Un Asistente digital que se encarga de contestar y agendar cuesta $200/mes. Un recepcionista bilingüe de medio tiempo en Florida cuesta más de $1,500/mes. Cuando llega mayo y tienes que elegir qué gastos cortar, el sistema automatizado sigue funcionando — sin drama, sin indemnización, sin culpa.
 
 La automatización no solo te ayuda en temporada alta. Te salva en temporada baja.
 

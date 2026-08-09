@@ -95,7 +95,7 @@ El modulo de WhatsApp de Automate IT conecta tu numero de negocio a un agente de
 - Captura reprogramaciones sin que nadie de tu equipo intervenga
 - Registra cada interaccion en tu CRM
 
-El costo del modulo es $99 al mes sumado al plan base. Para negocios de servicios de salud, el plan Professional ($179/mes) incluye infraestructura HIPAA-compliant.
+Esto no se compra como un modulo suelto: es parte de lo que hace un Asistente, que cuesta $200 al mes mas la incorporacion. Hoy no atendemos negocios que manejen informacion de pacientes.
 
 El setup tarda 2 semanas. No requieres cambiar tu numero de telefono ni aprender a programar nada.
 

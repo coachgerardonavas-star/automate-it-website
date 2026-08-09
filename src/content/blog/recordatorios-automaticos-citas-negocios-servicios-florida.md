@@ -63,7 +63,7 @@ Con recordatorios automaticos que reducen la tasa al 5%:
 - Ingreso no capturado por semana: $160
 - Diferencia anual recuperada: **$24,960**
 
-Un sistema de recordatorios automaticos para un negocio de servicios cuesta entre $29 y $99 al mes, segun el canal y el volumen. El ROI en este calculo es de 20x en el primer ano.
+Los recordatorios no se venden sueltos: son una de las cosas que hace un Asistente, que cuesta $200 al mes mas la incorporacion. Frente a los $24,960 de arriba, el sistema se paga con el primer mes recuperado.
 
 Ese no es un numero de marketing. Es aritmetica.
 

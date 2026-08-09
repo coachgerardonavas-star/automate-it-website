@@ -62,11 +62,11 @@ No todas las funciones en tu negocio requieren una persona a tiempo completo. La
 
 Si la respuesta es sí, esa función puede migrar fuera de la nómina. No porque la función no importe, sino porque hay sistemas que la ejecutan a una fracción del costo.
 
-El costo de un sistema de comunicación automatizada — recepción de llamadas 24/7, WhatsApp, agenda en tiempo real — está en el rango de **$198 a $446 al mes**, dependiendo de los canales que necesitas. Eso es entre $2,376 y $5,352 al año.
+Incorporar un miembro digital que se encargue de esa función cuesta entre **$200 y $600 al mes**, según cuánto tenga que decidir y coordinar por su cuenta. Eso es entre $2,400 y $7,200 al año.
 
 El costo real de un empleado a $15/hora está entre $39,000 y $43,700 al año.
 
-El diferencial, incluso en el escenario más caro del sistema, es de más de **$33,000 al año**. Sin ausentismo. Sin rotación. Sin capacitación cada vez que alguien renuncia.
+El diferencial, incluso en el escenario más caro del sistema, es de más de **$31,000 al año**. Sin ausentismo. Sin rotación. Sin capacitación cada vez que alguien renuncia.
 
 Eso no es una proyección optimista. Es el cálculo con los números que ya tienes en la mano.
 
