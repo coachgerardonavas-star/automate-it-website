@@ -109,7 +109,10 @@ const websiteSchema = {
       )
     }
     <meta name="theme-color" content="#FFFFFF" />
-    <link rel="canonical" href={canonicalUrl} />
+    {/* Una página noindex no participa en la indexación, así que no tiene
+    canonical que reclamar: emitirlo manda dos señales que se contradicen. og:url
+    sí se mantiene abajo, porque las redes lo usan al compartir el enlace. */}
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:type" content="website" />
