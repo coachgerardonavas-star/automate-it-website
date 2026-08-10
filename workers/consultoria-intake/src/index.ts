@@ -383,7 +383,13 @@ async function handleFirma(
     return json({ ok: true, fecha: meta.fecha }, 200, cors);
   } catch (e) {
     console.error("[consultoria-intake] firma fallida", e);
-    console.error("[consultoria-intake] payload firma", JSON.stringify(p), JSON.stringify(meta));
+    // La firma es evidencia legal, así que perderla es caro — pero volcarla
+    // entera al log metía nombre, email e IP en Cloudflare, que no es un
+    // almacén con control de acceso. Se conserva lo mínimo para reconstruirla.
+    console.error(
+      "[consultoria-intake] firma recuperable",
+      JSON.stringify({ email: p.email, version: p.version, fecha: meta.fecha })
+    );
     return json({ error: "No pudimos registrar tu firma" }, 502, cors);
   }
 }
@@ -420,6 +426,15 @@ export default {
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: cors });
     }
+
+    // Sonda para `health-check`. Este worker recibe la entrevista post-venta y
+    // la firma del acuerdo: si se cae, una persona que ya pagó llena un
+    // formulario largo y lo pierde, o una firma legal no queda registrada.
+    // Iba sin vigilancia hasta hoy.
+    if (new URL(request.url).pathname.replace(/\/+$/, "") === "/health") {
+      return json({ ok: true, service: "consultoria-intake" }, 200, cors);
+    }
+
     if (request.method !== "POST") {
       return json({ error: "Method not allowed" }, 405, cors);
     }
@@ -496,7 +511,16 @@ export default {
       // The person already "paid" and filled a long form — never lose the
       // answers to a HubSpot hiccup. Log them so they are recoverable.
       console.error("[consultoria-intake] failed", e);
-      console.error("[consultoria-intake] payload", JSON.stringify(p));
+      // Mismo cambio que en la firma y que en `diagnostico-intake`: la
+      // recuperabilidad se mantiene con la llave y el mapa de campos llenos,
+      // sin volcar las respuestas de la entrevista a los logs.
+      console.error(
+        "[consultoria-intake] recuperable",
+        JSON.stringify({
+          email: p.email,
+          campos: Object.keys(p).filter((k) => (p as Record<string, unknown>)[k]),
+        })
+      );
       return json({ error: "No pudimos guardar tus respuestas" }, 502, cors);
     }
   },

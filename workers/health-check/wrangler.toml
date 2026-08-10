@@ -22,3 +22,19 @@ service = "bit-chat-3126"
 [[services]]
 binding = "DIAGNOSTICO_INTAKE"
 service = "diagnostico-intake"
+
+[[services]]
+binding = "STRIPE_WEBHOOK"
+service = "stripe-webhook"
+
+[[services]]
+binding = "CONSULTORIA_INTAKE"
+service = "consultoria-intake"
+
+[[services]]
+binding = "WHATSAPP_WEBHOOK"
+service = "whatsapp-webhook"
+
+[[services]]
+binding = "VERO_TELEGRAM"
+service = "vero-telegram"

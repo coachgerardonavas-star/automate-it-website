@@ -122,12 +122,21 @@ async function hubspot(
 }
 
 /**
+ * Un lead que marca HIPAA no es basura: es un lead que entra por otra puerta.
+ * Se le trata como cualquier otro para efectos de temperatura y se le rutea a
+ * conversación manual. Lo que NO se hace es guardarle el texto libre — ver
+ * `phiRisk`.
+ */
+function isPhiRisk(p: Payload): boolean {
+  return p.hipaa === "yes";
+}
+
+/**
  * Lead temperature. Deliberately conservative: urgency alone does not make a
- * lead hot, because "para ayer" is free to say. A disqualified team size or a
- * HIPAA yes overrides everything.
+ * lead hot, because "para ayer" is free to say. A disqualified team size
+ * overrides everything.
  */
 function leadStatus(p: Payload): string {
-  if (p.hipaa === "yes") return "UNQUALIFIED";
   if (p.team_size === "30_plus") return "UNQUALIFIED";
   if (p.urgency === "now" && p.pain) return "CALIENTE";
   if (p.urgency === "month") return "TIBIO";
@@ -154,7 +163,12 @@ async function upsertContact(env: Env, p: Payload): Promise<string> {
   if (p.business_type) props.tipo_de_negocio = p.business_type;
   if (p.urgency && URGENCIA_HS[p.urgency]) props.urgencia = URGENCIA_HS[p.urgency];
 
-  if (p.problem) props.descripcion = p.problem.slice(0, 65000);
+  // Ni HubSpot ni Telegram tienen BAA firmado hoy. Mientras eso siga así, el
+  // texto libre de un negocio de salud no entra: es el único campo donde puede
+  // aparecer un dato de paciente, y una vez escrito ya no se "des-guarda".
+  // El lead no se pierde — se atiende por conversación, que es justo lo que la
+  // respuesta le dice a la persona.
+  if (p.problem && !isPhiRisk(p)) props.descripcion = p.problem.slice(0, 65000);
   if (p.lang) props.idioma_conversacion = p.lang === "en" ? "Inglés" : "Español";
 
   const out = await hubspot(env, "/crm/v3/objects/contacts/batch/upsert", "POST", {
@@ -176,8 +190,8 @@ function buildNote(p: Payload): string {
   const member = p.pain ? MEMBER_BY_PAIN[p.pain] : "sin determinar";
   const lines = [
     `<b>Miembro sugerido: ${member}</b>`,
-    p.hipaa === "yes"
-      ? "🔴 <b>FUERA DE ALCANCE — maneja datos de pacientes (HIPAA).</b> No cotizar."
+    isPhiRisk(p)
+      ? "🟡 <b>MANEJA DATOS DE PACIENTES (HIPAA).</b> Sí se cotiza, pero primero hay que firmar BAA con cada herramienta que toque los datos. Contactar por conversación, no por el flujo normal."
       : "",
     p.team_size === "30_plus"
       ? "🔴 <b>FUERA DE ALCANCE — más de 30 empleados.</b>"
@@ -190,7 +204,11 @@ function buildNote(p: Payload): string {
     `Teléfono: ${p.phone || "—"}`,
     "",
     "<b>Lo que dijo, textual:</b>",
-    p.problem || "(sin respuesta)",
+    // Mismo motivo que en `upsertContact`: sin BAA, el texto libre de un
+    // negocio de salud no se guarda en HubSpot.
+    isPhiRisk(p)
+      ? "(no se guardó — el negocio maneja datos de pacientes y no hay BAA firmado con HubSpot. Pedírselo en la llamada.)"
+      : p.problem || "(sin respuesta)",
   ];
   return lines.filter((l) => l !== "").join("<br>");
 }
@@ -219,18 +237,23 @@ async function createNote(env: Env, contactId: string, p: Payload): Promise<void
 function notifyTelegram(env: Env, p: Payload): void {
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
   const member = p.pain ? MEMBER_BY_PAIN[p.pain] : "sin determinar";
-  const flag =
-    p.hipaa === "yes"
-      ? "\n🔴 HIPAA — fuera de alcance, no cotizar"
-      : p.team_size === "30_plus"
-        ? "\n🔴 Más de 30 empleados — fuera de alcance"
-        : "";
+  const flag = isPhiRisk(p)
+    ? "\n🟡 HIPAA — sí se cotiza, pero primero BAA. Llamar."
+    : p.team_size === "30_plus"
+      ? "\n🔴 Más de 30 empleados — fuera de alcance"
+      : "";
+  // Telegram no tiene BAA y es el canal más fácil de filtrar de todo el stack:
+  // el texto libre de un negocio de salud no sale por aquí. El resto del lead
+  // sí, porque son datos del dueño del negocio, no de un paciente.
+  const body = isPhiRisk(p)
+    ? "(texto libre omitido — maneja datos de pacientes)"
+    : (p.problem || "").slice(0, 400);
   const text =
     `🩺 <b>Diagnóstico nuevo</b>\n` +
     `${p.name || "sin nombre"} · ${p.email}\n` +
     `<b>${member}</b> · ${p.team_size ? TEAM_LABEL[p.team_size] ?? p.team_size : "—"} · ${p.urgency ? URGENCIA_HS[p.urgency] ?? p.urgency : "—"}` +
     flag +
-    `\n\n${(p.problem || "").slice(0, 400)}`;
+    `\n\n${body}`;
 
   void fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
     method: "POST",
@@ -308,22 +331,34 @@ export default {
       await createNote(env, contactId, p);
       notifyTelegram(env, p);
 
-      // The person still gets a real answer, not a generic thanks. If they are
-      // out of scope we say so here instead of letting them wait for a call
-      // that is never coming — that is cheaper for them and for us.
+      // The person still gets a real answer, not a generic thanks. `outOfScope`
+      // dispara el mensaje a medida en el formulario; para HIPAA ese mensaje ya
+      // no es un rechazo sino "tu caso empieza con una conversación". Los de
+      // tamaño sí siguen siendo un no.
       return json(
         {
           ok: true,
-          outOfScope: p.hipaa === "yes" || p.team_size === "30_plus" ? true : false,
-          reason:
-            p.hipaa === "yes" ? "hipaa" : p.team_size === "30_plus" ? "size" : null,
+          outOfScope: isPhiRisk(p) || p.team_size === "30_plus" ? true : false,
+          reason: isPhiRisk(p) ? "hipaa" : p.team_size === "30_plus" ? "size" : null,
         },
         200,
         cors
       );
     } catch (e) {
       console.error("[diagnostico-intake] failed", e);
-      console.error("[diagnostico-intake] payload", JSON.stringify(p));
+      // Antes esto volcaba el payload entero. El motivo era bueno —poder
+      // recuperar un lead si HubSpot falla— pero metía nombre, teléfono,
+      // dirección y texto libre en los logs de Cloudflare, que no son un
+      // almacén con control de acceso. Se conserva la recuperabilidad con la
+      // llave mínima (el email) y el mapa de qué venía lleno; el contenido, no.
+      console.error(
+        "[diagnostico-intake] recuperable",
+        JSON.stringify({
+          email: p.email,
+          campos: Object.keys(p).filter((k) => (p as Record<string, unknown>)[k]),
+          phiRisk: isPhiRisk(p),
+        })
+      );
       return json({ error: "No pudimos guardar tus respuestas" }, 502, cors);
     }
   },

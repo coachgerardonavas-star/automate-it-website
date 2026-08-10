@@ -38,6 +38,51 @@ const SERVICES = [
     action:
       "URGENTE (Tier 0) — revisar logs del worker, el secreto HUBSPOT_TOKEN y el status de HubSpot.",
   },
+  // Añadidos el 10-ago-2026. Los cuatro estaban desplegados y sin vigilancia:
+  // se vigilaban 3 de 8 workers, y los que faltaban eran justamente los que
+  // fallan en silencio — nadie ve un pago que no se procesó ni una firma que
+  // no quedó registrada.
+  {
+    key: "stripe-webhook",
+    name: "stripe-webhook (Worker de pagos)",
+    binding: "STRIPE_WEBHOOK",
+    path: "/health",
+    impact:
+      "Pagos de Stripe sin procesar — el cliente paga y el sistema no se entera. No hay error visible en ningún lado.",
+    fallback: "inactivo (el cobro sí ocurre en Stripe; lo que falta es todo lo posterior).",
+    action:
+      "URGENTE — revisar logs del worker y el secreto STRIPE_WEBHOOK_SECRET. Reenviar los eventos fallidos desde el dashboard de Stripe.",
+  },
+  {
+    key: "consultoria-intake",
+    name: "consultoria-intake (Entrevista y firma del acuerdo)",
+    binding: "CONSULTORIA_INTAKE",
+    path: "/health",
+    impact:
+      "Entrevista post-venta y firma del acuerdo caídas — alguien que ya pagó llena un formulario largo y lo pierde, o una firma legal no queda registrada.",
+    fallback: "inactivo (no hay vía alternativa).",
+    action: "Revisar logs del worker y el secreto HUBSPOT_TOKEN.",
+  },
+  {
+    key: "whatsapp-webhook",
+    name: "whatsapp-webhook",
+    binding: "WHATSAPP_WEBHOOK",
+    path: "/health",
+    impact:
+      "Mensajes de WhatsApp sin llegar a Make — los clientes escriben y nadie responde.",
+    fallback: "inactivo.",
+    action: "Revisar logs del worker y el estado del escenario de Make.",
+  },
+  {
+    key: "vero-telegram",
+    name: "vero-telegram",
+    binding: "VERO_TELEGRAM",
+    // Este ya respondía 200 a cualquier GET, así que no necesitó sonda propia.
+    path: "/",
+    impact: "El agente de Telegram deja de responder.",
+    fallback: "activo (no bloquea ventas; es herramienta interna).",
+    action: "Revisar logs del worker y el estado de Anthropic.",
+  },
 ];
 
 const TELEGRAM_CHAT_ID = "8348522203";

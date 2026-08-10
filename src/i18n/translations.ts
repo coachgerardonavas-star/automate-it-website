@@ -397,7 +397,7 @@ export const translations = {
         },
         {
           q: "¿Qué pasa si el agente falla o da información incorrecta?",
-          a: "Monitoreamos el sistema en tiempo real. Si el agente comete un error, lo corregimos en 24 horas hábiles. Con soporte prioritario, el tiempo de respuesta es de 4 horas. Siempre hay un humano detrás del sistema.",
+          a: "El sistema se revisa solo cada 5 minutos y nos llega una alerta si algo deja de responder. Si el agente comete un error, lo corregimos en 24 horas hábiles. Detrás del sistema siempre hay una persona, no un ticket automático.",
         },
         {
           q: "¿Cuánto tiempo tarda el setup?",
@@ -1058,7 +1058,7 @@ export const translations = {
         },
         {
           q: "What happens if the agent fails or gives wrong information?",
-          a: "We monitor the system in real time. If the agent makes a mistake, we fix it within 24 business hours. Priority support clients get a 4-hour response time. There is always a human behind the system.",
+          a: "The system checks itself every 5 minutes and alerts us if anything stops responding. If the agent makes a mistake, we fix it within 24 business hours. There's always a person behind the system, not an automated ticket.",
         },
         {
           q: "How long does setup take?",

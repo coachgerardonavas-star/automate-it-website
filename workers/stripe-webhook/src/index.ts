@@ -222,6 +222,16 @@ export default {
     env: Env,
     ctx: ExecutionContext
   ): Promise<Response> {
+    // Sonda para `health-check`. Va antes del filtro de método porque si este
+    // worker se cae, un pago de Stripe se procesa a medias y no hay error
+    // visible en ninguna parte: el cliente pagó y el sistema no se entera.
+    if (new URL(request.url).pathname.replace(/\/+$/, "") === "/health") {
+      return new Response(JSON.stringify({ ok: true, service: "stripe-webhook" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     if (request.method !== "POST") {
       return new Response("Method not allowed", { status: 405 });
     }

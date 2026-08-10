@@ -567,7 +567,12 @@ export default {
             urgencia: classification.urgencia ?? null,
             idioma_conversacion: classification.idioma_conversacion ?? null,
             lead_score: "CALIENTE",
-            conversation_history: transcript,
+            // Antes aquí viajaba `conversation_history: transcript` — la
+            // conversación entera del visitante. Eso la dejaba archivada en el
+            // historial de ejecuciones de Make y en HubSpot, mientras el sitio
+            // promete "Conversaciones privadas" a metros del widget.
+            // `descripcion` ya lleva lo que el clasificador consideró relevante,
+            // que es lo que se necesita para atender al lead.
           }),
         });
         if (webhookRes.ok) {

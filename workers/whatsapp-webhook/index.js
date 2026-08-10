@@ -4,6 +4,16 @@ export default {
   async fetch(request, env, ctx) {
     const VERIFY_TOKEN = env.META_VERIFY_TOKEN;
 
+    // Sonda para `health-check`. Va antes de la verificación de Meta porque
+    // esa devuelve 403 a cualquier GET que no traiga los parámetros de
+    // suscripción, y un 403 es indistinguible de "el worker está caído".
+    if (new URL(request.url).pathname.replace(/\/+$/, "") === "/health") {
+      return new Response(JSON.stringify({ ok: true, service: "whatsapp-webhook" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     if (request.method === "GET") {
       const url = new URL(request.url);
       const mode = url.searchParams.get("hub.mode");
