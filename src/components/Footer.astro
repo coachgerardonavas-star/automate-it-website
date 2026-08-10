@@ -81,11 +81,20 @@ const copyright = t.copyright.replace("{year}", String(year));
           {t.contactHeading}
         </h3>
         <a
+          href={`tel:${t.phoneHref}`}
+          class="block text-sm text-white/75 hover:text-brand-cyan transition-colors mb-2.5"
+        >
+          {t.phonePretty}
+        </a>
+        <a
           href="mailto:automateit@yourbizupgraded.com"
-          class="text-sm text-white/75 hover:text-brand-cyan transition-colors break-all"
+          class="block text-sm text-white/75 hover:text-brand-cyan transition-colors break-all mb-3"
         >
           automateit@<br class="hidden md:inline" />yourbizupgraded.com
         </a>
+        <p class="text-xs text-white/45 leading-relaxed">
+          {t.location}
+        </p>
       </div>
     </div>
 

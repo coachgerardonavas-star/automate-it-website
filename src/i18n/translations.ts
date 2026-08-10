@@ -48,8 +48,8 @@ export const translations = {
       trustBadges: [
         { icon: "🔒", text: "Tus datos no se venden" },
         { icon: "🤐", text: "Conversaciones privadas" },
-        { icon: "🛡️", text: "HIPAA-compliant disponible" },
-        { icon: "⚙️", text: "Sin acceso a tu información personal" },
+        { icon: "🛡️", text: "Tus herramientas, tus cuentas" },
+        { icon: "⚙️", text: "Tú decides qué conectamos" },
       ],
     },
 
@@ -380,8 +380,8 @@ export const translations = {
           a: "Los primeros 90 días no son cancelables. Del día 91 en adelante, cancelas con 30 días de aviso escrito sin penalidad.",
         },
         {
-          q: "¿Qué es HIPAA y por qué importa?",
-          a: "HIPAA es la ley federal de EE.UU. que protege la información de salud de los pacientes. Si tu negocio maneja información de pacientes o datos de salud regulados, tenemos una configuración HIPAA-compliant disponible — con Retell AI, Cal.com y Twilio operando bajo BAA firmado. No aparece en la página porque aplica a pocos negocios: escríbenos y la cotizamos. Automate IT no custodia información de pacientes (PHI) en ningún caso.",
+          q: "¿Trabajan con consultorios o negocios que manejan información de pacientes?",
+          a: "No es lo que vendemos por defecto, pero sí se puede. Un negocio que maneja información de salud necesita acuerdos firmados (BAA) con cada proveedor que toque esos datos, así que el sistema se monta sobre herramientas que los firmen y los firmamos antes de tocar un solo dato de pacientes. Eso cambia qué plataformas usamos, no el precio. Si es tu caso, escríbenos y lo evaluamos contigo antes de proponerte nada.",
         },
         {
           q: "¿Puedo subir de nivel después?",
@@ -389,7 +389,7 @@ export const translations = {
         },
         {
           q: "¿El sistema de IA escucha o guarda mis conversaciones con clientes?",
-          a: "No. Automate IT no almacena ni tiene acceso al contenido de las conversaciones. Los datos de llamadas y mensajes quedan en los sistemas de los proveedores (Retell AI, Twilio) bajo sus propios términos de privacidad. Para clientes del sector salud con configuración HIPAA, todos los proveedores operan bajo BAA firmado y no pueden usar datos de pacientes para entrenar modelos de IA.",
+          a: "No. Automate IT no almacena ni tiene acceso al contenido de las conversaciones. Los datos de llamadas y mensajes quedan en los sistemas de los proveedores (Retell AI, Twilio) bajo sus propios términos de privacidad, y las cuentas son tuyas.",
         },
         {
           q: "¿Puedo usar este servicio si soy abogado o manejo información confidencial de clientes?",
@@ -572,7 +572,7 @@ export const translations = {
         "Historias clínicas, datos de salud o cualquier información protegida bajo HIPAA.",
       outOfScopeHeading: "Gracias por tomarte el tiempo.",
       outOfScopeHipaa:
-        "Ahora mismo no estamos tomando negocios que manejen información de pacientes — es una decisión nuestra, no algo tuyo. Guardamos tus datos y si eso cambia te avisamos. Si mientras tanto quieres una recomendación sobre por dónde empezar por tu cuenta, escríbenos y te la damos sin compromiso.",
+        "Como manejas información de pacientes, tu caso no sigue el camino normal: antes de proponerte nada tenemos que dejar firmados los acuerdos (BAA) con cada herramienta que vaya a tocar esos datos. Se puede hacer y lo hacemos, pero empieza con una conversación, no con un diagnóstico automático. Te escribimos nosotros para agendarla. No incluimos aquí lo que nos contaste sobre tu operación — eso lo hablamos por un canal apropiado.",
       outOfScopeSize:
         "Con más de 30 personas, lo que tu operación necesita es de otro tamaño y no es lo que hacemos bien. Guardamos tus datos y te escribimos si podemos recomendarte a alguien que sí.",
       submit: "Solicitar diagnóstico",
@@ -600,11 +600,17 @@ export const translations = {
         { label: "Para quién", href: "/#para-quien" },
       ],
       empresaLinks: [
+        { label: "Quiénes somos", href: "/quienes-somos" },
         { label: "Diagnóstico", href: "/diagnostico" },
         { label: "Blog", href: "/blog" },
         { label: "Privacidad", href: "/privacy-policy" },
         { label: "Términos", href: "/terms" },
       ],
+      // NAP visible: mismo nombre, ciudad y teléfono que el schema y que el
+      // perfil de Google. Si cambia uno, tienen que cambiar los tres.
+      phoneHref: "+14072145114",
+      phonePretty: "(407) 214-5114",
+      location: "Orlando, Florida · Atendemos en todo Estados Unidos",
       copyright: "© {year} Automate IT LLC. Todos los derechos reservados.",
       switcherLabel: "Idioma",
       langEs: "ES",
@@ -708,8 +714,8 @@ export const translations = {
       trustBadges: [
         { icon: "🔒", text: "Your data is never sold" },
         { icon: "🤐", text: "Conversations stay private" },
-        { icon: "🛡️", text: "HIPAA-compliant available" },
-        { icon: "⚙️", text: "No access to your personal information" },
+        { icon: "🛡️", text: "Your tools, your accounts" },
+        { icon: "⚙️", text: "You decide what we connect" },
       ],
     },
 
@@ -1035,8 +1041,8 @@ export const translations = {
           a: "The first 90 days are non-cancellable. From day 91 onward, you cancel with 30 days written notice — no penalty.",
         },
         {
-          q: "What is HIPAA and why does it matter?",
-          a: "HIPAA is the U.S. federal law protecting patient health information. If your business handles patient data or regulated health information, we have a HIPAA-compliant setup available — with Retell AI, Cal.com, and Twilio operating under signed BAA. It isn't listed on the page because it applies to few businesses: write to us and we'll quote it. Automate IT never holds patient information (PHI).",
+          q: "Do you work with medical practices or businesses that handle patient information?",
+          a: "It isn't what we sell by default, but it can be done. A business handling health information needs signed agreements (BAA) with every provider that touches that data, so the system gets built on tools that will sign one — and we sign before touching a single patient record. That changes which platforms we use, not the price. If that's your case, write to us and we'll work through it with you before proposing anything.",
         },
         {
           q: "Can I move up a level later?",
@@ -1044,7 +1050,7 @@ export const translations = {
         },
         {
           q: "Does the AI system listen to or store my conversations with clients?",
-          a: "No. Automate IT doesn't store or have access to the content of conversations. Call and message data stays in the providers' systems (Retell AI, Twilio) under their own privacy terms. For healthcare clients on the HIPAA setup, all providers operate under signed BAA and cannot use patient data to train AI models.",
+          a: "No. Automate IT doesn't store or have access to the content of conversations. Call and message data stays in the providers' systems (Retell AI, Twilio) under their own privacy terms, and the accounts are yours.",
         },
         {
           q: "Can I use this service if I'm a lawyer or handle confidential client information?",
@@ -1224,7 +1230,7 @@ export const translations = {
         "Medical records, health data, or anything protected under HIPAA.",
       outOfScopeHeading: "Thanks for taking the time.",
       outOfScopeHipaa:
-        "We're not currently taking on businesses that handle patient information — that's our call, not something about you. We'll keep your details and let you know if that changes. In the meantime, if you'd like a recommendation on where to start on your own, just write us.",
+        "Because you handle patient information, your case doesn't follow the normal path: before we propose anything, we need signed agreements (BAA) in place with every tool that will touch that data. It can be done and we do it, but it starts with a conversation, not an automated diagnostic. We'll reach out to schedule it. We didn't keep what you told us about your operation here — we'll cover that over an appropriate channel.",
       outOfScopeSize:
         "With more than 30 people, what your operation needs is a different size of job and not something we do well. We'll keep your details and reach out if we can point you to someone who does.",
       submit: "Request diagnostic",
@@ -1252,11 +1258,15 @@ export const translations = {
         { label: "Who it's for", href: "/en/#para-quien" },
       ],
       empresaLinks: [
+        { label: "About us", href: "/en/about" },
         { label: "Diagnostic", href: "/en/diagnostic" },
         { label: "Blog", href: "/en/blog" },
         { label: "Privacy", href: "/en/privacy-policy" },
         { label: "Terms", href: "/en/terms" },
       ],
+      phoneHref: "+14072145114",
+      phonePretty: "(407) 214-5114",
+      location: "Orlando, Florida · Serving the entire United States",
       copyright: "© {year} Automate IT LLC. All rights reserved.",
       switcherLabel: "Language",
       langEs: "ES",

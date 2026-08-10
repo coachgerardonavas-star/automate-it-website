@@ -37,24 +37,47 @@ const canonicalUrl = Astro.url.href;
 // Open Graph sobre fondos impredecibles, así que aquí no sirve transparencia.
 const ogImageUrl = "https://yourbizupgraded.com/assets/logo-og.png";
 
+// ProfessionalService es subtipo de LocalBusiness: es lo que permite declarar
+// NAP (nombre, dirección, teléfono) y que Google entienda que hay una empresa
+// real detrás del dominio. Sin esto, "Automate IT" y yourbizupgraded.com son
+// dos entidades sin relación para un buscador.
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "ProfessionalService",
+  "@id": "https://yourbizupgraded.com/#organization",
   name: "Automate IT",
-  alternateName: "Automate IT LLC",
+  legalName: "Automate IT LLC",
+  alternateName: ["Automate IT LLC", "Your Biz Upgraded"],
   url: "https://yourbizupgraded.com",
   logo: ogImageUrl,
+  image: ogImageUrl,
   description:
-    "Recepcionista IA 24/7 para pequeños negocios. Agentes de voz, chatbots WhatsApp y CRM automatizado. HIPAA-compliant para sector salud.",
+    "Miembros digitales para pequeños negocios. Agentes de voz, chatbots de WhatsApp y CRM automatizado, conectados a las herramientas que ya usas.",
   email: "automateit@yourbizupgraded.com",
-  areaServed: ["Florida", "United States"],
+  telephone: "+1-407-214-5114",
+  // Negocio de área de servicio: se declara la ciudad sede sin dirección de
+  // calle, que es el patrón que Google espera cuando no hay local al público.
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Orlando",
+    addressRegion: "FL",
+    addressCountry: "US",
+  },
+  areaServed: [
+    { "@type": "City", name: "Orlando" },
+    { "@type": "State", name: "Florida" },
+    { "@type": "Country", name: "United States" },
+  ],
   serviceType: [
     "AI Voice Agent",
     "WhatsApp Chatbot",
     "CRM Automation",
-    "HIPAA Compliant AI Receptionist",
+    "Business Process Automation",
   ],
-  sameAs: [],
+  // sameAs es el campo por el que un buscador confirma que estos perfiles y
+  // este dominio son la misma entidad. Agregar aquí LinkedIn y el perfil de
+  // Google Business en cuanto existan.
+  sameAs: ["https://www.instagram.com/automateit.usa/"],
 };
 
 const websiteSchema = {

@@ -32,12 +32,7 @@ const blogPostingSchema = {
     name: post.data.author,
   },
   publisher: {
-    "@type": "Organization",
-    name: "Automate IT",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://yourbizupgraded.com/assets/logo-og.png",
-    },
+    "@id": "https://yourbizupgraded.com/#organization",
   },
   keywords: post.data.tags.join(", "),
   mainEntityOfPage: {

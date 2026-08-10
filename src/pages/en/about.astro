@@ -1,0 +1,189 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+
+const lang = "en" as const;
+
+// NAP (name, address, phone). Must match the BaseLayout schema, the footer and
+// the Google Business Profile character for character. Change one, change all.
+const nap = {
+  legalName: "Automate IT LLC",
+  locality: "Orlando, Florida, United States",
+  phoneHref: "+14072145114",
+  phonePretty: "(407) 214-5114",
+  email: "automateit@yourbizupgraded.com",
+  sunbizDoc: "L26000247785",
+};
+
+const howWeWork = [
+  {
+    heading: "One system, not five disconnected apps",
+    body: "Phone, WhatsApp and website chat working together, wired into your calendar and CRM. Information stops being carried by hand from one place to another.",
+  },
+  {
+    heading: "We install it for you",
+    body: "We don't hand you a tool and wish you luck. We connect what you already pay for, configure the processes and train your team. You flip the switch.",
+  },
+  {
+    heading: "In English and Spanish",
+    body: "Not generic translation. We understand how a Hispanic business owner actually operates in the United States: the language, the customers, and the reality of running the business while the phone rings.",
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title="About us — Automate IT LLC · Orlando, Florida"
+  description="Automate IT LLC is an AI automation company registered in Florida. We install reception and follow-up systems for small service businesses."
+>
+  <Nav lang={lang} />
+  <main>
+    <section class="bg-[#050A18] text-white py-16 sm:py-24">
+      <div class="max-w-3xl mx-auto px-5 lg:px-8">
+        <a
+          href="/en/"
+          class="inline-flex items-center gap-2 text-xs sm:text-sm text-white/55 hover:text-brand-cyan transition-colors mb-10"
+        >
+          ← Back to home
+        </a>
+
+        <header class="mb-12">
+          <p
+            class="text-[11px] tracking-[0.22em] uppercase text-brand-cyan font-semibold mb-4"
+          >
+            About us
+          </p>
+          <h1
+            class="font-heading text-3xl sm:text-5xl leading-tight mb-5 text-white"
+          >
+            A real company, with a name and a phone number.
+          </h1>
+          <p class="text-base sm:text-lg text-white/75 leading-relaxed">
+            {nap.legalName} is a limited liability company registered in the state
+            of Florida. We help small service business owners stop losing
+            customers they simply couldn't get to in time.
+          </p>
+        </header>
+
+        <section class="mb-14">
+          <h2 class="font-heading text-2xl sm:text-3xl mb-4 text-white">
+            The problem we solve
+          </h2>
+          <p class="text-sm sm:text-base text-white/80 leading-relaxed mb-4">
+            When the owner is also the one doing the work, the phone rings while
+            their hands are full. The WhatsApp message arrives mid-appointment.
+            The quote that ended in "let me think about it" never gets picked
+            back up — not out of carelessness, but because follow-up depends on
+            somebody remembering.
+          </p>
+          <p class="text-sm sm:text-base text-white/80 leading-relaxed">
+            It isn't a problem of effort or quality. It's a problem of capacity:
+            one person cannot run the business and answer it at the same time.
+            That's what we automate.
+          </p>
+        </section>
+
+        <section class="mb-14">
+          <h2 class="font-heading text-2xl sm:text-3xl mb-6 text-white">
+            How we work
+          </h2>
+          <div class="space-y-7">
+            {
+              howWeWork.map((item) => (
+                <div>
+                  <h3 class="font-heading text-lg sm:text-xl mb-2 text-white">
+                    {item.heading}
+                  </h3>
+                  <p class="text-sm sm:text-base text-white/75 leading-relaxed">
+                    {item.body}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class="mb-14">
+          <h2 class="font-heading text-2xl sm:text-3xl mb-4 text-white">
+            Where we are
+          </h2>
+          <p class="text-sm sm:text-base text-white/80 leading-relaxed">
+            We're based in Orlando, Florida. Installation is fully remote, so we
+            serve businesses in any state — Florida is where we started, not a
+            requirement to become a client.
+          </p>
+        </section>
+
+        <section
+          class="rounded-xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 mb-12"
+        >
+          <h2 class="font-heading text-xl sm:text-2xl mb-5 text-white">
+            Company details
+          </h2>
+          <dl class="space-y-4 text-sm sm:text-base">
+            <div class="sm:flex sm:gap-4">
+              <dt class="text-white/50 sm:w-44 shrink-0">Legal name</dt>
+              <dd class="text-white/90">{nap.legalName}</dd>
+            </div>
+            <div class="sm:flex sm:gap-4">
+              <dt class="text-white/50 sm:w-44 shrink-0">State registration</dt>
+              <dd class="text-white/90">
+                Florida · Document {nap.sunbizDoc}
+                <span class="block text-xs text-white/45 mt-1">
+                  Verifiable in the public records of the Florida Division of
+                  Corporations (sunbiz.org).
+                </span>
+              </dd>
+            </div>
+            <div class="sm:flex sm:gap-4">
+              <dt class="text-white/50 sm:w-44 shrink-0">Location</dt>
+              <dd class="text-white/90">{nap.locality}</dd>
+            </div>
+            <div class="sm:flex sm:gap-4">
+              <dt class="text-white/50 sm:w-44 shrink-0">Phone</dt>
+              <dd>
+                <a
+                  href={`tel:${nap.phoneHref}`}
+                  class="text-white/90 hover:text-brand-cyan transition-colors"
+                >
+                  {nap.phonePretty}
+                </a>
+              </dd>
+            </div>
+            <div class="sm:flex sm:gap-4">
+              <dt class="text-white/50 sm:w-44 shrink-0">Email</dt>
+              <dd>
+                <a
+                  href={`mailto:${nap.email}`}
+                  class="text-white/90 hover:text-brand-cyan transition-colors break-all"
+                >
+                  {nap.email}
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <div
+          class="rounded-xl border border-brand-cyan/25 bg-brand-cyan/[0.06] p-6 sm:p-8"
+        >
+          <h2 class="font-heading text-xl sm:text-2xl mb-3 text-white">
+            Want to see where your time is going?
+          </h2>
+          <p class="text-sm sm:text-base text-white/75 leading-relaxed mb-6">
+            The diagnostic is free and takes five minutes. You walk away with a
+            clear plan of what to fix first, whether you do it with us or not.
+          </p>
+          <a
+            href="/en/diagnostic"
+            class="inline-flex items-center justify-center rounded-lg bg-brand-cyan px-6 py-3 font-semibold text-[#050A18] hover:bg-white transition-colors"
+          >
+            Request a free diagnostic
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

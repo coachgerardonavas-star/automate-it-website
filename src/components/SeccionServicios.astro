@@ -28,10 +28,10 @@ const serviceNames =
         "Manager — Digital team member",
       ];
 
+// Referencia por @id al nodo declarado en BaseLayout, para que estos servicios
+// cuelguen de la misma entidad y no creen una organización duplicada.
 const orgRef = {
-  "@type": "Organization",
-  name: "Automate IT",
-  url: "https://yourbizupgraded.com",
+  "@id": "https://yourbizupgraded.com/#organization",
 };
 
 const serviceSchemas = t.plans.map((plan, i) => {
@@ -89,9 +89,10 @@ const serviceSchemas = t.plans.map((plan, i) => {
 
     <div class="tilt-wrapper grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mb-16 sm:mb-20">
       {
-        /* Los planes con `hidden: true` (hoy el Professional/HIPAA) no se
-           muestran: se venden solo cuando el prospecto los pide. La ficha
-           completa sigue en translations.ts, no se borró. */
+        /* Los planes con `hidden: true` no se muestran: se venden solo cuando
+           el prospecto los pide. La ficha completa sigue en translations.ts,
+           no se borró. Nota 9-ago-2026: el antiguo Professional/HIPAA ya no
+           existe — el catálogo son Asistente, Estratega y Manager. */
         t.plans.filter((plan) => !("hidden" in plan && plan.hidden)).map((plan) => (
           <article
             id={`plan-${plan.sku.toLowerCase()}`}
