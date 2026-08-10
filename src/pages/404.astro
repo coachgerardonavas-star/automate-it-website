@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+// Sin este archivo, el adaptador servía la portada con status 200 para
+// cualquier ruta inexistente. Para un buscador eso son infinitas URLs con el
+// contenido de la home — soft 404 — y diluye la autoridad del dominio.
+// Astro solo devuelve un 404 real si encuentra esta página.
+//
+// Es intencionalmente estática: se genera como dist/404.html, que es lo que
+// Cloudflare sirve —con status 404— ante una ruta no encontrada, tanto en /
+// como en /en/. Una versión SSR no cubriría /en/*, que se sirve estático.
+const lang = "es" as const;
+---
+
+<BaseLayout
+  lang={lang}
+  title="Página no encontrada — Automate IT"
+  description="La página que buscas no existe o cambió de dirección."
+  noindex={true}
+  chatbot={false}
+>
+  <Nav lang={lang} />
+  <main>
+    <section class="bg-[#050A18] text-white min-h-[70vh] py-20 sm:py-28">
+      <div class="max-w-2xl mx-auto px-5 lg:px-8">
+        <p
+          class="font-heading text-6xl sm:text-7xl text-brand-cyan/80 mb-6"
+          aria-hidden="true"
+        >
+          404
+        </p>
+
+        <h1
+          class="font-heading text-3xl sm:text-4xl leading-tight mb-4 text-white"
+        >
+          Esta página no existe.
+        </h1>
+        <p class="text-base sm:text-lg text-white/70 leading-relaxed mb-3">
+          O cambió de dirección, o el enlace que seguiste tenía un error. No es
+          culpa tuya.
+        </p>
+        <p class="text-sm text-white/50 leading-relaxed mb-10">
+          This page doesn't exist. It may have moved, or the link you followed
+          was broken.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3 mb-12">
+          <a
+            href="/"
+            class="inline-flex items-center justify-center rounded-lg bg-brand-cyan px-6 py-3 font-semibold text-[#050A18] hover:bg-white transition-colors"
+          >
+            Ir al inicio
+          </a>
+          <a
+            href="/diagnostico"
+            class="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-3 font-semibold text-white hover:border-brand-cyan/50 hover:text-brand-cyan transition-colors"
+          >
+            Diagnóstico gratuito
+          </a>
+        </div>
+
+        <div class="pt-8 border-t border-white/10">
+          <p
+            class="text-[11px] tracking-[0.22em] uppercase text-white/40 font-semibold mb-4"
+          >
+            Quizá buscabas
+          </p>
+          <ul class="space-y-2.5 text-sm">
+            <li>
+              <a
+                href="/quienes-somos"
+                class="text-white/75 hover:text-brand-cyan transition-colors"
+                >Quiénes somos</a
+              >
+            </li>
+            <li>
+              <a
+                href="/blog"
+                class="text-white/75 hover:text-brand-cyan transition-colors"
+                >Blog</a
+              >
+            </li>
+            <li>
+              <a
+                href="/en/"
+                class="text-white/75 hover:text-brand-cyan transition-colors"
+                >English site</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>
