@@ -25,7 +25,9 @@ service = "diagnostico-intake"
 
 [[services]]
 binding = "STRIPE_WEBHOOK"
-service = "stripe-webhook"
+# El servicio se llama `stripe-webhook-automate`, no como la carpeta que lo
+# contiene. Apuntar al nombre de la carpeta falla con el codigo 10143.
+service = "stripe-webhook-automate"
 
 [[services]]
 binding = "CONSULTORIA_INTAKE"
