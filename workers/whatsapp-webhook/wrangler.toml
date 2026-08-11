@@ -4,9 +4,15 @@ compatibility_date = "2026-07-06"
 workers_dev = true
 account_id = "0eb99d5fd784e62ca2519c2ca0627ea5"
 
-[[routes]]
-pattern = "yourbizupgraded.com/whatsapp-webhook*"
-zone_name = "yourbizupgraded.com"
+# Sin ruta en el dominio, a proposito. Meta entrega en la URL de workers.dev y
+# de ahi el worker reenvia al hook 2466172 de Make, que alimenta el escenario
+# "Marc — WhatsApp Agent". Comprobado el 11-ago-2026: ese hook exige la
+# cabecera `x-make-apikey`, que Meta no puede enviar, asi que el worker esta
+# forzosamente en el camino — y Marc ejecuto con exito ese mismo dia.
+#
+# La ruta `yourbizupgraded.com/whatsapp-webhook*` que habia aqui nunca llego a
+# activarse (esa direccion devuelve el 404 del sitio) y hacia fallar cada
+# deploy, porque el token no tiene permiso de Workers Routes sobre la zona.
 
 [observability]
 enabled = true
