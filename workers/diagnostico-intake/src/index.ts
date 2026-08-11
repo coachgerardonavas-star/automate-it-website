@@ -244,9 +244,17 @@ async function createNote(env: Env, contactId: string, p: Payload): Promise<void
   });
 }
 
-/** Fire-and-forget: a Telegram hiccup must never cost us the lead. */
-function notifyTelegram(env: Env, p: Payload): void {
-  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
+/**
+ * No bloquea la respuesta —un hipo de Telegram no debe costarnos el lead— pero
+ * el `fetch` se devuelve para que quien llama lo pase por `ctx.waitUntil`.
+ *
+ * Antes esto era `void fetch(...)` sin mas. En Workers eso es una carrera que
+ * se pierde: al devolver la respuesta, el runtime cancela lo que quedo en
+ * vuelo. Con Telegram colaba casi siempre porque responde rapido; con el
+ * webhook de Make no colaba nunca, y por eso el escenario no se ejecutaba.
+ */
+function notifyTelegram(env: Env, p: Payload): Promise<unknown> | null {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return null;
   const member = p.pain ? MEMBER_BY_PAIN[p.pain] : "sin determinar";
   const flag = isPhiRisk(p)
     ? "\n🟡 HIPAA — sí se cotiza, pero primero BAA. Llamar."
@@ -266,7 +274,7 @@ function notifyTelegram(env: Env, p: Payload): void {
     flag +
     `\n\n${body}`;
 
-  void fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+  return fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -293,15 +301,15 @@ function notifyTelegram(env: Env, p: Payload): void {
  *  - Equipos de mas de 30: se les rechaza en la misma respuesta. Llamarlos
  *    seria contradecirnos.
  */
-function notifyMakeLeadFlow(env: Env, p: Payload): void {
+function notifyMakeLeadFlow(env: Env, p: Payload): Promise<unknown> | null {
   if (!env.MAKE_LEAD_WEBHOOK_URL) {
     console.warn("[diagnostico-intake] MAKE_LEAD_WEBHOOK_URL sin configurar");
-    return;
+    return null;
   }
-  if (isPhiRisk(p) || p.team_size === "30_plus") return;
+  if (isPhiRisk(p) || p.team_size === "30_plus") return null;
 
   const parts = (p.name || "").trim().split(/\s+/);
-  void fetch(env.MAKE_LEAD_WEBHOOK_URL, {
+  return fetch(env.MAKE_LEAD_WEBHOOK_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -318,7 +326,7 @@ function notifyMakeLeadFlow(env: Env, p: Payload): void {
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const origin = request.headers.get("Origin");
     const cors = corsHeaders(origin, env);
 
@@ -380,8 +388,12 @@ export default {
     try {
       const contactId = await upsertContact(env, p);
       await createNote(env, contactId, p);
-      notifyTelegram(env, p);
-      notifyMakeLeadFlow(env, p);
+
+      // `waitUntil` mantiene vivo el worker hasta que estas dos salgan, sin
+      // hacer esperar a la persona que envio el formulario. Sin esto el
+      // runtime las cancela al devolver la respuesta.
+      const pending = [notifyTelegram(env, p), notifyMakeLeadFlow(env, p)];
+      for (const task of pending) if (task) ctx.waitUntil(task);
 
       // The person still gets a real answer, not a generic thanks. `outOfScope`
       // dispara el mensaje a medida en el formulario; para HIPAA ese mensaje ya
