@@ -24,6 +24,7 @@ import { getAdminRows } from "../../../lib/portal/data";
 import { portalCopy, relativeTime } from "../../../lib/portal/copy";
 import { PORTAL_BASE } from "../../../lib/portal/config";
 import { getSupabaseEnv } from "../../../lib/portal/supabase";
+import { getSystemsHealth } from "../../../lib/portal/systems-health";
 
 const guard = await requirePortal(Astro);
 if ("redirect" in guard) return guard.redirect;
@@ -42,9 +43,17 @@ if (session.user.role !== "admin") {
 const copy = portalCopy(lang);
 const now = new Date();
 
-const env = getSupabaseEnv((Astro.locals as any)?.runtime?.env);
+const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+const env = getSupabaseEnv(runtimeEnv);
 const result = await getAdminRows(session.orgs, env, ctx?.accessToken ?? null);
 const rows = result.data;
+
+// Infraestructura propia. Se muestra en su propio bloque, separado de la lista
+// de clientes: son dos preguntas distintas y mezclarlas llevaría a creer que un
+// cliente está sano porque nuestros workers responden.
+const systems = await getSystemsHealth(runtimeEnv);
+
+const SYSTEM_TONE = { ok: "ok", down: "danger", unknown: "neutral" } as const;
 
 const counts = {
   healthy: rows.filter((r) => r.status === "healthy").length,
@@ -88,6 +97,53 @@ const TONE_TEXT = {
         {copy.error.partial}
       </p>
     )}
+
+    {/* Infraestructura de Automate IT. Va arriba porque si el formulario de
+        diagnóstico está caído, eso importa más que cualquier fila de la lista:
+        no entra un solo lead y nada lo hace visible en el sitio. */}
+    <PortalCard
+      title={copy.admin.systemsTitle}
+      class="mb-4 sm:mb-6"
+      flush={Boolean(systems)}
+    >
+      {!systems ? (
+        <p class="text-sm text-[var(--color-text-muted)]">
+          {copy.admin.systemsUnavailable}
+        </p>
+      ) : (
+        <>
+          <p class="px-4 pb-1 pt-2 text-xs text-[var(--color-text-muted)] sm:px-5">
+            {copy.admin.systemsSubtitle}
+          </p>
+          <ul class="grid grid-cols-1 gap-px bg-[var(--color-border)] sm:grid-cols-2 xl:grid-cols-3">
+            {systems.systems.map((s) => (
+              <li class="flex items-center justify-between gap-3 bg-white px-4 py-3 sm:px-5">
+                <span class="min-w-0">
+                  <span class="block truncate text-sm font-medium text-[var(--color-text-secondary)]">
+                    {s.name}
+                  </span>
+                  {s.tier0 && (
+                    <span class="text-[10px] font-semibold uppercase tracking-wide text-[var(--color-text-subtle)]">
+                      {copy.admin.systemsTier0}
+                    </span>
+                  )}
+                </span>
+                <StatusPill
+                  tone={SYSTEM_TONE[s.status]}
+                  label={
+                    s.status === "ok"
+                      ? copy.admin.systemsOk
+                      : s.status === "down"
+                        ? copy.admin.systemsDown
+                        : copy.admin.systemsUnknown
+                  }
+                />
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </PortalCard>
 
     <div class="mb-4 grid grid-cols-3 gap-3 sm:mb-6 sm:gap-4">
       {summary.map((s) => (

@@ -272,6 +272,15 @@ const es = {
     summaryAttention: "necesitan atención",
     summaryCritical: "con algo roto",
     allHealthy: "Todos tus clientes están en orden. No hay nada que revisar ahora mismo.",
+    systemsTitle: "Sistemas de Automate IT",
+    systemsSubtitle: "Tu propia infraestructura — no la de tus clientes.",
+    systemsOk: "Operativo",
+    systemsDown: "Caído",
+    systemsUnknown: "Sin dato",
+    systemsTier0: "Tier 0",
+    systemsSince: "desde",
+    systemsUnavailable:
+      "El estado de los sistemas no está disponible: falta el binding de KV «STATE» en el proyecto de Cloudflare Pages.",
   },
 
   time: {
@@ -544,6 +553,15 @@ const en: typeof es = {
     summaryAttention: "need attention",
     summaryCritical: "broken",
     allHealthy: "All your clients are healthy. There's nothing to review right now.",
+    systemsTitle: "Automate IT systems",
+    systemsSubtitle: "Your own infrastructure — not your clients'.",
+    systemsOk: "Operational",
+    systemsDown: "Down",
+    systemsUnknown: "No data",
+    systemsTier0: "Tier 0",
+    systemsSince: "since",
+    systemsUnavailable:
+      "System status isn't available: the KV binding “STATE” is missing on the Cloudflare Pages project.",
   },
 
   time: {

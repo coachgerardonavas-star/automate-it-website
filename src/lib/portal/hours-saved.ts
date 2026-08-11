@@ -18,9 +18,11 @@
  *    lo sumo, el primer contacto. Por eso la fuente son los eventos con estado
  *    de éxito, no todos los eventos.
  *
- * ⚠️ Estos minutos son la propuesta inicial y están pendientes de que el CEO
- * los valide contra su experiencia real. Cambiar un valor acá cambia la métrica
- * en todo el portal, que es exactamente lo que se busca: un solo lugar.
+ * Minutos VALIDADOS por el CEO el 11-ago-2026. No cambiarlos sin que lo pida
+ * explícitamente: la cifra ya está aprobada y modificarla por cuenta propia
+ * cambiaría un número que el cliente puede haber visto. Tocar un valor acá
+ * cambia la métrica en todo el portal, que es exactamente lo que se busca: un
+ * solo lugar.
  */
 
 /** Minutos que le tomaría a una persona hacer una vez cada tipo de tarea. */
