@@ -43,7 +43,22 @@ type GuardResult =
 export async function requirePortal(context: APIContext): Promise<GuardResult> {
   const result = await resolveSession(context);
 
-  if (result.status === "unconfigured") return { unconfigured: true };
+  if (result.status === "unconfigured") {
+    // Sesión de vitrina para desarrollo local.
+    //
+    // Solo se activa cuando se cumplen LAS DOS condiciones: estar en `astro dev`
+    // y no haber configurado Supabase. `import.meta.env.DEV` es una constante
+    // que se reemplaza en build, así que en producción esta rama es código
+    // muerto que ni siquiera llega al bundle.
+    //
+    // En cuanto haya SUPABASE_URL, `resolveSession` deja de devolver
+    // `unconfigured` y este camino no se toca nunca más — ni en local. Es decir:
+    // no puede convertirse en un bypass de la autenticación real.
+    if (import.meta.env.DEV) {
+      return { ok: devPreviewContext(context) };
+    }
+    return { unconfigured: true };
+  }
 
   if (result.status === "anonymous") {
     // `next` permite volver a donde iba después de entrar. Se guarda solo la
@@ -74,6 +89,43 @@ export async function requirePortal(context: APIContext): Promise<GuardResult> {
       lang,
       currentPath: context.url.pathname,
     },
+  };
+}
+
+/**
+ * Contexto de vitrina para `astro dev` sin base conectada.
+ *
+ * Rol admin para que se vea también el Centro de administración. La
+ * organización va en `data_mode: "demo"`, así que todas las pantallas muestran
+ * el cartel de datos de demostración: es imposible confundir esto con datos
+ * reales de nadie.
+ */
+function devPreviewContext(context: APIContext): PortalPageContext {
+  const user = {
+    id: "dev-preview",
+    email: "carlos@example.com",
+    fullName: "Carlos Méndez",
+    role: "admin" as const,
+    locale: "es" as const,
+  };
+
+  const org: Organization = {
+    id: "dev-preview-org",
+    name: "Carlos Plumbing",
+    slug: "carlos-plumbing",
+    status: "healthy",
+    dataMode: "demo",
+    accountManager: "Gabriela",
+  };
+
+  return {
+    session: { user, orgs: [org], activeOrg: org },
+    org,
+    // Sin `env` ni token: la capa de datos ve `data_mode: "demo"` y sirve los
+    // datos sembrados sin intentar ninguna consulta.
+    ctx: { org, role: user.role, env: null, accessToken: null, now: new Date() },
+    lang: "es",
+    currentPath: context.url.pathname,
   };
 }
 
