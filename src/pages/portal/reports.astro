@@ -1,0 +1,162 @@
+---
+/**
+ * Reports — "¿cómo voy evolucionando?".
+ *
+ * Seis medidas, no cien. La exportación a PDF/CSV queda para más adelante: el
+ * handoff (§15) la marca como opcional en V1, y hacerla ahora sobre datos que
+ * todavía no son reales solo produciría archivos de ejemplo circulando por ahí.
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import PageHeader from "../../components/portal/PageHeader.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import DemoBanner from "../../components/portal/DemoBanner.astro";
+import ActivityChart from "../../components/portal/ActivityChart.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getOverview } from "../../lib/portal/data";
+import { portalCopy } from "../../lib/portal/copy";
+import { PORTAL_BASE, isValidRange } from "../../lib/portal/config";
+import type { RangeKey } from "../../lib/portal/types";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+
+const rangeParam = Astro.url.searchParams.get("range");
+const range: RangeKey = isValidRange(rangeParam) ? rangeParam : "30d";
+
+const result = ctx ? await getOverview(ctx, range) : null;
+const mode = result?.mode ?? "demo";
+const d = result?.data ?? null;
+
+const rangeLabels = copy.range as Record<string, string>;
+const units = copy.units as Record<string, string>;
+
+/** Filas del reporte, derivadas de lo que ya se midió. Sin cifras nuevas. */
+const rows = d
+  ? [
+      ...d.kpis.map((k) => ({
+        label: (copy.kpi as Record<string, string>)[k.key] ?? k.key,
+        value: k.format === "hours" ? `${k.value} h` : String(k.value),
+        delta: k.delta,
+      })),
+      ...d.workHandled.breakdown.map((b) => ({
+        label: units[b.key] ?? b.key,
+        value: String(b.count),
+        delta: null as number | null,
+      })),
+    ]
+  : [];
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.pages.reports.title}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <div class="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-end sm:justify-between">
+      <PageHeader title={copy.pages.reports.title} question={copy.pages.reports.question} />
+      <form method="get" class="shrink-0 sm:mb-6">
+        <label for="range" class="sr-only">{copy.range.label}</label>
+        <select
+          id="range"
+          name="range"
+          onchange="this.form.submit()"
+          class="w-full rounded-md border border-[var(--color-border)] bg-white px-3 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)] sm:w-auto"
+        >
+          {["today", "7d", "30d", "month"].map((r) => (
+            <option value={r} selected={r === range}>{rangeLabels[r]}</option>
+          ))}
+        </select>
+      </form>
+    </div>
+
+    <DemoBanner lang={lang} mode={mode} />
+
+    {rows.length === 0 ? (
+      <PortalCard>
+        <EmptyState title={copy.empty.generic} body={copy.empty.activityBody} icon="chart-column" />
+      </PortalCard>
+    ) : (
+      <div class="space-y-4 sm:space-y-6">
+        {d && d.activity.length > 0 && (
+          <PortalCard title={copy.sections.customerActivity}>
+            <ActivityChart lang={lang} points={d.activity} label={copy.units.conversations} />
+          </PortalCard>
+        )}
+
+        <PortalCard flush>
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-left text-sm">
+              <thead>
+                <tr class="border-b border-[var(--color-border)] text-xs uppercase tracking-wide text-[var(--color-text-subtle)]">
+                  <th scope="col" class="px-4 py-3 font-semibold sm:px-5">
+                    {copy.pages.reports.title}
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-right font-semibold sm:px-5">
+                    {rangeLabels[range]}
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-right font-semibold sm:px-5">
+                    {copy.kpi.vsPrevious}
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--color-border)]">
+                {rows.map((r) => (
+                  <tr>
+                    <th scope="row" class="px-4 py-3 font-medium text-[var(--color-text-secondary)] sm:px-5">
+                      {r.label}
+                    </th>
+                    <td class="px-4 py-3 text-right font-heading text-base sm:px-5">{r.value}</td>
+                    <td class="px-4 py-3 text-right sm:px-5">
+                      {r.delta === null ? (
+                        <span class="text-xs text-[var(--color-text-subtle)]">—</span>
+                      ) : (
+                        <span
+                          class:list={[
+                            "text-xs font-semibold",
+                            r.delta >= 0 ? "text-[#1F7A4D]" : "text-[#B3261E]",
+                          ]}
+                        >
+                          {r.delta >= 0 ? "+" : ""}{r.delta}%
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </PortalCard>
+      </div>
+    )}
+  </PortalLayout>
+)}
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>

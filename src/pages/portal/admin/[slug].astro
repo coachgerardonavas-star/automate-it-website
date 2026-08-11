@@ -1,0 +1,174 @@
+---
+/**
+ * Detalle técnico de un cliente. Solo admin.
+ *
+ * Es la única pantalla del portal donde aparece infraestructura: proveedor,
+ * identificador externo, último evento correcto, último fallo, reintentos. Ese
+ * detalle vive en `automation_internals`, cuya política de RLS exige rol admin,
+ * así que un cliente no obtendría los datos ni forzando la URL.
+ *
+ * Mismo problema, dos idiomas (handoff §42): acá se dice "OAuth expirado";
+ * al cliente se le dice "esta información no está disponible por ahora".
+ */
+export const prerender = false;
+
+import PortalLayout from "../../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../../components/portal/PortalCard.astro";
+import PageHeader from "../../../components/portal/PageHeader.astro";
+import EmptyState from "../../../components/portal/EmptyState.astro";
+import StatusPill from "../../../components/portal/StatusPill.astro";
+import PortalIcon from "../../../components/portal/PortalIcon.astro";
+import { requirePortal } from "../../../lib/portal/guard";
+import { getAdminAutomationDetail } from "../../../lib/portal/data";
+import { portalCopy, relativeTime } from "../../../lib/portal/copy";
+import { PORTAL_BASE } from "../../../lib/portal/config";
+import { getSupabaseEnv } from "../../../lib/portal/supabase";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+if (session.user.role !== "admin") return Astro.redirect(PORTAL_BASE);
+
+const copy = portalCopy(lang);
+const now = new Date();
+
+// El slug de la URL se resuelve contra la lista que RLS ya autorizó. Un slug
+// que no esté ahí no existe para este usuario: 404, no "acceso denegado".
+const { slug } = Astro.params;
+const target = session.orgs.find((o) => o.slug === slug);
+if (!target) return new Response(null, { status: 404 });
+
+const env = getSupabaseEnv((Astro.locals as any)?.runtime?.env);
+const result = await getAdminAutomationDetail(target.id, env, ctx?.accessToken ?? null);
+const details = result.data;
+
+const STATUS_TONE = { healthy: "ok", needs_attention: "warn", critical: "danger" } as const;
+const AUTOMATION_TONE = { running: "ok", needs_attention: "warn", unavailable: "danger" } as const;
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={`${target.name} · ${copy.admin.technicalDetail}`}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <a
+      href={`${PORTAL_BASE}/admin`}
+      class="mb-3 inline-flex items-center gap-1.5 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-blue)]"
+    >
+      ← {copy.admin.backToList}
+    </a>
+
+    <PageHeader title={target.name}>
+      <div class="mt-2 flex flex-wrap items-center gap-2">
+        <StatusPill
+          tone={STATUS_TONE[target.status]}
+          label={copy.admin[target.status]}
+          size="md"
+        />
+        <StatusPill
+          tone={target.dataMode === "live" ? "ok" : "warn"}
+          label={target.dataMode === "live" ? copy.settings.dataModeLive : copy.settings.dataModeDemo}
+          size="md"
+        />
+      </div>
+    </PageHeader>
+
+    {result.failedSources.length > 0 && (
+      <p
+        role="status"
+        class="mb-4 rounded-lg border border-[var(--color-warning)]/35 bg-[var(--color-warning-bg)] px-4 py-3 text-sm text-[#6B4700]"
+      >
+        {copy.error.partial}
+      </p>
+    )}
+
+    {details.length === 0 ? (
+      <PortalCard>
+        <EmptyState
+          title={copy.empty.automations}
+          body={copy.empty.automationsBody}
+          icon="workflow"
+        />
+      </PortalCard>
+    ) : (
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {details.map((a) => (
+          <PortalCard>
+            <div class="flex items-start justify-between gap-3">
+              <h2 class="text-sm font-semibold">{a.name}</h2>
+              <StatusPill tone={AUTOMATION_TONE[a.state]} label={copy.automationState[a.state]} />
+            </div>
+
+            <dl class="mt-4 space-y-2 border-t border-[var(--color-border)] pt-4 text-xs">
+              <div class="flex items-baseline justify-between gap-3">
+                <dt class="text-[var(--color-text-muted)]">{copy.admin.provider}</dt>
+                <dd class="font-mono font-semibold text-[var(--color-text-secondary)]">
+                  {a.provider ?? "—"}
+                </dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-3">
+                <dt class="shrink-0 text-[var(--color-text-muted)]">ID</dt>
+                <dd class="truncate font-mono text-[var(--color-text-secondary)]">
+                  {a.externalId ?? "—"}
+                </dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-3">
+                <dt class="text-[var(--color-text-muted)]">{copy.admin.lastSuccess}</dt>
+                <dd class="font-semibold text-[var(--color-text-secondary)]">
+                  {a.lastSuccessAt ? relativeTime(copy, a.lastSuccessAt, now) : "—"}
+                </dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-3">
+                <dt class="text-[var(--color-text-muted)]">{copy.admin.lastFailure}</dt>
+                <dd
+                  class:list={[
+                    "font-semibold",
+                    a.lastFailureAt ? "text-[#B3261E]" : "text-[var(--color-text-secondary)]",
+                  ]}
+                >
+                  {a.lastFailureAt ? relativeTime(copy, a.lastFailureAt, now) : "—"}
+                </dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-3">
+                <dt class="text-[var(--color-text-muted)]">{copy.admin.errorCount}</dt>
+                <dd
+                  class:list={[
+                    "font-semibold",
+                    a.errorCount > 0 ? "text-[#B3261E]" : "text-[var(--color-text-secondary)]",
+                  ]}
+                >
+                  {a.errorCount}
+                </dd>
+              </div>
+              {a.retryState && (
+                <div class="flex items-baseline justify-between gap-3">
+                  <dt class="text-[var(--color-text-muted)]">{copy.admin.retryState}</dt>
+                  <dd class="font-mono text-[var(--color-text-secondary)]">{a.retryState}</dd>
+                </div>
+              )}
+            </dl>
+          </PortalCard>
+        ))}
+      </div>
+    )}
+
+    <p class="mt-6 flex items-start gap-2 text-xs text-[var(--color-text-subtle)]">
+      <PortalIcon name="shield-check" size={14} class="mt-0.5 shrink-0" />
+      {/* Recordatorio en pantalla de por qué este detalle no puede filtrarse. */}
+      <span>
+        {copy.admin.technicalDetail} — {copy.settings.roleAdmin}.
+      </span>
+    </p>
+  </PortalLayout>
+)}

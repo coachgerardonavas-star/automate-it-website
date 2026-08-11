@@ -1,0 +1,102 @@
+---
+/**
+ * Barra superior del portal.
+ *
+ * En teléfono carga el botón que abre el drawer, porque ahí la navegación no
+ * está a la vista. En escritorio queda casi vacía a la izquierda y concentra a
+ * la derecha la identidad y el cierre de sesión.
+ *
+ * El selector de negocio solo aparece cuando el usuario tiene más de uno — es
+ * decir, en la práctica, solo para Automate IT. Un cliente con un único negocio
+ * no necesita elegir nada, y mostrarle un selector de un solo elemento sugiere
+ * que hay algo más que no está viendo.
+ */
+import { portalCopy, type PortalLang } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+import type { Organization, PortalUser } from "../../lib/portal/types";
+import PortalIcon from "./PortalIcon.astro";
+
+interface Props {
+  lang: PortalLang;
+  user: PortalUser;
+  orgs: Organization[];
+  activeOrg: Organization | null;
+}
+
+const { lang, user, orgs, activeOrg } = Astro.props;
+const copy = portalCopy(lang);
+
+const initials = (user.fullName ?? user.email)
+  .split(/[\s@.]+/)
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((p) => p[0]?.toUpperCase() ?? "")
+  .join("");
+
+const roleLabel =
+  user.role === "admin" ? copy.settings.roleAdmin : copy.settings.roleClient;
+---
+
+<header
+  class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-[var(--color-border)] bg-white/90 px-4 backdrop-blur sm:px-6"
+>
+  <button
+    type="button"
+    data-drawer-open
+    aria-expanded="false"
+    aria-label={copy.nav.openMenu}
+    class="-ml-2 rounded-sm p-2 text-[var(--color-text-secondary)] hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)] lg:hidden"
+  >
+    <PortalIcon name="menu" size={22} />
+  </button>
+
+  {orgs.length > 1 ? (
+    <form method="get" class="min-w-0 flex-1">
+      <label for="org-switch" class="sr-only">{copy.settings.organization}</label>
+      <select
+        id="org-switch"
+        name="org"
+        onchange="this.form.submit()"
+        class="max-w-full truncate rounded-md border border-[var(--color-border)] bg-white px-3 py-1.5 text-sm font-semibold text-[var(--color-text-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)]"
+      >
+        {orgs.map((o) => (
+          <option value={o.slug} selected={o.id === activeOrg?.id}>
+            {o.name}
+          </option>
+        ))}
+      </select>
+    </form>
+  ) : (
+    <p class="min-w-0 flex-1 truncate text-sm font-semibold text-[var(--color-text-primary)]">
+      {activeOrg?.name ?? ""}
+    </p>
+  )}
+
+  <div class="flex shrink-0 items-center gap-1 sm:gap-2">
+    {/* Identidad. En teléfono se reduce al avatar: el nombre y el rol se
+        repiten en Ajustes, así que no vale la pena robarle ancho al header. */}
+    <div class="hidden text-right sm:block">
+      <p class="text-sm font-semibold leading-tight text-[var(--color-text-primary)]">
+        {user.fullName ?? user.email}
+      </p>
+      <p class="text-xs leading-tight text-[var(--color-text-muted)]">{roleLabel}</p>
+    </div>
+    <span
+      class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[var(--color-info-bg)] text-xs font-semibold text-[var(--color-blue)]"
+      aria-hidden="true"
+    >
+      {initials}
+    </span>
+
+    <form method="post" action={`${PORTAL_BASE}/logout`}>
+      <button
+        type="submit"
+        class="rounded-sm p-2 text-[var(--color-text-muted)] transition-colors duration-200 ease-brand hover:bg-neutral-100 hover:text-[var(--color-text-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)]"
+        aria-label={copy.nav.signOut}
+        title={copy.nav.signOut}
+      >
+        <PortalIcon name="log-out" size={20} />
+      </button>
+    </form>
+  </div>
+</header>

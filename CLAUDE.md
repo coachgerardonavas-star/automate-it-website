@@ -49,6 +49,21 @@ Cada uno tiene su `wrangler.toml` en `workers/<nombre>/`:
 - **stripe-webhook** — webhook de Stripe (worker `stripe-webhook-automate`). `main = src/index.ts`. Secrets: `STRIPE_WEBHOOK_SECRET`, `TELEGRAM_BOT_TOKEN`. Avisa por Telegram al completarse un checkout. Registrado en Stripe como endpoint `we_1TzFZcAHnOzMvXBg9DrZxbdG`, escuchando solo `checkout.session.completed`.
 - **consultoria-intake** — recibe el formulario de `/consultoria` y la firma de `/acuerdo-colaboracion` (ruta `/acuerdo`). Escribe en HubSpot con la **CRM API** (contacto + nota + deal) y avisa por Telegram. Secrets: `HUBSPOT_TOKEN`, `TELEGRAM_BOT_TOKEN`.
 
+## Client Portal (`/portal`) — agregado 11-ago-2026
+Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del sitio público**: no se indexa, no lleva BIT, no aparece en el sitemap y usa su propio layout (`PortalLayout.astro`), no `BaseLayout`.
+
+- **Rutas:** `/portal` (Resumen), `/leads`, `/conversations`, `/appointments`, `/customers`, `/automations`, `/activity`, `/reports`, `/insights`, `/files`, `/settings`, `/portal/admin` y `/portal/admin/[slug]`. Todas `prerender = false`. Entrada por `/portal/login`; salida por POST a `/portal/logout`.
+- **Datos:** Supabase (proyecto `automate-it-core`, `tenfstsdobydtjmyfvqs`). Esquema en `supabase/migrations/0001_portal_schema.sql`.
+- **Sin SDK de Supabase.** Auth y PostgREST se consumen con `fetch` desde `src/lib/portal/supabase.ts`. Se decidió así porque el SDK no aportaba nada que no se resolviera en ~150 líneas y este repo obliga a justificar cada librería nueva.
+- **Aislamiento entre clientes = RLS en Postgres**, no código de aplicación. Cada consulta va con el JWT del usuario final. `auth_is_member()` y `auth_is_admin()` resuelven la pertenencia dentro de la base.
+- ⚠️ **Nunca confiar en un `organization_id` que venga del frontend.** El slug de la URL se resuelve siempre contra la lista que RLS ya autorizó (`resolveActiveOrg`). Un cliente que escriba el id de otro recibe el suyo.
+- ⚠️ **La `service_role` key no entra a este repo.** Salta RLS por diseño. Si la capa de telemetría la necesita, vive en un Worker aparte.
+- ⚠️ **`automation_events.metadata` y la tabla `automation_internals` son detalle técnico.** RLS filtra filas, no columnas: por eso `src/lib/portal/data.ts` pide columnas nombradas para el rol client. Nunca usar `select=*` sobre `automation_events` en una vista de cliente.
+- **Demo vs producción:** cada organización tiene `data_mode` (`demo` | `live`). El modo viaja *dentro* de la respuesta (`DataEnvelope.mode`) y `DemoBanner` lo pinta a partir de ahí. Nunca mostrar cifras sembradas sin ese aviso.
+- **Copy:** `src/lib/portal/copy.ts`, ES y EN juntos. No usa `translations.ts` (ese archivo es del sitio público). El idioma sale del perfil del usuario, no de la URL.
+- **Variables:** `SUPABASE_URL` y `SUPABASE_ANON_KEY` (ver `.env.example`). Sin ellas el portal muestra una pantalla de "no configurado" y **el sitio público sigue funcionando**.
+- `src/pages/portal/preview-dev.astro` es una previsualización con datos sembrados que **solo responde en `astro dev`**: en producción devuelve 404 (`import.meta.env.DEV`). Sirve para revisar la UI sin base conectada. No lee cookies ni emite tokens.
+
 ## Reglas críticas del proyecto
 - 🚫 **n8n queda FUERA por completo** (decisión del CEO, 31-jul-2026): ni como infraestructura interna **ni como producto para vender a clientes**. Esto revierte la regla anterior, que lo mantenía como producto vendible. No proponerlo, no cotizarlo, no reactivarlo sin que el CEO lo diga explícitamente. Para automatización interna se usa Make o Workers propios.
 - **Los agentes por departamento NO se rehacen con n8n.** Cuando se retomen, se montan sobre el worker `vero-telegram`, que ya recibe de Telegram, llama a la API de Anthropic y responde. Un agente = ese worker escuchando otro grupo con otro prompt.

@@ -1,0 +1,119 @@
+---
+/**
+ * Settings — cuenta, negocio y herramientas conectadas.
+ *
+ * Los campos son de lectura en V1: la edición implica escrituras autenticadas y
+ * un flujo de confirmación por correo que todavía no existe. Mostrar campos
+ * editables que no guardan nada sería peor que mostrarlos como lectura.
+ *
+ * De las integraciones se muestra qué está conectado y si funciona. Nunca
+ * credenciales, tokens ni URLs de webhook (handoff §19, §31).
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import PageHeader from "../../components/portal/PageHeader.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import StatusPill from "../../components/portal/StatusPill.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getOverview } from "../../lib/portal/data";
+import { portalCopy } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+
+const result = ctx ? await getOverview(ctx, "30d") : null;
+const integrations = result?.data.integrations ?? [];
+
+const account = [
+  { label: copy.settings.name, value: session.user.fullName ?? "—" },
+  { label: copy.settings.email, value: session.user.email },
+  { label: copy.settings.organization, value: org?.name ?? "—" },
+  {
+    label: copy.settings.role,
+    value: session.user.role === "admin" ? copy.settings.roleAdmin : copy.settings.roleClient,
+  },
+  { label: copy.settings.language, value: lang === "en" ? "English" : "Español" },
+];
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.pages.settings.title}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <PageHeader title={copy.pages.settings.title} question={copy.pages.settings.question} />
+
+    <div class="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
+      <PortalCard title={copy.settings.account}>
+        <dl class="divide-y divide-[var(--color-border)]">
+          {account.map((row) => (
+            <div class="flex flex-wrap items-baseline justify-between gap-2 py-3 first:pt-0 last:pb-0">
+              <dt class="text-sm text-[var(--color-text-muted)]">{row.label}</dt>
+              <dd class="text-sm font-semibold text-[var(--color-text-primary)]">{row.value}</dd>
+            </div>
+          ))}
+          <div class="flex flex-wrap items-baseline justify-between gap-2 py-3 last:pb-0">
+            <dt class="text-sm text-[var(--color-text-muted)]">{copy.settings.dataMode}</dt>
+            <dd>
+              <StatusPill
+                tone={org.dataMode === "live" ? "ok" : "warn"}
+                label={org.dataMode === "live" ? copy.settings.dataModeLive : copy.settings.dataModeDemo}
+              />
+            </dd>
+          </div>
+        </dl>
+      </PortalCard>
+
+      <PortalCard title={copy.sections.integrations}>
+        {integrations.length === 0 ? (
+          <EmptyState title={copy.empty.generic} compact />
+        ) : (
+          <ul class="divide-y divide-[var(--color-border)]">
+            {integrations.map((i) => (
+              <li class="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
+                <span class="truncate text-sm font-medium text-[var(--color-text-secondary)]">
+                  {i.name}
+                </span>
+                <StatusPill
+                  tone={i.state === "connected" ? "ok" : i.state === "degraded" ? "warn" : "danger"}
+                  label={copy.integrationState[i.state]}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </PortalCard>
+    </div>
+
+    <PortalCard class="mt-4 sm:mt-6">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm font-semibold">{copy.support.title}</p>
+          <p class="mt-0.5 text-xs text-[var(--color-text-muted)]">{copy.support.body}</p>
+        </div>
+        <a
+          href="mailto:automateit@yourbizupgraded.com"
+          class="inline-flex shrink-0 items-center justify-center rounded-sm bg-[var(--color-blue)] px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-200 ease-brand hover:bg-[var(--color-navy)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)]"
+        >
+          {copy.support.cta}
+        </a>
+      </div>
+    </PortalCard>
+  </PortalLayout>
+)}

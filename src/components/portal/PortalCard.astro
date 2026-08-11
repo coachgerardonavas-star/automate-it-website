@@ -1,0 +1,52 @@
+---
+/**
+ * Tarjeta del portal.
+ *
+ * Un solo nivel de tarjeta: nada de tarjetas dentro de tarjetas. Cuando un
+ * bloque necesita subdivisiones se usan separadores o espacio, no otro borde —
+ * los bordes anidados es lo que vuelve ilegible un panel.
+ */
+interface Props {
+  title?: string;
+  /** Texto del enlace de la esquina (ej. "Ver todo"). Requiere `actionHref`. */
+  actionLabel?: string;
+  actionHref?: string;
+  class?: string;
+  /** Quita el relleno interno cuando el contenido es una tabla a sangre. */
+  flush?: boolean;
+}
+
+const {
+  title,
+  actionLabel,
+  actionHref,
+  class: className = "",
+  flush = false,
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    "rounded-lg border border-[var(--color-border)] bg-white shadow-[var(--shadow-card)]",
+    className,
+  ]}
+>
+  {title && (
+    <header class="flex items-center justify-between gap-3 px-4 pt-4 sm:px-5 sm:pt-5">
+      <h2 class="text-sm font-semibold text-[var(--color-text-primary)] sm:text-base">
+        {title}
+      </h2>
+      {actionLabel && actionHref && (
+        <a
+          href={actionHref}
+          class="shrink-0 rounded-sm text-xs font-semibold text-[var(--color-blue)] transition-colors duration-200 ease-brand hover:text-[var(--color-navy)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)]"
+        >
+          {actionLabel}
+        </a>
+      )}
+    </header>
+  )}
+  <div class:list={[flush ? "" : "p-4 sm:p-5", title && !flush ? "pt-3 sm:pt-4" : ""]}>
+    <slot />
+  </div>
+</section>

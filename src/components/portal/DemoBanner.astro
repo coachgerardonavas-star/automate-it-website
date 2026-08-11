@@ -1,0 +1,40 @@
+---
+/**
+ * Aviso de datos de demostración.
+ *
+ * Se pinta a partir del campo `mode` que viaja dentro de la respuesta de la
+ * capa de datos, no de una variable suelta. Esa es la garantía de que un número
+ * sembrado nunca se muestre como si describiera el negocio del cliente: si los
+ * datos vienen en modo demo, el aviso viene con ellos.
+ *
+ * No es discreto a propósito. Un aviso que se puede pasar por alto no cumple su
+ * función.
+ */
+import { portalCopy, type PortalLang } from "../../lib/portal/copy";
+import PortalIcon from "./PortalIcon.astro";
+
+interface Props {
+  lang: PortalLang;
+  mode: "demo" | "live";
+}
+
+const { lang, mode } = Astro.props;
+const copy = portalCopy(lang);
+---
+
+{mode === "demo" && (
+  <div
+    role="status"
+    class="mb-4 flex gap-3 rounded-lg border border-[var(--color-warning)]/35 bg-[var(--color-warning-bg)] px-4 py-3 sm:mb-6"
+  >
+    <span class="mt-0.5 shrink-0 text-[#8A5A00]">
+      <PortalIcon name="circle-help" size={18} />
+    </span>
+    <div class="min-w-0">
+      <p class="text-sm font-semibold text-[#6B4700]">{copy.demoBanner.title}</p>
+      <p class="mt-0.5 text-xs leading-relaxed text-[#6B4700]/90">
+        {copy.demoBanner.body}
+      </p>
+    </div>
+  </div>
+)}

@@ -1,0 +1,189 @@
+---
+/**
+ * Shell del Client Portal.
+ *
+ * No extiende `BaseLayout` a propósito: ese layout inyecta el widget de BIT,
+ * el schema de la organización, GA y las etiquetas de Open Graph, que son cosas
+ * del sitio público. El portal es una aplicación privada — no se comparte, no
+ * se indexa y no lleva chatbot de ventas.
+ *
+ * Mobile-first: en teléfono la barra lateral es un drawer y el contenido va a
+ * una columna. En escritorio la barra queda fija y el contenido se abre a la
+ * rejilla completa. La versión de teléfono muestra lo mismo, reordenado — no
+ * una versión recortada.
+ */
+import "../styles/global.css";
+import { portalCopy, type PortalLang } from "../lib/portal/copy";
+import { NAV_ITEMS, ADMIN_NAV_ITEM, PORTAL_BASE } from "../lib/portal/config";
+import type { Organization, PortalUser } from "../lib/portal/types";
+import PortalSidebar from "../components/portal/PortalSidebar.astro";
+import PortalTopbar from "../components/portal/PortalTopbar.astro";
+
+interface Props {
+  lang?: PortalLang;
+  title: string;
+  user: PortalUser;
+  orgs: Organization[];
+  activeOrg: Organization | null;
+  currentPath: string;
+}
+
+const {
+  lang = "es",
+  title,
+  user,
+  orgs,
+  activeOrg,
+  currentPath,
+} = Astro.props;
+
+const copy = portalCopy(lang);
+const items = user.role === "admin" ? [...NAV_ITEMS, ADMIN_NAV_ITEM] : NAV_ITEMS;
+const htmlLang = lang === "en" ? "en" : "es";
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {/* El portal nunca se indexa: es información privada de cada negocio. */}
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/manifold-cf-extrabold.woff2"
+      crossorigin="anonymous"
+    />
+    <title>{title} · {copy.brand}</title>
+  </head>
+  <body class="bg-[#F7F8FA] text-[var(--color-text-primary)] antialiased">
+    <div class="portal-root" data-drawer-root>
+      <PortalSidebar
+        lang={lang}
+        items={items}
+        currentPath={currentPath}
+        activeOrg={activeOrg}
+      />
+
+      {/* Capa que oscurece el contenido cuando el drawer está abierto.
+          Solo existe en teléfono: en escritorio la barra es parte del layout. */}
+      <button
+        type="button"
+        class="portal-scrim"
+        data-drawer-close
+        aria-label={copy.nav.closeMenu}
+        tabindex="-1"
+      ></button>
+
+      <div class="portal-main">
+        <PortalTopbar
+          lang={lang}
+          user={user}
+          orgs={orgs}
+          activeOrg={activeOrg}
+        />
+        <main class="portal-content">
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <style>
+      .portal-root {
+        min-height: 100vh;
+        display: flex;
+      }
+
+      /* --- Teléfono: la barra lateral vive fuera de pantalla --- */
+      .portal-scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: rgba(5, 10, 24, 0.45);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 200ms var(--ease-brand);
+        border: 0;
+        cursor: pointer;
+      }
+      .portal-root[data-open="true"] .portal-scrim {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .portal-main {
+        flex: 1;
+        min-width: 0; /* sin esto, una tabla ancha empuja el layout y provoca scroll horizontal */
+        display: flex;
+        flex-direction: column;
+      }
+
+      .portal-content {
+        padding: 1rem 1rem 4rem;
+        max-width: 100%;
+      }
+
+      @media (min-width: 640px) {
+        .portal-content {
+          padding: 1.5rem 1.5rem 4rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .portal-scrim {
+          display: none;
+        }
+        .portal-content {
+          padding: 2rem 2rem 4rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .portal-scrim {
+          transition: none;
+        }
+      }
+    </style>
+
+    <script>
+      /**
+       * Drawer de la barra lateral en teléfono.
+       *
+       * Vanilla, sin dependencias, en línea con la regla del repo de no sumar
+       * librerías. Tres cosas que un drawer necesita y que la gente olvida:
+       * cerrar con Escape, devolver el foco al botón que lo abrió, y bloquear
+       * el scroll del fondo mientras está abierto.
+       */
+      const root = document.querySelector<HTMLElement>("[data-drawer-root]");
+      const openBtn = document.querySelector<HTMLElement>("[data-drawer-open]");
+      const closers = document.querySelectorAll<HTMLElement>("[data-drawer-close]");
+
+      function setOpen(open: boolean) {
+        if (!root) return;
+        root.dataset.open = String(open);
+        document.body.style.overflow = open ? "hidden" : "";
+        openBtn?.setAttribute("aria-expanded", String(open));
+        if (!open) openBtn?.focus();
+      }
+
+      openBtn?.addEventListener("click", () => setOpen(true));
+      closers.forEach((el) => el.addEventListener("click", () => setOpen(false)));
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && root?.dataset.open === "true") setOpen(false);
+      });
+
+      /* Al pasar a escritorio el drawer deja de aplicar: si quedó "abierto",
+         el scroll del body seguiría bloqueado sin que nada lo explique. */
+      const desktop = window.matchMedia("(min-width: 1024px)");
+      desktop.addEventListener("change", (e) => {
+        if (e.matches) setOpen(false);
+      });
+    </script>
+  </body>
+</html>

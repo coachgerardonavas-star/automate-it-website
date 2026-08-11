@@ -1,0 +1,41 @@
+---
+/**
+ * Etiqueta de estado.
+ *
+ * Siempre lleva punto + texto. El color acompaña, no informa por sí solo: quien
+ * no distingue verde de ámbar tiene que poder leer el estado igual.
+ *
+ * Los textos que recibe ya vienen traducidos y en lenguaje de cliente. La
+ * traducción de "scenario timeout" a "necesita atención" ocurre antes de llegar
+ * acá — este componente no sabe nada de infraestructura.
+ */
+interface Props {
+  tone: "ok" | "warn" | "danger" | "neutral" | "info";
+  label: string;
+  size?: "sm" | "md";
+}
+
+const { tone, label, size = "sm" } = Astro.props;
+
+const TONES = {
+  ok:      { dot: "bg-[#2E9E63]", text: "text-[#1F7A4D]", bg: "bg-[#E4F7EC]" },
+  warn:    { dot: "bg-[#D98200]", text: "text-[#8A5A00]", bg: "bg-[var(--color-warning-bg)]" },
+  danger:  { dot: "bg-[#D3403C]", text: "text-[#B3261E]", bg: "bg-[var(--color-danger-bg)]" },
+  info:    { dot: "bg-[var(--color-blue)]", text: "text-[var(--color-blue)]", bg: "bg-[var(--color-info-bg)]" },
+  neutral: { dot: "bg-[var(--color-text-subtle)]", text: "text-[var(--color-text-muted)]", bg: "bg-neutral-100" },
+} as const;
+
+const t = TONES[tone];
+---
+
+<span
+  class:list={[
+    "inline-flex items-center gap-1.5 rounded-full font-semibold",
+    t.bg,
+    t.text,
+    size === "sm" ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-1 text-xs",
+  ]}
+>
+  <span class:list={["h-1.5 w-1.5 shrink-0 rounded-full", t.dot]} aria-hidden="true"></span>
+  {label}
+</span>

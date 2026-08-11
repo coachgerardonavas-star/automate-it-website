@@ -1,0 +1,128 @@
+---
+/**
+ * Appointments — "¿qué tengo próximo?".
+ *
+ * Lista, no calendario. Construir una rejilla de calendario desde cero sería
+ * duplicar Google Calendar (handoff §11, §45); lo útil acá es ver qué viene y
+ * cuáles agendó el sistema solo.
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import PageHeader from "../../components/portal/PageHeader.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import DemoBanner from "../../components/portal/DemoBanner.astro";
+import StatusPill from "../../components/portal/StatusPill.astro";
+import PortalIcon from "../../components/portal/PortalIcon.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getAppointments } from "../../lib/portal/data";
+import { portalCopy, maybeDemo } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+const now = new Date();
+
+const result = ctx ? await getAppointments(ctx) : null;
+const mode = result?.mode ?? "demo";
+const all = result?.data ?? [];
+
+const upcoming = all
+  .filter((a) => new Date(a.startsAt) >= now && a.state !== "cancelled")
+  .sort((a, b) => a.startsAt.localeCompare(b.startsAt));
+const past = all
+  .filter((a) => new Date(a.startsAt) < now || a.state === "cancelled")
+  .sort((a, b) => b.startsAt.localeCompare(a.startsAt));
+
+const STATE_TONE = {
+  scheduled: "info",
+  confirmed: "ok",
+  completed: "neutral",
+  cancelled: "danger",
+  no_show: "warn",
+} as const;
+
+const locale = lang === "en" ? "en-US" : "es-ES";
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleString(locale, {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+const groups = [
+  { key: "upcoming", items: upcoming },
+  { key: "past", items: past },
+];
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.pages.appointments.title}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <PageHeader
+      title={copy.pages.appointments.title}
+      question={copy.pages.appointments.question}
+    />
+    <DemoBanner lang={lang} mode={mode} />
+
+    {all.length === 0 ? (
+      <PortalCard>
+        <EmptyState
+          title={copy.empty.appointments}
+          body={copy.empty.appointmentsBody}
+          icon="calendar"
+        />
+      </PortalCard>
+    ) : (
+      <div class="space-y-4 sm:space-y-6">
+        {groups.map((g) =>
+          g.items.length === 0 ? null : (
+            <PortalCard flush>
+              <ul class="divide-y divide-[var(--color-border)]">
+                {g.items.map((a) => (
+                  <li class="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-4 sm:px-5">
+                    <span class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-[#EEEAFB] text-[#5B45B8]">
+                      <PortalIcon name="calendar" size={17} />
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p class="truncate text-sm font-semibold">
+                        {maybeDemo(copy, mode, a.title)}
+                      </p>
+                      <p class="mt-0.5 text-xs text-[var(--color-text-muted)]">
+                        {a.contactName} · {fmt(a.startsAt)}
+                      </p>
+                    </div>
+                    <div class="flex shrink-0 items-center gap-2">
+                      {a.createdByAutomation && (
+                        <StatusPill tone="info" label={copy.kpi.handledAutomatically} />
+                      )}
+                      <StatusPill tone={STATE_TONE[a.state]} label={a.state} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </PortalCard>
+          )
+        )}
+      </div>
+    )}
+  </PortalLayout>
+)}

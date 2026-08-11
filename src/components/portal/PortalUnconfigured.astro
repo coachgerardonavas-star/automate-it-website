@@ -1,0 +1,34 @@
+---
+/**
+ * Pantalla para cuando el portal no tiene base de datos conectada.
+ *
+ * Es un estado legítimo, no un error: mientras Supabase no esté configurado, el
+ * portal no puede autenticar a nadie. Se dice con claridad en vez de mostrar un
+ * 500 o, peor, un dashboard vacío que parezca real.
+ */
+import { portalCopy, type PortalLang } from "../../lib/portal/copy";
+
+interface Props {
+  lang?: PortalLang;
+}
+
+const { lang = "es" } = Astro.props;
+const copy = portalCopy(lang);
+---
+
+<main class="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-5 py-12">
+  <div class="rounded-lg border border-[var(--color-border)] bg-white p-6 text-center shadow-[var(--shadow-card)]">
+    <p class="font-heading text-xl tracking-tight">
+      AUTOMATE <span class="text-[var(--color-blue)]">IT</span>
+    </p>
+    <p class="mt-4 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+      {copy.login.unconfigured}
+    </p>
+    <a
+      href="/"
+      class="mt-6 inline-block text-sm text-[var(--color-blue)] hover:underline"
+    >
+      ← {copy.login.backToSite}
+    </a>
+  </div>
+</main>

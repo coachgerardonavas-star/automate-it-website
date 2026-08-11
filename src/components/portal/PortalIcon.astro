@@ -1,0 +1,67 @@
+---
+/**
+ * Mapa de iconos del portal.
+ *
+ * `lucide-astro` exporta un componente por icono, así que no se puede elegir
+ * uno por variable sin un mapa explícito. El mapa además actúa de lista blanca:
+ * un nombre que no esté acá no rompe el render, cae al icono neutro.
+ */
+import {
+  House, UserRoundSearch, MessageSquare, Calendar, CalendarCheck, UsersRound,
+  Workflow, Activity, ChartColumn, Lightbulb, Folder, Settings, ShieldCheck,
+  Menu, X, Bell, CircleHelp, LogOut, ChevronDown, ArrowRight, TrendingUp,
+  TrendingDown, Clock, CircleCheck, Users, Sparkles, Plus, Send, FileText,
+  Upload, ExternalLink, Database, Mail, MessageCircle, Inbox,
+} from "lucide-astro";
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+  strokeWidth?: number;
+}
+
+const { name, size = 20, class: className = "", strokeWidth = 2 } = Astro.props;
+
+const MAP: Record<string, any> = {
+  house: House,
+  "user-round-search": UserRoundSearch,
+  "message-square": MessageSquare,
+  "message-circle": MessageCircle,
+  calendar: Calendar,
+  "calendar-check": CalendarCheck,
+  "users-round": UsersRound,
+  users: Users,
+  workflow: Workflow,
+  activity: Activity,
+  "chart-column": ChartColumn,
+  lightbulb: Lightbulb,
+  folder: Folder,
+  settings: Settings,
+  "shield-check": ShieldCheck,
+  menu: Menu,
+  x: X,
+  bell: Bell,
+  "circle-help": CircleHelp,
+  "log-out": LogOut,
+  "chevron-down": ChevronDown,
+  "arrow-right": ArrowRight,
+  "trending-up": TrendingUp,
+  "trending-down": TrendingDown,
+  clock: Clock,
+  "circle-check": CircleCheck,
+  sparkles: Sparkles,
+  plus: Plus,
+  send: Send,
+  "file-text": FileText,
+  upload: Upload,
+  "external-link": ExternalLink,
+  database: Database,
+  mail: Mail,
+  inbox: Inbox,
+};
+
+const Icon = MAP[name] ?? Inbox;
+---
+
+<Icon size={size} class={className} stroke-width={strokeWidth} aria-hidden="true" />

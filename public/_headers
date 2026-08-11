@@ -28,3 +28,16 @@
 /d/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: private, max-age=0, must-revalidate
+
+# Portal de clientes. Cada respuesta depende de quién esté autenticado, así que
+# nunca puede quedar en una caché compartida: un intermediario que guarde la
+# página de un cliente se la serviría al siguiente. `private` + `no-store` lo
+# impide.
+#
+# No se agrega Disallow en robots.txt a propósito, por el mismo motivo que /d/*:
+# bloquear el rastreo impediría leer esta cabecera noindex.
+/portal/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: private, no-store, max-age=0, must-revalidate
+  Referrer-Policy: same-origin
+  X-Frame-Options: DENY

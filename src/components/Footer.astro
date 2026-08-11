@@ -99,9 +99,18 @@ const copyright = t.copyright.replace("{year}", String(year));
     </div>
 
     <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center sm:justify-between">
-      <p class="text-xs text-white/45">
-        {copyright}
-      </p>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <p class="text-xs text-white/45">
+          {copyright}
+        </p>
+        <a
+          href="/portal/login"
+          rel="nofollow"
+          class="text-xs text-white/70 underline underline-offset-2 transition-colors hover:text-brand-cyan"
+        >
+          {t.clientLogin}
+        </a>
+      </div>
 
       <div
         class="inline-flex items-center gap-1 text-xs"

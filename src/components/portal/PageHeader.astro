@@ -1,0 +1,25 @@
+---
+/**
+ * Encabezado de pantalla.
+ *
+ * Cada pantalla del portal responde una pregunta concreta (handoff §44), y esa
+ * pregunta se muestra: no es una nota de diseño interna, es lo que le dice al
+ * dueño para qué sirve la pantalla que abrió.
+ */
+interface Props {
+  title: string;
+  question?: string;
+}
+
+const { title, question } = Astro.props;
+---
+
+<div class="mb-4 sm:mb-6">
+  <h1 class="font-heading text-2xl leading-tight text-[var(--color-text-primary)] sm:text-3xl">
+    {title}
+  </h1>
+  {question && (
+    <p class="mt-1 text-sm text-[var(--color-text-secondary)]">{question}</p>
+  )}
+  <slot />
+</div>

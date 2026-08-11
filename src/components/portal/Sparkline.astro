@@ -1,0 +1,56 @@
+---
+/**
+ * Sparkline: tendencia sin ejes.
+ *
+ * Acompaña siempre a un número que ya está escrito al lado. No lleva ejes ni
+ * etiquetas porque no se lee un valor de acá — se lee una dirección. Si alguien
+ * necesitara el valor exacto, el sparkline sería la forma equivocada.
+ */
+interface Props {
+  values: number[];
+  tone?: "blue" | "green" | "purple";
+  label: string;
+}
+
+const { values, tone = "blue", label } = Astro.props;
+
+const STROKE = {
+  blue: "#0052CC",
+  green: "#2E9E63",
+  purple: "#5B45B8",
+} as const;
+
+const W = 120;
+const H = 32;
+const PAD = 3;
+
+const min = Math.min(...values);
+const max = Math.max(...values);
+const span = max - min || 1;
+
+const d = values
+  .map((v, i) => {
+    const x = PAD + (i / Math.max(1, values.length - 1)) * (W - PAD * 2);
+    const y = PAD + (1 - (v - min) / span) * (H - PAD * 2);
+    return `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
+  })
+  .join(" ");
+---
+
+<svg
+  viewBox={`0 0 ${W} ${H}`}
+  class="h-8 w-full max-w-[120px]"
+  role="img"
+  aria-label={label}
+  preserveAspectRatio="none"
+>
+  <path
+    d={d}
+    fill="none"
+    stroke={STROKE[tone]}
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    vector-effect="non-scaling-stroke"
+  />
+</svg>

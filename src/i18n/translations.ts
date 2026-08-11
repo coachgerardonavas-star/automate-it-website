@@ -615,6 +615,9 @@ export const translations = {
       switcherLabel: "Idioma",
       langEs: "ES",
       langEn: "EN",
+      // Entrada al portal privado. Va en el pie y no en la navegación principal:
+      // es para quien ya es cliente, no para quien está evaluando contratar.
+      clientLogin: "Acceso de clientes",
     },
 
     legal: {
@@ -1271,6 +1274,7 @@ export const translations = {
       switcherLabel: "Language",
       langEs: "ES",
       langEn: "EN",
+      clientLogin: "Client login",
     },
 
     legal: {

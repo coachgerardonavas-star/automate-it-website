@@ -1,0 +1,78 @@
+---
+/**
+ * Tarjeta de métrica principal.
+ *
+ * La variación se muestra con flecha + signo + texto, nunca solo con color: en
+ * daltonismo y en impresión el color desaparece y el número tiene que seguir
+ * leyéndose (handoff §35).
+ *
+ * `delta === null` significa "no hay período anterior con el que comparar", que
+ * no es lo mismo que 0%. Un 0% afirma que medimos y no cambió. Cuando no hay
+ * base, se dice.
+ */
+import { portalCopy, type PortalLang } from "../../lib/portal/copy";
+import type { Kpi } from "../../lib/portal/types";
+import PortalIcon from "./PortalIcon.astro";
+
+interface Props {
+  lang: PortalLang;
+  kpi: Kpi;
+  icon: string;
+  tone: "blue" | "green" | "purple" | "cyan";
+}
+
+const { lang, kpi, icon, tone } = Astro.props;
+const copy = portalCopy(lang);
+
+const TONES = {
+  blue:   { bg: "bg-[#E6EEFB]", fg: "text-[#0052CC]" },
+  green:  { bg: "bg-[#E4F7EC]", fg: "text-[#1F7A4D]" },
+  purple: { bg: "bg-[#EEEAFB]", fg: "text-[#5B45B8]" },
+  cyan:   { bg: "bg-[#E1F3F7]", fg: "text-[#0B6E82]" },
+} as const;
+
+const t = TONES[tone];
+const label = (copy.kpi as Record<string, string>)[kpi.key] ?? kpi.key;
+
+const value =
+  kpi.format === "hours"
+    ? `${kpi.value.toLocaleString(lang === "en" ? "en-US" : "es-ES", { maximumFractionDigits: 1 })} h`
+    : kpi.value.toLocaleString(lang === "en" ? "en-US" : "es-ES");
+
+const up = (kpi.delta ?? 0) >= 0;
+---
+
+<article class="rounded-lg border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-card)] sm:p-5">
+  {/* En teléfono el icono va arriba y la etiqueta ocupa el ancho completo de la
+      tarjeta. Puesto al lado, a 375px quedan ~100px para el texto y nombres como
+      "Resuelto automáticamente" se cortan a mitad de palabra. */}
+  <div class="flex flex-col gap-2.5 sm:flex-row sm:items-start sm:gap-3">
+    <span class:list={["grid h-9 w-9 shrink-0 place-items-center rounded-full sm:h-11 sm:w-11", t.bg, t.fg]}>
+      <PortalIcon name={icon} size={20} />
+    </span>
+    <div class="min-w-0 flex-1">
+      <p class="text-xs font-medium leading-tight text-[var(--color-text-muted)] sm:text-sm">
+        {label}
+      </p>
+      <div class="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+        <span class="font-heading text-2xl leading-none text-[var(--color-text-primary)] sm:text-3xl">
+          {value}
+        </span>
+        {kpi.delta !== null && (
+          <span
+            class:list={[
+              "inline-flex items-center gap-0.5 text-xs font-semibold",
+              up ? "text-[#1F7A4D]" : "text-[#B3261E]",
+            ]}
+          >
+            <PortalIcon name={up ? "trending-up" : "trending-down"} size={14} />
+            {up ? "+" : ""}{kpi.delta}%
+          </span>
+        )}
+      </div>
+      <p class="mt-1 text-[11px] leading-tight text-[var(--color-text-subtle)]">
+        {kpi.delta === null ? copy.kpi.noComparison : copy.kpi.vsPrevious}
+      </p>
+    </div>
+  </div>
+</article>

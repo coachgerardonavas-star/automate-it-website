@@ -18,8 +18,12 @@ export default defineConfig({
     markdoc(),
     keystatic(),
     sitemap({
+      // El portal es privado: no entra al sitemap. Hoy tampoco entraría por ser
+      // SSR, pero dejarlo explícito evita que un cambio de `prerender` lo cuele.
       filter: (page) =>
-        !page.includes("/keystatic") && !page.includes("/en/keystatic"),
+        !page.includes("/keystatic") &&
+        !page.includes("/en/keystatic") &&
+        !page.includes("/portal"),
     }),
   ],
   i18n: {

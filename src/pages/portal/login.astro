@@ -1,0 +1,165 @@
+---
+/**
+ * Entrada al portal.
+ *
+ * Sobria a propósito: quien llega acá ya es cliente y solo quiere entrar. Nada
+ * de argumentos de venta (handoff §40).
+ *
+ * El POST se procesa en esta misma ruta. Si las credenciales fallan se
+ * re-renderiza con el error; si funcionan, se fijan las cookies y se redirige.
+ */
+export const prerender = false;
+
+import "../../styles/global.css";
+import { getSupabaseEnv, signInWithPassword } from "../../lib/portal/supabase";
+import { setSessionCookies, resolveSession } from "../../lib/portal/session";
+import { safeNext } from "../../lib/portal/guard";
+import { portalCopy } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+
+const lang = Astro.url.searchParams.get("lang") === "en" ? "en" : "es";
+const copy = portalCopy(lang);
+const next = safeNext(Astro.url.searchParams.get("next"));
+
+const env = getSupabaseEnv((Astro.locals as any)?.runtime?.env);
+
+let error: string | null = null;
+let submittedEmail = "";
+
+if (Astro.request.method === "POST") {
+  if (!env) {
+    error = copy.login.unconfigured;
+  } else {
+    const form = await Astro.request.formData();
+    submittedEmail = String(form.get("email") ?? "").trim();
+    const password = String(form.get("password") ?? "");
+
+    if (!submittedEmail || !password) {
+      error = copy.login.error;
+    } else {
+      const result = await signInWithPassword(env, submittedEmail, password);
+      if (result.ok) {
+        setSessionCookies(
+          Astro.cookies,
+          result.tokens.accessToken,
+          result.tokens.refreshToken,
+          result.tokens.expiresAt
+        );
+        return Astro.redirect(String(form.get("next") || next));
+      }
+      // Mismo mensaje para "no existe" y "contraseña incorrecta": distinguirlos
+      // le confirmaría a un atacante qué correos tienen cuenta.
+      error = copy.login.error;
+    }
+  }
+} else if (env) {
+  // Ya tiene sesión: no tiene sentido mostrarle el formulario.
+  const existing = await resolveSession(Astro);
+  if (existing.status === "authenticated") return Astro.redirect(next);
+}
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/manifold-cf-extrabold.woff2"
+      crossorigin="anonymous"
+    />
+    <title>{copy.login.welcome} · {copy.brand}</title>
+  </head>
+  <body class="min-h-screen bg-[#F7F8FA] text-[var(--color-text-primary)] antialiased">
+    <main class="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-5 py-12">
+      <div class="mb-8 text-center">
+        <p class="font-heading text-2xl tracking-tight">
+          AUTOMATE <span class="text-[var(--color-blue)]">IT</span>
+        </p>
+        <p class="mt-1 text-sm text-[var(--color-text-muted)]">{copy.tagline}</p>
+      </div>
+
+      <div class="rounded-lg border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-card)] sm:p-8">
+        <h1 class="font-heading text-xl text-[var(--color-text-primary)]">
+          {copy.login.welcome}
+        </h1>
+
+        {error && (
+          <p
+            role="alert"
+            class="mt-4 rounded-md border border-[var(--color-danger)]/30 bg-[var(--color-danger-bg)] px-3 py-2 text-sm text-[#B3261E]"
+          >
+            {error}
+          </p>
+        )}
+
+        <form method="post" class="mt-6 space-y-4">
+          <input type="hidden" name="next" value={next} />
+
+          <div>
+            <label
+              for="email"
+              class="mb-1.5 block text-sm font-semibold text-[var(--color-text-secondary)]"
+            >
+              {copy.login.email}
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              value={submittedEmail}
+              class="w-full rounded-md border border-[var(--color-border-strong)] bg-white px-3 py-2.5 text-base text-[var(--color-text-primary)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--color-blue)]"
+            />
+          </div>
+
+          <div>
+            <label
+              for="password"
+              class="mb-1.5 block text-sm font-semibold text-[var(--color-text-secondary)]"
+            >
+              {copy.login.password}
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              autocomplete="current-password"
+              class="w-full rounded-md border border-[var(--color-border-strong)] bg-white px-3 py-2.5 text-base text-[var(--color-text-primary)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--color-blue)]"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full rounded-sm bg-[var(--color-blue)] px-4 py-3 text-sm font-semibold text-white transition-colors duration-200 ease-brand hover:bg-[var(--color-navy)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)]"
+          >
+            {copy.login.submit}
+          </button>
+        </form>
+
+        <p class="mt-4 text-center text-sm">
+          <a
+            href="mailto:automateit@yourbizupgraded.com"
+            class="text-[var(--color-text-muted)] underline underline-offset-2 hover:text-[var(--color-blue)]"
+          >
+            {copy.login.forgot}
+          </a>
+        </p>
+      </div>
+
+      <p class="mt-6 text-center text-sm">
+        <a href="/" class="text-[var(--color-text-muted)] hover:text-[var(--color-blue)]">
+          ← {copy.login.backToSite}
+        </a>
+      </p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+---
+/**
+ * Conversations — "¿qué están preguntando mis clientes?".
+ *
+ * Vista consolidada por canal, no una bandeja de entrada: en V1 se lee, no se
+ * responde (handoff §10). Lo que aporta es reunir WhatsApp, teléfono y web en
+ * una sola lista ordenada por lo que está esperando respuesta.
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import PageHeader from "../../components/portal/PageHeader.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import DemoBanner from "../../components/portal/DemoBanner.astro";
+import StatusPill from "../../components/portal/StatusPill.astro";
+import PortalIcon from "../../components/portal/PortalIcon.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getConversations } from "../../lib/portal/data";
+import { portalCopy, maybeDemo, relativeTime } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+const now = new Date();
+
+const result = ctx ? await getConversations(ctx) : null;
+const mode = result?.mode ?? "demo";
+const items = result?.data ?? [];
+
+const CHANNEL_ICON: Record<string, string> = {
+  whatsapp: "message-square",
+  phone: "message-circle",
+  email: "mail",
+};
+
+const duration = (s: number) => `${Math.floor(s / 60)}m ${String(s % 60).padStart(2, "0")}s`;
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.pages.conversations.title}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <PageHeader
+      title={copy.pages.conversations.title}
+      question={copy.pages.conversations.question}
+    />
+    <DemoBanner lang={lang} mode={mode} />
+
+    <PortalCard flush>
+      {items.length === 0 ? (
+        <div class="p-4">
+          <EmptyState
+            title={copy.empty.conversations}
+            body={copy.empty.conversationsBody}
+            icon="message-square"
+          />
+        </div>
+      ) : (
+        <ul class="divide-y divide-[var(--color-border)]">
+          {items.map((c) => (
+            <li class="flex gap-3 px-4 py-4 sm:gap-4 sm:px-5">
+              <span class="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-neutral-100 text-[var(--color-text-muted)]">
+                <PortalIcon name={CHANNEL_ICON[c.channel] ?? "message-square"} size={17} />
+              </span>
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="text-sm font-semibold">{c.contactName}</p>
+                  <StatusPill
+                    tone={c.status === "waiting_business" ? "warn" : "ok"}
+                    label={c.status === "waiting_business"
+                      ? copy.automationState.needs_attention
+                      : copy.automationState.running}
+                  />
+                </div>
+                <p class="mt-1 text-sm text-[var(--color-text-secondary)]">
+                  {maybeDemo(copy, mode, c.lastMessage)}
+                </p>
+                {c.summary && (
+                  <p class="mt-1 text-xs text-[var(--color-text-muted)]">
+                    {maybeDemo(copy, mode, c.summary)}
+                  </p>
+                )}
+                <p class="mt-1 text-[11px] text-[var(--color-text-subtle)]">
+                  {relativeTime(copy, c.lastMessageAt, now)}
+                  {c.durationSeconds !== null && ` · ${duration(c.durationSeconds)}`}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </PortalCard>
+  </PortalLayout>
+)}

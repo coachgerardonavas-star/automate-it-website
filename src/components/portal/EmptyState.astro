@@ -1,0 +1,36 @@
+---
+/**
+ * Estado vacío.
+ *
+ * Dice qué va a aparecer acá y cuándo, en vez de un "sin datos" seco. Nunca
+ * finge actividad ni muestra un cero disfrazado de resultado: si no hubo nada,
+ * lo correcto es decirlo (handoff §41).
+ */
+import PortalIcon from "./PortalIcon.astro";
+
+interface Props {
+  title: string;
+  body?: string;
+  icon?: string;
+  compact?: boolean;
+}
+
+const { title, body, icon = "inbox", compact = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    "flex flex-col items-center text-center",
+    compact ? "gap-2 py-6" : "gap-3 py-10",
+  ]}
+>
+  <span class="grid h-10 w-10 place-items-center rounded-full bg-neutral-100 text-[var(--color-text-subtle)]">
+    <PortalIcon name={icon} size={20} />
+  </span>
+  <p class="text-sm font-semibold text-[var(--color-text-primary)]">{title}</p>
+  {body && (
+    <p class="max-w-sm text-xs leading-relaxed text-[var(--color-text-muted)]">
+      {body}
+    </p>
+  )}
+</div>

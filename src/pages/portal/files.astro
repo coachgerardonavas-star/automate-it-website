@@ -1,0 +1,83 @@
+---
+/**
+ * Files & Docs — "¿dónde están mis documentos?".
+ *
+ * No es un Drive: es el índice de lo que Automate IT entregó. Los archivos
+ * siguen viviendo donde ya viven; acá se enlazan (handoff §18).
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import PageHeader from "../../components/portal/PageHeader.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import DemoBanner from "../../components/portal/DemoBanner.astro";
+import PortalIcon from "../../components/portal/PortalIcon.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getDocuments } from "../../lib/portal/data";
+import { portalCopy, maybeDemo } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+
+const result = ctx ? await getDocuments(ctx) : null;
+const mode = result?.mode ?? "demo";
+const docs = result?.data ?? [];
+
+const locale = lang === "en" ? "en-US" : "es-ES";
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.pages.files.title}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <PageHeader title={copy.pages.files.title} question={copy.pages.files.question} />
+    <DemoBanner lang={lang} mode={mode} />
+
+    {docs.length === 0 ? (
+      <PortalCard>
+        <EmptyState title={copy.empty.documents} body={copy.empty.documentsBody} icon="folder" />
+      </PortalCard>
+    ) : (
+      <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        {docs.map((doc) => (
+          <li>
+            <a
+              href={doc.url}
+              class="flex h-full items-start gap-3 rounded-lg border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-card)] transition-colors duration-200 ease-brand hover:border-[var(--color-blue)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)]"
+            >
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-neutral-100 text-[var(--color-text-secondary)]">
+                <PortalIcon name="file-text" size={18} />
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block truncate text-sm font-semibold text-[var(--color-text-primary)]">
+                  {maybeDemo(copy, mode, doc.title)}
+                </span>
+                <span class="mt-0.5 block text-xs text-[var(--color-text-muted)]">
+                  {fmt(doc.createdAt)}
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </PortalLayout>
+)}

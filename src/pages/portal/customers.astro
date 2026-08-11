@@ -1,0 +1,96 @@
+---
+/**
+ * Customers — la base de clientes ya existente, no los prospectos nuevos.
+ *
+ * Vista de lectura rápida: quién es, cuándo fue el último contacto y si tiene
+ * algo agendado. No pretende reemplazar el CRM (handoff §12).
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import PageHeader from "../../components/portal/PageHeader.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import DemoBanner from "../../components/portal/DemoBanner.astro";
+import StatusPill from "../../components/portal/StatusPill.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getCustomers } from "../../lib/portal/data";
+import { portalCopy, maybeDemo, relativeTime } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+const now = new Date();
+
+const result = ctx ? await getCustomers(ctx) : null;
+const mode = result?.mode ?? "demo";
+const items = result?.data ?? [];
+
+const locale = lang === "en" ? "en-US" : "es-ES";
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleDateString(locale, { day: "numeric", month: "short" });
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.pages.customers.title}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <PageHeader title={copy.pages.customers.title} question={copy.pages.customers.question} />
+    <DemoBanner lang={lang} mode={mode} />
+
+    {items.length === 0 ? (
+      <PortalCard>
+        <EmptyState title={copy.empty.customers} body={copy.empty.customersBody} icon="users-round" />
+      </PortalCard>
+    ) : (
+      <PortalCard flush>
+        <ul class="divide-y divide-[var(--color-border)]">
+          {items.map((c) => (
+            <li class="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-4 sm:px-5">
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="text-sm font-semibold">{c.name}</p>
+                  <StatusPill
+                    tone={c.status === "active" ? "ok" : "neutral"}
+                    label={c.status}
+                  />
+                </div>
+                <p class="mt-0.5 text-xs text-[var(--color-text-muted)]">
+                  {maybeDemo(copy, mode, c.service)}
+                </p>
+              </div>
+              <dl class="flex shrink-0 gap-6 text-xs">
+                <div>
+                  <dt class="text-[var(--color-text-subtle)]">{copy.leads.lastActivity}</dt>
+                  <dd class="font-semibold text-[var(--color-text-secondary)]">
+                    {c.lastInteractionAt ? relativeTime(copy, c.lastInteractionAt, now) : "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt class="text-[var(--color-text-subtle)]">{copy.nav.appointments}</dt>
+                  <dd class="font-semibold text-[var(--color-text-secondary)]">
+                    {c.nextAppointmentAt ? fmt(c.nextAppointmentAt) : "—"}
+                  </dd>
+                </div>
+              </dl>
+            </li>
+          ))}
+        </ul>
+      </PortalCard>
+    )}
+  </PortalLayout>
+)}

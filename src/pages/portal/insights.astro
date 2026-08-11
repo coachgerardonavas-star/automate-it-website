@@ -1,0 +1,122 @@
+---
+/**
+ * Insights — "¿qué debería notar?".
+ *
+ * La regla que gobierna esta pantalla: cada afirmación se muestra junto a la
+ * evidencia que la sostiene. El tipo `Insight` obliga a cargar las dos cosas,
+ * así que no hay forma de publicar una conclusión sin decir de dónde salió.
+ *
+ * Si no hay suficiente actividad, se dice. "Todavía no hay datos" es una
+ * respuesta mejor que una recomendación inventada (handoff §16).
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import PageHeader from "../../components/portal/PageHeader.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import DemoBanner from "../../components/portal/DemoBanner.astro";
+import Sparkline from "../../components/portal/Sparkline.astro";
+import PortalIcon from "../../components/portal/PortalIcon.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getOverview } from "../../lib/portal/data";
+import { portalCopy, maybeDemo } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+
+const result = ctx ? await getOverview(ctx, "30d") : null;
+const mode = result?.mode ?? "demo";
+const insights = result?.data.insights ?? [];
+const metrics = result?.data.businessMetrics ?? [];
+const metricLabels = copy.metrics as Record<string, string>;
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.pages.insights.title}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <PageHeader title={copy.pages.insights.title} question={copy.pages.insights.question} />
+    <DemoBanner lang={lang} mode={mode} />
+
+    {insights.length === 0 ? (
+      <PortalCard>
+        <EmptyState title={copy.empty.insights} body={copy.empty.insightsBody} icon="lightbulb" />
+      </PortalCard>
+    ) : (
+      <ul class="space-y-3 sm:space-y-4">
+        {insights.map((i) => (
+          <li class="rounded-lg border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-card)] sm:p-5">
+            <div class="flex gap-3">
+              <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[var(--color-info-bg)] text-[var(--color-blue)]">
+                <PortalIcon name="sparkles" size={16} />
+              </span>
+              <div class="min-w-0">
+                <p class="text-sm font-semibold leading-snug text-[var(--color-text-primary)]">
+                  {maybeDemo(copy, mode, i.body)}
+                </p>
+                {/* La evidencia no es letra chica decorativa: es lo que permite
+                    verificar la afirmación de arriba. */}
+                <p class="mt-1.5 text-xs leading-relaxed text-[var(--color-text-muted)]">
+                  {maybeDemo(copy, mode, i.evidence)}
+                </p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    {metrics.length > 0 && (
+      <PortalCard title={copy.sections.businessInsights} class="mt-4 sm:mt-6">
+        <ul class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {metrics.map((m) => (
+            <li class="rounded-md border border-[var(--color-border)] bg-neutral-50 p-4">
+              <p class="text-xs text-[var(--color-text-muted)]">
+                {metricLabels[m.key] ?? m.key}
+              </p>
+              <div class="mt-1 flex items-baseline gap-2">
+                <span class="font-heading text-2xl leading-none">{m.value}</span>
+                {m.delta !== null && (
+                  <span
+                    class:list={[
+                      "text-xs font-semibold",
+                      m.delta >= 0 ? "text-[#1F7A4D]" : "text-[#B3261E]",
+                    ]}
+                  >
+                    {m.delta >= 0 ? "+" : ""}{m.delta}%
+                  </span>
+                )}
+              </div>
+              <p class="mt-0.5 text-[11px] text-[var(--color-text-subtle)]">
+                {copy.metrics.vsLastMonth}
+              </p>
+              <div class="mt-3">
+                <Sparkline
+                  values={m.series}
+                  tone={m.delta !== null && m.delta >= 0 ? "green" : "blue"}
+                  label={metricLabels[m.key] ?? m.key}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </PortalCard>
+    )}
+  </PortalLayout>
+)}

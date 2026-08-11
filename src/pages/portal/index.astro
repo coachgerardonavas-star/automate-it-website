@@ -1,0 +1,410 @@
+---
+/**
+ * Overview — la pantalla que responde "¿cómo va mi negocio?".
+ *
+ * Orden pensado desde el teléfono hacia arriba: primero las cuatro cifras,
+ * después lo que necesita intervención humana, y recién ahí el detalle. En
+ * escritorio la rejilla se abre y aparece todo a la vez; en teléfono se apila
+ * en ese mismo orden de importancia, sin recortar secciones.
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import KpiCard from "../../components/portal/KpiCard.astro";
+import StatusPill from "../../components/portal/StatusPill.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import DemoBanner from "../../components/portal/DemoBanner.astro";
+import ActivityChart from "../../components/portal/ActivityChart.astro";
+import Sparkline from "../../components/portal/Sparkline.astro";
+import PortalIcon from "../../components/portal/PortalIcon.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getOverview } from "../../lib/portal/data";
+import { portalCopy, maybeDemo, relativeTime } from "../../lib/portal/copy";
+import { PORTAL_BASE, isValidRange } from "../../lib/portal/config";
+import type { RangeKey } from "../../lib/portal/types";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+
+const rangeParam = Astro.url.searchParams.get("range");
+const range: RangeKey = isValidRange(rangeParam) ? rangeParam : "30d";
+
+const now = new Date();
+const hour = now.getHours();
+const greeting =
+  hour < 12 ? copy.greeting.morning : hour < 19 ? copy.greeting.afternoon : copy.greeting.evening;
+
+const firstName = (session.user.fullName ?? session.user.email).split(/[\s@]/)[0];
+
+const result = ctx ? await getOverview(ctx, range) : null;
+const mode = result?.mode ?? "demo";
+const d = result?.data ?? null;
+const failed = result?.failedSources ?? [];
+
+const KPI_META: Record<string, { icon: string; tone: "blue" | "green" | "purple" | "cyan" }> = {
+  newLeads: { icon: "users", tone: "blue" },
+  handledAutomatically: { icon: "circle-check", tone: "green" },
+  appointmentsBooked: { icon: "calendar", tone: "purple" },
+  hoursSaved: { icon: "clock", tone: "cyan" },
+};
+
+const AUTOMATION_TONE = {
+  running: "ok",
+  needs_attention: "warn",
+  unavailable: "danger",
+} as const;
+
+const TEMP_TONE = { hot: "danger", warm: "warn", cold: "info", unclassified: "neutral" } as const;
+
+const QUICK_ACTIONS = [
+  { key: "createFollowUp", icon: "send" },
+  { key: "addLead", icon: "plus" },
+  { key: "scheduleAppointment", icon: "calendar-check" },
+  { key: "uploadDocument", icon: "upload" },
+] as const;
+
+const units = copy.units as Record<string, string>;
+const qa = copy.quickActions as Record<string, string>;
+const metricLabels = copy.metrics as Record<string, string>;
+const rangeLabels = copy.range as Record<string, string>;
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.nav.overview}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <div class="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h1 class="font-heading text-2xl leading-tight sm:text-3xl">
+          {greeting}, {firstName}.
+        </h1>
+        <p class="mt-1 text-sm text-[var(--color-text-secondary)]">
+          {copy.greeting.subtitle}
+        </p>
+      </div>
+
+      {/* Selector de período. Es un form GET: el rango queda en la URL, así que
+          la pantalla se puede compartir o recargar sin perder el contexto. */}
+      <form method="get" class="shrink-0">
+        <label for="range" class="sr-only">{copy.range.label}</label>
+        <select
+          id="range"
+          name="range"
+          onchange="this.form.submit()"
+          class="w-full rounded-md border border-[var(--color-border)] bg-white px-3 py-2 text-sm font-semibold text-[var(--color-text-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-blue)] sm:w-auto"
+        >
+          {["today", "7d", "30d", "month"].map((r) => (
+            <option value={r} selected={r === range}>{rangeLabels[r]}</option>
+          ))}
+        </select>
+      </form>
+    </div>
+
+    <DemoBanner lang={lang} mode={mode} />
+
+    {failed.length > 0 && (
+      <p
+        role="status"
+        class="mb-4 rounded-lg border border-[var(--color-warning)]/35 bg-[var(--color-warning-bg)] px-4 py-3 text-sm text-[#6B4700] sm:mb-6"
+      >
+        {copy.error.partial}
+      </p>
+    )}
+
+    {!d ? (
+      <PortalCard>
+        <EmptyState title={copy.empty.generic} />
+      </PortalCard>
+    ) : (
+      <div class="space-y-4 sm:space-y-6">
+        {/* Fila de métricas. Dos columnas en teléfono: cuatro tarjetas en una
+            sola columna obligarían a hacer scroll antes de ver la primera cifra. */}
+        {d.kpis.length > 0 && (
+          <div class="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
+            {d.kpis.map((kpi) => (
+              <KpiCard
+                lang={lang}
+                kpi={kpi}
+                icon={KPI_META[kpi.key]?.icon ?? "activity"}
+                tone={KPI_META[kpi.key]?.tone ?? "blue"}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* En teléfono "necesita tu atención" sube por encima del gráfico: es lo
+            único de esta pantalla que pide una acción hoy. En escritorio vuelve
+            a su columna. */}
+        <div class="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-12">
+          <PortalCard
+            title={copy.sections.needsAttention}
+            actionLabel={copy.sections.viewAll}
+            actionHref={`${PORTAL_BASE}/leads`}
+            class="order-1 lg:order-3 lg:col-span-3"
+            flush
+          >
+            {d.attention.length === 0 ? (
+              <div class="px-4 pb-4"><EmptyState title={copy.empty.leads} compact /></div>
+            ) : (
+              <ul class="divide-y divide-[var(--color-border)] px-4 pb-2 pt-3 sm:px-5">
+                {d.attention.map((item) => (
+                  <li class="flex items-start gap-3 py-3">
+                    <div class="min-w-0 flex-1">
+                      <div class="flex flex-wrap items-center gap-2">
+                        <p class="truncate text-sm font-semibold">{item.name}</p>
+                        <StatusPill
+                          tone={TEMP_TONE[item.temperature]}
+                          label={copy.temperature[item.temperature]}
+                        />
+                      </div>
+                      <p class="mt-0.5 text-xs text-[var(--color-text-muted)]">
+                        {maybeDemo(copy, mode, item.reason)}
+                      </p>
+                      <p class="mt-0.5 text-[11px] text-[var(--color-text-subtle)]">
+                        {relativeTime(copy, item.at, now)}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </PortalCard>
+
+          <PortalCard
+            title={copy.sections.customerActivity}
+            class="order-3 lg:order-1 lg:col-span-5"
+          >
+            {d.activity.length === 0 ? (
+              <EmptyState title={copy.empty.activity} body={copy.empty.activityBody} />
+            ) : (
+              <ActivityChart lang={lang} points={d.activity} label={copy.units.conversations} />
+            )}
+          </PortalCard>
+
+          <PortalCard
+            title={copy.sections.yourAutomations}
+            actionLabel={copy.sections.viewAll}
+            actionHref={`${PORTAL_BASE}/automations`}
+            class="order-2 lg:col-span-4"
+            flush
+          >
+            {d.automations.length === 0 ? (
+              <div class="px-4 pb-4">
+                <EmptyState title={copy.empty.automations} body={copy.empty.automationsBody} compact />
+              </div>
+            ) : (
+              <ul class="divide-y divide-[var(--color-border)] px-4 pb-2 pt-3 sm:px-5">
+                {d.automations.map((a) => (
+                  <li class="flex items-center gap-3 py-3">
+                    <span class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-neutral-100 text-[var(--color-text-secondary)]">
+                      <PortalIcon name={a.icon} size={18} />
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p class="truncate text-sm font-semibold">{a.name}</p>
+                      <StatusPill
+                        tone={AUTOMATION_TONE[a.state]}
+                        label={copy.automationState[a.state]}
+                      />
+                    </div>
+                    <div class="shrink-0 text-right">
+                      <p class="font-heading text-base leading-none">{a.volume}</p>
+                      <p class="mt-1 text-[11px] text-[var(--color-text-subtle)]">
+                        {units[a.unitLabel] ?? a.unitLabel}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </PortalCard>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-12">
+          <PortalCard
+            title={copy.sections.recentActivity}
+            actionLabel={copy.sections.viewAll}
+            actionHref={`${PORTAL_BASE}/activity`}
+            class="lg:col-span-4"
+            flush
+          >
+            {d.recentActivity.length === 0 ? (
+              <div class="px-4 pb-4"><EmptyState title={copy.empty.activity} compact /></div>
+            ) : (
+              <ul class="px-4 pb-3 pt-3 sm:px-5">
+                {d.recentActivity.map((item) => (
+                  <li class="flex items-start gap-3 py-2.5">
+                    <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-neutral-100 text-[var(--color-text-muted)]">
+                      <PortalIcon name={item.channel === "phone" ? "message-circle" : item.channel === "email" ? "mail" : item.channel === "calendar" ? "calendar" : item.channel === "crm" ? "database" : "message-square"} size={14} />
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-sm leading-snug">{maybeDemo(copy, mode, item.summary)}</p>
+                      <p class="mt-0.5 text-[11px] text-[var(--color-text-subtle)]">
+                        {relativeTime(copy, item.at, now)}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </PortalCard>
+
+          <PortalCard
+            title={copy.sections.businessInsights}
+            actionLabel={copy.sections.viewReport}
+            actionHref={`${PORTAL_BASE}/insights`}
+            class="lg:col-span-4"
+          >
+            {d.businessMetrics.length === 0 ? (
+              <EmptyState title={copy.empty.insights} body={copy.empty.insightsBody} compact />
+            ) : (
+              <ul class="divide-y divide-[var(--color-border)]">
+                {d.businessMetrics.map((m) => (
+                  <li class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                    <div class="min-w-0 flex-1">
+                      <p class="text-xs text-[var(--color-text-muted)]">
+                        {metricLabels[m.key] ?? m.key}
+                      </p>
+                      <div class="mt-0.5 flex items-baseline gap-2">
+                        <span class="font-heading text-lg leading-none">{m.value}</span>
+                        {m.delta !== null && (
+                          <span
+                            class:list={[
+                              "text-xs font-semibold",
+                              m.delta >= 0 ? "text-[#1F7A4D]" : "text-[#B3261E]",
+                            ]}
+                          >
+                            {m.delta >= 0 ? "+" : ""}{m.delta}%
+                          </span>
+                        )}
+                      </div>
+                      <p class="mt-0.5 text-[11px] text-[var(--color-text-subtle)]">
+                        {copy.metrics.vsLastMonth}
+                      </p>
+                    </div>
+                    <Sparkline
+                      values={m.series}
+                      tone={m.delta !== null && m.delta >= 0 ? "green" : "blue"}
+                      label={metricLabels[m.key] ?? m.key}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </PortalCard>
+
+          <div class="space-y-4 sm:space-y-6 lg:col-span-4">
+            <PortalCard title={copy.sections.quickActions}>
+              {/* Sin acción todavía conectada: en vez de un botón que no hace
+                  nada, cada una dice que está por llegar. */}
+              <ul class="grid grid-cols-2 gap-2">
+                {QUICK_ACTIONS.map((action) => (
+                  <li>
+                    <button
+                      type="button"
+                      disabled
+                      title={copy.quickActions.soon}
+                      class="flex w-full cursor-not-allowed flex-col items-start gap-2 rounded-md border border-[var(--color-border)] bg-neutral-50 p-3 text-left opacity-70"
+                    >
+                      <PortalIcon name={action.icon} size={18} class="text-[var(--color-blue)]" />
+                      <span class="text-xs font-semibold leading-tight text-[var(--color-text-secondary)]">
+                        {qa[action.key]}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <p class="mt-3 text-[11px] text-[var(--color-text-subtle)]">
+                {copy.quickActions.soon}
+              </p>
+            </PortalCard>
+
+            <PortalCard
+              title={copy.sections.integrations}
+              actionLabel={copy.sections.manage}
+              actionHref={`${PORTAL_BASE}/settings`}
+            >
+              {d.integrations.length === 0 ? (
+                <EmptyState title={copy.empty.generic} compact />
+              ) : (
+                <ul class="space-y-2">
+                  {d.integrations.map((i) => (
+                    <li class="flex items-center justify-between gap-3">
+                      <span class="truncate text-sm text-[var(--color-text-secondary)]">
+                        {i.name}
+                      </span>
+                      <StatusPill
+                        tone={i.state === "connected" ? "ok" : i.state === "degraded" ? "warn" : "danger"}
+                        label={copy.integrationState[i.state]}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </PortalCard>
+          </div>
+        </div>
+
+        {/* La métrica propia de Automate IT: traduce ejecuciones de escenario a
+            trabajo hecho. Es lo que comunica la propuesta de valor (handoff §21). */}
+        {d.workHandled.total > 0 && (
+          <PortalCard>
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+              <div class="shrink-0">
+                <p class="text-sm font-semibold text-[var(--color-text-primary)]">
+                  {copy.sections.workHandled}
+                </p>
+                <p class="mt-1 flex items-baseline gap-2">
+                  <span class="font-heading text-4xl leading-none text-[var(--color-blue)]">
+                    {d.workHandled.total}
+                  </span>
+                </p>
+                <p class="mt-1 max-w-[15rem] text-xs leading-snug text-[var(--color-text-muted)]">
+                  {copy.sections.workHandledSuffix}
+                </p>
+              </div>
+              <ul class="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
+                {d.workHandled.breakdown.map((b) => (
+                  <li class="rounded-md border border-[var(--color-border)] bg-neutral-50 px-3 py-2.5">
+                    <p class="font-heading text-lg leading-none">{b.count}</p>
+                    <p class="mt-1 text-[11px] leading-tight text-[var(--color-text-muted)]">
+                      {units[b.key] ?? b.key}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </PortalCard>
+        )}
+      </div>
+    )}
+  </PortalLayout>
+)}
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>

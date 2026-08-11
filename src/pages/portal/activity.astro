@@ -1,0 +1,108 @@
+---
+/**
+ * Activity — "¿qué hizo Automate IT por mí?".
+ *
+ * Timeline de lo que el sistema resolvió solo. Es la pantalla que vuelve
+ * visible el trabajo que normalmente ocurre en silencio, así que muestra el
+ * resumen humano de cada evento y nunca el payload técnico: la consulta pide
+ * columnas nombradas y `metadata` se queda en la base.
+ */
+export const prerender = false;
+
+import PortalLayout from "../../layouts/PortalLayout.astro";
+import PortalUnconfigured from "../../components/portal/PortalUnconfigured.astro";
+import PortalCard from "../../components/portal/PortalCard.astro";
+import PageHeader from "../../components/portal/PageHeader.astro";
+import EmptyState from "../../components/portal/EmptyState.astro";
+import DemoBanner from "../../components/portal/DemoBanner.astro";
+import PortalIcon from "../../components/portal/PortalIcon.astro";
+import StatusPill from "../../components/portal/StatusPill.astro";
+import { requirePortal } from "../../lib/portal/guard";
+import { getOverview } from "../../lib/portal/data";
+import { portalCopy, maybeDemo, relativeTime } from "../../lib/portal/copy";
+import { PORTAL_BASE } from "../../lib/portal/config";
+
+const guard = await requirePortal(Astro);
+if ("redirect" in guard) return guard.redirect;
+if ("unconfigured" in guard) {
+  return new Response(null, { status: 302, headers: { Location: `${PORTAL_BASE}/login` } });
+}
+
+const { session, org, ctx, lang, currentPath } = guard.ok;
+const copy = portalCopy(lang);
+const now = new Date();
+
+const result = ctx ? await getOverview(ctx, "30d") : null;
+const mode = result?.mode ?? "demo";
+const items = result?.data.recentActivity ?? [];
+
+const CHANNEL_ICON: Record<string, string> = {
+  whatsapp: "message-square",
+  phone: "message-circle",
+  email: "mail",
+  calendar: "calendar",
+  crm: "database",
+};
+
+const locale = lang === "en" ? "en-US" : "es-ES";
+const clock = (iso: string) =>
+  new Date(iso).toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
+---
+
+{!org ? (
+  <PortalUnconfigured lang={lang} />
+) : (
+  <PortalLayout
+    lang={lang}
+    title={copy.pages.activity.title}
+    user={session.user}
+    orgs={session.orgs}
+    activeOrg={org}
+    currentPath={currentPath}
+  >
+    <PageHeader title={copy.pages.activity.title} question={copy.pages.activity.question} />
+    <DemoBanner lang={lang} mode={mode} />
+
+    <PortalCard flush>
+      {items.length === 0 ? (
+        <div class="p-4">
+          <EmptyState title={copy.empty.activity} body={copy.empty.activityBody} icon="activity" />
+        </div>
+      ) : (
+        <ol class="px-4 py-2 sm:px-5">
+          {items.map((item, i) => (
+            <li class="relative flex gap-3 py-3 sm:gap-4">
+              {/* Línea vertical del timeline. Se corta en el último elemento
+                  para no dejar un trazo colgando. */}
+              {i < items.length - 1 && (
+                <span
+                  class="absolute left-[15px] top-[2.65rem] h-[calc(100%-1.6rem)] w-px bg-[var(--color-border)] sm:left-[15px]"
+                  aria-hidden="true"
+                ></span>
+              )}
+              <span class="z-10 mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[var(--color-border)] bg-white text-[var(--color-text-muted)]">
+                <PortalIcon name={CHANNEL_ICON[item.channel] ?? "activity"} size={15} />
+              </span>
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="text-sm font-medium leading-snug">
+                    {maybeDemo(copy, mode, item.summary)}
+                  </p>
+                  {item.status && (
+                    <StatusPill
+                      tone={item.status === "completed" || item.status === "confirmed" ? "ok" : "neutral"}
+                      label={item.status}
+                    />
+                  )}
+                </div>
+                <p class="mt-0.5 text-[11px] text-[var(--color-text-subtle)]">
+                  {clock(item.at)} · {relativeTime(copy, item.at, now)}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+    </PortalCard>
+  </PortalLayout>
+)}
