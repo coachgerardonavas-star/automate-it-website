@@ -21,16 +21,40 @@ import type {
   Conversation, Customer, Insight, IntegrationStatus, Kpi, Lead, OverviewData,
   PortalDocument, SeriesPoint, WorkHandled,
 } from "./types";
+import { hoursSaved } from "./hours-saved";
 
 /** Desplazamiento fijo respecto de la hora del request: el offset es estable, el instante no. */
 const ago = (now: Date, min: number) => new Date(now.getTime() - min * 60_000).toISOString();
 const ahead = (now: Date, h: number) => new Date(now.getTime() + h * 3_600_000).toISOString();
 
+// Va antes que KPIS a propósito: la tarjeta de horas ahorradas se calcula a
+// partir de este desglose, así que tiene que existir primero.
+const WORK: WorkHandled = {
+  total: 287,
+  breakdown: [
+    { key: "conversations", count: 143 },
+    { key: "crmUpdates", count: 47 },
+    { key: "followUps", count: 39 },
+    { key: "appointmentActions", count: 26 },
+    { key: "customerNotifications", count: 18 },
+    { key: "otherTasks", count: 14 },
+  ],
+};
+
 const KPIS: Kpi[] = [
   { key: "newLeads", value: 47, delta: 14, format: "count" },
   { key: "handledAutomatically", value: 39, delta: 18, format: "count" },
   { key: "appointmentsBooked", value: 18, delta: 20, format: "count" },
-  { key: "hoursSaved", value: 12.4, delta: 16, format: "hours" },
+  // `hoursSaved` no se escribe a mano: sale de la fórmula aplicada al mismo
+  // desglose de trabajo que se muestra abajo en la pantalla. Así el número de
+  // la tarjeta y el del bloque "Trabajo resuelto automáticamente" no pueden
+  // contradecirse — es imposible que uno cambie sin el otro.
+  {
+    key: "hoursSaved",
+    value: hoursSaved(WORK.breakdown) ?? 0,
+    delta: 16,
+    format: "hours",
+  },
 ];
 
 // Curva escrita a mano, no generada: una serie aleatoria distinta en cada build
@@ -46,18 +70,6 @@ const AUTOMATIONS: AutomationSummary[] = [
   { id: "d-bk", name: "Appointment Booking", icon: "calendar-check", state: "running", volume: 18, unitLabel: "appointments", lastActivityAt: null },
   { id: "d-crm", name: "CRM Sync", icon: "database", state: "running", volume: 47, unitLabel: "records", lastActivityAt: null },
 ];
-
-const WORK: WorkHandled = {
-  total: 287,
-  breakdown: [
-    { key: "conversations", count: 143 },
-    { key: "crmUpdates", count: 47 },
-    { key: "followUps", count: 39 },
-    { key: "appointmentActions", count: 26 },
-    { key: "customerNotifications", count: 18 },
-    { key: "otherTasks", count: 14 },
-  ],
-};
 
 const INTEGRATIONS: IntegrationStatus[] = [
   { id: "hubspot", name: "HubSpot", state: "connected" },
