@@ -26,6 +26,17 @@ export interface Env {
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHAT_ID?: string;
   ALLOWED_ORIGINS: string;
+  /**
+   * Webhook del escenario de Make 5148358, que manda el email de confirmacion,
+   * dispara la llamada de Retell y abre el deal. Ese escenario se disparaba con
+   * `WatchFormSubmissions` hasta el 7-ago-2026, cuando este formulario dejo de
+   * postear a HubSpot Forms: desde entonces no se ejecutaba para ningun lead.
+   *
+   * Va como secreto, no como var: la URL es la unica credencial del webhook, y
+   * quien la tenga puede disparar llamadas de Retell, que cuestan dinero.
+   *   wrangler secret put MAKE_LEAD_WEBHOOK_URL
+   */
+  MAKE_LEAD_WEBHOOK_URL?: string;
   // Rate limiter nativo de Cloudflare. Cierra lo que el filtro de Origin no
   // puede: un cliente que no manda cabecera Origin (curl, un script) pasaba
   // el filtro porque las llamadas servidor-a-servidor tampoco la mandan.
@@ -266,6 +277,46 @@ function notifyTelegram(env: Env, p: Payload): void {
   }).catch((e) => console.error("[diagnostico-intake] Telegram error", e));
 }
 
+/**
+ * Dispara el escenario de Make que atiende al lead: email de confirmacion,
+ * llamada del agente de Retell y deal.
+ *
+ * El payload va envuelto en `fields` a proposito. El escenario leia
+ * `1.fields.email`, `1.fields.message`, etc. cuando el trigger era un
+ * formulario de HubSpot; mandandolo con esa misma forma, el cambio de trigger
+ * no obligo a retocar ni uno solo de los mapeos de aguas abajo.
+ *
+ * No se dispara en dos casos:
+ *  - Negocios con datos de pacientes: `message` es texto libre y Make no tiene
+ *    BAA. Ademas, a esa persona el formulario le acaba de decir que su caso
+ *    empieza con una conversacion, no con una llamada automatica.
+ *  - Equipos de mas de 30: se les rechaza en la misma respuesta. Llamarlos
+ *    seria contradecirnos.
+ */
+function notifyMakeLeadFlow(env: Env, p: Payload): void {
+  if (!env.MAKE_LEAD_WEBHOOK_URL) {
+    console.warn("[diagnostico-intake] MAKE_LEAD_WEBHOOK_URL sin configurar");
+    return;
+  }
+  if (isPhiRisk(p) || p.team_size === "30_plus") return;
+
+  const parts = (p.name || "").trim().split(/\s+/);
+  void fetch(env.MAKE_LEAD_WEBHOOK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      fields: {
+        firstname: parts[0] || "",
+        email: p.email,
+        phone: p.phone || "",
+        address: p.address || "",
+        industry: p.business_type || "",
+        message: p.problem || "",
+      },
+    }),
+  }).catch((e) => console.error("[diagnostico-intake] Make webhook error", e));
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get("Origin");
@@ -330,6 +381,7 @@ export default {
       const contactId = await upsertContact(env, p);
       await createNote(env, contactId, p);
       notifyTelegram(env, p);
+      notifyMakeLeadFlow(env, p);
 
       // The person still gets a real answer, not a generic thanks. `outOfScope`
       // dispara el mensaje a medida en el formulario; para HIPAA ese mensaje ya
