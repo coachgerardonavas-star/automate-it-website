@@ -78,6 +78,7 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 
 ## Documentos de referencia en este repo
 - `MANUAL_MAESTRO_v4_9.md` — Manual Maestro del sistema multi-agente (vigente).
+- `MANUAL_ONBOARDING_CLIENTES_v1_0.md` — ciclo de vida del cliente estándar: de pago a fin de contrato, 7 etapas, incluye el procedimiento de aislamiento Claude Code/MCP por cliente (vigente).
 - `BrandScript_Automate_IT_v1_1.md` — BrandScript de marca (vigente).
 - `Manual_de_Marca_v2_5.docx` — manual de marca visual/verbal (vigente).
 - `Quienes_Somos_v2_9.docx` — documento de identidad corporativa (vigente).
