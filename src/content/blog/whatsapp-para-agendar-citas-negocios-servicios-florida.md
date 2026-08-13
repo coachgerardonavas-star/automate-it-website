@@ -69,7 +69,7 @@ La tasa de completacion de reservas por WhatsApp es 40% mayor que la de formular
 
 **Salon de belleza en el area de Orlando.** 45 citas semanales. Tasa de no-show del 18% antes de implementar recordatorios automatizados. Con una secuencia de 3 mensajes (confirmacion + 24h + 2h), la tasa bajo al 7%. Eso es aproximadamente 5 citas recuperadas por semana — $400 a $500 en ingresos que antes se perdian.
 
-**Terapeuta de salud en Miami.** Sector salud requiere HIPAA. El flujo de WhatsApp para recordatorios — cuando se implementa sobre infraestructura HIPAA-compliant — no transmite datos clinicos en el chat. Solo fecha, hora y nombre. El paciente confirma. Eso es todo lo que se necesita para reducir los no-shows sin comprometer privacidad.
+**Estudio de fotografia en Miami.** Las sesiones se agendaban por mensaje directo de Instagram y se perdian entre conversaciones. El flujo de WhatsApp no necesita transmitir nada delicado en el chat: solo fecha, hora y nombre. El cliente confirma, y la sesion queda en el calendario sin que nadie transcriba nada a mano.
 
 **Servicio de limpieza residencial en Tampa.** La coordinacion de turnos era por llamada y texto. Cada cambio de horario requeria una llamada manual. Con un flujo de WhatsApp, el cliente reagenda escribiendo al numero del negocio, el sistema actualiza el calendario, y el equipo ve el cambio en tiempo real. La coordinacion que tomaba 45 minutos diarios bajo a menos de 10.
 
