@@ -15,7 +15,7 @@
 
 import type { APIContext } from "astro";
 import { resolveSession, resolveActiveOrg } from "./session";
-import { getSupabaseEnv } from "./supabase";
+import { getSupabaseEnv, logVisit } from "./supabase";
 import { PORTAL_BASE } from "./config";
 import type { DataContext } from "./data";
 import type { Organization, PortalSession } from "./types";
@@ -80,6 +80,24 @@ export async function requirePortal(context: APIContext): Promise<GuardResult> {
   const ctx: DataContext | null = org
     ? { org, role: session.user.role, env, accessToken, now: new Date() }
     : null;
+
+  /*
+   * Se anota el paso por la pantalla. Es lo que alimenta "hace cuánto que no
+   * entra" en el Centro de administración — la señal que mejor anticipa que un
+   * cliente no va a renovar, porque deja de mirar bastante antes de avisar que
+   * se va.
+   *
+   * Va sin `await`: la persona no tiene por qué esperar a que se registre su
+   * propia visita para ver la página. Y `logVisit` se traga sus errores, así
+   * que una escritura fallida no puede tumbar el render.
+   *
+   * Solo se registra al rol client. Tus propias visitas al portal ensuciarían
+   * la métrica: si entrás a revisar la cuenta de un cliente, esa organización
+   * figuraría como "activa" sin que el cliente haya entrado.
+   */
+  if (env && accessToken && org && session.user.role === "client") {
+    void logVisit(env, accessToken, org.id, session.user.id, context.url.pathname);
+  }
 
   return {
     ok: {

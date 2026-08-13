@@ -16,7 +16,7 @@ import {
   demoAppointments, demoConversations, demoCustomers, demoDocuments,
   demoLeads, demoOverview,
 } from "./demo-data";
-import { restSelect, type SupabaseEnv } from "./supabase";
+import { restSelect, rpc, type SupabaseEnv } from "./supabase";
 import type {
   AdminAutomationDetail, AdminOrgRow, Appointment, Conversation, Customer,
   DataEnvelope, Lead, Organization, OverviewData, PortalDocument, PortalRole,
@@ -138,50 +138,77 @@ export async function getAdminRows(
   env: SupabaseEnv | null,
   accessToken: string | null
 ): Promise<DataEnvelope<AdminOrgRow[]>> {
-  const base: AdminOrgRow[] = orgs.map((o) => ({
-    id: o.id,
-    name: o.name,
-    slug: o.slug,
-    status: o.status,
-    automationCount: 0,
-    openAlerts: 0,
-    lastActivityAt: null,
-  }));
+  const vacio = (o: Organization): AdminOrgRow => ({
+    id: o.id, name: o.name, slug: o.slug, status: o.status,
+    automationCount: 0, openAlerts: 0, lastActivityAt: null, failures7d: 0,
+    commercial: null,
+    engagement: { lastLoginAt: null, sawReports30d: false },
+  });
 
+  const base = orgs.map(vacio);
   if (!env || !accessToken) return { mode: "live", data: base, failedSources: ["supabase"] };
 
   const failed: string[] = [];
 
-  // Una consulta por colección y no una por cliente: con veinte clientes, el
-  // patrón "un fetch por fila" son veinte viajes de ida y vuelta.
-  const [automations, alerts] = await Promise.all([
+  // Todo lo agregado sale de una sola llamada: `admin_overview` resuelve en la
+  // base los recuentos por cliente. El patrón anterior —un fetch por colección
+  // y el cruce en memoria— no podía traer lo comercial ni el compromiso sin
+  // sumar dos viajes más, y con veinte clientes eso se nota.
+  const [filas, automations] = await Promise.all([
+    safe(() => rpc<any[]>(env, accessToken, "admin_overview"), failed, "admin_overview"),
     safe(() => restSelect<any>(env, accessToken,
-      "automations?select=id,organization_id,last_activity_at"), failed, "automations"),
-    safe(() => restSelect<any>(env, accessToken,
-      "alerts?select=id,organization_id,level&resolved_at=is.null"), failed, "alerts"),
+      "automations?select=id,organization_id"), failed, "automations"),
   ]);
 
-  const byOrg = new Map(base.map((r) => [r.id, r]));
+  if (!filas) return { mode: "live", data: base, failedSources: failed };
 
+  const conteo = new Map<string, number>();
   for (const a of automations ?? []) {
-    const row = byOrg.get(a.organization_id);
-    if (!row) continue;
-    row.automationCount += 1;
-    if (a.last_activity_at && (!row.lastActivityAt || a.last_activity_at > row.lastActivityAt)) {
-      row.lastActivityAt = a.last_activity_at;
-    }
+    conteo.set(a.organization_id, (conteo.get(a.organization_id) ?? 0) + 1);
   }
 
-  for (const al of alerts ?? []) {
-    const row = byOrg.get(al.organization_id);
-    if (row) row.openAlerts += 1;
-  }
+  const data: AdminOrgRow[] = filas.map((f) => ({
+    id: f.id,
+    name: f.nombre,
+    slug: f.slug,
+    status: f.estado,
+    automationCount: conteo.get(f.id) ?? 0,
+    openAlerts: f.alertas_abiertas ?? 0,
+    lastActivityAt: f.ultima_actividad ?? null,
+    failures7d: f.fallos_7d ?? 0,
+    // null y no un objeto de ceros: "todavía no sincronicé Stripe para este
+    // cliente" es una afirmación distinta de "paga cero".
+    commercial: f.sincronizado || f.plan || f.renueva
+      ? {
+          plan: f.plan ?? null,
+          mrrCents: f.mrr_centavos ?? null,
+          billingStatus: f.estado_cobro ?? null,
+          renewsAt: f.renueva ?? null,
+          daysToRenewal: f.dias_para_renovar ?? null,
+          cancelAtPeriodEnd: Boolean(f.cancela_al_fin),
+          customerSince: f.cliente_desde ?? null,
+          syncedAt: f.sincronizado ?? null,
+          syncError: f.error_sync ?? null,
+        }
+      : null,
+    engagement: {
+      lastLoginAt: f.ultimo_ingreso ?? null,
+      sawReports30d: Boolean(f.vio_reportes_30d),
+    },
+  }));
 
-  // Lo roto primero: es el orden que hace útil la pantalla.
+  // Lo roto primero, y dentro de eso lo que vence antes. Un cliente sano que
+  // renueva en cinco días necesita una llamada tuya tanto como uno con una
+  // automatización caída — y hasta ahora no había forma de verlo.
   const RANK = { critical: 0, needs_attention: 1, healthy: 2 } as const;
-  const data = [...byOrg.values()].sort(
-    (a, b) => RANK[a.status] - RANK[b.status] || a.name.localeCompare(b.name)
-  );
+  data.sort((a, b) => {
+    const porEstado = RANK[a.status] - RANK[b.status];
+    if (porEstado !== 0) return porEstado;
+    const da = a.commercial?.daysToRenewal ?? Infinity;
+    const db = b.commercial?.daysToRenewal ?? Infinity;
+    if (da !== db) return da - db;
+    return a.name.localeCompare(b.name);
+  });
 
   return { mode: "live", data, failedSources: failed };
 }

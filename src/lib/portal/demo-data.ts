@@ -41,10 +41,33 @@ const WORK: WorkHandled = {
   ],
 };
 
+/**
+ * Las cuatro tarjetas de arriba.
+ *
+ * Cada una cuelga de una de las tres formas en que una automatización hace
+ * crecer un negocio de servicios: gana trabajos que antes perdía, pierde menos
+ * de los que ya tenía, o hace lo mismo con menos horas. Lo que no cuelga de
+ * ninguna de las tres no va en la pantalla del cliente.
+ *
+ * Quedaron afuera a propósito "prospectos nuevos" y "resuelto automáticamente":
+ * miden el volumen del robot, no el resultado del negocio. Un conteo de
+ * mensajes enviados prueba que el sistema corrió, no que el cliente ganó algo,
+ * y entrena al dueño a ignorar el tablero.
+ */
 const KPIS: Kpi[] = [
-  { key: "newLeads", value: 47, delta: 14, format: "count" },
-  { key: "handledAutomatically", value: 39, delta: 18, format: "count" },
-  { key: "appointmentsBooked", value: 18, delta: 20, format: "count" },
+  // La métrica que mejor defiende la factura. Se guarda en segundos y la
+  // tarjeta elige la unidad. `betterWhen: "down"` es lo que hace que una caída
+  // se pinte de verde.
+  { key: "responseTime", value: 42, delta: -71, format: "duration", betterWhen: "down" },
+
+  // "Estas 23 consultas antes se perdían mientras dormías." Es la métrica más
+  // fácil de entender del tablero, porque el "antes" era literalmente cero.
+  { key: "afterHours", value: 23, delta: 28, format: "count" },
+
+  // El resultado que el dueño reconoce como plata. Estimado a partir del
+  // ticket promedio, y la tarjeta lo declara.
+  { key: "revenueAttributed", value: 14_400, delta: 22, format: "money", estimated: true },
+
   // `hoursSaved` no se escribe a mano: sale de la fórmula aplicada al mismo
   // desglose de trabajo que se muestra abajo en la pantalla. Así el número de
   // la tarjeta y el del bloque "Trabajo resuelto automáticamente" no pueden
@@ -81,10 +104,31 @@ const INTEGRATIONS: IntegrationStatus[] = [
 
 // Comparadas contra el propio negocio, nunca contra un "promedio de industria":
 // ese benchmark no existe verificado, así que no se afirma (handoff §22).
+//
+// `baseline` es el "antes" capturado en el onboarding. Es lo que convierte un
+// número suelto en un argumento: "38%" no dice nada; "38%, antes 19%" sí. La
+// ventana para capturarlo se cierra apenas el sistema entra en funcionamiento,
+// por eso el onboarding lo pregunta y la tabla `baselines` lo guarda con su
+// origen declarado.
 const METRICS: BusinessMetric[] = [
-  { key: "avgResponseTime", value: "18 s", delta: -42, series: [62, 55, 48, 44, 39, 31, 24, 18] },
-  { key: "leadToAppointment", value: "38%", delta: 12, series: [22, 24, 27, 29, 31, 34, 36, 38] },
-  { key: "returningCustomers", value: "31%", delta: 3, series: [24, 25, 26, 27, 28, 29, 30, 31] },
+  {
+    key: "showRate", value: "92%", delta: 14,
+    series: [78, 80, 79, 83, 85, 88, 90, 92],
+    baseline: { value: "78%", source: "baselineMeasured" },
+  },
+  {
+    key: "leadToAppointment", value: "38%", delta: 12,
+    series: [22, 24, 27, 29, 31, 34, 36, 38],
+    baseline: { value: "19%", source: "baselineClient" },
+  },
+  // La única del bloque donde subir es una mala noticia. Debe tender a cero, y
+  // cuando sube es una alarma de verdad, no un adorno.
+  {
+    key: "unansweredLeads", value: "2", delta: -60,
+    series: [14, 12, 11, 8, 7, 5, 4, 2],
+    betterWhen: "down",
+    baseline: { value: "14", source: "baselineMeasured" },
+  },
 ];
 
 const INSIGHTS: Insight[] = [

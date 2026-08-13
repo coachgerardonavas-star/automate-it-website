@@ -50,8 +50,23 @@ export interface Kpi {
   value: number;
   /** Variación porcentual vs período anterior. null = sin base de comparación. */
   delta: number | null;
-  /** Formato de presentación. `hours` añade la "h". */
-  format: "count" | "hours";
+  /** Formato de presentación. `duration` recibe segundos y elige la unidad. */
+  format: "count" | "hours" | "duration" | "percent" | "money";
+  /**
+   * Hacia qué lado es "mejor".
+   *
+   * Sin esto la tarjeta pintaría de rojo una caída del tiempo de respuesta, que
+   * es justamente el resultado que estamos vendiendo. La dirección es propiedad
+   * de la métrica, no del signo del número.
+   */
+  betterWhen?: "up" | "down";
+  /**
+   * El valor sale de una estimación declarada (ej. ticket promedio) y no de
+   * cifras medidas una por una. La UI lo dice en pantalla: un número estimado
+   * presentado como medido se cae en la primera reunión y se lleva puesta la
+   * relación con el cliente.
+   */
+  estimated?: boolean;
 }
 
 export interface SeriesPoint {
@@ -120,6 +135,14 @@ export interface BusinessMetric {
   /** Comparación contra el propio negocio, nunca contra un "promedio de industria". */
   delta: number | null;
   series: number[];
+  /** Igual que en Kpi: hay métricas donde bajar es ganar. */
+  betterWhen?: "up" | "down";
+  /**
+   * El "antes", capturado en el onboarding. Es lo que convierte un número
+   * suelto en una historia: "tardabas 4 horas, ahora tardás 3 minutos". Sin
+   * línea base la tarjeta muestra el valor y calla — no inventa una mejora.
+   */
+  baseline?: { value: string; source: string } | null;
 }
 
 export interface Lead {
@@ -202,6 +225,32 @@ export interface DataEnvelope<T> {
   failedSources: string[];
 }
 
+/**
+ * Lo comercial de un cliente. Solo existe para rol admin.
+ *
+ * Es un ESPEJO de Stripe, no la fuente. `syncedAt` viaja con los datos a
+ * propósito: sin esa fecha, "este cliente no paga" y "hace seis días que no
+ * sincronizo" se ven idénticos en pantalla, y se toman decisiones de cobro
+ * sobre datos muertos. La UI muestra la antigüedad, no la esconde.
+ */
+export interface AdminCommercial {
+  plan: string | null;
+  mrrCents: number | null;
+  billingStatus: string | null;
+  renewsAt: string | null;
+  daysToRenewal: number | null;
+  cancelAtPeriodEnd: boolean;
+  customerSince: string | null;
+  syncedAt: string | null;
+  syncError: string | null;
+}
+
+/** Señales de que un cliente se está por ir antes de avisar que se va. */
+export interface AdminEngagement {
+  lastLoginAt: string | null;
+  sawReports30d: boolean;
+}
+
 /** Fila del Admin Center. */
 export interface AdminOrgRow {
   id: string;
@@ -211,6 +260,11 @@ export interface AdminOrgRow {
   automationCount: number;
   openAlerts: number;
   lastActivityAt: string | null;
+  /** Fallos de los últimos 7 días, no solo el estado de este instante. */
+  failures7d: number;
+  /** null cuando no hay espejo de Stripe todavía para este cliente. */
+  commercial: AdminCommercial | null;
+  engagement: AdminEngagement;
 }
 
 export interface AdminAlert {

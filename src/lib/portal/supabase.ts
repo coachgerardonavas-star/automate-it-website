@@ -163,3 +163,82 @@ export async function restSelect<T>(
   }
   return (await res.json()) as T[];
 }
+
+/**
+ * Llama una función de la base por RPC, con el JWT del usuario.
+ *
+ * Se usa para lo que no conviene resolver a fuerza de consultas sueltas:
+ * medianas, agregados por cliente, cualquier cosa que en el cliente obligaría a
+ * traer miles de filas para reducirlas a un número. Las funciones son
+ * `security invoker`, así que la RLS se aplica igual que en un select.
+ */
+export async function rpc<T>(
+  env: SupabaseEnv,
+  accessToken: string,
+  fn: string,
+  args: Record<string, unknown> = {}
+): Promise<T> {
+  const res = await fetch(`${env.url}/rest/v1/rpc/${fn}`, {
+    method: "POST",
+    headers: {
+      apikey: env.anonKey,
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(args),
+  });
+  if (!res.ok) {
+    throw new Error(`rpc_${fn}_${res.status}`);
+  }
+  return (await res.json()) as T;
+}
+
+/**
+ * Registra que esta persona pasó por esta pantalla hoy.
+ *
+ * Es la única escritura que el portal hace con el token del usuario final, y
+ * está acotada por la política `own_visit_insert`: solo su propio id, solo una
+ * organización de la que es miembro, y un índice único la limita a una fila por
+ * ruta y día. Falla en silencio a propósito: que no se pueda anotar una visita
+ * no puede tumbar la pantalla que la persona vino a ver.
+ */
+export async function logVisit(
+  env: SupabaseEnv,
+  accessToken: string,
+  organizationId: string,
+  userId: string,
+  path: string
+): Promise<void> {
+  try {
+    await fetch(`${env.url}/rest/v1/portal_visits`, {
+      method: "POST",
+      headers: {
+        apikey: env.anonKey,
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+        // La fila del día ya existe casi siempre: se ignora el choque en vez
+        // de tratarlo como error.
+        Prefer: "resolution=ignore-duplicates,return=minimal",
+      },
+      body: JSON.stringify({
+        organization_id: organizationId,
+        user_id: userId,
+        path,
+      }),
+    });
+
+    await fetch(`${env.url}/rest/v1/profiles?id=eq.${userId}`, {
+      method: "PATCH",
+      headers: {
+        apikey: env.anonKey,
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({ last_seen_at: new Date().toISOString() }),
+    });
+  } catch {
+    // Intencionalmente vacío. Ver comentario de arriba.
+  }
+}

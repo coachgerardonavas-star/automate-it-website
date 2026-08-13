@@ -67,12 +67,16 @@ const es = {
   },
 
   kpi: {
-    newLeads: "Prospectos nuevos",
-    handledAutomatically: "Resuelto automáticamente",
+    // "Tiempo de respuesta" a secas invita a preguntar "¿de quién, a qué?".
+    // Nombrar las dos puntas hace que el número se explique solo.
+    responseTime: "Tiempo hasta la primera respuesta",
+    afterHours: "Consultas atendidas fuera de horario",
+    revenueAttributed: "Trabajo cerrado por el sistema",
+    hoursSaved: "Horas que recuperaste",
     appointmentsBooked: "Citas agendadas",
-    hoursSaved: "Horas ahorradas",
     vsPrevious: "vs período anterior",
     noComparison: "Sin período anterior para comparar",
+    estimated: "Estimado con tu ticket promedio",
   },
 
   sections: {
@@ -116,10 +120,16 @@ const es = {
   },
 
   metrics: {
-    avgResponseTime: "Tiempo de respuesta",
+    showRate: "Citas a las que sí vinieron",
     leadToAppointment: "De prospecto a cita",
-    returningCustomers: "Clientes que vuelven",
+    unansweredLeads: "Consultas que nadie contestó",
     vsLastMonth: "vs mes anterior",
+    // El "antes". Se muestra junto al valor actual porque un porcentaje sin
+    // punto de partida no prueba ninguna mejora.
+    baselineLabel: "Antes",
+    baselineMeasured: "medido",
+    baselineClient: "declarado por vos",
+    noBaseline: "Sin medición previa para comparar",
   },
 
   quickActions: {
@@ -224,7 +234,11 @@ const es = {
 
   pages: {
     conversations: { title: "Conversaciones", question: "¿Qué están preguntando tus clientes?" },
-    appointments: { title: "Citas", question: "¿Qué tienes próximo?" },
+    appointments: {
+      title: "Citas",
+      question: "¿Qué tienes próximo?",
+      bookedByAutomation: "Agendada por el sistema",
+    },
     customers: { title: "Clientes", question: "¿Cómo está tu base de clientes?" },
     automations: { title: "Automatizaciones", question: "¿Está funcionando tu sistema?" },
     activity: { title: "Actividad", question: "¿Qué hizo Automate IT por ti?" },
@@ -271,6 +285,29 @@ const es = {
     summaryHealthy: "en orden",
     summaryAttention: "necesitan atención",
     summaryCritical: "con algo roto",
+
+    // --- Comercial. Espejo de Stripe, nunca la fuente. ---
+    plan: "Plan",
+    mrr: "Por mes",
+    renewal: "Renueva",
+    renewsInDays: "en {n} días",
+    renewsToday: "hoy",
+    renewalOverdue: "vencido hace {n} días",
+    cancelling: "No renueva",
+    noContract: "Sin contrato cargado",
+    syncedAgo: "Stripe sincronizado {t}",
+    syncNever: "Nunca sincronizado con Stripe",
+    syncStale: "Dato viejo: sin sincronizar hace más de 24 h",
+    syncFailed: "Falló la última sincronización con Stripe",
+    mrrTotal: "ingreso mensual",
+    renewingSoon: "renuevan en 30 días",
+
+    // --- Salud e interés ---
+    failures7d: "Fallos (7 d)",
+    lastLogin: "Último ingreso",
+    neverEntered: "Nunca entró",
+    sawReports: "Vio sus reportes",
+    notSeenReports: "No abrió reportes en 30 días",
     allHealthy: "Todos tus clientes están en orden. No hay nada que revisar ahora mismo.",
     systemsTitle: "Sistemas de Automate IT",
     systemsSubtitle: "Tu propia infraestructura — no la de tus clientes.",
@@ -348,10 +385,12 @@ const en: typeof es = {
   },
 
   kpi: {
-    newLeads: "New leads",
-    handledAutomatically: "Handled automatically",
+    responseTime: "Time to first reply",
+    afterHours: "Enquiries answered after hours",
+    revenueAttributed: "Work closed by the system",
+    hoursSaved: "Hours you got back",
     appointmentsBooked: "Appointments booked",
-    hoursSaved: "Hours saved",
+    estimated: "Estimated from your average ticket",
     vsPrevious: "vs previous period",
     noComparison: "No previous period to compare against",
   },
@@ -397,10 +436,14 @@ const en: typeof es = {
   },
 
   metrics: {
-    avgResponseTime: "Response time",
+    showRate: "Appointments they showed up to",
     leadToAppointment: "Lead to appointment",
-    returningCustomers: "Returning customers",
+    unansweredLeads: "Enquiries nobody answered",
     vsLastMonth: "vs last month",
+    baselineLabel: "Before",
+    baselineMeasured: "measured",
+    baselineClient: "as you reported it",
+    noBaseline: "No prior measurement to compare against",
   },
 
   quickActions: {
@@ -505,7 +548,11 @@ const en: typeof es = {
 
   pages: {
     conversations: { title: "Conversations", question: "What are your customers asking?" },
-    appointments: { title: "Appointments", question: "What's coming up?" },
+    appointments: {
+      title: "Appointments",
+      question: "What's coming up?",
+      bookedByAutomation: "Booked by the system",
+    },
     customers: { title: "Customers", question: "How is your customer base doing?" },
     automations: { title: "Automations", question: "Is your system working?" },
     activity: { title: "Activity", question: "What did Automate IT do for you?" },
@@ -549,6 +596,26 @@ const en: typeof es = {
     errorCount: "Errors",
     retryState: "Retries",
     backToList: "Back to the list",
+    plan: "Plan",
+    mrr: "Per month",
+    renewal: "Renews",
+    renewsInDays: "in {n} days",
+    renewsToday: "today",
+    renewalOverdue: "overdue by {n} days",
+    cancelling: "Not renewing",
+    noContract: "No contract on file",
+    syncedAgo: "Stripe synced {t}",
+    syncNever: "Never synced with Stripe",
+    syncStale: "Stale: not synced in over 24 h",
+    syncFailed: "Last Stripe sync failed",
+    mrrTotal: "monthly revenue",
+    renewingSoon: "renew within 30 days",
+    failures7d: "Failures (7 d)",
+    lastLogin: "Last sign-in",
+    neverEntered: "Never signed in",
+    sawReports: "Viewed their reports",
+    notSeenReports: "Hasn't opened reports in 30 days",
+
     summaryHealthy: "healthy",
     summaryAttention: "need attention",
     summaryCritical: "broken",

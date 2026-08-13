@@ -50,10 +50,11 @@ const d = result?.data ?? null;
 const failed = result?.failedSources ?? [];
 
 const KPI_META: Record<string, { icon: string; tone: "blue" | "green" | "purple" | "cyan" }> = {
-  newLeads: { icon: "users", tone: "blue" },
-  handledAutomatically: { icon: "circle-check", tone: "green" },
-  appointmentsBooked: { icon: "calendar", tone: "purple" },
+  responseTime: { icon: "zap", tone: "blue" },
+  afterHours: { icon: "moon", tone: "purple" },
+  revenueAttributed: { icon: "circle-check", tone: "green" },
   hoursSaved: { icon: "clock", tone: "cyan" },
+  appointmentsBooked: { icon: "calendar", tone: "purple" },
 };
 
 const AUTOMATION_TONE = {
@@ -273,7 +274,13 @@ const rangeLabels = copy.range as Record<string, string>;
               <EmptyState title={copy.empty.insights} body={copy.empty.insightsBody} compact />
             ) : (
               <ul class="divide-y divide-[var(--color-border)]">
-                {d.businessMetrics.map((m) => (
+                {d.businessMetrics.map((m) => {
+                  // Igual que en KpiCard: la flecha dice qué pasó, el color dice
+                  // si eso es bueno. En "consultas sin contestar" bajar es ganar,
+                  // y pintarlo de rojo sería contar la historia al revés.
+                  const rose = (m.delta ?? 0) >= 0;
+                  const good = (m.betterWhen ?? "up") === "down" ? !rose : rose;
+                  return (
                   <li class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
                     <div class="min-w-0 flex-1">
                       <p class="text-xs text-[var(--color-text-muted)]">
@@ -285,24 +292,30 @@ const rangeLabels = copy.range as Record<string, string>;
                           <span
                             class:list={[
                               "text-xs font-semibold",
-                              m.delta >= 0 ? "text-[#1F7A4D]" : "text-[#B3261E]",
+                              good ? "text-[#1F7A4D]" : "text-[#B3261E]",
                             ]}
                           >
-                            {m.delta >= 0 ? "+" : ""}{m.delta}%
+                            {rose ? "+" : ""}{m.delta}%
                           </span>
                         )}
                       </div>
+                      {/* El "antes" al lado del ahora. Sin esta línea el número
+                          de arriba es un dato suelto; con ella es una mejora
+                          demostrable, que es lo que justifica la factura. */}
                       <p class="mt-0.5 text-[11px] text-[var(--color-text-subtle)]">
-                        {copy.metrics.vsLastMonth}
+                        {m.baseline
+                          ? `${copy.metrics.baselineLabel}: ${m.baseline.value} (${(copy.metrics as Record<string, string>)[m.baseline.source] ?? m.baseline.source})`
+                          : copy.metrics.noBaseline}
                       </p>
                     </div>
                     <Sparkline
                       values={m.series}
-                      tone={m.delta !== null && m.delta >= 0 ? "green" : "blue"}
+                      tone={good ? "green" : "blue"}
                       label={metricLabels[m.key] ?? m.key}
                     />
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             )}
           </PortalCard>

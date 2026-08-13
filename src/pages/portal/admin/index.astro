@@ -69,6 +69,52 @@ const summary = [
   { key: "healthy", count: counts.healthy, label: copy.admin.summaryHealthy, tone: "ok" as const },
 ];
 
+// --- Comercial ---------------------------------------------------------------
+// Se suma solo lo que Stripe confirma como activo. Incluir un `past_due` en el
+// ingreso mensual sería contar plata que todavía no entró.
+const mrrTotal = rows.reduce(
+  (t, r) => t + (r.commercial?.billingStatus === "active" ? (r.commercial.mrrCents ?? 0) : 0),
+  0
+);
+
+const renewingSoon = rows.filter(
+  (r) => r.commercial?.daysToRenewal != null && r.commercial.daysToRenewal <= 30
+).length;
+
+const money = (cents: number) =>
+  (cents / 100).toLocaleString(lang === "en" ? "en-US" : "es-US", {
+    style: "currency", currency: "USD", maximumFractionDigits: 0,
+  });
+
+/** Texto del vencimiento. Un contrato vencido no se dibuja como "en -3 días". */
+function renewalText(c: NonNullable<typeof rows[number]["commercial"]>): string {
+  if (c.daysToRenewal == null) return copy.admin.noContract;
+  if (c.daysToRenewal < 0) return copy.admin.renewalOverdue.replace("{n}", String(Math.abs(c.daysToRenewal)));
+  if (c.daysToRenewal === 0) return copy.admin.renewsToday;
+  return copy.admin.renewsInDays.replace("{n}", String(c.daysToRenewal));
+}
+
+/** Urgencia del vencimiento: dentro de una semana es rojo, dentro de un mes ámbar. */
+function renewalTone(c: NonNullable<typeof rows[number]["commercial"]>) {
+  if (c.cancelAtPeriodEnd) return "danger" as const;
+  if (c.daysToRenewal == null) return "neutral" as const;
+  if (c.daysToRenewal <= 7) return "danger" as const;
+  if (c.daysToRenewal <= 30) return "warn" as const;
+  return "ok" as const;
+}
+
+/**
+ * Un espejo desactualizado que se muestra como si fuera fresco es peor que no
+ * tener espejo: se decide sobre datos muertos sin saberlo. Cualquier problema
+ * de sincronización se dice en pantalla.
+ */
+function syncWarning(c: NonNullable<typeof rows[number]["commercial"]>): string | null {
+  if (c.syncError) return copy.admin.syncFailed;
+  if (!c.syncedAt) return copy.admin.syncNever;
+  const horas = (now.getTime() - new Date(c.syncedAt).getTime()) / 3_600_000;
+  return horas > 24 ? copy.admin.syncStale : null;
+}
+
 const TONE_TEXT = {
   danger: "text-[#B3261E]",
   warn: "text-[#8A5A00]",
@@ -156,6 +202,27 @@ const TONE_TEXT = {
       ))}
     </div>
 
+    {/* Comercial. Va en su propia fila, separado de la salud: "cuánto facturo"
+        y "qué está roto" son preguntas distintas, y mezclarlas en la misma
+        tarjeta lleva a leer un ingreso sano como un sistema sano. */}
+    <div class="mb-4 grid grid-cols-2 gap-3 sm:mb-6 sm:gap-4">
+      <div class="rounded-lg border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-card)]">
+        <p class="font-heading text-2xl leading-none sm:text-3xl">{money(mrrTotal)}</p>
+        <p class="mt-1 text-xs leading-tight text-[var(--color-text-muted)]">{copy.admin.mrrTotal}</p>
+      </div>
+      <div class="rounded-lg border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-card)]">
+        <p
+          class:list={[
+            "font-heading text-2xl leading-none sm:text-3xl",
+            renewingSoon > 0 ? TONE_TEXT.warn : "",
+          ]}
+        >
+          {renewingSoon}
+        </p>
+        <p class="mt-1 text-xs leading-tight text-[var(--color-text-muted)]">{copy.admin.renewingSoon}</p>
+      </div>
+    </div>
+
     {rows.length === 0 ? (
       <PortalCard>
         <EmptyState title={copy.empty.generic} icon="shield-check" />
@@ -185,19 +252,34 @@ const TONE_TEXT = {
                   <p class="truncate text-sm font-semibold">{r.name}</p>
                   <StatusPill tone={STATUS_TONE[r.status]} label={copy.admin[r.status]} />
                 </div>
+                {r.commercial && (
+                  <p class="mt-2 flex flex-wrap items-center gap-2 text-xs">
+                    <StatusPill
+                      tone={renewalTone(r.commercial)}
+                      label={r.commercial.cancelAtPeriodEnd
+                        ? copy.admin.cancelling
+                        : `${copy.admin.renewal} ${renewalText(r.commercial)}`}
+                    />
+                    {r.commercial.mrrCents != null && (
+                      <span class="font-semibold">{money(r.commercial.mrrCents)}</span>
+                    )}
+                  </p>
+                )}
                 <dl class="mt-3 grid grid-cols-3 gap-2 border-t border-[var(--color-border)] pt-3 text-xs">
                   <div>
-                    <dt class="text-[var(--color-text-subtle)]">{copy.admin.automations}</dt>
-                    <dd class="font-semibold">{r.automationCount}</dd>
+                    <dt class="text-[var(--color-text-subtle)]">{copy.admin.failures7d}</dt>
+                    <dd class="font-semibold">{r.failures7d || "—"}</dd>
                   </div>
                   <div>
                     <dt class="text-[var(--color-text-subtle)]">{copy.admin.alerts}</dt>
-                    <dd class="font-semibold">{r.openAlerts}</dd>
+                    <dd class="font-semibold">{r.openAlerts || "—"}</dd>
                   </div>
                   <div>
-                    <dt class="text-[var(--color-text-subtle)]">{copy.admin.lastActivity}</dt>
+                    <dt class="text-[var(--color-text-subtle)]">{copy.admin.lastLogin}</dt>
                     <dd class="font-semibold">
-                      {r.lastActivityAt ? relativeTime(copy, r.lastActivityAt, now) : "—"}
+                      {r.engagement.lastLoginAt
+                        ? relativeTime(copy, r.engagement.lastLoginAt, now)
+                        : copy.admin.neverEntered}
                     </dd>
                   </div>
                 </dl>
@@ -214,20 +296,59 @@ const TONE_TEXT = {
                 <tr class="border-b border-[var(--color-border)] text-xs uppercase tracking-wide text-[var(--color-text-subtle)]">
                   <th scope="col" class="px-5 py-3 font-semibold">{copy.admin.client}</th>
                   <th scope="col" class="px-5 py-3 font-semibold">{copy.admin.status}</th>
-                  <th scope="col" class="px-5 py-3 text-right font-semibold">{copy.admin.automations}</th>
+                  <th scope="col" class="px-5 py-3 font-semibold">{copy.admin.renewal}</th>
+                  <th scope="col" class="px-5 py-3 text-right font-semibold">{copy.admin.mrr}</th>
+                  <th scope="col" class="px-5 py-3 text-right font-semibold">{copy.admin.failures7d}</th>
                   <th scope="col" class="px-5 py-3 text-right font-semibold">{copy.admin.alerts}</th>
-                  <th scope="col" class="px-5 py-3 font-semibold">{copy.admin.lastActivity}</th>
+                  <th scope="col" class="px-5 py-3 font-semibold">{copy.admin.lastLogin}</th>
                   <th scope="col" class="px-5 py-3"><span class="sr-only">{copy.admin.openClient}</span></th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-[var(--color-border)]">
                 {rows.map((r) => (
                   <tr class="transition-colors duration-200 ease-brand hover:bg-neutral-50">
-                    <td class="px-5 py-4 font-semibold">{r.name}</td>
+                    <td class="px-5 py-4 font-semibold">
+                      {r.name}
+                      {r.commercial?.plan && (
+                        <span class="mt-0.5 block text-xs font-normal text-[var(--color-text-subtle)]">
+                          {r.commercial.plan}
+                        </span>
+                      )}
+                    </td>
                     <td class="px-5 py-4">
                       <StatusPill tone={STATUS_TONE[r.status]} label={copy.admin[r.status]} />
                     </td>
-                    <td class="px-5 py-4 text-right">{r.automationCount}</td>
+                    <td class="px-5 py-4 whitespace-nowrap">
+                      {!r.commercial ? (
+                        <span class="text-[var(--color-text-subtle)]">{copy.admin.noContract}</span>
+                      ) : (
+                        <>
+                          <StatusPill
+                            tone={renewalTone(r.commercial)}
+                            label={r.commercial.cancelAtPeriodEnd
+                              ? copy.admin.cancelling
+                              : renewalText(r.commercial)}
+                          />
+                          {syncWarning(r.commercial) && (
+                            <span class="mt-1 block text-[11px] text-[#8A5A00]">
+                              {syncWarning(r.commercial)}
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </td>
+                    <td class="px-5 py-4 text-right whitespace-nowrap">
+                      {r.commercial?.mrrCents != null
+                        ? money(r.commercial.mrrCents)
+                        : <span class="text-[var(--color-text-subtle)]">—</span>}
+                    </td>
+                    <td class="px-5 py-4 text-right">
+                      {r.failures7d === 0 ? (
+                        <span class="text-[var(--color-text-subtle)]">—</span>
+                      ) : (
+                        <span class="font-semibold text-[#B3261E]">{r.failures7d}</span>
+                      )}
+                    </td>
                     <td class="px-5 py-4 text-right">
                       {r.openAlerts === 0 ? (
                         <span class="text-[var(--color-text-subtle)]">—</span>
@@ -236,7 +357,16 @@ const TONE_TEXT = {
                       )}
                     </td>
                     <td class="px-5 py-4 whitespace-nowrap text-[var(--color-text-muted)]">
-                      {r.lastActivityAt ? relativeTime(copy, r.lastActivityAt, now) : "—"}
+                      {/* El mejor predictor de que no renueva: deja de mirar
+                          antes de avisar que se va. */}
+                      {r.engagement.lastLoginAt
+                        ? relativeTime(copy, r.engagement.lastLoginAt, now)
+                        : <span class="text-[#8A5A00]">{copy.admin.neverEntered}</span>}
+                      {!r.engagement.sawReports30d && (
+                        <span class="mt-0.5 block text-[11px] text-[var(--color-text-subtle)]">
+                          {copy.admin.notSeenReports}
+                        </span>
+                      )}
                     </td>
                     <td class="px-5 py-4 text-right">
                       <a

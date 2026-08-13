@@ -34,12 +34,46 @@ const TONES = {
 const t = TONES[tone];
 const label = (copy.kpi as Record<string, string>)[kpi.key] ?? kpi.key;
 
-const value =
-  kpi.format === "hours"
-    ? `${kpi.value.toLocaleString(lang === "en" ? "en-US" : "es-ES", { maximumFractionDigits: 1 })} h`
-    : kpi.value.toLocaleString(lang === "en" ? "en-US" : "es-ES");
+// `es-US` y no `es-ES`: los clientes están en Florida y leen "$14,400", no
+// "14.400 US$". El separador de miles y el símbolo de moneda cambian con la
+// región, no con el idioma.
+const loc = lang === "en" ? "en-US" : "es-US";
+const num = (n: number, max = 0) => n.toLocaleString(loc, { maximumFractionDigits: max });
 
-const up = (kpi.delta ?? 0) >= 0;
+/**
+ * Los segundos se muestran en la unidad que los hace legibles.
+ *
+ * "142 s" obliga a dividir mentalmente; "2 min" se entiende de un vistazo. Y
+ * bajo el minuto se muestran los segundos enteros, porque ahí la precisión SÍ
+ * importa: la diferencia entre 8 s y 45 s es exactamente lo que estamos
+ * vendiendo.
+ */
+function duration(totalSeconds: number): string {
+  if (totalSeconds < 60) return `${num(totalSeconds)} s`;
+  if (totalSeconds < 3600) return `${num(totalSeconds / 60, 1)} min`;
+  if (totalSeconds < 86400) return `${num(totalSeconds / 3600, 1)} h`;
+  return `${num(totalSeconds / 86400, 1)} d`;
+}
+
+const value =
+  kpi.format === "hours"    ? `${num(kpi.value, 1)} h`
+  : kpi.format === "duration" ? duration(kpi.value)
+  : kpi.format === "percent"  ? `${num(kpi.value, 1)}%`
+  : kpi.format === "money"    ? kpi.value.toLocaleString(loc, {
+      style: "currency", currency: "USD", maximumFractionDigits: 0,
+    })
+  : num(kpi.value);
+
+/**
+ * Dirección y bondad son cosas distintas.
+ *
+ * `rose` es hacia dónde apunta la flecha (lo que pasó). `good` es si eso es
+ * una buena noticia (depende de la métrica). Separarlas es lo que permite
+ * mostrar una flecha hacia abajo pintada de verde cuando el tiempo de
+ * respuesta cae, que es el resultado que el cliente nos paga por conseguir.
+ */
+const rose = (kpi.delta ?? 0) >= 0;
+const good = (kpi.betterWhen ?? "up") === "down" ? !rose : rose;
 ---
 
 <article class="rounded-lg border border-[var(--color-border)] bg-white p-4 shadow-[var(--shadow-card)] sm:p-5">
@@ -62,17 +96,22 @@ const up = (kpi.delta ?? 0) >= 0;
           <span
             class:list={[
               "inline-flex items-center gap-0.5 text-xs font-semibold",
-              up ? "text-[#1F7A4D]" : "text-[#B3261E]",
+              good ? "text-[#1F7A4D]" : "text-[#B3261E]",
             ]}
           >
-            <PortalIcon name={up ? "trending-up" : "trending-down"} size={14} />
-            {up ? "+" : ""}{kpi.delta}%
+            <PortalIcon name={rose ? "trending-up" : "trending-down"} size={14} />
+            {rose ? "+" : ""}{kpi.delta}%
           </span>
         )}
       </div>
       <p class="mt-1 text-[11px] leading-tight text-[var(--color-text-subtle)]">
         {kpi.delta === null ? copy.kpi.noComparison : copy.kpi.vsPrevious}
       </p>
+      {kpi.estimated && (
+        <p class="mt-1 text-[11px] leading-tight text-[var(--color-text-subtle)]">
+          {copy.kpi.estimated}
+        </p>
+      )}
     </div>
   </div>
 </article>
