@@ -15,9 +15,12 @@ dist/
 npm-debug.log*
 
 # Env
+# El patrón general va primero: `.env.pendiente` no lo cubría `.env.*.local`, y
+# un `git add -A` lo habría subido al repo. Cualquier variante de .env queda
+# fuera salvo el ejemplo, que sí debe versionarse.
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 
 # OS
 .DS_Store
