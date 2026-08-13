@@ -31,6 +31,24 @@ REM --- git debe estar disponible ---
 where git >nul 2>&1
 if errorlevel 1 goto :err_git
 
+REM --- GUARDA DE RAMA: este script solo sincroniza main ---
+REM
+REM  Antes corria pasara lo que pasara, y en una rama de feature hacia dos
+REM  destrozos silenciosos cada madrugada:
+REM
+REM    1. "git pull --rebase origin main" REESCRIBIA la rama de feature
+REM       rebasandola sobre main, sin que nadie lo pidiera.
+REM    2. "git add -A" + commit se tragaba trabajo a medio hacer, y
+REM       "git push origin main" empujaba el ref local main -- que puede
+REM       tener commits que nadie reviso -- directo a produccion.
+REM
+REM  Si el HEAD no esta en main, no se toca NADA y se explica en el log.
+REM  Detached HEAD tambien cae aqui: rev-parse devuelve "HEAD", que no
+REM  coincide con main.
+for /f "usebackq tokens=*" %%b in (`git rev-parse --abbrev-ref HEAD 2^>nul`) do set "CURRENT=%%b"
+if not defined CURRENT goto :err_branch
+if /i not "%CURRENT%"=="%BRANCH%" goto :skip_not_main
+
 REM --- stage de todos los cambios locales ---
 git add -A >>"%LOG%" 2>&1
 
@@ -56,6 +74,21 @@ if errorlevel 1 goto :err_push
 >>"%LOG%" echo ===== %TS%  git-sync END ok =====
 endlocal
 exit /b 0
+
+:skip_not_main
+>>"%LOG%" echo [SKIP] GitSync: HEAD en %CURRENT%, no es %BRANCH% - sync automatico omitido, revisar manualmente
+>>"%LOG%" echo [SKIP] No se toco el working tree: ni add, ni commit, ni rebase, ni push.
+>>"%LOG%" echo [SKIP] Los cambios locales siguen sin commitear, a proposito. Para sincronizar:
+>>"%LOG%" echo [SKIP]   git checkout %BRANCH%   (o mergear %CURRENT% a %BRANCH% cuando este listo)
+>>"%LOG%" echo ===== %TS%  git-sync END skipped =====
+endlocal
+exit /b 0
+
+:err_branch
+>>"%LOG%" echo [ERROR] No se pudo determinar la rama actual. Repo corrupto o sin commits?
+>>"%LOG%" echo ===== %TS%  git-sync END branch error =====
+endlocal
+exit /b 1
 
 :err_repo
 >>"%LOG%" echo [ERROR] No se pudo entrar a %REPO%
