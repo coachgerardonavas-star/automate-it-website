@@ -4,11 +4,19 @@ compatibility_date = "2025-10-01"
 workers_dev = true
 
 # Secrets (no van en este archivo):
-#   wrangler secret put STRIPE_WEBHOOK_SECRET   # whsec_*
-#   wrangler secret put TELEGRAM_BOT_TOKEN      # el mismo bot que vero-telegram
+#   wrangler secret put STRIPE_WEBHOOK_SECRET      # whsec_*
+#   wrangler secret put TELEGRAM_BOT_TOKEN         # el mismo bot que vero-telegram
+#   wrangler secret put SUPABASE_SERVICE_ROLE_KEY  # espejo del Client Portal
+#
+# La service_role key salta RLS por completo. Vive acá y NUNCA en el proyecto
+# del sitio: ese es el motivo por el que el espejo del portal se escribe desde
+# este worker y no desde Astro.
 
 [vars]
 TELEGRAM_CHAT_ID = "8348522203"
+# No es secreta: es la URL pública del proyecto. La llave que sí lo es va por
+# `wrangler secret put`, arriba.
+SUPABASE_URL = "https://fryufcddrbeewqcwyavz.supabase.co"
 # Payment link de "Consultoría de Negocios para Emprendedores".
 # Sirve para etiquetar el aviso; el webhook funciona igual sin esto.
 CONSULTORIA_PAYMENT_LINK = "plink_1TygKBAHnOzMvXBgGcp7rmdN"

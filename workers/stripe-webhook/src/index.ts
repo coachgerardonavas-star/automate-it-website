@@ -9,7 +9,9 @@
  * worker's URL, and set STRIPE_WEBHOOK_SECRET via `wrangler secret put`.
  */
 
-export interface Env {
+import { mirrorSubscription, recordSyncError, type MirrorEnv } from "./portal-mirror";
+
+export interface Env extends MirrorEnv {
   STRIPE_WEBHOOK_SECRET: string;
   /** Same bot as vero-telegram. Set with `wrangler secret put TELEGRAM_BOT_TOKEN`. */
   TELEGRAM_BOT_TOKEN?: string;
@@ -28,6 +30,18 @@ const HANDLED_EVENTS = new Set<string>([
   "checkout.session.completed",
   "invoice.payment_succeeded",
   "invoice.payment_failed",
+  "customer.subscription.deleted",
+  // Agregados para el espejo del Client Portal. `updated` es el que más
+  // importa: es el que trae la renovación del período, el cambio de plan y el
+  // "cancela al final del ciclo".
+  "customer.subscription.created",
+  "customer.subscription.updated",
+]);
+
+/** Los eventos cuyo objeto ES una suscripción y por lo tanto se espejan. */
+const SUBSCRIPTION_EVENTS = new Set<string>([
+  "customer.subscription.created",
+  "customer.subscription.updated",
   "customer.subscription.deleted",
 ]);
 
@@ -216,6 +230,48 @@ function logHandledEvent(event: StripeEvent): void {
   console.log("[stripe-webhook]", JSON.stringify(summary));
 }
 
+/**
+ * Espeja la suscripción y avisa si no se pudo.
+ *
+ * El caso que más va a pasar en la práctica: una suscripción creada en Stripe
+ * sin `organization_slug` en la metadata. No se adivina a qué cliente
+ * corresponde —vincular al equivocado significa mostrarle a alguien el precio
+ * de otro— así que se avisa por Telegram con el id a mano para vincularlo.
+ */
+async function syncPortalMirror(
+  env: Env,
+  sub: Record<string, unknown>
+): Promise<void> {
+  const customerId = typeof sub.customer === "string" ? sub.customer : null;
+
+  try {
+    const result = await mirrorSubscription(env, sub);
+    if (result.ok) {
+      console.log("[portal-mirror] ok", result.organizationSlug, sub.id);
+      return;
+    }
+
+    console.warn("[portal-mirror] sin espejar", result.reason, sub.id);
+    await recordSyncError(env, customerId, result.reason ?? "motivo desconocido");
+    await notifyTelegram(
+      env,
+      [
+        "⚠️ <b>Suscripción sin vincular al portal</b>",
+        "",
+        `<b>Motivo:</b> ${escapeHtml(result.reason)}`,
+        `<b>Suscripción:</b> <code>${escapeHtml(sub.id)}</code>`,
+        `<b>Cliente Stripe:</b> <code>${escapeHtml(customerId)}</code>`,
+        "",
+        "Para arreglarlo: agregá <code>organization_slug</code> a la metadata de",
+        "esa suscripción en Stripe. El próximo evento la vincula sola.",
+      ].join("\n")
+    );
+  } catch (e) {
+    console.error("[portal-mirror] error", e);
+    await recordSyncError(env, customerId, String(e));
+  }
+}
+
 export default {
   async fetch(
     request: Request,
@@ -271,6 +327,15 @@ export default {
         // waitUntil so Stripe gets its 200 immediately and stops retrying,
         // regardless of how slow Telegram is.
         ctx.waitUntil(notifyTelegram(env, buildCheckoutAlert(obj, env)));
+      }
+
+      // Espejo hacia el Client Portal. Igual que arriba: en `waitUntil`, para
+      // que Stripe reciba su 200 sin esperar a Supabase. Si esto tardara y
+      // Stripe reintentara, el mismo evento se procesaría dos veces — el
+      // upsert es idempotente justamente por eso.
+      if (SUBSCRIPTION_EVENTS.has(event.type)) {
+        const sub = (event.data?.object ?? {}) as Record<string, unknown>;
+        ctx.waitUntil(syncPortalMirror(env, sub));
       }
     } else {
       console.log("[stripe-webhook] ignored", event.id, event.type);
