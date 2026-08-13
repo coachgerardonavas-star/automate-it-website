@@ -58,6 +58,7 @@ const steps = [
           </ol>
 
           <a
+            id="stripe-cta"
             href={STRIPE_URL}
             class="inline-flex items-center gap-3 bg-[var(--color-blue)] hover:bg-[var(--color-navy)] text-white font-semibold text-lg px-9 py-4 rounded-xl transition-colors"
           >
@@ -96,3 +97,54 @@ const steps = [
 
   <Footer lang={lang} />
 </BaseLayout>
+
+<script>
+  /**
+   * `begin_checkout` del Payment Link de $1.
+   *
+   * El CTA navega fuera del dominio, y un evento encolado en una página que se
+   * está descargando no siempre alcanza a salir. Por eso se retiene la
+   * navegación lo mínimo indispensable: se dispara el evento y se sigue con
+   * `event_callback` en cuanto GA confirma el envío, o a los 400ms, lo que
+   * ocurra primero. Nunca se queda esperando: `go()` corre igual si GA está
+   * apagado, si falla, o si tarda.
+   */
+  const cta = document.getElementById("stripe-cta") as HTMLAnchorElement | null;
+
+  cta?.addEventListener("click", (e) => {
+    // Clic con modificador (nueva pestaña) o botón no primario: la página
+    // actual no se descarga, así que no hay nada que retener.
+    const me = e as MouseEvent;
+    const opensElsewhere =
+      me.metaKey || me.ctrlKey || me.shiftKey || me.altKey || me.button !== 0;
+
+    let navigated = false;
+    const go = () => {
+      if (navigated) return;
+      navigated = true;
+      window.location.href = cta.href;
+    };
+
+    try {
+      window.trackEvent?.("begin_checkout", {
+        currency: "USD",
+        value: 1,
+        items: [
+          {
+            item_id: "radiografia-operacion-1usd",
+            item_name: "Radiografia de tu Operacion",
+            price: 1,
+            quantity: 1,
+          },
+        ],
+        event_callback: opensElsewhere ? undefined : go,
+      });
+    } catch (err) {
+      console.error("[ia] begin_checkout:", err);
+    }
+
+    if (opensElsewhere) return;
+    e.preventDefault();
+    setTimeout(go, 400);
+  });
+</script>

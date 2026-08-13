@@ -97,7 +97,7 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - **HubSpot CRM API** — vía `consultoria-intake`. Pipeline de deals: **"Ventas"** (`default`), etapa de entrada **"Calificado"** (`presentationscheduled`).
 - **Worker `bit-chat-3126`** — chatbot BIT (Claude Haiku).
 - **Worker `stripe-checkout-automate`** — pagos Stripe.
-- **Google Analytics 4** — `G-82JWGNDTLG` en `src/config/site.ts`.
+- **Google Analytics 4** — `G-PCJWLQ97K6` en `src/config/site.ts` (propiedad del CEO; reemplazó a la vieja `G-82JWGNDTLG` el 23-jul-2026 — esa propiedad ya no recibe nada). Eventos de conversión vía `window.trackEvent()`, definido en `BaseLayout.astro`.
 - **Telegram interno** — Chat ID `8348522203`.
 
 ## Oferta "Consultoría de Negocios para Emprendedores" (creada 30-jul-2026)

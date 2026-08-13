@@ -461,6 +461,19 @@ const urgencias = ["Ya mismo", "Este mes", "En los próximos 3 meses", "Solo est
           const body = (await res.json().catch(() => ({}))) as { error?: string };
           throw new Error(body.error ?? `HTTP ${res.status}`);
         }
+        // Después del `res.ok`: un fallo del worker no cuenta como conversión
+        // y el reintento tras el error no la duplica. Solo campos
+        // categóricos — nombre, email y teléfono no salen del navegador
+        // hacia GA4.
+        window.trackEvent?.("form_submit_consultoria", {
+          form_name: "consultoria",
+          tipo_negocio: String(payload.tipo_negocio ?? ""),
+          urgencia: String(payload.urgencia ?? ""),
+          tamano: String(payload.tamano ?? ""),
+          // Qué rama del formulario respondió: es lo que dice si la demanda
+          // viene por atención, por web o por redes.
+          problemas: (payload.problema as string[]).join("|"),
+        });
         form.classList.add("hidden");
         successEl.classList.remove("hidden");
         successEl.scrollIntoView({ behavior: "smooth", block: "center" });

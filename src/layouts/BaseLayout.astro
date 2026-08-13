@@ -157,28 +157,66 @@ const websiteSchema = {
     {
       enableGA && (
         <script is:inline define:vars={{ GA_ID }}>
-          // Defer GA4 ~2s after window.load to keep gtag.js (~160KB) out of
-          // the LCP / TBT critical path while still firing in time to track
-          // the visit. NOTE: script body must be plain JS — wrapping it in a
-          // {`...`} JSX template literal renders the GA loader as a string
-          // inside a block statement and it never executes.
+          // GA4 en dos tiempos, a propósito:
+          //
+          //   1. La COLA (`dataLayer` + `gtag`) se arma AQUÍ MISMO, síncrona.
+          //      gtag.js no hace falta para encolar: cualquier gtag(...) que
+          //      se llame antes de que cargue la librería queda guardado y se
+          //      procesa cuando llega. Armarla ya es lo que permite que un
+          //      evento de conversión dispare desde el primer instante.
+          //   2. La LIBRERÍA (~160KB) se difiere ~2s tras window.load para
+          //      mantenerla fuera del camino crítico de LCP/TBT. El page_view
+          //      sale cuando se procesa la cola, así que el diferido no pierde
+          //      la visita, solo la reporta un momento después.
+          //
+          // NOTE: script body must be plain JS — wrapping it in a {`...`} JSX
+          // template literal renders the GA loader as a string inside a block
+          // statement and it never executes.
           (function(){
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', GA_ID, { anonymize_ip: true });
+
+            var requested = false;
             function loadGA(){
+              if (requested) return;
+              requested = true;
               var s = document.createElement('script');
               s.async = true;
               s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
               document.head.appendChild(s);
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              window.gtag = gtag;
-              gtag('js', new Date());
-              gtag('config', GA_ID, { anonymize_ip: true });
             }
             if (document.readyState === 'complete') {
               setTimeout(loadGA, 2000);
             } else {
               window.addEventListener('load', function(){ setTimeout(loadGA, 2000); });
             }
+
+            // Único punto de envío de eventos de conversión del sitio.
+            //
+            // - Adelanta la carga de gtag.js: una interacción NO espera los 2s
+            //   del page_view. Quien envía un formulario puede cerrar la
+            //   pestaña enseguida, y un evento encolado sin librería no sale.
+            // - Deduplica por nombre dentro de la misma carga de página: si el
+            //   worker falla y la persona reintenta, la conversión cuenta una
+            //   sola vez. Recargar la página sí permite contar de nuevo.
+            // - Agrega `page_lang` a todo, que es lo que permite separar el
+            //   embudo en español del de inglés en los informes.
+            //
+            // Los llamadores DEBEN invocarla como `window.trackEvent?.(...)`:
+            // cuando GA está apagado (isGAEnabled() === false) este bloque no
+            // se emite y la función no existe.
+            var sent = {};
+            window.trackEvent = function(name, params){
+              if (sent[name]) return;
+              sent[name] = true;
+              loadGA();
+              var payload = { page_lang: document.documentElement.lang || 'es' };
+              for (var k in (params || {})) payload[k] = params[k];
+              gtag('event', name, payload);
+            };
           })();
         </script>
       )

@@ -559,15 +559,28 @@ const t = translations[lang].chatbot;
     en: { error: "Something went wrong. Email us at automateit@yourbizupgraded.com" },
   };
 
-  const toggle = (next) => {
+  // `source` dice de dónde salió la apertura: el botón flotante, o la burbuja
+  // de bienvenida que aparece sola a los 5s. Se pasa explícito y no se deduce
+  // de sessionStorage: el botón X de la burbuja también escribe `chatLang`,
+  // así que inferirlo marcaría como "welcome_bubble" un clic posterior en el
+  // botón flotante.
+  const toggle = (next, source) => {
     const cur = root.getAttribute("data-open") === "true";
     const target = typeof next === "boolean" ? next : !cur;
     root.setAttribute("data-open", String(target));
+    // Solo la apertura, y una sola vez por carga de página: abrir y cerrar
+    // el panel varias veces es la misma intención, no varias.
+    if (target && !cur) {
+      window.trackEvent?.("chatbot_open", {
+        source: source || "trigger",
+        chat_lang: sessionStorage.getItem("chatLang") || lang,
+      });
+    }
     if (target) setTimeout(() => input?.focus(), 200);
   };
 
   root.querySelectorAll('[data-action="toggle"]').forEach((btn) => {
-    btn.addEventListener("click", () => toggle());
+    btn.addEventListener("click", () => toggle(undefined, "trigger"));
   });
 
   // ===== Welcome bubble — lang chooser (shown 5s after load) =====
@@ -596,7 +609,7 @@ const t = translations[lang].chatbot;
       const chosen = btn.getAttribute("data-welcome-lang") || "es";
       sessionStorage.setItem("chatLang", chosen);
       dismissWelcome();
-      toggle(true);
+      toggle(true, "welcome_bubble");
     });
   });
 

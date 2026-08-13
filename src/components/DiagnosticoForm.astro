@@ -270,6 +270,15 @@ const businessTypes = t.labels.bizTypeOptions;
         const box = document.getElementById("diag-outofscope");
         const msg = document.getElementById("diag-outofscope-body");
         if (box && msg) {
+          // Descartado NO es `generate_lead`: si contara como conversión, la
+          // métrica mezclaría leads vendibles con los que se rechazan por
+          // HIPAA o por tamaño. Va con nombre propio para poder medir cuánto
+          // tráfico se está atrayendo fuera de alcance.
+          window.trackEvent?.("form_submit_diagnostico", {
+            form_name: "diagnostico",
+            outcome: "out_of_scope",
+            reason: out.reason ?? "unknown",
+          });
           msg.textContent =
             out.reason === "hipaa"
               ? (form.dataset.outHipaa ?? "")
@@ -279,6 +288,14 @@ const businessTypes = t.labels.bizTypeOptions;
           return;
         }
       }
+      // Solo aquí hay un lead utilizable. Va después del `res.ok`, así que un
+      // fallo del worker no infla la conversión, y el reintento no la duplica.
+      window.trackEvent?.("generate_lead", {
+        form_name: "diagnostico",
+        business_type: data.business_type ?? "",
+        urgency: data.urgency ?? "",
+        team_size: data.team_size ?? "",
+      });
       form.classList.add("hidden");
       success.classList.remove("hidden");
     } catch (err) {
