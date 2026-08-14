@@ -26,6 +26,37 @@ const es = {
     unconfigured:
       "El portal todavía no está conectado a su base de datos. Si eres de Automate IT, falta configurar SUPABASE_URL y SUPABASE_ANON_KEY.",
     backToSite: "Volver al sitio",
+    resetOk: "Tu contraseña quedó cambiada. Entra con la nueva.",
+  },
+
+  reset: {
+    // Modo 1: pedir el correo
+    requestTitle: "Recuperar tu contraseña",
+    requestIntro:
+      "Escribe el correo con el que entras al portal y te mandamos un enlace para elegir una contraseña nueva.",
+    email: "Correo",
+    requestSubmit: "Enviarme el enlace",
+    // Mismo mensaje exista o no la cuenta: no se confirma quién es cliente.
+    requestDone:
+      "Si ese correo tiene una cuenta, ya va en camino un enlace para cambiar la contraseña. Revisa también la carpeta de spam.",
+
+    // Modo 2: elegir la contraseña nueva
+    updateTitle: "Elige tu contraseña nueva",
+    password: "Contraseña nueva",
+    passwordConfirm: "Repite la contraseña",
+    updateSubmit: "Guardar contraseña",
+    hint: "Mínimo 8 caracteres.",
+
+    mismatch: "Las dos contraseñas no coinciden.",
+    weak: "Esa contraseña no sirve: usa al menos 8 caracteres y que no sea la anterior.",
+    expired:
+      "Este enlace ya caducó o se usó. Pide uno nuevo y ábrelo dentro de la hora siguiente.",
+    failed: "No pudimos cambiar la contraseña. Intenta de nuevo en un momento.",
+    // El enlace del correo trae el token en el fragmento de la URL. Si no
+    // viene, la persona entró a la ruta a mano.
+    noToken:
+      "Abre esta pantalla desde el enlace que te llegó por correo. Si el enlace ya no sirve, pide uno nuevo aquí abajo.",
+    backToLogin: "Volver a entrar",
   },
 
   nav: {
@@ -344,6 +375,32 @@ const en: typeof es = {
     unconfigured:
       "The portal is not connected to its database yet. If you're from Automate IT, SUPABASE_URL and SUPABASE_ANON_KEY still need to be set.",
     backToSite: "Back to the site",
+    resetOk: "Your password has been changed. Sign in with the new one.",
+  },
+
+  reset: {
+    requestTitle: "Reset your password",
+    requestIntro:
+      "Enter the email you use for the portal and we'll send you a link to choose a new password.",
+    email: "Email",
+    requestSubmit: "Send me the link",
+    requestDone:
+      "If that email has an account, a link to change the password is on its way. Check your spam folder too.",
+
+    updateTitle: "Choose your new password",
+    password: "New password",
+    passwordConfirm: "Repeat the password",
+    updateSubmit: "Save password",
+    hint: "At least 8 characters.",
+
+    mismatch: "The two passwords don't match.",
+    weak: "That password won't work: use at least 8 characters, and not your previous one.",
+    expired:
+      "This link has expired or was already used. Request a new one and open it within the hour.",
+    failed: "We couldn't change the password. Please try again in a moment.",
+    noToken:
+      "Open this screen from the link we emailed you. If the link no longer works, request a new one below.",
+    backToLogin: "Back to sign in",
   },
 
   nav: {

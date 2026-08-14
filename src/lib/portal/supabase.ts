@@ -107,6 +107,71 @@ export async function refreshSession(
   return { ok: true, tokens: tokensFrom(json) };
 }
 
+/**
+ * Pide a GoTrue que mande el correo de recuperación.
+ *
+ * `redirectTo` tiene que estar en la lista de Redirect URLs del proyecto o
+ * GoTrue lo ignora y usa el Site URL. Esa lista es configuración del dashboard,
+ * no de este repo: si el enlace del correo lleva a otro lado, es ahí donde hay
+ * que mirar, no acá.
+ *
+ * No devuelve nada y traga los errores a propósito. La pantalla muestra el
+ * mismo mensaje exista o no la cuenta: distinguirlos convertiría este
+ * formulario en un oráculo para saber qué correos son clientes. Mismo criterio
+ * que `signInWithPassword`.
+ */
+export async function requestPasswordRecovery(
+  env: SupabaseEnv,
+  email: string,
+  redirectTo: string
+): Promise<void> {
+  await fetch(
+    `${env.url}/auth/v1/recover?redirect_to=${encodeURIComponent(redirectTo)}`,
+    {
+      method: "POST",
+      headers: {
+        apikey: env.anonKey,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    }
+  ).catch(() => undefined);
+}
+
+/**
+ * Fija la contraseña nueva usando el token del enlace de recuperación.
+ *
+ * El token llega en el fragmento de la URL (`#access_token=...`), que el
+ * navegador NUNCA manda al servidor. Por eso la página lo levanta con JS y lo
+ * reenvía por POST a su propia ruta: así la llamada a GoTrue sigue saliendo del
+ * servidor y la anon key no baja al navegador, igual que en el resto del portal.
+ */
+export async function updatePassword(
+  env: SupabaseEnv,
+  accessToken: string,
+  password: string
+): Promise<{ ok: true } | { ok: false; reason: "expired" | "weak" | "failed" }> {
+  const res = await fetch(`${env.url}/auth/v1/user`, {
+    method: "PUT",
+    headers: {
+      apikey: env.anonKey,
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password }),
+  });
+
+  if (res.ok) return { ok: true };
+
+  // 401/403: el enlace caducó o ya se usó. 422: GoTrue rechazó la contraseña
+  // (demasiado corta, o igual a la anterior). Se distinguen porque la acción
+  // que tiene que tomar la persona es distinta: pedir otro correo, o elegir
+  // otra contraseña.
+  if (res.status === 401 || res.status === 403) return { ok: false, reason: "expired" };
+  if (res.status === 422) return { ok: false, reason: "weak" };
+  return { ok: false, reason: "failed" };
+}
+
 export async function signOut(env: SupabaseEnv, accessToken: string): Promise<void> {
   // Best-effort: si falla, la cookie se borra igual del lado del navegador.
   await fetch(`${env.url}/auth/v1/logout`, {

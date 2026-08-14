@@ -9,8 +9,25 @@
 /** Prefijo de todas las rutas del portal. */
 export const PORTAL_BASE = "/portal";
 
-/** Rutas que no exigen sesión. Todo lo demás bajo PORTAL_BASE sí la exige. */
-export const PUBLIC_PORTAL_ROUTES = [`${PORTAL_BASE}/login`];
+/**
+ * Rutas del portal que no exigen sesión.
+ *
+ * OJO — esta lista es DECLARATIVA, no la aplica nadie. Hoy ningún archivo la
+ * importa. La protección real es opt-in por página: una pantalla está protegida
+ * porque llama a `requirePortal()` (ver `guard.ts`), y es pública porque no lo
+ * hace. Agregar una ruta acá no la abre, y quitarla no la cierra.
+ *
+ * Se mantiene porque sirve de inventario legible de qué es público a propósito.
+ * Si algún día se pasa a middleware, esta es la lista que hay que consultar.
+ *
+ * `reset-password` es pública por definición: quien llega es justamente alguien
+ * que no puede iniciar sesión. Su autorización no es la cookie de sesión sino
+ * el token de un solo uso del correo, que se valida contra GoTrue en el POST.
+ */
+export const PUBLIC_PORTAL_ROUTES = [
+  `${PORTAL_BASE}/login`,
+  `${PORTAL_BASE}/reset-password`,
+];
 
 /**
  * Secciones de la barra lateral.

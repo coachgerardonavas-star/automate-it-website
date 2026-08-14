@@ -20,6 +20,9 @@ import { PORTAL_BASE } from "../../lib/portal/config";
 const lang = Astro.url.searchParams.get("lang") === "en" ? "en" : "es";
 const copy = portalCopy(lang);
 const next = safeNext(Astro.url.searchParams.get("next"));
+// Vuelve de cambiar la contraseña. Es solo un aviso: no autentica nada.
+const justReset = Astro.url.searchParams.get("reset") === "ok";
+const resetHref = `${PORTAL_BASE}/reset-password${lang === "en" ? "?lang=en" : ""}`;
 
 const env = getSupabaseEnv((Astro.locals as any)?.runtime?.env);
 
@@ -90,6 +93,15 @@ if (Astro.request.method === "POST") {
           {copy.login.welcome}
         </h1>
 
+        {justReset && !error && (
+          <p
+            role="status"
+            class="mt-4 rounded-md border border-brand-lime/40 bg-brand-lime/5 px-3 py-2 text-sm text-[var(--color-text-primary)]"
+          >
+            {copy.login.resetOk}
+          </p>
+        )}
+
         {error && (
           <p
             role="alert"
@@ -147,7 +159,7 @@ if (Astro.request.method === "POST") {
 
         <p class="mt-4 text-center text-sm">
           <a
-            href="mailto:automateit@yourbizupgraded.com"
+            href={resetHref}
             class="text-[var(--color-text-muted)] underline underline-offset-2 hover:text-[var(--color-blue)]"
           >
             {copy.login.forgot}
