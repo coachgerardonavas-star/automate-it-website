@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import { translations, type Lang } from "../i18n/translations";
 import { jsonLd } from "../lib/jsonld";
-import ChatbotWidget from "../components/ChatbotWidget.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
 import {
   GA_ID,
   SEARCH_CONSOLE_VERIFICATION,
@@ -237,6 +237,6 @@ const websiteSchema = {
   </head>
   <body class="bg-[var(--color-bg)] text-[var(--color-text-primary)]">
     <slot />
-    {chatbot && <ChatbotWidget lang={lang} />}
+    {chatbot && <WhatsAppButton lang={lang} />}
   </body>
 </html>

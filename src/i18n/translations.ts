@@ -323,6 +323,10 @@ export const translations = {
         "BIT es la cara visible de tu sistema multi-agente. Coordina voz, chat, CRM y marketing, te avisa cuando algo requiere tu atención y reporta resultados cada mañana.",
     },
 
+    whatsappButton: {
+      ariaLabel: "Escríbenos por WhatsApp",
+      prefillMessage: "Hola, vengo del sitio de Automate IT y quiero saber más.",
+    },
     chatbot: {
       openLabel: "Abrir chat con BIT",
       closeLabel: "Cerrar chat",
@@ -987,6 +991,10 @@ export const translations = {
         "BIT is the visible face of your multi-agent system. It coordinates voice, chat, CRM, and marketing, alerts you when something needs your attention, and reports results every morning.",
     },
 
+    whatsappButton: {
+      ariaLabel: "Message us on WhatsApp",
+      prefillMessage: "Hi, I came from the Automate IT site and I'd like to know more.",
+    },
     chatbot: {
       openLabel: "Open chat with BIT",
       closeLabel: "Close chat",
