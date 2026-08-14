@@ -1,0 +1,78 @@
+---
+// Botón flotante de WhatsApp. Reemplaza al widget de chat de BIT (retirado el
+// 14-ago-2026, decisión del CEO). Sin backend propio: abre wa.me con un
+// mensaje precargado, directo a la app o a WhatsApp Web.
+import { translations, type Lang } from "../i18n/translations";
+import { WHATSAPP_NUMBER } from "../config/site";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const t = translations[lang].whatsappButton;
+const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.prefillMessage)}`;
+---
+
+<a
+  class="whatsapp-button"
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={t.ariaLabel}
+>
+  <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" focusable="false">
+    <path
+      fill="currentColor"
+      d="M16.004 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.615 4.66 1.784 6.687L2.667 29.333l6.79-1.78a13.27 13.27 0 0 0 6.547 1.72h.006c7.362 0 13.333-5.97 13.333-13.333S23.366 2.667 16.004 2.667Zm0 24.4h-.005a11.05 11.05 0 0 1-5.632-1.542l-.404-.24-4.03 1.057 1.075-3.928-.263-.403a11.04 11.04 0 0 1-1.693-5.878c0-6.108 4.97-11.078 11.078-11.078 2.96 0 5.74 1.153 7.833 3.247a11 11 0 0 1 3.244 7.836c0 6.108-4.97 11.078-11.078 11.078l-.125-.149Zm6.07-8.294c-.333-.167-1.966-.97-2.271-1.08-.305-.112-.527-.167-.75.166-.222.334-.86 1.08-1.055 1.303-.194.222-.389.25-.72.083-.334-.167-1.408-.519-2.682-1.654-.992-.884-1.663-1.977-1.858-2.31-.194-.333-.021-.513.146-.68.15-.15.334-.389.5-.583.167-.195.223-.334.334-.556.111-.223.055-.417-.028-.584-.083-.167-.75-1.806-1.028-2.474-.271-.65-.546-.562-.75-.572l-.639-.011a1.22 1.22 0 0 0-.887.417c-.305.333-1.166 1.14-1.166 2.778s1.194 3.222 1.361 3.445c.167.222 2.35 3.588 5.694 5.031.795.343 1.416.548 1.9.702.798.254 1.524.218 2.098.132.64-.096 1.966-.803 2.244-1.58.278-.777.278-1.442.194-1.58-.083-.14-.305-.223-.639-.39Z"
+    ></path>
+  </svg>
+</a>
+
+<style>
+  .whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    box-shadow:
+      0 0 20px rgba(37, 211, 102, 0.35),
+      0 4px 16px rgba(0, 0, 0, 0.35);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .whatsapp-button:hover {
+    transform: scale(1.06);
+    box-shadow:
+      0 0 28px rgba(37, 211, 102, 0.5),
+      0 4px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  .whatsapp-button:focus-visible {
+    outline: 2px solid #25d366;
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 560px) {
+    .whatsapp-button {
+      width: 52px;
+      height: 52px;
+      bottom: 16px;
+      right: 16px;
+    }
+    .whatsapp-button svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+</style>

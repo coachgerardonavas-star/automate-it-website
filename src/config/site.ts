@@ -19,6 +19,16 @@ export const HUBSPOT_FORM_GUID_DIAGNOSTICO = "c3800beb-7430-4f16-bb9e-c1989b9ebf
 export const HUBSPOT_FORM_GUID_CHATBOT = "cd8b13bd-f8b9-4876-acc8-69be4df0027c"; // active — chatbot widget
 
 export const BIT_WORKER_URL = "https://bit-chat-3126.coachgerardonavas.workers.dev";
+// Bit (el widget de chat) se quitó del sitio el 14-ago-2026 — se reemplazó por un botón de
+// WhatsApp (ver WhatsAppButton.astro). El worker de arriba se deja desplegado por ahora,
+// sin usarse desde el frontend, por si se decide reactivar el chat más adelante.
+
+// Número real de WhatsApp Business (Meta Cloud API) — verificado en vivo vía Graph API el
+// 14-ago-2026: display_phone_number "+1 407-404-9495", verified_name "Automate IT".
+// OJO: es distinto del (407) 214-5114 que aparece como NAP público en el resto del sitio
+// (BaseLayout, quienes-somos, about) — ese es el teléfono de contacto general, no el de
+// WhatsApp. No unificarlos sin confirmar con el CEO.
+export const WHATSAPP_NUMBER = "14074049495";
 
 // El diagnóstico dejó de postear a la Forms API v3 el 7-ago-2026: esa API
 // descarta en silencio todo campo no definido en el formulario, y por eso
