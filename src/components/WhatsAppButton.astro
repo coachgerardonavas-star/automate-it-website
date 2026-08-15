@@ -16,6 +16,7 @@ const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.prefi
 
 <a
   class="whatsapp-button"
+  data-whatsapp-cta
   href={href}
   target="_blank"
   rel="noopener noreferrer"
@@ -76,3 +77,37 @@ const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.prefi
     }
   }
 </style>
+
+<script>
+  /**
+   * Conversión a GA4.
+   *
+   * Este botón pasó a ser la vía de contacto principal del sitio al retirarse
+   * BIT, así que sin esto la ruta que más gente va a usar sería la única que no
+   * se mide.
+   *
+   * No lleva evento estándar de GA4 a propósito. `generate_lead` ya identifica
+   * al diagnóstico enviado, que trae nombre, negocio y urgencia; meter acá un
+   * clic en un botón mezclaría una intención con un lead calificado y volvería
+   * inútil esa métrica. Mismo criterio que se usó con los diagnósticos fuera de
+   * alcance.
+   *
+   * Tampoco hace falta retener la navegación como en el checkout de /ia: el
+   * enlace abre en pestaña nueva, así que esta página no se descarga y el
+   * evento alcanza a salir sin trucos.
+   *
+   * `trackEvent` deduplica por nombre dentro de la carga de página: si alguien
+   * vuelve y hace clic otra vez, sigue siendo la misma intención.
+   */
+  document
+    .querySelector<HTMLAnchorElement>("[data-whatsapp-cta]")
+    ?.addEventListener("click", () => {
+      window.trackEvent?.("contact_whatsapp", {
+        source: "floating_button",
+        // Desde qué pantalla se dispara la conversación. Es lo que dice qué
+        // contenido empuja a escribir, que con un botón global si no es
+        // imposible de saber.
+        page_path: window.location.pathname,
+      });
+    });
+</script>
