@@ -78,13 +78,24 @@ const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.prefi
   }
 </style>
 
-<script>
+<script is:inline>
   /**
    * Conversión a GA4.
    *
    * Este botón pasó a ser la vía de contacto principal del sitio al retirarse
    * BIT, así que sin esto la ruta que más gente va a usar sería la única que no
    * se mide.
+   *
+   * `is:inline` NO es decorativo. Sin él, Astro empaqueta este script en el
+   * bundle "hoisted" de cada página — y en el build de producción la home (`/`
+   * y `/en/`) terminaba cargando un bundle que solo traía tiltCards, sin este
+   * código. O sea: el botón quedaba sin medir justo en las dos páginas que más
+   * tráfico reciben, y solo en producción. En `astro dev` los scripts se sirven
+   * sueltos y el problema no se ve. Inline se emite en el HTML de toda página
+   * que renderice el botón, sin depender de cómo se agrupen los bundles.
+   *
+   * Por lo mismo, el cuerpo tiene que ser JS plano: `is:inline` no pasa por
+   * TypeScript, así que nada de genéricos ni anotaciones de tipo.
    *
    * No lleva evento estándar de GA4 a propósito. `generate_lead` ya identifica
    * al diagnóstico enviado, que trae nombre, negocio y urgencia; meter acá un
@@ -99,10 +110,12 @@ const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.prefi
    * `trackEvent` deduplica por nombre dentro de la carga de página: si alguien
    * vuelve y hace clic otra vez, sigue siendo la misma intención.
    */
-  document
-    .querySelector<HTMLAnchorElement>("[data-whatsapp-cta]")
-    ?.addEventListener("click", () => {
-      window.trackEvent?.("contact_whatsapp", {
+  (function () {
+    var cta = document.querySelector("[data-whatsapp-cta]");
+    if (!cta) return;
+    cta.addEventListener("click", function () {
+      if (!window.trackEvent) return;
+      window.trackEvent("contact_whatsapp", {
         source: "floating_button",
         // Desde qué pantalla se dispara la conversación. Es lo que dice qué
         // contenido empuja a escribir, que con un botón global si no es
@@ -110,4 +123,5 @@ const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.prefi
         page_path: window.location.pathname,
       });
     });
+  })();
 </script>
