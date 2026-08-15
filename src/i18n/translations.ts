@@ -327,27 +327,6 @@ export const translations = {
       ariaLabel: "Escríbenos por WhatsApp",
       prefillMessage: "Hola, vengo del sitio de Automate IT y quiero saber más.",
     },
-    chatbot: {
-      openLabel: "Abrir chat con BIT",
-      closeLabel: "Cerrar chat",
-      headerName: "BIT",
-      headerStatus: "En línea",
-      welcomeMessage:
-        "Hola, soy BIT. Puedo ayudarte a entender qué automatizamos primero en tu negocio. ¿Por dónde empezamos?",
-      quickActions: [
-        { label: "Solicitar diagnóstico", href: "/diagnostico" },
-        { label: "Ver planes", href: "/#planes" },
-        { label: "Hablar con un humano", href: "mailto:automateit@yourbizupgraded.com" },
-      ],
-      emailPlaceholder: "Tu email para respuesta",
-      inputPlaceholder: "Escribe tu pregunta…",
-      sendLabel: "Enviar",
-      successNotice:
-        "Recibido. Te respondemos por email a la brevedad.",
-      errorSubmitFallback:
-        "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
-    },
-
     blog: {
       pageTitle: "Blog · Automate IT",
       pageDescription:
@@ -995,27 +974,6 @@ export const translations = {
       ariaLabel: "Message us on WhatsApp",
       prefillMessage: "Hi, I came from the Automate IT site and I'd like to know more.",
     },
-    chatbot: {
-      openLabel: "Open chat with BIT",
-      closeLabel: "Close chat",
-      headerName: "BIT",
-      headerStatus: "Online",
-      welcomeMessage:
-        "Hi, I'm BIT. I can help you figure out what to automate first in your business. Where do we start?",
-      quickActions: [
-        { label: "Request diagnostic", href: "/en/diagnostic" },
-        { label: "See plans", href: "/en/#planes" },
-        { label: "Talk to a human", href: "mailto:automateit@yourbizupgraded.com" },
-      ],
-      emailPlaceholder: "Your email for the reply",
-      inputPlaceholder: "Type your question…",
-      sendLabel: "Send",
-      successNotice:
-        "Got it. We'll reply by email shortly.",
-      errorSubmitFallback:
-        "Something went wrong. Email us at automateit@yourbizupgraded.com",
-    },
-
     blog: {
       pageTitle: "Blog · Automate IT",
       pageDescription:

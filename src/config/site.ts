@@ -16,12 +16,17 @@ export const SEARCH_CONSOLE_VERIFICATION =
 export const HUBSPOT_PORTAL_ID = "245810986"; // active
 export const HUBSPOT_FORM_GUID_CTA = "890d8b21-51f1-4ea3-be82-dff60ca6c055"; // active — home inline form
 export const HUBSPOT_FORM_GUID_DIAGNOSTICO = "c3800beb-7430-4f16-bb9e-c1989b9ebf37"; // active — /diagnostico
-export const HUBSPOT_FORM_GUID_CHATBOT = "cd8b13bd-f8b9-4876-acc8-69be4df0027c"; // active — chatbot widget
-
-export const BIT_WORKER_URL = "https://bit-chat-3126.coachgerardonavas.workers.dev";
-// Bit (el widget de chat) se quitó del sitio el 14-ago-2026 — se reemplazó por un botón de
-// WhatsApp (ver WhatsAppButton.astro). El worker de arriba se deja desplegado por ahora,
-// sin usarse desde el frontend, por si se decide reactivar el chat más adelante.
+// BIT (el widget de chat) salió del sitio el 14-ago-2026, reemplazado por el
+// botón de WhatsApp — ver `WhatsAppButton.astro`. El 15-ago se retiraron también
+// sus constantes y su copy, que ya no usaba nadie.
+//
+// Si BIT vuelve, esto es lo que hay que devolver acá:
+//   HUBSPOT_FORM_GUID_CHATBOT = "cd8b13bd-f8b9-4876-acc8-69be4df0027c"
+//   BIT_WORKER_URL            = "https://bit-chat-3126.coachgerardonavas.workers.dev"
+//
+// El worker `bit-chat-3126` sigue desplegado en Cloudflare aunque ya nadie lo
+// llame. Darlo de baja es una decisión aparte: ver el README o correr
+// `npx wrangler delete --name bit-chat-3126`.
 
 // Número real de WhatsApp Business (Meta Cloud API) — verificado en vivo vía Graph API el
 // 14-ago-2026: display_phone_number "+1 407-404-9495", verified_name "Automate IT".
