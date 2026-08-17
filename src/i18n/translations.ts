@@ -4,9 +4,89 @@ export const langs: Lang[] = ["es", "en"];
 
 export const translations = {
   es: {
-    siteTitle: "Automate IT — Your business, upgraded.",
+    siteTitle: "Automate IT — Operaciones que avanzan solas",
     siteDescription:
-      "Equipos de IA especializados ejecutan tu operación interna. Recupera tu tiempo y deja de perder leads.",
+      "Conectamos tus herramientas y construimos sistemas de trabajo que reducen tareas manuales, errores y seguimientos pendientes.",
+
+    home2026: {
+      nav: { how: "Cómo funciona", plans: "Planes", about: "Quiénes somos", blog: "Blog", diagnostic: "Diagnóstico" },
+      hero: {
+        eyebrow: "MEJORA OPERATIVA PARA PEQUEÑOS NEGOCIOS",
+        title: "Haz que el trabajo avance entre tus herramientas.",
+        body: "Diseñamos sistemas prácticos para que la información llegue a tiempo, las tareas repetitivas se ejecuten y tu equipo pueda enfocarse en el negocio.",
+        primary: "Ver dónde se traba mi operación",
+        secondary: "Cómo trabajamos",
+        note: "Diagnóstico de 5 minutos · Sin costo",
+      },
+      dashboard: {
+        label: "Ejemplo ilustrativo",
+        title: "Pulso de la operación",
+        live: "Sistema activo",
+        metric: "Tareas resueltas esta semana",
+        metricValue: "24",
+        rows: [
+          { name: "Consultas organizadas", status: "Al día" },
+          { name: "Seguimientos programados", status: "En curso" },
+          { name: "Facturas por revisar", status: "2 pendientes" },
+        ],
+      },
+      ticker: ["MENOS TAREAS MANUALES", "MÁS VISIBILIDAD", "SEGUIMIENTO CONSTANTE", "HERRAMIENTAS CONECTADAS"],
+      problem: {
+        eyebrow: "FRICCIÓN OPERATIVA",
+        title: "Demasiado trabajo rutinario todavía depende de ti.",
+        body: "Mensajes que esperan respuesta, información repetida en varios lugares y pendientes que viven en la memoria del equipo. Ahí se pierden horas y oportunidades.",
+        items: [
+          { number: "01", title: "Información dispersa", body: "Los datos viven entre mensajes, hojas de cálculo, correos y notas." },
+          { number: "02", title: "Seguimiento irregular", body: "Cada pendiente exige recordar, copiar, preguntar o volver a revisar." },
+          { number: "03", title: "Poca visibilidad", body: "Es difícil saber qué avanzó, qué se detuvo y qué necesita atención." },
+        ],
+      },
+      process: {
+        eyebrow: "NUESTRA FORMA DE TRABAJAR",
+        title: "Entendemos tu operación. Construimos a partir de ella.",
+        steps: [
+          { number: "01", title: "Mapear", body: "Vemos cómo fluye hoy el trabajo, con sus herramientas y excepciones reales." },
+          { number: "02", title: "Priorizar", body: "Elegimos el punto donde una mejora concreta genera más alivio y control." },
+          { number: "03", title: "Construir", body: "Conectamos las piezas y dejamos el nuevo flujo funcionando con tu equipo." },
+          { number: "04", title: "Medir", body: "Revisamos el uso, corregimos fricción y hacemos visible el avance." },
+        ],
+      },
+      plans: {
+        eyebrow: "FORMAS DE TRABAJAR JUNTOS",
+        title: "Elige cuánto trabajo quieres delegar.",
+        items: [
+          { name: "Asistente", tag: "Un flujo esencial", body: "Para resolver una tarea repetitiva y liberar tiempo rápidamente.", bullets: ["Un proceso priorizado", "Implementación y pruebas", "Acompañamiento inicial"] },
+          { name: "Estratega", tag: "Varios puntos conectados", body: "Para ordenar una parte completa de la operación y conectar sus herramientas.", bullets: ["Mapa operativo", "Flujos coordinados", "Panel de seguimiento"] },
+          { name: "Manager", tag: "Mejora continua", body: "Para delegar la evolución de tus sistemas y procesos mes a mes.", bullets: ["Prioridades mensuales", "Optimización continua", "Soporte operativo"] },
+        ],
+        cta: "Hablar sobre mi operación",
+      },
+      fit: {
+        title: "Esto funciona mejor cuando…",
+        good: ["Ya tienes un proceso que se repite", "Tu equipo usa varias herramientas", "Quieres mejorar paso a paso", "Puedes involucrarte en las decisiones clave"],
+        avoidTitle: "Probablemente no encaje si…",
+        avoid: ["Buscas una solución instantánea sin revisar el proceso", "Quieres reemplazar todo tu sistema de una vez", "No hay una persona responsable del proyecto"],
+      },
+      about: {
+        eyebrow: "PERSONAS DETRÁS DEL SISTEMA",
+        title: "La tecnología tiene que servirle a tu manera de trabajar.",
+        quote: "Trabajamos dentro de tu operación, encontramos dónde se pierde tiempo, información o dinero y dejamos la mejora funcionando contigo.",
+        name: "Gerardo Navas",
+        role: "Fundador de Automate IT",
+      },
+      faq: {
+        eyebrow: "PREGUNTAS FRECUENTES",
+        title: "Lo que conviene saber antes de empezar.",
+        items: [
+          { q: "¿Tengo que cambiar las herramientas que ya uso?", a: "En muchos casos, no. Primero evaluamos tu operación actual y buscamos aprovechar lo que ya funciona." },
+          { q: "¿Por dónde empezamos?", a: "Por un diagnóstico breve. Identificamos la fricción más costosa y proponemos un primer alcance concreto." },
+          { q: "¿Cuánto tarda una implementación?", a: "Depende del proceso y las integraciones. Antes de comenzar definimos alcance, etapas y fechas para que sepas qué esperar." },
+          { q: "¿Necesito conocimientos técnicos?", a: "No. Hablamos de tu operación en lenguaje claro y nos encargamos de la parte técnica." },
+        ],
+      },
+      final: { eyebrow: "PRIMER PASO", title: "Encuentra el punto que más tiempo le está costando a tu negocio.", body: "Cuéntanos cómo funciona hoy tu operación. Te ayudaremos a identificar una mejora concreta por donde comenzar.", cta: "Comenzar diagnóstico" },
+      footer: { line: "Sistemas prácticos para operaciones más claras.", privacy: "Privacidad", terms: "Términos", rights: "Automate IT LLC. Todos los derechos reservados." },
+    },
 
     nav: {
       logoLabel: "Automate IT — inicio",
@@ -659,9 +739,24 @@ export const translations = {
   },
 
   en: {
-    siteTitle: "Automate IT — Your business, upgraded.",
+    siteTitle: "Automate IT — Operations that keep moving",
     siteDescription:
-      "Specialized AI agents run your back-office. Reclaim your time and stop losing leads.",
+      "We connect your tools and build working systems that reduce manual tasks, errors, and missed follow-ups.",
+
+    home2026: {
+      nav: { how: "How it works", plans: "Plans", about: "About", blog: "Blog", diagnostic: "Diagnostic" },
+      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", title: "Keep work moving across your tools.", body: "We design practical systems so information arrives on time, repetitive tasks get done, and your team can focus on the business.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
+      dashboard: { label: "Illustrative example", title: "Operations pulse", live: "System active", metric: "Tasks handled this week", metricValue: "24", rows: [{ name: "Inquiries organized", status: "Up to date" }, { name: "Follow-ups scheduled", status: "In progress" }, { name: "Invoices to review", status: "2 pending" }] },
+      ticker: ["FEWER MANUAL TASKS", "MORE VISIBILITY", "CONSISTENT FOLLOW-UP", "CONNECTED TOOLS"],
+      problem: { eyebrow: "OPERATIONAL FRICTION", title: "Too much routine work still depends on you.", body: "Messages waiting for a reply, information repeated in several places, and tasks living in your team's memory. That is where hours and opportunities disappear.", items: [{ number: "01", title: "Scattered information", body: "Data lives across messages, spreadsheets, emails, and notes." }, { number: "02", title: "Inconsistent follow-up", body: "Every open item requires someone to remember, copy, ask, or check again." }, { number: "03", title: "Limited visibility", body: "It is hard to know what moved, what stopped, and what needs attention." }] },
+      process: { eyebrow: "HOW WE WORK", title: "We understand your operation and build from there.", steps: [{ number: "01", title: "Map", body: "We see how work flows today, including the tools and real-world exceptions." }, { number: "02", title: "Prioritize", body: "We choose the point where one practical improvement creates the most relief and control." }, { number: "03", title: "Build", body: "We connect the pieces and put the new workflow into use with your team." }, { number: "04", title: "Measure", body: "We review adoption, remove friction, and make progress visible." }] },
+      plans: { eyebrow: "WAYS TO WORK TOGETHER", title: "Choose how much work you want to delegate.", items: [{ name: "Assistant", tag: "One essential workflow", body: "Solve one repetitive task and free up time quickly.", bullets: ["One prioritized process", "Implementation and testing", "Initial guidance"] }, { name: "Strategist", tag: "Several connected points", body: "Organize a complete part of the operation and connect its tools.", bullets: ["Operations map", "Coordinated workflows", "Tracking dashboard"] }, { name: "Manager", tag: "Continuous improvement", body: "Delegate the evolution of your systems and processes month by month.", bullets: ["Monthly priorities", "Continuous optimization", "Operational support"] }], cta: "Talk about my operation" },
+      fit: { title: "This works best when…", good: ["You already have a recurring process", "Your team uses several tools", "You want to improve step by step", "You can participate in key decisions"], avoidTitle: "It may not fit if…", avoid: ["You want an instant solution without reviewing the process", "You want to replace every system at once", "There is no owner for the project"] },
+      about: { eyebrow: "PEOPLE BEHIND THE SYSTEM", title: "Technology should support the way you work.", quote: "We work inside your operation, find where time, information, or money is being lost, and leave the improvement running with you.", name: "Gerardo Navas", role: "Founder of Automate IT" },
+      faq: { eyebrow: "FREQUENTLY ASKED QUESTIONS", title: "What to know before we start.", items: [{ q: "Do I need to replace the tools I already use?", a: "In many cases, no. We first assess your current operation and look for ways to build on what already works." }, { q: "Where do we begin?", a: "With a short diagnostic. We identify the most costly friction and propose a concrete first scope." }, { q: "How long does implementation take?", a: "It depends on the process and integrations. Before starting, we define scope, stages, and dates so you know what to expect." }, { q: "Do I need technical knowledge?", a: "No. We discuss your operation in plain language and handle the technical work." }] },
+      final: { eyebrow: "FIRST STEP", title: "Find the point costing your business the most time.", body: "Tell us how your operation works today. We will help identify one practical improvement to start with.", cta: "Start diagnostic" },
+      footer: { line: "Practical systems for clearer operations.", privacy: "Privacy", terms: "Terms", rights: "Automate IT LLC. All rights reserved." },
+    },
 
     nav: {
       logoLabel: "Automate IT — home",
