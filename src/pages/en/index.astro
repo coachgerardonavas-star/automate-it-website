@@ -1,47 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Nav from "../../components/Nav.astro";
-import Hero from "../../components/Hero.astro";
-import SeccionResultados from "../../components/SeccionResultados.astro";
-import SeccionDolor from "../../components/SeccionDolor.astro";
-// import BandaHeuristicas from "../../components/BandaHeuristicas.astro";
-// ^ Disabled: its 4 stats (85%, 62%, 5.2M, $126K) duplicated 3 of the 3 stats
-//   visible in SeccionResultados. Re-enable once we have differentiated data.
-import SeccionTransformacion from "../../components/SeccionTransformacion.astro";
-import RibbonStat from "../../components/RibbonStat.astro";
-import SeccionAgentes from "../../components/SeccionAgentes.astro";
-import SeccionServicios from "../../components/SeccionServicios.astro";
-import SeccionPaquetes from "../../components/SeccionPaquetes.astro";
-import SeccionParaQuien from "../../components/SeccionParaQuien.astro";
-import SeccionCtaFinal from "../../components/SeccionCtaFinal.astro";
-import Footer from "../../components/Footer.astro";
+import Home2026 from "../../components/Home2026.astro";
 
 const lang = "en";
 ---
 
 <BaseLayout lang={lang}>
-  <Nav lang={lang} />
-  <main>
-    <Hero lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <SeccionTransformacion lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <SeccionResultados lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <SeccionDolor lang={lang} />
-    {/* <BandaHeuristicas lang={lang} /> — disabled due to duplication with SeccionResultados */}
-    <hr class="section-divider" aria-hidden="true" />
-    <RibbonStat lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <SeccionAgentes lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <SeccionServicios lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <SeccionPaquetes lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <SeccionParaQuien lang={lang} />
-    <hr class="section-divider" aria-hidden="true" />
-    <SeccionCtaFinal lang={lang} />
-  </main>
-  <Footer lang={lang} />
+  <Home2026 lang={lang} />
 </BaseLayout>
