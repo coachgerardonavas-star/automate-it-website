@@ -1,308 +1,58 @@
 ---
-import { translations, type Lang } from "../i18n/translations";
-
-interface Props {
-  lang?: Lang;
-}
-
+import type { Lang } from "../i18n/translations";
+interface Props { lang?: Lang; }
 const { lang = "es" } = Astro.props;
-const t = translations[lang].diagnosticoPage;
-// Pares valor/etiqueta: el value siempre es el de HubSpot (en español),
-// la etiqueta cambia con el idioma. Antes value=label, así que la versión en
-// inglés mandaba valores que HubSpot rechaza.
-const businessTypes = t.labels.bizTypeOptions;
+const es = lang === "es";
+const c = es ? {
+  name:"Tu nombre", email:"Email", phone:"Teléfono o WhatsApp", business:"Nombre del negocio", url:"Website o perfil público (opcional)", role:"Tu rol", type:"¿Qué vende o qué servicio presta tu negocio?", demand:"En una semana normal, ¿cuántos clientes, pedidos, solicitudes u oportunidades nuevas manejan?", channels:"¿Por dónde suelen entrar?", friction:"Cuando el negocio se pone ocupado, ¿qué suele costar más?", frequency:"¿Con qué frecuencia ocurre?", outcome:"Si eso mejorara, ¿qué notarías primero?", dependency:"Si tú o una persona clave faltan un día, ¿qué pasa?", urgency:"¿Cuándo te gustaría revisar una solución?", regulated:"¿Tu operación maneja datos con requisitos especiales de privacidad o regulación?", context:"¿Qué te hizo buscar ayuda ahora?", submit:"Solicitar diagnóstico", success:"Recibido.", successBody:"Revisaremos tu información y te contactaremos por email o WhatsApp para continuar el diagnóstico.", error:"Hubo un problema. Escríbenos a automateit@yourbizupgraded.com", privacy:"Tus datos no se venden. Los usamos para evaluar tu operación y coordinar el diagnóstico. No incluyas información de pacientes, contraseñas ni datos sensibles."
+} : {
+  name:"Your name", email:"Email", phone:"Phone or WhatsApp", business:"Business name", url:"Website or public profile (optional)", role:"Your role", type:"What does your business sell or provide?", demand:"In a normal week, how many new customers, orders, requests, or opportunities do you handle?", channels:"Where do they usually come in?", friction:"When business gets busy, what becomes hardest?", frequency:"How often does it happen?", outcome:"If that improved, what would you notice first?", dependency:"If you or a key person were absent for a day, what happens?", urgency:"When would you like to review a solution?", regulated:"Does your operation handle data with special privacy or regulatory requirements?", context:"What made you look for help now?", submit:"Request diagnostic", success:"Received.", successBody:"We’ll review your information and contact you by email or WhatsApp to continue the diagnostic.", error:"Something went wrong. Email automateit@yourbizupgraded.com", privacy:"We do not sell your data. We use it to evaluate your operation and coordinate the diagnostic. Do not include patient information, passwords, or sensitive data."
+};
+const opts = {
+ role: es?["Dueño/a","Socio/a","Gerencia","Operaciones","Otro"]:["Owner","Partner","Management","Operations","Other"],
+ demand:["0–5","6–15","16–40","41–100","100+",es?"No lo sé":"I don't know"],
+ channels: es?["Teléfono","WhatsApp","Website / formulario","Email","Redes sociales","Referidos","Marketplace / directorio","Presencial","Otro"]:["Phone","WhatsApp","Website / form","Email","Social media","Referrals","Marketplace / directory","In person","Other"],
+ friction: es?["Responder a tiempo","Dar seguimiento","Coordinar personas o tareas","Mover información de un lugar a otro","Saber en qué estado está cada caso","Evitar errores o trabajo duplicado","Cobrar / facturar a tiempo","Mantener información consistente","Medir qué está funcionando","Otro"]:["Responding on time","Following up","Coordinating people or tasks","Moving information between places","Knowing the status of each case","Avoiding errors or duplicate work","Billing / collecting on time","Keeping information consistent","Measuring what is working","Other"],
+ frequency: es?["Varias veces al día","Todos los días","Varias veces por semana","Algunas veces al mes","Rara vez","No lo sé"]:["Several times a day","Every day","Several times a week","A few times a month","Rarely","I don't know"],
+ outcome: es?["Más tiempo disponible","Menos errores o retrabajo","Respuesta más rápida","Más seguimiento completado","Más visibilidad o control","Cobros más rápidos","Mejor experiencia del cliente","Otro"]:["More available time","Fewer errors or rework","Faster response","More follow-ups completed","More visibility or control","Faster collections","Better customer experience","Other"],
+ dependency: es?["Casi nada; el equipo sabe qué hacer","Algunas cosas se retrasan","Varias cosas se detienen","La operación depende mucho de esa persona","No lo sé"]:["Almost nothing; the team knows what to do","Some things slow down","Several things stop","The operation depends heavily on that person","I don't know"],
+ urgency: es?["Esta semana","Este mes","Próximo mes","Solo estoy explorando"]:["This week","This month","Next month","Just exploring"],
+ regulated: es?["No","Sí","No estoy seguro"]:["No","Yes","Not sure"]
+};
 ---
-
-<form
-  id="diag-form"
-  class="space-y-6"
-  novalidate
-  data-submitting={t.submitting}
-  data-submit-label={t.submit}
-  data-error-fallback={t.errorSubmitFallback}
-  data-lang={lang}
-  data-out-hipaa={t.outOfScopeHipaa}
-  data-out-size={t.outOfScopeSize}
->
-  <label class="block">
-    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.name}</span>
-    <input
-      type="text"
-      name="name"
-      required
-      autocomplete="name"
-      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
-    />
-  </label>
-
-  <label class="block">
-    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.email}</span>
-    <input
-      type="email"
-      name="email"
-      required
-      autocomplete="email"
-      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
-    />
-  </label>
-
-  <label class="block">
-    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.phone}</span>
-    <input
-      type="tel"
-      name="phone"
-      autocomplete="tel"
-      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
-    />
-  </label>
-
-  <label class="block">
-    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.addressLabel}</span>
-    <input
-      type="text"
-      name="address"
-      autocomplete="address-level2"
-      placeholder={t.labels.addressPlaceholder}
-      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
-    />
-  </label>
-
-  <label class="block">
-    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.bizType}</span>
-    <select
-      name="business_type"
-      required
-      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors appearance-none cursor-pointer"
-    >
-      <option value="" class="bg-white">{t.labels.bizTypePlaceholder}</option>
-      {
-        businessTypes.map((bt) => (
-          <option value={bt.value} class="bg-white">
-            {bt.label}
-          </option>
-        ))
-      }
-    </select>
-  </label>
-
-  <label class="block">
-    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.problem}</span>
-    <textarea
-      name="problem"
-      rows="4"
-      required
-      placeholder={t.labels.problemPlaceholder}
-      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] placeholder-[var(--color-text-subtle)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors resize-y"
-    ></textarea>
-  </label>
-
-  {/* La pregunta que decide el plan. Va antes de urgencia a propósito: es la
-      única del formulario cuya respuesta cambia lo que se cotiza. */}
-  <fieldset>
-    <legend class="block text-sm font-semibold text-[var(--color-text-primary)] mb-3">{t.labels.pain}</legend>
-    <div class="space-y-2">
-      {
-        t.labels.painOptions.map((opt) => (
-          <label class="flex items-start gap-3 cursor-pointer">
-            <input
-              type="radio"
-              name="pain"
-              value={opt.value}
-              required
-              class="mt-1 w-4 h-4 accent-[var(--color-blue)] cursor-pointer shrink-0"
-            />
-            <span class="text-sm text-[var(--color-text-primary)]">{opt.label}</span>
-          </label>
-        ))
-      }
-    </div>
-  </fieldset>
-
-  <label class="block">
-    <span class="block text-sm font-semibold text-[var(--color-text-primary)] mb-2">{t.labels.teamSize}</span>
-    <select
-      name="team_size"
-      required
-      class="w-full px-4 py-3 rounded bg-[var(--color-bg-soft)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-blue)] transition-colors"
-    >
-      <option value="" class="bg-white">{t.labels.teamSizePlaceholder}</option>
-      {
-        t.labels.teamSizeOptions.map((opt) => (
-          <option value={opt.value} class="bg-white">
-            {opt.label}
-          </option>
-        ))
-      }
-    </select>
-  </label>
-
-  <fieldset>
-    <legend class="block text-sm font-semibold text-[var(--color-text-primary)] mb-3">{t.labels.urgency}</legend>
-    <div class="space-y-2">
-      {
-        t.labels.urgencyOptions.map((opt) => (
-          <label class="flex items-center gap-3 cursor-pointer">
-            <input
-              type="radio"
-              name="urgency"
-              value={opt.value}
-              required
-              class="w-4 h-4 accent-[var(--color-blue)] cursor-pointer"
-            />
-            <span class="text-sm text-[var(--color-text-primary)]">{opt.label}</span>
-          </label>
-        ))
-      }
-    </div>
-  </fieldset>
-
-  <div class="pt-2">
-    <label class="flex items-start gap-3 cursor-pointer">
-      <input
-        type="checkbox"
-        name="hipaa"
-        value="yes"
-        class="mt-0.5 w-4 h-4 accent-[var(--color-blue)] cursor-pointer"
-      />
-      <span class="flex-1">
-        <span class="block text-sm font-semibold text-[var(--color-text-primary)]">{t.hipaaQuestion}</span>
-        <span class="block text-xs text-[var(--color-text-muted)] mt-1">{t.hipaaHint}</span>
-      </span>
-    </label>
+<form id="diag-form" class="space-y-6" novalidate data-lang={lang} data-submit={c.submit} data-error={c.error}>
+  <div class="grid sm:grid-cols-2 gap-5">
+    <label class="block"><span class="label">{c.name}</span><input class="field" name="name" required autocomplete="name" /></label>
+    <label class="block"><span class="label">{c.email}</span><input class="field" type="email" name="email" required autocomplete="email" /></label>
+    <label class="block"><span class="label">{c.phone}</span><input class="field" type="tel" name="phone" autocomplete="tel" /></label>
+    <label class="block"><span class="label">{c.business}</span><input class="field" name="business_name" /></label>
   </div>
-
-  <div class="pt-4">
-    <button
-      type="submit"
-      class="btn-cta w-full inline-flex items-center justify-center px-6 py-3 rounded-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-    >
-      {t.submit}
-    </button>
-  </div>
-
-  <p class="text-xs text-[var(--color-text-muted)] pt-2">{t.privacyDisclaimer}</p>
+  <label class="block"><span class="label">{c.url}</span><input class="field" name="public_url" inputmode="url" /></label>
+  <label class="block"><span class="label">{c.role}</span><select class="field" name="role" required><option value="">—</option>{opts.role.map(o=><option value={o}>{o}</option>)}</select></label>
+  <label class="block"><span class="label">{c.type}</span><textarea class="field min-h-24" name="business_type" required></textarea></label>
+  <label class="block"><span class="label">{c.demand}</span><select class="field" name="weekly_demand" required><option value="">—</option>{opts.demand.map(o=><option value={o}>{o}</option>)}</select></label>
+  <fieldset><legend class="label">{c.channels}</legend><div class="grid sm:grid-cols-2 gap-2">{opts.channels.map(o=><label class="choice"><input type="checkbox" name="entry_channels" value={o}/><span>{o}</span></label>)}</div></fieldset>
+  <label class="block"><span class="label">{c.friction}</span><select class="field" name="friction" required><option value="">—</option>{opts.friction.map(o=><option value={o}>{o}</option>)}</select></label>
+  <label class="block"><span class="label">{c.frequency}</span><select class="field" name="frequency" required><option value="">—</option>{opts.frequency.map(o=><option value={o}>{o}</option>)}</select></label>
+  <label class="block"><span class="label">{c.outcome}</span><select class="field" name="desired_outcome" required><option value="">—</option>{opts.outcome.map(o=><option value={o}>{o}</option>)}</select></label>
+  <label class="block"><span class="label">{c.dependency}</span><select class="field" name="key_person_dependency" required><option value="">—</option>{opts.dependency.map(o=><option value={o}>{o}</option>)}</select></label>
+  <label class="block"><span class="label">{c.urgency}</span><select class="field" name="urgency" required><option value="">—</option>{opts.urgency.map(o=><option value={o}>{o}</option>)}</select></label>
+  <label class="block"><span class="label">{c.regulated}</span><select class="field" name="regulated" required><option value="">—</option>{opts.regulated.map(o=><option value={o}>{o}</option>)}</select></label>
+  <label class="block"><span class="label">{c.context}</span><textarea class="field min-h-28" name="context" required></textarea></label>
+  <button type="submit" class="btn-cta w-full px-6 py-3 rounded-sm font-semibold bg-[var(--color-blue)] text-white hover:bg-[var(--color-navy)] disabled:opacity-50">{c.submit}</button>
+  <p class="text-xs text-[var(--color-text-muted)]">{c.privacy}</p>
 </form>
-
 <p id="diag-error" class="hidden text-sm text-[var(--color-danger)] mt-4" role="alert"></p>
-
-<div
-  id="diag-outofscope"
-  class="hidden p-8 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-soft)]"
-  role="status"
-  aria-live="polite"
->
-  <p class="font-heading text-2xl mb-3 text-[var(--color-text-primary)]">{t.outOfScopeHeading}</p>
-  <p id="diag-outofscope-body" class="text-base text-[var(--color-text-secondary)] leading-relaxed"></p>
-</div>
-
-<div
-  id="diag-success"
-  class="hidden p-8 rounded-lg border border-brand-lime/40 bg-brand-lime/5"
-  role="status"
-  aria-live="polite"
->
-  <p class="font-heading text-2xl mb-3 text-brand-lime">{t.successHeading}</p>
-  <p class="text-base text-[var(--color-text-primary)] leading-relaxed">{t.successBody}</p>
-</div>
-
+<div id="diag-success" class="hidden p-8 rounded-lg border border-brand-lime/40 bg-brand-lime/5" role="status"><p class="font-heading text-2xl mb-3 text-brand-lime">{c.success}</p><p>{c.successBody}</p></div>
+<style>.label{display:block;font-size:.875rem;font-weight:700;color:var(--color-text-primary);margin-bottom:.5rem}.field{width:100%;padding:.75rem 1rem;border-radius:.25rem;background:var(--color-bg-soft);border:1px solid var(--color-border);color:var(--color-text-primary);outline:none}.field:focus{border-color:var(--color-blue)}.choice{display:flex;gap:.75rem;align-items:flex-start;padding:.7rem .85rem;border:1px solid var(--color-border);border-radius:.35rem;cursor:pointer}.choice input{margin-top:.2rem;accent-color:var(--color-blue)}</style>
 <script>
-  import { DIAGNOSTICO_WORKER_URL } from "../config/site";
-
-  const form = document.getElementById("diag-form") as HTMLFormElement | null;
-  const error = document.getElementById("diag-error");
-  const success = document.getElementById("diag-success");
-
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!form || !error || !success) return;
-
-    error.classList.add("hidden");
-    error.textContent = "";
-
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    const submitBtn = form.querySelector(
-      'button[type="submit"]'
-    ) as HTMLButtonElement | null;
-    const restoreBtn = () => {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = form.dataset.submitLabel ?? "";
-      }
-    };
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = form.dataset.submitting ?? "";
-    }
-
-    const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
-    const lang = form.dataset.lang ?? "es";
-
-    try {
-      // Worker con CRM API, no Forms API v3: esa descartaba en silencio todo
-      // campo no definido en el formulario de HubSpot. Ver config/site.ts.
-      const res = await fetch(DIAGNOSTICO_WORKER_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name ?? "",
-          email: data.email ?? "",
-          phone: data.phone ?? "",
-          address: data.address ?? "",
-          business_type: data.business_type ?? "",
-          problem: data.problem ?? "",
-          pain: data.pain ?? "",
-          team_size: data.team_size ?? "",
-          urgency: data.urgency ?? "",
-          hipaa: data.hipaa === "yes" ? "yes" : "no",
-          lang,
-        }),
-      });
-      if (!res.ok) throw new Error(`worker ${res.status}`);
-      const out = (await res.json()) as { outOfScope?: boolean; reason?: string };
-
-      // Si queda fuera de alcance se le dice aquí mismo, no se le deja
-      // esperando una llamada que no va a llegar.
-      if (out.outOfScope) {
-        const box = document.getElementById("diag-outofscope");
-        const msg = document.getElementById("diag-outofscope-body");
-        if (box && msg) {
-          // Descartado NO es `generate_lead`: si contara como conversión, la
-          // métrica mezclaría leads vendibles con los que se rechazan por
-          // HIPAA o por tamaño. Va con nombre propio para poder medir cuánto
-          // tráfico se está atrayendo fuera de alcance.
-          window.trackEvent?.("form_submit_diagnostico", {
-            form_name: "diagnostico",
-            outcome: "out_of_scope",
-            reason: out.reason ?? "unknown",
-          });
-          msg.textContent =
-            out.reason === "hipaa"
-              ? (form.dataset.outHipaa ?? "")
-              : (form.dataset.outSize ?? "");
-          form.classList.add("hidden");
-          box.classList.remove("hidden");
-          return;
-        }
-      }
-      // Solo aquí hay un lead utilizable. Va después del `res.ok`, así que un
-      // fallo del worker no infla la conversión, y el reintento no la duplica.
-      window.trackEvent?.("generate_lead", {
-        form_name: "diagnostico",
-        business_type: data.business_type ?? "",
-        urgency: data.urgency ?? "",
-        team_size: data.team_size ?? "",
-      });
-      form.classList.add("hidden");
-      success.classList.remove("hidden");
-    } catch (err) {
-      console.error("[lead] diagnostic worker error:", err);
-      error.textContent = form.dataset.errorFallback ?? "";
-      error.classList.remove("hidden");
-      restoreBtn();
-    }
-  });
+ import { DIAGNOSTICO_WORKER_URL } from "../config/site";
+ const form=document.getElementById("diag-form") as HTMLFormElement|null;
+ const error=document.getElementById("diag-error"); const success=document.getElementById("diag-success");
+ form?.addEventListener("submit",async(e)=>{e.preventDefault(); if(!form||!error||!success)return; error.classList.add("hidden"); if(!form.checkValidity()){form.reportValidity();return;}
+ const btn=form.querySelector('button[type="submit"]') as HTMLButtonElement|null; if(btn){btn.disabled=true;btn.textContent="…"}
+ const fd=new FormData(form); const entry=fd.getAll("entry_channels").map(String); const payload=Object.fromEntries(fd) as Record<string,string>; delete payload.entry_channels;
+ try{const res=await fetch(DIAGNOSTICO_WORKER_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...payload,entry_channels:entry,lang:form.dataset.lang??"es"})}); if(!res.ok)throw new Error(`worker ${res.status}`); window.trackEvent?.("generate_lead",{form_name:"diagnostico",urgency:payload.urgency??"",friction:payload.friction??""}); form.classList.add("hidden");success.classList.remove("hidden");}
+ catch(err){console.error("[lead] diagnostic worker error",err);error.textContent=form.dataset.error??"";error.classList.remove("hidden");if(btn){btn.disabled=false;btn.textContent=form.dataset.submit??""}}
+ });
 </script>
