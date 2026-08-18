@@ -12,8 +12,8 @@ export const translations = {
       nav: { how: "Cómo funciona", plans: "Planes", about: "Quiénes somos", blog: "Blog", diagnostic: "Diagnóstico" },
       hero: {
         eyebrow: "MEJORA OPERATIVA PARA PEQUEÑOS NEGOCIOS",
-        title: "Haz que el trabajo avance entre tus herramientas.",
-        body: "Diseñamos sistemas prácticos para que la información llegue a tiempo, las tareas repetitivas se ejecuten y tu equipo pueda enfocarse en el negocio.",
+        title: "Tus herramientas ya trabajan. Nosotros las conectamos.",
+        body: "Tú recuperas el control. Hacemos que la información llegue a tiempo y que el trabajo repetitivo avance dentro de las herramientas que ya usas.",
         primary: "Ver dónde se traba mi operación",
         secondary: "Cómo trabajamos",
         note: "Diagnóstico de 5 minutos · Sin costo",
@@ -22,8 +22,8 @@ export const translations = {
         label: "Ejemplo ilustrativo",
         title: "Pulso de la operación",
         live: "Sistema activo",
-        metric: "Tareas resueltas esta semana",
-        metricValue: "24",
+        metric: "Estado de la operación",
+        metricValue: "Visible",
         rows: [
           { name: "Consultas organizadas", status: "Al día" },
           { name: "Seguimientos programados", status: "En curso" },
@@ -745,8 +745,8 @@ export const translations = {
 
     home2026: {
       nav: { how: "How it works", plans: "Plans", about: "About", blog: "Blog", diagnostic: "Diagnostic" },
-      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", title: "Keep work moving across your tools.", body: "We design practical systems so information arrives on time, repetitive tasks get done, and your team can focus on the business.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
-      dashboard: { label: "Illustrative example", title: "Operations pulse", live: "System active", metric: "Tasks handled this week", metricValue: "24", rows: [{ name: "Inquiries organized", status: "Up to date" }, { name: "Follow-ups scheduled", status: "In progress" }, { name: "Invoices to review", status: "2 pending" }] },
+      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", title: "Your tools already work. We connect them.", body: "You regain control. We make sure information arrives on time and repetitive work moves forward inside the tools you already use.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
+      dashboard: { label: "Illustrative example", title: "Operations pulse", live: "System active", metric: "Operations status", metricValue: "Visible", rows: [{ name: "Inquiries organized", status: "Up to date" }, { name: "Follow-ups scheduled", status: "In progress" }, { name: "Invoices to review", status: "2 pending" }] },
       ticker: ["FEWER MANUAL TASKS", "MORE VISIBILITY", "CONSISTENT FOLLOW-UP", "CONNECTED TOOLS"],
       problem: { eyebrow: "OPERATIONAL FRICTION", title: "Too much routine work still depends on you.", body: "Messages waiting for a reply, information repeated in several places, and tasks living in your team's memory. That is where hours and opportunities disappear.", items: [{ number: "01", title: "Scattered information", body: "Data lives across messages, spreadsheets, emails, and notes." }, { number: "02", title: "Inconsistent follow-up", body: "Every open item requires someone to remember, copy, ask, or check again." }, { number: "03", title: "Limited visibility", body: "It is hard to know what moved, what stopped, and what needs attention." }] },
       process: { eyebrow: "HOW WE WORK", title: "We understand your operation and build from there.", steps: [{ number: "01", title: "Map", body: "We see how work flows today, including the tools and real-world exceptions." }, { number: "02", title: "Prioritize", body: "We choose the point where one practical improvement creates the most relief and control." }, { number: "03", title: "Build", body: "We connect the pieces and put the new workflow into use with your team." }, { number: "04", title: "Measure", body: "We review adoption, remove friction, and make progress visible." }] },
