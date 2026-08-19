@@ -202,3 +202,21 @@ Decisión registrada por el CEO: **no todos los clientes necesitan los 16 agente
 ---
 
 *Este documento es la fuente de verdad. Si Claude Code en alguna sesión propone algo que contradiga este brief, el brief gana — salvo que el CEO actualice este archivo explícitamente.*
+
+---
+
+## Agosto 2026 — Intake público operativo y privacidad
+
+- `/diagnostico` y `/en/diagnostic` usan el mismo formulario y envían al Worker
+  `diagnostico-intake` los campos: `name`, `email`, `phone`, `business_name`, `public_url`,
+  `role`, `business_type`, `weekly_demand`, `entry_channels[]`, `friction`, `frequency`,
+  `desired_outcome`, `key_person_dependency`, `urgency`, `regulated`, `context` y `lang`.
+- El formulario califica la situación operativa; no asigna Asistente/Estratega/Manager y no
+  rechaza prospectos por tamaño de equipo.
+- El Worker hace upsert y nota en HubSpot, alerta por Telegram y mantiene Make 5148358 sin
+  cambiar su contrato: `fields.firstname`, `email`, `phone`, `address`, `industry`, `message`.
+- Si `regulated` es Sí/Yes o No estoy seguro/Not sure, el lead pasa a conversación manual:
+  no se envía a Make/Retell y se omite texto libre de HubSpot/Telegram mientras no exista BAA.
+- Endpoint operativo: `https://diagnostico-intake.coachgerardonavas.workers.dev/health`.
+- No usar un lead real para pruebas rutinarias. La verificación normal es build, test de
+  contrato, dry-run de Wrangler y GET `/health`.
