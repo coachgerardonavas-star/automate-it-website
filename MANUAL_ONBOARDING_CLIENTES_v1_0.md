@@ -18,6 +18,10 @@ de la llamada de cierre.
 - [ ] **Diagnóstico revisado.** ¿Qué llenó en `/diagnostico`? ¿Qué dijo en la llamada, si
       hubo una? Una frase textual, no un resumen — igual que la Sección 3 de un `CLAUDE.md`
       de cliente.
+- [ ] **No confundir calificación con asignación.** El formulario público mide demanda,
+      canales, fricción, frecuencia, dependencia, resultado deseado y urgencia; no asigna
+      Asistente/Estratega/Manager ni descalifica por cantidad de empleados. La intervención
+      se decide aquí, después de revisar el diagnóstico y conversar con el prospecto.
 - [ ] **Clasificación del miembro** según la regla de autonomía: ¿el proceso que hay que
       resolver **hace**, **piensa** o **coordina**? Y el volumen: ¿1 proceso, hasta 3
       relacionados, u operación completa? Cuando no coinciden, manda el techo más alto.
@@ -32,8 +36,10 @@ de la llamada de cierre.
       - Condiciones: 50% al firmar (no reembolsable pasada la garantía) + 50% al terminar
         la instalación · primera mensualidad a los 30 días · mínimo 3 meses de compromiso ·
         garantía de 7 días o hasta el arranque en vivo, lo que ocurra primero.
-- [ ] **HIPAA:** ¿el negocio del prospecto toca PHI? Si sí, cargar la skill
-      `hipaa-compliance` antes de seguir. Se vende, no se promociona.
+- [ ] **Privacidad/regulación:** si el prospecto marcó Sí o No estoy seguro, el intake lo
+      conserva como lead pero no dispara Make/Retell y omite texto libre en canales sin BAA.
+      Atenderlo manualmente y, si toca PHI, cargar la skill `hipaa-compliance` antes de seguir.
+      Nunca pedir datos de pacientes en el formulario, Telegram o una nota sin BAA.
 - [ ] **Borrador enviado al CEO para revisión** (Nivel 2, por definición del pipeline) antes
       de mandarlo al prospecto.
 

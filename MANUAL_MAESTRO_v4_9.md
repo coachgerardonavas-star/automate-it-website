@@ -6,13 +6,18 @@
 
 | **Campo** | **Detalle** |
 | --- | --- |
-| Versión | 4.9 · Julio 13, 2026 |
+| Versión | 4.10 · Agosto 18, 2026 |
 | Arquitectura | Claude Code + SDK Anthropic |
 | Agentes activos | 3 agentes: Vero (CMO), Warren (CFO), Sheryl (CLO) |
 | Canal CEO | Claude Code CLI — interacción directa |
 | Sitio web | yourbizupgraded.com — Chatbot BIT v2 activo · voice-profile aplicado |
 | n8n | Producto para clientes — NO infraestructura interna |
 | Documento | Confidencial · Uso Interno Exclusivo |
+
+# **CAMBIOS EN v4.10 — Agosto 18, 2026**
+
+| Actualizaciones en esta versión: • Formulario público `/diagnostico` migrado a diagnóstico operativo: demanda semanal, canales de entrada, fricción, frecuencia, resultado deseado, dependencia de persona clave, urgencia y requisitos de privacidad/regulación. • El formulario ya no asigna Asistente/Estratega/Manager y no descalifica por tamaño del equipo; esas decisiones se toman después del diagnóstico. • Worker `diagnostico-intake` desplegado: HubSpot upsert + nota + Telegram + compatibilidad con Make 5148358 mediante el contrato histórico `fields.firstname,email,phone,address,industry,message`. • Casos regulados o inciertos se conservan en HubSpot, se notifican para conversación manual, omiten texto libre en canales sin BAA y no disparan Make/Retell. • Health endpoint confirmado en producción. • La compilación y el contrato se verifican sin crear leads ni llamadas de pago. |
+| --- |
 
 # **CAMBIOS EN v4.9 — Julio 13, 2026**
 
@@ -172,8 +177,8 @@ Voz + chat unificados en un solo sistema + hecho-por-ti + cultural/hispano. Ese 
 | Caption completo del post | Incluido en vero_brief.py | Vero genera caption listo | Completado ✓ |
 | Publicación en Instagram | Manual (CEO publica) | CEO solo aprueba, publica con 1 tap | Evaluar Meta Graph API |
 | Respuesta a DMs de Exploración | Manual / CreatorFlow (pendiente) | Bot responde, escala Evaluación | Configurar CreatorFlow |
-| Intake de leads desde sitio | Automatizado (HubSpot + Telegram) | DONE | — |
-| Seguimiento de leads en CRM | Automatizado (Make scenario 5148358) | Telegram + email al lead en <15 min | DONE — Mayo 22, 2026 |
+| Intake de leads desde sitio | Formulario operativo → Worker `diagnostico-intake` → HubSpot + nota + Telegram | DONE | Casos regulados/inciertos: ruta manual sin texto libre |
+| Seguimiento de leads en CRM | Worker → Make scenario 5148358 con contrato heredado de seis campos | Email/Retell/deal para leads no regulados | Código y contrato verificados; E2E real pendiente de prueba controlada sin costo |
 | Reportes financieros | Manual (Warren pendiente) | Warren genera reporte semanal | Completar agente Warren en Claude Code |
 | Alertas de sistema caído | Health Check Worker — cron 15min | Health checks Tier 0 con alerta 🔴🟢 | DONE — Mayo 22, 2026 |
 
@@ -597,5 +602,6 @@ Comparado con la etapa "Inputs" del modelo Dapta (sección 15B): Automate IT tie
 | 4.7 | Julio 13, 2026 | Análisis de procesos internos de Dapta AI documentado (Parte VIII). Gap crítico confirmado: Marc y Gaby sin contexto de ventas (pricing, heurísticas). Plan de trabajo de 3 prioridades definido: cargar contexto de ventas, activar flujo Prospector→Marc con SLA <5 min, outbound manual en paralelo. |
 | 4.8 | Julio 13, 2026 | BrandScript canónico creado (SB7 de Donald Miller) como fuente de verdad del mensaje. Regla de Orden (problema primero, producto después) establecida como default de todo copy. One-liner oficial definido. Sección 2A-bis añadida. Manuales sincronizados: Quiénes Somos v2.8, Marca v2.4, Instagram v2.6. |
 | 4.9 | Julio 13, 2026 | "Florida" retirada como filtro/mención por defecto en BrandScript v1.1, Quiénes Somos v2.9, Marca v2.5, Instagram v2.7 — servicio 100% remoto. Gap Crítico ampliado con evidencia real (Sección 16-bis): Marc rechazó un lead fuera de Florida y usó emoji fuera de política — confirma que Marc y Gaby nunca recibieron voice-profile.md, anti-ai-writing-style.md ni el BrandScript. Prompt de corrección definido. |
+| 4.10 | Agosto 18, 2026 | Intake público migrado al diagnóstico operativo actual. Worker desplegado con compatibilidad para Make 5148358, sin descalificación por tamaño ni asignación automática de producto. Ruta manual y minimización de texto libre para casos regulados o inciertos. Build, paquete y `/health` verificados sin generar leads ni llamadas. |
 
-*Automate IT · Manual Maestro v4.9 · Confidencial · Julio 13, 2026*
+*Automate IT · Manual Maestro v4.10 · Confidencial · Agosto 18, 2026*
