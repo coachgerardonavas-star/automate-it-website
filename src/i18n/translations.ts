@@ -11,9 +11,9 @@ export const translations = {
     home2026: {
       nav: { how: "Cómo funciona", plans: "Planes", about: "Quiénes somos", blog: "Blog", diagnostic: "Diagnóstico" },
       hero: {
-        eyebrow: "MEJORA OPERATIVA PARA PEQUEÑOS NEGOCIOS",
-        title: "Tus herramientas ya trabajan. Nosotros las conectamos.",
-        body: "Tú recuperas el control. Hacemos que la información llegue a tiempo y que el trabajo repetitivo avance dentro de las herramientas que ya usas.",
+        eyebrow: "MEJORA OPERATIVA PARA NEGOCIOS EN CRECIMIENTO",
+        title: "Tu operación debería darte más control, no más trabajo.",
+        body: "Revisamos cómo fluye el trabajo en tu negocio, encontramos dónde se pierde tiempo o información y mejoramos lo que realmente vale la pena intervenir.",
         primary: "Ver dónde se traba mi operación",
         secondary: "Cómo trabajamos",
         note: "Diagnóstico de 5 minutos · Sin costo",
