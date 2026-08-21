@@ -83,6 +83,7 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - `Quienes_Somos_v2_9.docx` — documento de identidad corporativa (vigente).
 - `WEBSITE_BRIEF.md` — brief del sitio web (fuente de verdad de diseño/mensaje).
 - `README.md` — readme base del repo.
+- `retell/alejandro/REGLAS_TRANSFERENCIA_v1_0.md` — reglas de transferencia de llamada del agente inbound Alejandro (Retell). Fuente de verdad del texto; el prompt en producción se actualiza copiando el bloque de ese archivo. **El número de transferencia no vive en el repo** y el agente nunca lo revela.
 - `archive/` — versiones superadas de los manuales de arriba, conservadas por trazabilidad (no vigentes): `MANUAL_MAESTRO_v4.4.md`, `Automate_IT_Quienes_Somos_v2_5.md`, `plan_marketing_2026_v2_3.md`.
 
 ## Stack — detalle no negociable
