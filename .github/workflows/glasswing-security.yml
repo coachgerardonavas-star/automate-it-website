@@ -1,0 +1,44 @@
+name: Glasswing Security Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '17 8 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=high
+      - run: npm run build
+
+  worker-static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject committed dotenv files
+        shell: bash
+        run: |
+          bad=$(find . -type f -name '.env*' ! -name '.env.example' -not -path './.git/*')
+          if [ -n "$bad" ]; then
+            echo "$bad"
+            exit 1
+          fi
+      - name: Reject obvious private key material
+        shell: bash
+        run: |
+          if grep -RInE --exclude-dir=.git --exclude='package-lock.json' 'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|sk_live_[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{20,}' .; then
+            exit 1
+          fi
