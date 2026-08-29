@@ -10,5 +10,14 @@ workers_dev = true
 # production + Cloudflare Pages preview origins listed in src/index.ts.
 #   wrangler secret put ALLOWED_ORIGINS
 
+# Glasswing: checkout-session creation consumes a third-party resource and must
+# be protected from scripted bursts. Ten attempts/minute/IP leaves room for real
+# retries while bounding abuse and accidental loops.
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "2002"
+simple = { limit = 10, period = 60 }
+
 [observability]
 enabled = true
