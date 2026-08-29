@@ -2,8 +2,9 @@
 -- RLS limits which row a user may update, but without column privileges the
 -- previous policy also allowed changing security-sensitive fields such as role.
 
-revoke update on table public.profiles from authenticated;
-grant update (last_login_at) on table public.profiles to authenticated;
+revoke insert, update, delete, truncate, references, trigger
+  on table public.profiles from anon, authenticated;
+grant update (last_seen_at) on table public.profiles to authenticated;
 
 drop policy if exists own_profile_touch on public.profiles;
 create policy own_profile_touch on public.profiles for update
