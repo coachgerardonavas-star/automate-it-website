@@ -1,7 +1,7 @@
 # Glasswing global browser hardening — applies to every response unless a more
 # specific route below overrides a header.
 /*
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Strict-Transport-Security: max-age=31536000
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
