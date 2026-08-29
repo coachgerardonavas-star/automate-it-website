@@ -392,7 +392,6 @@ const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VERSION = "2023-06-01";
 const MAX_HISTORY = 10;
 const MAX_TOKENS = 1024;
-const LEAD_WEBHOOK_URL = "https://hook.us2.make.com/cmjya50q5hnde4skcq84trinjlxfrcno";
 
 const LEAD_CLASSIFIER_PROMPT = `Eres un sistema de calificación de leads para Automate IT. Analiza esta conversación de chat web y devuelve SOLO un JSON válido sin markdown ni explicaciones:
 {
@@ -550,9 +549,15 @@ export default {
 
     let sentLeadHandoff = false;
     const classification = await classifierPromise;
-    if (classification && classification.lead_score === "CALIENTE" && classification.phone) {
+    if (
+      classification &&
+      classification.lead_score === "CALIENTE" &&
+      classification.phone &&
+      env.LEAD_WEBHOOK_URL &&
+      env.MAKE_WEBHOOK_KEY
+    ) {
       try {
-        const webhookRes = await fetch(LEAD_WEBHOOK_URL, {
+        const webhookRes = await fetch(env.LEAD_WEBHOOK_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
