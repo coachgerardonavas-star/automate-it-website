@@ -1,41 +1,33 @@
-# Cabeceras de caché — Cloudflare Pages las aplica al desplegar.
-#
-# Assets con hash de contenido que genera Astro (/_astro/*.css, *.js): el nombre
-# del archivo cambia cada vez que cambia el contenido, así que el navegador puede
-# guardarlos para siempre sin revalidar. immutable evita re-chequeos innecesarios.
+# Baseline security headers — Glasswing
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  X-Frame-Options: SAMEORIGIN
+
+# Assets con hash de contenido que genera Astro (/_astro/*.css, *.js).
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Fuentes: nombre estable pero cambian muy rara vez. Caché de 1 año.
+# Fuentes: nombre estable pero cambian muy rara vez.
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Imágenes y otros estáticos en /assets (nombre NO versionado): caché de 30 días.
-# Si se reemplaza una imagen con el mismo nombre, tarda hasta 30 días en propagar.
+# Imágenes y otros estáticos en /assets (nombre NO versionado).
 /assets/*
   Cache-Control: public, max-age=2592000
 
-# Guías públicas (lead magnets). Se comparten, se indexan y traen tráfico:
-# aquí SÍ queremos que Google las encuentre. Caché corta porque una guía se
-# corrige más seguido que una imagen.
+# Guías públicas (lead magnets).
 /guias/*
   Cache-Control: public, max-age=86400
 
-# Documentos de cliente (propuestas con sus cifras). Nombre con sufijo
-# aleatorio y fuera del índice de buscadores: quien no tenga el link exacto
-# no llega. OJO — esto NO es privacidad real: cualquiera con el link entra.
-# Para datos sensibles de verdad hace falta autenticación, no un nombre raro.
+# Documentos de cliente. noindex no equivale a autenticación.
 /d/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: private, max-age=0, must-revalidate
 
-# Portal de clientes. Cada respuesta depende de quién esté autenticado, así que
-# nunca puede quedar en una caché compartida: un intermediario que guarde la
-# página de un cliente se la serviría al siguiente. `private` + `no-store` lo
-# impide.
-#
-# No se agrega Disallow en robots.txt a propósito, por el mismo motivo que /d/*:
-# bloquear el rastreo impediría leer esta cabecera noindex.
+# Portal de clientes: nunca almacenar respuestas personalizadas en caché compartida.
 /portal/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: private, no-store, max-age=0, must-revalidate
