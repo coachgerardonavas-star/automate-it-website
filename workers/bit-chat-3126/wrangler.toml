@@ -1,7 +1,16 @@
 name = "bit-chat-3126"
-main = "index.js"
+main = "secure-entry.js"
 compatibility_date = "2026-05-20"
 preview_urls = false
 
 [vars]
 ALLOWED_ORIGIN = "https://yourbizupgraded.com,http://localhost:4321,http://127.0.0.1:4321"
+
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "2003"
+simple = { limit = 12, period = 60 }
+
+[observability]
+enabled = true
