@@ -18,11 +18,6 @@ interface CheckoutPayload {
   lang?: unknown;
 }
 
-interface StripeCheckoutResponse {
-  url?: string;
-  error?: { message?: string; type?: string; code?: string; param?: string };
-}
-
 const DEFAULT_ALLOWED_ORIGINS = [
   "https://yourbizupgraded.com",
   "https://www.yourbizupgraded.com",
@@ -168,8 +163,8 @@ export default {
     }
 
     const rawText = await stripeRes.text();
-    let data: StripeCheckoutResponse | null = null;
-    try { data = JSON.parse(rawText) as StripeCheckoutResponse; } catch { data = null; }
+    let data: { url?: string; error?: { message?: string; type?: string; code?: string; param?: string } } | null = null;
+    try { data = JSON.parse(rawText) as typeof data; } catch { data = null; }
 
     if (!stripeRes.ok || !data?.url) {
       // Keep logs diagnostic without copying Stripe response headers or long bodies.

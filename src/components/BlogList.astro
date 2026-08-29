@@ -57,7 +57,7 @@ function fmtDate(d: Date) {
               </p>
               <h2 class="font-heading text-xl sm:text-2xl mb-3 leading-snug">
                 <a
-                  href={`${blogBase}/${post.id}/`}
+                  href={`${blogBase}/${post.slug}/`}
                   class="hover:text-[var(--color-navy)] transition-colors duration-200 ease-brand"
                 >
                   {post.data.title}
@@ -71,7 +71,7 @@ function fmtDate(d: Date) {
                   {t.byAuthor} {post.data.author}
                 </span>
                 <a
-                  href={`${blogBase}/${post.id}/`}
+                  href={`${blogBase}/${post.slug}/`}
                   class="text-[var(--color-blue)] font-semibold"
                 >
                   {t.readMore}

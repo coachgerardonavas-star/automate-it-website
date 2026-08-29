@@ -6,10 +6,6 @@ preview_urls = false
 [vars]
 ALLOWED_ORIGIN = "https://yourbizupgraded.com,http://localhost:4321,http://127.0.0.1:4321"
 
-# Required for qualified-lead handoff; keep both values in Worker secrets:
-#   wrangler secret put LEAD_WEBHOOK_URL
-#   wrangler secret put MAKE_WEBHOOK_KEY
-
 [[unsafe.bindings]]
 name = "RATE_LIMITER"
 type = "ratelimit"

@@ -9,7 +9,6 @@ dist/
 
 # Cloudflare Workers local cache (miniflare/wrangler dev state)
 .wrangler/
-supabase/.temp/
 
 # Logs
 *.log
