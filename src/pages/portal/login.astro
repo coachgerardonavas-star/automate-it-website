@@ -16,6 +16,7 @@ import { setSessionCookies, resolveSession } from "../../lib/portal/session";
 import { safeNext } from "../../lib/portal/guard";
 import { portalCopy } from "../../lib/portal/copy";
 import { PORTAL_BASE } from "../../lib/portal/config";
+import { getRuntimeEnv } from "../../lib/portal/runtime";
 
 const lang = Astro.url.searchParams.get("lang") === "en" ? "en" : "es";
 const copy = portalCopy(lang);
@@ -24,7 +25,7 @@ const next = safeNext(Astro.url.searchParams.get("next"));
 const justReset = Astro.url.searchParams.get("reset") === "ok";
 const resetHref = `${PORTAL_BASE}/reset-password${lang === "en" ? "?lang=en" : ""}`;
 
-const env = getSupabaseEnv((Astro.locals as any)?.runtime?.env);
+const env = getSupabaseEnv(getRuntimeEnv());
 
 let error: string | null = null;
 let submittedEmail = "";

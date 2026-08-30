@@ -25,6 +25,7 @@ import { portalCopy, relativeTime } from "../../../lib/portal/copy";
 import { PORTAL_BASE } from "../../../lib/portal/config";
 import { getSupabaseEnv } from "../../../lib/portal/supabase";
 import { getSystemsHealth } from "../../../lib/portal/systems-health";
+import { getRuntimeEnv } from "../../../lib/portal/runtime";
 
 const guard = await requirePortal(Astro);
 if ("redirect" in guard) return guard.redirect;
@@ -43,7 +44,7 @@ if (session.user.role !== "admin") {
 const copy = portalCopy(lang);
 const now = new Date();
 
-const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+const runtimeEnv = getRuntimeEnv();
 const env = getSupabaseEnv(runtimeEnv);
 const result = await getAdminRows(session.orgs, env, ctx?.accessToken ?? null);
 const rows = result.data;
