@@ -45,6 +45,7 @@ if (!prospect) {
               <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#167f91]">0{index + 1}</p>
               <h3 class="pulso-card-title mt-3 text-xl tracking-normal sm:text-2xl">{fact.title}</h3>
               <p class="mt-4 leading-7 text-[#425468]">{fact.body}</p>
+              {fact.source && <a class="mt-5 inline-flex font-semibold text-[#167f91] underline decoration-2 underline-offset-4" href={fact.source.url} target="_blank" rel="noreferrer">{fact.source.label}</a>}
             </article>
           ))}
         </div>
@@ -61,14 +62,14 @@ if (!prospect) {
         <h2 id="revisar" class="mt-3 font-heading text-3xl font-extrabold">Medir antes de cambiar</h2>
         <p class="mt-5 text-lg leading-8 text-white/80">{prospect.review}</p>
         <p class="mt-6 leading-7 text-white/80">
-          Hay casi 40 años de trabajo detrás del nombre JET Plumbing. Si quieres revisar estos puntos conmigo, puedes llamarme aquí.
+          {prospect.closing}
         </p>
         <a
           id="pulso-cta"
           href="tel:+14074049495"
           class="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-[#73d3df] px-6 py-3 font-bold text-[#10263d] transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#73d3df]/40"
         >
-          Llamar a Gerardo · 407-404-9495
+          Llamar a Gerardo
         </a>
         <p class="mt-6 text-sm text-white/65">Gerardo Navas · Automate IT</p>
       </section>
@@ -81,15 +82,14 @@ if (!prospect) {
       var fromQr = params.get("source") === "qr";
       var eventParams = {
         prospect_id: prospectId,
-        prospect_slug: prospectSlug,
-        entry_source: fromQr ? "qr" : "direct",
+        company_slug: prospectSlug,
+        campaign: "pulso_print",
       };
 
       if (fromQr) {
         window.trackEvent?.("pulso_qr_scan", eventParams);
-      } else {
-        window.trackEvent?.("pulso_page_view", eventParams);
       }
+      window.trackEvent?.("pulso_landing_view", eventParams);
 
       document.getElementById("pulso-cta")?.addEventListener("click", function () {
         window.trackEvent?.("pulso_cta_call", eventParams);

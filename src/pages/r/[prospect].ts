@@ -13,6 +13,8 @@ export const GET: APIRoute = ({ params, redirect }) => {
   const query = new URLSearchParams({
     source: "qr",
     prospect_id: prospect.id,
+    company_slug: prospect.slug,
+    campaign: "pulso_print",
   });
 
   return redirect(`/pulso/${prospect.slug}?${query.toString()}`, 302);
