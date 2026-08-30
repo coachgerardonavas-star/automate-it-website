@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPulsoProspect } from "../../lib/pulso/prospects";
+
+export const prerender = false;
+
+const prospect = getPulsoProspect(Astro.params.slug ?? "");
+
+if (!prospect) {
+  return Astro.redirect("/404", 302);
+}
+---
+
+<BaseLayout
+  title={`${prospect.name} | Operación Pulso`}
+  description={`Revisión pública preparada para ${prospect.name}.`}
+  noindex={true}
+  chatbot={false}
+>
+  <main class="min-h-screen bg-[#f6f7f2] text-[#10263d]">
+    <div class="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-20">
+      <header class="border-b border-[#10263d]/15 pb-10">
+        <p class="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-[#167f91]">
+          Automate IT · Operación Pulso
+        </p>
+        <h1 class="max-w-2xl font-heading text-4xl font-extrabold leading-tight sm:text-6xl">
+          {prospect.contactFirstName}, {prospect.title}
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-[#33485d]">{prospect.intro}</p>
+        <p class="mt-4 text-sm font-semibold text-[#167f91]">Puedes ver todo sin dejar tus datos.</p>
+      </header>
+
+      <section class="py-10" aria-labelledby="hecho">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#167f91]">Hecho</p>
+        <h2 id="hecho" class="mt-3 font-heading text-3xl font-extrabold">Lo que pude comprobar desde afuera</h2>
+        <div class="mt-8 space-y-6">
+          {prospect.facts.map((fact, index) => (
+            <article class="rounded-2xl border border-[#10263d]/10 bg-white p-6 shadow-sm sm:p-8">
+              <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#167f91]">0{index + 1}</p>
+              <h3 class="mt-3 text-xl font-bold leading-7">{fact.title}</h3>
+              <p class="mt-4 leading-7 text-[#425468]">{fact.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="border-t border-[#10263d]/15 py-10" aria-labelledby="desconocido">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#167f91]">Lo que no sabemos</p>
+        <h2 id="desconocido" class="mt-3 font-heading text-3xl font-extrabold">Desde afuera solo se ve una parte</h2>
+        <p class="mt-5 text-lg leading-8 text-[#425468]">{prospect.unknowns}</p>
+      </section>
+
+      <section class="rounded-3xl bg-[#10263d] p-7 text-white sm:p-10" aria-labelledby="revisar">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#73d3df]">Qué revisaríamos</p>
+        <h2 id="revisar" class="mt-3 font-heading text-3xl font-extrabold">Medir antes de cambiar</h2>
+        <p class="mt-5 text-lg leading-8 text-white/80">{prospect.review}</p>
+        <p class="mt-6 leading-7 text-white/80">
+          Hay casi 40 años de trabajo detrás del nombre JET Plumbing. Si quieres revisar estos puntos conmigo, puedes llamarme aquí.
+        </p>
+        <a
+          id="pulso-cta"
+          href="tel:+14074049495"
+          class="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-[#73d3df] px-6 py-3 font-bold text-[#10263d] transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#73d3df]/40"
+        >
+          Llamar a Gerardo · 407-404-9495
+        </a>
+        <p class="mt-6 text-sm text-white/65">Gerardo Navas · Automate IT</p>
+      </section>
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ prospectId: prospect.id, prospectSlug: prospect.slug }}>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var fromQr = params.get("source") === "qr";
+      var eventParams = {
+        prospect_id: prospectId,
+        prospect_slug: prospectSlug,
+        entry_source: fromQr ? "qr" : "direct",
+      };
+
+      if (fromQr) {
+        window.trackEvent?.("pulso_qr_scan", eventParams);
+      } else {
+        window.trackEvent?.("pulso_page_view", eventParams);
+      }
+
+      document.getElementById("pulso-cta")?.addEventListener("click", function () {
+        window.trackEvent?.("pulso_cta_call", eventParams);
+      });
+    })();
+  </script>
+</BaseLayout>

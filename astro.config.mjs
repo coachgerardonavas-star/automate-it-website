@@ -23,7 +23,9 @@ export default defineConfig({
       filter: (page) =>
         !page.includes("/keystatic") &&
         !page.includes("/en/keystatic") &&
-        !page.includes("/portal"),
+        !page.includes("/portal") &&
+        !page.includes("/pulso") &&
+        !page.includes("/r/"),
     }),
   ],
   i18n: {
