@@ -24,7 +24,10 @@ begin
     join pg_namespace n on n.oid = p.pronamespace
     where n.nspname = 'private'
       and p.proname in ('auth_is_admin', 'auth_is_member')
-      and (not p.prosecdef or p.proconfig is distinct from array['search_path='])
+      and (
+        not p.prosecdef
+        or not coalesce(p.proconfig @> array['search_path=""']::text[], false)
+      )
   ) then
     raise exception 'private authorization helpers must be SECURITY DEFINER with empty search_path';
   end if;
