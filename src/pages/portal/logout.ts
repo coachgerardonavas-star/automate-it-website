@@ -11,11 +11,12 @@ import type { APIRoute } from "astro";
 import { getSupabaseEnv, signOut } from "../../lib/portal/supabase";
 import { clearSessionCookies, ACCESS_COOKIE } from "../../lib/portal/session";
 import { PORTAL_BASE } from "../../lib/portal/config";
+import { getRuntimeEnv } from "../../lib/portal/runtime";
 
 export const prerender = false;
 
 export const POST: APIRoute = async (context) => {
-  const env = getSupabaseEnv((context.locals as any)?.runtime?.env);
+  const env = getSupabaseEnv(getRuntimeEnv());
   const accessToken = context.cookies.get(ACCESS_COOKIE)?.value;
 
   if (env && accessToken) {

@@ -24,6 +24,7 @@ import { getAdminAutomationDetail } from "../../../lib/portal/data";
 import { portalCopy, relativeTime } from "../../../lib/portal/copy";
 import { PORTAL_BASE } from "../../../lib/portal/config";
 import { getSupabaseEnv } from "../../../lib/portal/supabase";
+import { getRuntimeEnv } from "../../../lib/portal/runtime";
 
 const guard = await requirePortal(Astro);
 if ("redirect" in guard) return guard.redirect;
@@ -43,7 +44,7 @@ const { slug } = Astro.params;
 const target = session.orgs.find((o) => o.slug === slug);
 if (!target) return new Response(null, { status: 404 });
 
-const env = getSupabaseEnv((Astro.locals as any)?.runtime?.env);
+const env = getSupabaseEnv(getRuntimeEnv());
 const result = await getAdminAutomationDetail(target.id, env, ctx?.accessToken ?? null);
 const details = result.data;
 
