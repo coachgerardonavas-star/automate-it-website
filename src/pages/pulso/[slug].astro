@@ -20,9 +20,18 @@ if (!prospect) {
   <main class="min-h-screen bg-[#f6f7f2] text-[#10263d]">
     <div class="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-20">
       <header class="border-b border-[#10263d]/15 pb-10">
-        <p class="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-[#167f91]">
-          Automate IT · Operación Pulso
-        </p>
+        <div class="mb-8 flex items-center gap-4">
+          <img
+            src="/assets/logo-lockup.webp"
+            alt="Automate IT"
+            class="h-auto w-44 sm:w-52"
+            width="1100"
+            height="250"
+          />
+          <span class="border-l border-[#10263d]/20 pl-4 text-xs font-semibold uppercase tracking-[0.16em] text-[#167f91]">
+            Operación Pulso
+          </span>
+        </div>
         <h1 class="max-w-2xl font-heading text-4xl font-extrabold leading-tight sm:text-6xl">
           {prospect.contactFirstName}, {prospect.title}
         </h1>
@@ -37,7 +46,7 @@ if (!prospect) {
           {prospect.facts.map((fact, index) => (
             <article class="rounded-2xl border border-[#10263d]/10 bg-white p-6 shadow-sm sm:p-8">
               <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#167f91]">0{index + 1}</p>
-              <h3 class="mt-3 text-xl font-bold leading-7">{fact.title}</h3>
+              <h3 class="mt-3 font-sans text-xl font-semibold leading-8 tracking-normal sm:text-2xl sm:leading-9">{fact.title}</h3>
               <p class="mt-4 leading-7 text-[#425468]">{fact.body}</p>
             </article>
           ))}
