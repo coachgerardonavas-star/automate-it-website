@@ -9,6 +9,9 @@ const prospect = getPulsoProspect(Astro.params.slug ?? "");
 if (!prospect) {
   return Astro.redirect("/404", 302);
 }
+
+const whatsappMessage = `Hola Gerardo, vi la revisión que preparaste para ${prospect.name} y quiero hablar contigo.`;
+const whatsappUrl = `https://wa.me/14074049495?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 
 <BaseLayout
@@ -66,10 +69,10 @@ if (!prospect) {
         </p>
         <a
           id="pulso-cta"
-          href="tel:+14074049495"
+          href={whatsappUrl}
           class="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-[#73d3df] px-6 py-3 font-bold text-[#10263d] transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#73d3df]/40"
         >
-          Llamar a Gerardo
+          Hablar con Gerardo
         </a>
         <p class="mt-6 text-sm text-white/65">Gerardo Navas · Automate IT</p>
       </section>
@@ -92,7 +95,7 @@ if (!prospect) {
       window.trackEvent?.("pulso_landing_view", eventParams);
 
       document.getElementById("pulso-cta")?.addEventListener("click", function () {
-        window.trackEvent?.("pulso_cta_call", eventParams);
+        window.trackEvent?.("pulso_cta_whatsapp", eventParams);
       });
     })();
   </script>
