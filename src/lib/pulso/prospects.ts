@@ -24,10 +24,10 @@ const prospects: PulsoProspect[] = [
     review: "Mediríamos qué ruta inicia cada solicitud, dónde llega, cuánto tarda la respuesta y qué paso termina en trabajo. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
     closing: "Si quieres revisar los dos caminos conmigo, llámame." },
   { id: "lc-smiles-003", slug: "lc-beyond-smiles", name: "LC Beyond Smiles", contactFirstName: "Liset", title: "esto es lo que vi en LC Beyond Smiles.",
-    intro: "Seguí el camino público de un paciente que busca el horario antes de llamar o ir a la clínica.",
+    intro: "Tu web oficial muestra un horario normal. La diferencia aparece al compararla con una ficha pública de Birdeye que también puede encontrar un paciente.",
     facts: [
-      { title: "La web oficial invita a llegar sin cita y muestra horario de 8:00 a. m. a 5:00 p. m.", body: "La página dice “All Walk-Ins are Welcome!” y muestra el horario del día. Ese dato puede influir en la decisión de llamar o ir directo a la clínica.", sources: [{ label: "Comprobar horario y walk-ins en la web", url: "https://lcbeyondsmiles.com/" }] },
-      { title: "Una ficha pública muestra el martes de 8:00 a. m. a 5:00 a. m.", body: "La misma ficha muestra otros días hasta las 5:00 p. m. La diferencia deja una pregunta concreta: ¿qué horario ve cada paciente antes de decidir llamar o ir a la clínica?", sources: [{ label: "Comprobar el horario de la ficha pública", url: "https://reviews.birdeye.com/lc-beyond-smiles-176986041934711" }] },
+      { title: "Ficha pública de Birdeye: martes de 8:00 a. m. a 5:00 a. m.", body: "Birdeye muestra el martes con un cierre a las 5:00 de la mañana. En la misma ficha, miércoles, jueves, viernes y sábado aparecen hasta las 5:00 de la tarde.", sources: [{ label: "Abrir Birdeye y comprobar el martes", url: "https://reviews.birdeye.com/lc-beyond-smiles-176986041934711" }] },
+      { title: "Web oficial: 8:00 a. m. a 5:00 p. m. y pacientes sin cita.", body: "La página de LC Beyond Smiles muestra el horario normal y dice “All Walk-Ins are Welcome!”. La pregunta es cuál de los dos horarios ve un paciente antes de decidir llamar o ir directamente a la clínica.", sources: [{ label: "Abrir la web oficial y comparar", url: "https://lcbeyondsmiles.com/" }] },
     ],
     unknowns: "Podemos comprobar lo que publican las fuentes. Desconocemos cuántos pacientes ven cada horario y si la diferencia ha afectado una cita o una visita.",
     review: "Revisaríamos qué fichas generan llamadas, visitas y citas, y cuál horario aparece en cada una. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
