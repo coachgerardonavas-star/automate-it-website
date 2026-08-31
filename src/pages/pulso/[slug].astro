@@ -45,7 +45,7 @@ if (!prospect) {
               <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#167f91]">0{index + 1}</p>
               <h3 class="pulso-card-title mt-3 text-xl tracking-normal sm:text-2xl">{fact.title}</h3>
               <p class="mt-4 leading-7 text-[#425468]">{fact.body}</p>
-              {fact.source && <a class="mt-5 inline-flex font-semibold text-[#167f91] underline decoration-2 underline-offset-4" href={fact.source.url} target="_blank" rel="noreferrer">{fact.source.label}</a>}
+              {fact.sources && <div class="mt-5 flex flex-col items-start gap-3">{fact.sources.map((source) => <a class="font-semibold text-[#167f91] underline decoration-2 underline-offset-4" href={source.url} target="_blank" rel="noreferrer">{source.label}</a>)}</div>}
             </article>
           ))}
         </div>

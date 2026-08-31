@@ -1,6 +1,6 @@
 export type PulsoProspect = {
   id: string; slug: string; name: string; contactFirstName: string; title: string; intro: string;
-  facts: Array<{ title: string; body: string; source?: { label: string; url: string } }>;
+  facts: Array<{ title: string; body: string; sources?: Array<{ label: string; url: string }> }>;
   unknowns: string; review: string; closing: string;
 };
 
@@ -8,8 +8,8 @@ const prospects: PulsoProspect[] = [
   { id: "jet-001", slug: "jet-plumbing", name: "JET Plumbing Inc.", contactFirstName: "José", title: "esto fue lo que me hizo escribirte.",
     intro: "Seguí el camino que seguiría una persona que escucha hablar bien de JET Plumbing y decide buscarte en internet. Estos son los puntos que encontré.",
     facts: [
-      { title: "Casi cuatro décadas de oficio tienen una huella pública mucho menor que tu trayectoria.", body: "Las fuentes públicas que revisé sitúan tu experiencia en plomería desde 1985. Porch reúne alrededor de 138 reseñas en internet de JET Plumbing. Las que pude revisar hablan muy bien de tu trabajo." },
-      { title: "La presencia pública de JET está fragmentada.", body: "Encontré perfiles de JET Plumbing en varios directorios. Una ruta pública asociada al negocio de Apopka atribuye jetplumbingfl.com a JET. Hoy ese dominio lleva a una empresa de plomería que opera en South Florida." },
+      { title: "Casi cuatro décadas de oficio tienen una huella pública mucho menor que tu trayectoria.", body: "Porch indica que trabajas en plomería desde 1985 y reúne 138 reseñas en internet de JET Plumbing. Las que pude revisar hablan muy bien de tu trabajo.", sources: [{ label: "Comprobar trayectoria y reseñas en Porch", url: "https://pro.porch.com/apopka-fl/plumbers/jet-plumbing-inc-1/pp" }] },
+      { title: "Una ficha pública de JET conserva un dominio que hoy muestra otro negocio.", body: "La ficha de JET Plumbing en Apopka registra jetplumbingfl.com. Hoy ese dominio muestra una empresa que atiende Hollywood y otras ciudades del sur de Florida.", sources: [{ label: "Ver la ficha pública de JET", url: "https://www.revdex.com/reviews/jet-plumbing-inc/6062108" }, { label: "Ver lo que muestra hoy el dominio", url: "https://jetplumbingfl.com/" }] },
     ],
     unknowns: "Desconozco cuántas personas llegan por esa ruta y si esto ha causado una pérdida real. También desconozco cómo llegan hoy tus clientes, cómo gestionas las llamadas y cuánto negocio viene por recomendación.",
     review: "Revisaría cómo aparece JET cuando un cliente te busca, qué perfiles controlas y si las llamadas o mensajes reciben seguimiento. Con esos datos podemos medir qué puntos merecen atención y cuáles ya funcionan bien.",
@@ -17,8 +17,8 @@ const prospects: PulsoProspect[] = [
   { id: "home-ac-002", slug: "home-ac", name: "HOME AC INC", contactFirstName: "Euro", title: "esto es lo que vi en HOME AC.",
     intro: "Revisé el camino público que puede seguir una persona que busca servicio de aire acondicionado. Encontré dos datos que vale la pena medir.",
     facts: [
-      { title: "La misma página publica dos horarios distintos.", body: "En una sección dice lunes a viernes de 8:00 a. m. a 5:00 p. m. y fin de semana cerrado. Más abajo dice lunes a viernes de 8:00 a. m. a 8:00 p. m., sábado de 8:00 a. m. a 5:00 p. m. y domingo de 8:00 a. m. a 12:00 p. m.", source: { label: "Ver la página About de HOME AC", url: "https://homeacinc.com/about/" } },
-      { title: "Contact y Book your service now piden datos de formas distintas.", body: "Desde fuera se ven dos rutas para iniciar una solicitud. La pregunta útil es si ambas conservan su origen y llegan al mismo proceso." },
+      { title: "La misma página publica dos horarios distintos.", body: "En una sección dice lunes a viernes de 8:00 a. m. a 5:00 p. m. y fin de semana cerrado. Más abajo dice lunes a viernes de 8:00 a. m. a 8:00 p. m., sábado de 8:00 a. m. a 5:00 p. m. y domingo de 8:00 a. m. a 12:00 p. m.", sources: [{ label: "Comprobar ambos horarios en HOME AC", url: "https://homeacinc.com/about/" }] },
+      { title: "Contact y Book Now piden datos de formas distintas.", body: "El formulario de Contact pide nombre, correo y mensaje. Book Now abre otro que también pide servicio, teléfono y código promocional. La pregunta útil es si ambos conservan su origen y llegan al mismo proceso.", sources: [{ label: "Comprobar Contact y abrir Book Now", url: "https://homeacinc.com/contact-2/" }] },
     ],
     unknowns: "Desde fuera podemos confirmar que existen dos horarios y dos rutas. Desconocemos cómo convergen, cuánto tarda una respuesta y si alguien copia o mueve datos a mano.",
     review: "Mediríamos qué ruta inicia cada solicitud, dónde llega, cuánto tarda la respuesta y qué paso termina en trabajo. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
@@ -26,8 +26,8 @@ const prospects: PulsoProspect[] = [
   { id: "lc-smiles-003", slug: "lc-beyond-smiles", name: "LC Beyond Smiles", contactFirstName: "Liset", title: "esto es lo que vi en LC Beyond Smiles.",
     intro: "Seguí el camino público de un paciente que busca el horario antes de llamar o ir a la clínica.",
     facts: [
-      { title: "La web oficial invita a llegar sin cita y muestra horario de 8:00 a. m. a 5:00 p. m.", body: "La página dice “All Walk-Ins are Welcome!” y muestra el horario del día. Ese dato puede influir en la decisión de llamar o ir directo a la clínica.", source: { label: "Ver la web de LC Beyond Smiles", url: "https://lcbeyondsmiles.com/" } },
-      { title: "Una ficha pública mostraba un cierre anómalo a las 5:00 a. m.", body: "La diferencia deja una pregunta concreta: ¿qué horario ve cada paciente antes de decidir llamar o ir a la clínica?" },
+      { title: "La web oficial invita a llegar sin cita y muestra horario de 8:00 a. m. a 5:00 p. m.", body: "La página dice “All Walk-Ins are Welcome!” y muestra el horario del día. Ese dato puede influir en la decisión de llamar o ir directo a la clínica.", sources: [{ label: "Comprobar horario y walk-ins en la web", url: "https://lcbeyondsmiles.com/" }] },
+      { title: "Una ficha pública muestra el martes de 8:00 a. m. a 5:00 a. m.", body: "La misma ficha muestra otros días hasta las 5:00 p. m. La diferencia deja una pregunta concreta: ¿qué horario ve cada paciente antes de decidir llamar o ir a la clínica?", sources: [{ label: "Comprobar el horario de la ficha pública", url: "https://reviews.birdeye.com/lc-beyond-smiles-176986041934711" }] },
     ],
     unknowns: "Podemos comprobar lo que publican las fuentes. Desconocemos cuántos pacientes ven cada horario y si la diferencia ha afectado una cita o una visita.",
     review: "Revisaríamos qué fichas generan llamadas, visitas y citas, y cuál horario aparece en cada una. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
@@ -35,17 +35,17 @@ const prospects: PulsoProspect[] = [
   { id: "plomero-latino-004", slug: "el-plomero-latino", name: "El Plomero Latino Inc.", contactFirstName: "David", title: "esto es lo que vi en El Plomero Latino.",
     intro: "Revisé las rutas públicas que una persona puede usar para pedir servicio. Durante la revisión aparecieron varios caminos.",
     facts: [
-      { title: "El sitio principal mantiene rutas de llamada y contacto.", body: "La web publica el teléfono, páginas de contacto y llamadas a pedir servicio dentro del dominio de El Plomero Latino.", source: { label: "Ver el sitio principal", url: "https://elplomerolatino.com/" } },
-      { title: "La revisión también encontró salidas hacia Google Calendar y un dominio alterno de Hostinger.", body: "Son rutas públicas distintas. La pregunta es si todas llegan al mismo lugar y si el equipo conserva el origen de cada solicitud." },
+      { title: "Los botones principales de contacto llevan a Google Calendar.", body: "En la página principal, “Hablamos Español” y “Contact Us” abren una agenda de citas de Google fuera del dominio de El Plomero Latino.", sources: [{ label: "Comprobar el enlace de Google Calendar", url: "https://calendar.app.google/ecJXs8amKjwfkwpU8" }] },
+      { title: "Cuatro tarjetas de servicios llevan a un dominio alterno de Hostinger.", body: "Residential Plumbing, Water Heater, Water Leak Detection y Toilets, Faucets, Sinks & More apuntan a skyblue-crane-628712.hostingersite.com. Más abajo aparecen tarjetas similares que permanecen dentro del dominio principal.", sources: [{ label: "Comprobar las rutas en la página principal", url: "https://elplomerolatino.com/" }, { label: "Abrir una de las rutas de Hostinger", url: "https://skyblue-crane-628712.hostingersite.com/residential-plumbing/" }] },
     ],
-    unknowns: "Desconocemos si las rutas externas siguen activas para todos los visitantes, cómo convergen y si alguien debe copiar o mover información.",
+    unknowns: "Desde fuera podemos comprobar hacia dónde apunta cada botón. Desconocemos si las rutas convergen, si conservan el origen del cliente y si alguien debe copiar o mover información.",
     review: "Seguiríamos cada ruta desde el primer clic hasta la respuesta, para medir su origen, tiempo y resultado. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
     closing: "Si quieres revisar el mapa de rutas conmigo, llámame." },
   { id: "absolute-best-005", slug: "absolute-best-plumbing", name: "Absolute Best Plumbing", contactFirstName: "Edgar", title: "esto es lo que vi en Absolute Best Plumbing.",
     intro: "Seguí dos rutas oficiales que una persona puede encontrar cuando necesita un plomero en Orlando.",
     facts: [
-      { title: "El sitio principal publica 407-930-7309.", body: "Ese número aparece en la página About y en varias páginas de servicio del dominio oficial.", source: { label: "Ver la página About", url: "https://absolutebestplumbing.com/about-us/" } },
-      { title: "Una página oficial de emergencias publica 407-622-7400.", body: "La misma página también muestra otro número en su encabezado. Los números pueden tener una función deliberada para medir fuentes. Vale la pena comprobar si ese origen se conserva hasta saber qué llamada terminó en trabajo.", source: { label: "Ver la página de emergencias", url: "https://absolutebestplumbing.com/orlando-emergency-plumbing-services/" } },
+      { title: "El sitio principal publica 407-930-7309.", body: "Ese número aparece en la página About y en varias páginas de servicio del dominio oficial.", sources: [{ label: "Comprobar el número del sitio principal", url: "https://absolutebestplumbing.com/about-us/" }] },
+      { title: "La página oficial de emergencias muestra 407-622-7400 y 321-220-8006.", body: "Junto al 407-930-7309 del sitio principal, quedan tres números públicos. Pueden tener una función deliberada para medir fuentes. Vale la pena comprobar si ese origen se conserva hasta saber qué llamada terminó en trabajo.", sources: [{ label: "Comprobar los números de emergencias", url: "https://absolutebestplumbing.com/orlando-emergency-plumbing-services/" }] },
     ],
     unknowns: "Desde fuera podemos verificar los números y las rutas. Desconocemos si usan seguimiento de llamadas, si llegan al mismo sistema y si existe alguna pérdida.",
     review: "Revisaríamos qué número recibe cada fuente y si ese dato acompaña la llamada hasta su resultado. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
