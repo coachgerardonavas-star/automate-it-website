@@ -3,7 +3,7 @@ import { getPulsoProspect } from "../../lib/pulso/prospects";
 
 export const prerender = false;
 
-export const GET: APIRoute = ({ params, redirect }) => {
+export const GET: APIRoute = ({ params }) => {
   const prospect = getPulsoProspect(params.prospect ?? "");
 
   if (!prospect) {
@@ -17,5 +17,11 @@ export const GET: APIRoute = ({ params, redirect }) => {
     campaign: "pulso_print",
   });
 
-  return redirect(`/pulso/${prospect.slug}?${query.toString()}`, 302);
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: `/pulso/${prospect.slug}?${query.toString()}`,
+      "Cache-Control": "no-store, max-age=0",
+    },
+  });
 };
