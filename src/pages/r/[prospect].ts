@@ -3,7 +3,7 @@ import { getPulsoProspect } from "../../lib/pulso/prospects";
 
 export const prerender = false;
 
-export const GET: APIRoute = ({ params, request }) => {
+export const GET: APIRoute = ({ params, url }) => {
   const prospect = getPulsoProspect(params.prospect ?? "");
 
   if (!prospect) {
@@ -24,5 +24,5 @@ export const GET: APIRoute = ({ params, request }) => {
       "Cache-Control": "no-store, max-age=0",
     },
   });
-  if (new URL(request.url).searchParams.get("qa") === "1") query.set("qa", "1");
+  if (url.searchParams.get("qa") === "1") query.set("qa", "1");
 };
