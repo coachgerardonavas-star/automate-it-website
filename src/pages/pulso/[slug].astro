@@ -79,7 +79,7 @@ const whatsappUrl = `https://wa.me/14074049495?text=${encodeURIComponent(whatsap
     </div>
   </main>
 
-  <script is:inline define:vars={{ prospectId: prospect.id, prospectSlug: prospect.slug }}>
+  <script is:inline define:vars={{ prospectId: prospect.id, prospectSlug: prospect.slug, ctaEvent: prospect.ctaEvent ?? "pulso_cta_whatsapp" }}>
     (function () {
       var params = new URLSearchParams(window.location.search);
       var fromQr = params.get("source") === "qr";
@@ -95,7 +95,7 @@ const whatsappUrl = `https://wa.me/14074049495?text=${encodeURIComponent(whatsap
       window.trackEvent?.("pulso_landing_view", eventParams);
 
       document.getElementById("pulso-cta")?.addEventListener("click", function () {
-        window.trackEvent?.("pulso_cta_whatsapp", eventParams);
+        window.trackEvent?.(ctaEvent, eventParams);
       });
     })();
   </script>

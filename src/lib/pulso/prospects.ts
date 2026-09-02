@@ -1,7 +1,7 @@
 export type PulsoProspect = {
   id: string; slug: string; name: string; contactFirstName: string; title: string; intro: string;
   facts: Array<{ title: string; body: string; sources?: Array<{ label: string; url: string }> }>;
-  unknowns: string; review: string; closing: string;
+  unknowns: string; review: string; closing: string; ctaEvent?: string;
 };
 
 const prospects: PulsoProspect[] = [
@@ -50,15 +50,15 @@ const prospects: PulsoProspect[] = [
     unknowns: "Desde fuera podemos verificar los números y las rutas. Desconocemos si usan seguimiento de llamadas, si llegan al mismo sistema y si existe alguna pérdida.",
     review: "Revisaríamos qué número recibe cada fuente y si ese dato acompaña la llamada hasta su resultado. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
     closing: "Si quieres comprobar el recorrido completo de esas llamadas, llámame." },
-  { id: "freddies-006", slug: "freddies-shoe-repair", name: "Freddie's Shoe and Leather Repair", contactFirstName: "Freddie", title: "esto es lo que vi en Freddie's.",
-    intro: "Primero vi lo que ya has ganado: 44 años de oficio según tu propia página y una calificación A+ en Better Business Bureau. Después revisé qué encuentra una persona que llega por internet.",
+  { id: "freddies-006", slug: "baez-and-son-ac", name: "Baez & Son Air Condition & Heating", contactFirstName: "Melvin", title: "esto es lo que vi en Baez & Son.",
+    intro: "Tu página cuenta una historia fuerte: 24 años de servicio en el Army, un negocio familiar y veterano, atención bilingüe y ayuda de emergencia las 24 horas. Seguí el recorrido de una persona que necesita servicio y quiere actuar rápido.",
     facts: [
-      { title: "Tu página todavía se presenta como “Mi primera página”.", body: "Ese es el título que aparece en la pestaña del sitio. La página sí muestra trabajos y dos teléfonos, pero esa primera etiqueta cuenta muy poco de la experiencia que hay detrás de Freddie's.", sources: [{ label: "Abrir la página de Freddie's", url: "https://www.freddiesshoeandleatherrepair.com/" }] },
-      { title: "La dirección y el horario no aparecen en el sitio.", body: "La dirección del taller sí figura en fuentes públicas. En la página propia no encontré dirección, horario, formulario ni correo. La pregunta es qué acción quieres que tome alguien después de encontrarte.", sources: [{ label: "Comprobar la ficha de BBB", url: "https://www.bbb.org/us/fl/kissimmee/profile/shoe-repair/freddies-shoe-and-leather-repair-corp-0733-235975207" }] },
+      { title: "El cliente puede llamar, escribir, enviar un formulario o reservar en una agenda externa.", body: "La web ofrece varias puertas útiles para una emergencia, una reparación, mantenimiento o una cita. También publica servicio el mismo día, atención bilingüe y cobertura en varias zonas de Osceola County.", sources: [{ label: "Comprobar las rutas en la web oficial", url: "https://baezandsonac.com/" }] },
+      { title: "La pregunta clave es cuánto contexto llega junto a cada solicitud.", body: "Servicio, urgencia, ubicación, idioma, origen del contacto y estado del plan de mantenimiento ayudan a decidir quién responde, cuándo agenda y cómo despacha. Desde afuera no se puede confirmar si esos datos llegan juntos a la persona que coordina el trabajo.", sources: [{ label: "Revisar los servicios y la cobertura", url: "https://baezandsonac.com/services" }] },
     ],
-    unknowns: "Desconozco cuántas personas visitan la página antes de llamar o ir al taller. También desconozco el horario correcto y qué trabajos quieres promover primero.",
-    review: "Mediríamos cuántas personas llegan, qué buscan y qué acción toman. Después ajustaríamos solo lo que ayude a que tu trayectoria se entienda y el próximo paso quede claro. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
-    closing: "Si quieres revisar conmigo qué ve hoy una persona antes de conocerte, escríbeme." },
+    unknowns: "Desconozco cómo se unen hoy esas rutas, qué información recibe quien agenda y despacha, y si el proceso actual ya conserva todo el contexto sin trabajo extra.",
+    review: "Mediríamos entrada, primera respuesta, datos completos, clasificación, cita, despacho y contactos repetidos. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
+    closing: "Si quieres revisar conmigo cómo viaja cada solicitud hasta el despacho, escríbeme.", ctaEvent: "pulso_cta_call" },
   { id: "osceola-speed-007", slug: "osceola-speed-tires", name: "Osceola Speed Tires & Wheels", contactFirstName: "Julio", title: "esto es lo que vi en Osceola Speed.",
     intro: "La página muestra un negocio familiar con dos sedes, servicios claros y una reputación construida durante años. Seguí el recorrido de alguien que quiere pasar de mirar a pedir servicio.",
     facts: [
@@ -67,34 +67,34 @@ const prospects: PulsoProspect[] = [
     ],
     unknowns: "Desconozco por qué canal entra la mayoría de las citas, si el equipo conserva la sede y el servicio desde el primer contacto, y qué ruta genera más trabajos.",
     review: "Mediríamos el origen, la sede elegida, el servicio pedido y el resultado de cada contacto. Así sabríamos qué ruta ya funciona y cuál merece ajuste. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
-    closing: "Si quieres revisar ese recorrido conmigo, escríbeme." },
-  { id: "osceola-refrigeration-008", slug: "osceola-refrigeration", name: "Osceola Refrigeration & Major Appliance Service", contactFirstName: "Matt", title: "esto es lo que vi en Osceola Refrigeration.",
-    intro: "Seguí el camino de una persona que necesita reparar un equipo y busca cómo pedir ayuda desde la página.",
+    closing: "Si quieres revisar ese recorrido conmigo, escríbeme.", ctaEvent: "pulso_cta_call" },
+  { id: "osceola-refrigeration-008", slug: "montiel-woodcraft-design", name: "Montiel Woodcraft Design", contactFirstName: "Ludwing", title: "esto es lo que vi en Montiel Woodcraft.",
+    intro: "La página cuenta una historia que merece peso: más de 30 años de oficio, una familia que empezó en Venezuela y proyectos residenciales y comerciales con diseño 3D e instalaciones de un día.",
     facts: [
-      { title: "“Book an Appointment” termina en una llamada.", body: "El sitio usa ese texto junto al número de teléfono. La página de contacto ahora sí muestra campos de nombre, correo, teléfono y mensaje, un cambio frente a la revisión anterior.", sources: [{ label: "Comprobar la página de contacto", url: "https://appliance-repair-kissimmee.fl-biz.com/contact-us/" }] },
-      { title: "La web publica horario y limita el servicio fuera de hora.", body: "El horario visible es de lunes a sábado, de 10 AM a 6 PM. La página principal aclara que el servicio de emergencia fuera de horario es limitado y para clientes habituales.", sources: [{ label: "Comprobar horario y aviso", url: "https://appliance-repair-kissimmee.fl-biz.com/" }] },
+      { title: "La página posterior al formulario publica dos plazos para la respuesta.", body: "El mensaje visible promete contacto dentro de 24 horas. La descripción pública de esa misma página indica 48 horas. Vale la pena fijar una sola expectativa, en especial cuando la rapidez forma parte de la promesa del negocio.", sources: [{ label: "Comprobar la página posterior al contacto", url: "https://www.montielwoodcraft.com/postcontact" }] },
+      { title: "Montiel Woodcraft y Performance Installations conviven en puntos de contacto.", body: "El sitio usa Montiel Woodcraft como marca. En la tienda aparece contact@performanceinst.com, el Instagram enlaza a Performance Installations y el pie identifica a Performance Installations & More, LLC. Puede ser una estructura deliberada; la pregunta es si un cliente reconoce la continuidad al pedir o pagar un servicio.", sources: [{ label: "Comprobar la página de contacto", url: "https://www.montielwoodcraft.com/contact" }, { label: "Comprobar la tienda", url: "https://www.montielwoodcraft.com/store" }] },
     ],
-    unknowns: "Desconozco cuántas solicitudes llegan fuera del horario, cuántas empiezan por llamada y qué datos necesita el equipo antes de asignar un servicio.",
-    review: "Seguiríamos cada solicitud desde el primer contacto hasta su asignación, con hora, tipo de equipo, ubicación y urgencia. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
-    closing: "Si quieres revisar ese recorrido conmigo, escríbeme." },
-  { id: "king-oaks-009", slug: "king-oaks-garage-doors", name: "King Oaks Garage Door Services", contactFirstName: "Dylon", title: "esto es lo que vi en King Oaks.",
-    intro: "La confianza ya existe: la página anuncia 91 reseñas de cinco estrellas. Revisé qué ve una persona cuando intenta comprobarlas y pedir servicio.",
+    unknowns: "Desconozco si ambos plazos describen procesos distintos y si la mezcla de nombres genera alguna duda real. Tampoco puedo ver a dónde llega el formulario ni cómo continúa el seguimiento.",
+    review: "Mediríamos origen, tiempo de respuesta, datos del proyecto, cita, estimado y seguimiento. También comprobaríamos si cada punto mantiene una sola marca y una sola promesa. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
+    closing: "Si quieres revisar ese recorrido conmigo, escríbeme.", ctaEvent: "pulso_cta_call" },
+  { id: "king-oaks-009", slug: "jpi-mechanical-services", name: "JPI Mechanical Services Inc.", contactFirstName: "Ramon", title: "esto es lo que vi en JPI Mechanical.",
+    intro: "JPI muestra una operación con fondo: empresa familiar, servicio residencial y comercial, refrigeración, respuesta de emergencia y más de 35 ubicaciones comerciales bajo mantenimiento.",
     facts: [
-      { title: "La web anuncia 91 reseñas de cinco estrellas.", body: "Esa prueba social aparece de forma clara en la página principal. Una fuente pública de reseñas también muestra comentarios recientes y una calificación alta.", sources: [{ label: "Comprobar la página principal", url: "https://king-oaks.com/" }, { label: "Ver reseñas públicas", url: "https://www.trustindex.io/reviews/king-oaks.com" }] },
-      { title: "El recorrido público conserva más de una puerta para pedir servicio.", body: "La web principal ofrece “Get an Appointment” y páginas de servicio con “Request Appointment”. También existe otro dominio del negocio con su propio formulario de cotización.", sources: [{ label: "Revisar la ruta principal", url: "https://king-oaks.com/" }, { label: "Revisar el segundo sitio", url: "https://kingoaksgaragedoorservices.com/" }] },
+      { title: "El formulario público pide datos básicos para servicios muy distintos.", body: "La misma empresa atiende hogar, comercio, refrigeración y emergencias. El formulario visible no separa urgencia, tipo de cliente, servicio ni ubicación. La pregunta es cuándo recoge el equipo ese contexto y cómo llega a quien debe responder.", sources: [{ label: "Comprobar la web y el formulario", url: "https://www.jpiair.com/" }] },
+      { title: "La experiencia pública merece medirse en cada punto de contacto.", body: "La web publica testimonios fuertes sobre rapidez, integridad y atención directa del dueño. Una ficha pública reciente también reúne elogios y varias críticas sobre trato y servicio al cliente. Esa mezcla sirve como señal para medir la experiencia desde la primera llamada hasta el cierre.", sources: [{ label: "Revisar testimonios en la web", url: "https://www.jpiair.com/" }, { label: "Revisar la ficha pública de reseñas", url: "https://reviews.birdeye.com/jpi-mechanical-services-inc-899752064" }] },
     ],
-    unknowns: "Desconozco si todas las rutas llegan al mismo proceso, si conservan su origen y qué ocurre desde la solicitud hasta que el trabajo queda asignado.",
-    review: "Mediríamos cada puerta de entrada, su origen, la respuesta y el resultado. Así se puede mantener lo que funciona y unir solo lo que hoy pierda contexto. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
-    closing: "Si quieres revisar el mapa completo conmigo, escríbeme." },
-  { id: "occ911-010", slug: "occ911", name: "OCC911, Inc.", contactFirstName: "Scott", title: "esto es lo que vi en OCC911.",
-    intro: "Seguí el recorrido de una persona que necesita ayuda urgente fuera del horario de oficina y llega al formulario “GET HELP NOW”.",
+    unknowns: "Desconozco cómo clasifica hoy el equipo cada entrada, cuánto contexto se pide después y si las reseñas reflejan casos aislados o un patrón. Los datos públicos no permiten llegar a esa conclusión.",
+    review: "Mediríamos origen, primera respuesta, datos completos, clasificación, cita, despacho y seguimiento. Separaríamos cada tipo de servicio y cada punto de contacto para ver dónde la experiencia se mantiene y dónde cambia. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
+    closing: "Si quieres revisar ese recorrido conmigo, escríbeme.", ctaEvent: "pulso_cta_call" },
+  { id: "occ911-010", slug: "tucfrez", name: "Tucfrez Inc.", contactFirstName: "Lilly", title: "esto es lo que vi en Tucfrez.",
+    intro: "Tucfrez tiene una historia clara: más de 20 años en Central Florida, un negocio familiar y latino, y una nueva etapa bajo tu liderazgo como empresa dirigida por una mujer.",
     facts: [
-      { title: "La operación publica atención de emergencia 24/7 en Orlando y Tampa.", body: "La página muestra las dos sedes, sus teléfonos y un horario de oficina de lunes a viernes, de 8 AM a 4 PM. También indica atención de emergencia las 24 horas.", sources: [{ label: "Comprobar sedes y horarios", url: "https://occ911.com/contact-us/" }] },
-      { title: "“GET HELP NOW” pide cuatro datos generales.", body: "El formulario solicita nombre, correo, asunto y mensaje. No muestra campos separados para teléfono, ubicación o ZIP, tipo de incidente y nivel de urgencia.", sources: [{ label: "Comprobar el formulario", url: "https://occ911.com/contact-us/" }] },
+      { title: "La atención en español forma parte visible de la promesa.", body: "“Hablamos Español” aparece en la página principal, About, Contact y Services. La web también destaca servicio familiar, trato honesto y una trayectoria que empezó con Luis Marte y continúa contigo.", sources: [{ label: "Comprobar la historia de Tucfrez", url: "https://tucfrez.com/about/" }] },
+      { title: "El formulario reúne datos útiles, pero no muestra una preferencia de idioma.", body: "Pide nombre, teléfono, correo, dirección, servicio y detalles. Una persona que llega por la promesa en español no ve un campo para indicar el idioma en que desea recibir la respuesta.", sources: [{ label: "Comprobar el formulario", url: "https://tucfrez.com/contact/" }] },
     ],
-    unknowns: "Desconozco cuánto tarda hoy el equipo en confirmar ubicación, incidente y urgencia, cómo reparte los casos entre Orlando y Tampa, y si el proceso actual ya resuelve bien esos datos.",
-    review: "Mediríamos entrada, primera respuesta, ubicación confirmada, tipo de daño, urgencia y asignación. Solo después decidiríamos si conviene pedir más datos desde el inicio. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
-    closing: "Si quieres revisar ese recorrido conmigo, escríbeme." },
+    unknowns: "Desconozco cómo asigna hoy el equipo el idioma, quién responde cada solicitud y si el proceso ya reconoce esa preferencia por otra vía.",
+    review: "Mediríamos idioma, servicio, primera respuesta, cita, estimado y seguimiento. Así se puede comprobar si la promesa bilingüe se mantiene desde la web hasta la conversación. Cuando los números dicen que todo está funcionando bien, también te lo diré con honestidad.",
+    closing: "Si quieres revisar ese recorrido conmigo, escríbeme.", ctaEvent: "pulso_cta_call" },
 ];
 
 export const pulsoProspects = prospects;
