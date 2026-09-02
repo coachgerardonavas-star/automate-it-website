@@ -82,6 +82,7 @@ const whatsappUrl = `https://wa.me/14074049495?text=${encodeURIComponent(whatsap
   <script is:inline define:vars={{ prospectId: prospect.id, prospectSlug: prospect.slug, ctaEvent: prospect.ctaEvent ?? "pulso_cta_whatsapp" }}>
     (function () {
       var params = new URLSearchParams(window.location.search);
+      if (params.get("qa") === "1") return;
       var fromQr = params.get("source") === "qr";
       var eventParams = {
         prospect_id: prospectId,
