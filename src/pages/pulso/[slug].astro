@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getPulsoProspect } from "../../lib/pulso/prospects";
+import { pulsoProspects11to15 } from "../../lib/pulso/prospects-11-15";
 
 export const prerender = false;
 
-const prospect = getPulsoProspect(Astro.params.slug ?? "");
+const value = Astro.params.slug ?? "";
+const prospect = getPulsoProspect(value) ?? pulsoProspects11to15.find((p) => p.slug === value || p.id === value);
 
 if (!prospect) {
   return Astro.redirect("/404", 302);
@@ -24,17 +26,9 @@ const whatsappUrl = `https://wa.me/14074049495?text=${encodeURIComponent(whatsap
     <div class="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-20">
       <header class="border-b border-[#10263d]/15 pb-10">
         <div class="mb-8">
-          <img
-            src="/assets/logo-lockup.webp"
-            alt="Automate IT"
-            class="h-auto w-44 sm:w-52"
-            width="1100"
-            height="250"
-          />
+          <img src="/assets/logo-lockup.webp" alt="Automate IT" class="h-auto w-44 sm:w-52" width="1100" height="250" />
         </div>
-        <h1 class="max-w-2xl font-heading text-4xl font-extrabold leading-tight sm:text-6xl">
-          {prospect.contactFirstName}, {prospect.title}
-        </h1>
+        <h1 class="max-w-2xl font-heading text-4xl font-extrabold leading-tight sm:text-6xl">{prospect.contactFirstName}, {prospect.title}</h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-[#33485d]">{prospect.intro}</p>
         <p class="mt-4 text-sm font-semibold text-[#167f91]">Puedes ver todo sin dejar tus datos.</p>
       </header>
@@ -64,16 +58,8 @@ const whatsappUrl = `https://wa.me/14074049495?text=${encodeURIComponent(whatsap
         <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#73d3df]">Qué revisaríamos</p>
         <h2 id="revisar" class="mt-3 font-heading text-3xl font-extrabold">Medir antes de cambiar</h2>
         <p class="mt-5 text-lg leading-8 text-white/80">{prospect.review}</p>
-        <p class="mt-6 leading-7 text-white/80">
-          {prospect.closing}
-        </p>
-        <a
-          id="pulso-cta"
-          href={whatsappUrl}
-          class="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-[#73d3df] px-6 py-3 font-bold text-[#10263d] transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#73d3df]/40"
-        >
-          Hablar con Gerardo
-        </a>
+        <p class="mt-6 leading-7 text-white/80">{prospect.closing}</p>
+        <a id="pulso-cta" href={whatsappUrl} class="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-[#73d3df] px-6 py-3 font-bold text-[#10263d] transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#73d3df]/40">Hablar con Gerardo</a>
         <p class="mt-6 text-sm text-white/65">Gerardo Navas · Automate IT</p>
       </section>
     </div>
@@ -84,28 +70,14 @@ const whatsappUrl = `https://wa.me/14074049495?text=${encodeURIComponent(whatsap
       var params = new URLSearchParams(window.location.search);
       if (params.get("qa") === "1") return;
       var fromQr = params.get("source") === "qr";
-      var eventParams = {
-        prospect_id: prospectId,
-        company_slug: prospectSlug,
-        campaign: "pulso_print",
-      };
-
-      if (fromQr) {
-        window.trackEvent?.("pulso_qr_scan", eventParams);
-      }
+      var eventParams = { prospect_id: prospectId, company_slug: prospectSlug, campaign: "pulso_print" };
+      if (fromQr) window.trackEvent?.("pulso_qr_scan", eventParams);
       window.trackEvent?.("pulso_landing_view", eventParams);
-
-      document.getElementById("pulso-cta")?.addEventListener("click", function () {
-        window.trackEvent?.(ctaEvent, eventParams);
-      });
+      document.getElementById("pulso-cta")?.addEventListener("click", function () { window.trackEvent?.(ctaEvent, eventParams); });
     })();
   </script>
 </BaseLayout>
 
 <style>
-  .pulso-card-title {
-    font-family: "Open Sans", system-ui, sans-serif;
-    font-weight: 600;
-    line-height: 1.5;
-  }
+  .pulso-card-title { font-family: "Open Sans", system-ui, sans-serif; font-weight: 600; line-height: 1.5; }
 </style>
