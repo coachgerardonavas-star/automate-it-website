@@ -2,11 +2,17 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getPulsoProspect } from "../../lib/pulso/prospects";
 import { pulsoProspects11to15 } from "../../lib/pulso/prospects-11-15";
+import { pulsoProspect14Override } from "../../lib/pulso/prospect-14-override";
 
 export const prerender = false;
 
 const value = Astro.params.slug ?? "";
-const prospect = getPulsoProspect(value) ?? pulsoProspects11to15.find((p) => p.slug === value || p.id === value);
+const prospect =
+  (pulsoProspect14Override.slug === value || pulsoProspect14Override.id === value
+    ? pulsoProspect14Override
+    : undefined) ??
+  getPulsoProspect(value) ??
+  pulsoProspects11to15.find((p) => p.slug === value || p.id === value);
 
 if (!prospect) {
   return Astro.redirect("/404", 302);
