@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.12.0
           cache: npm
       - name: Install locked dependencies
         run: npm ci
@@ -31,3 +31,18 @@ jobs:
         run: npm audit --omit=dev --audit-level=high
       - name: Build
         run: npm run build
+      - name: TypeScript and Astro diagnostics
+        run: npm run check
+      - name: Smoke test the generated Cloudflare Worker
+        shell: bash
+        run: |
+          npx wrangler dev --config dist/server/wrangler.json --port 8788 --local \
+            --var SUPABASE_URL:https://example.supabase.co \
+            --var SUPABASE_ANON_KEY:smoke-test-key > /tmp/wrangler.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid"' EXIT
+          for attempt in {1..30}; do
+            curl --silent --fail http://127.0.0.1:8788/ >/dev/null && break
+            sleep 1
+          done
+          SMOKE_BASE_URL=http://127.0.0.1:8788 npm run smoke

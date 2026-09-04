@@ -45,17 +45,17 @@ export const DIAGNOSTICO_WORKER_URL =
 
 // Replace with the deployed URL of `workers/stripe-checkout` once it's live in Cloudflare.
 // While set to the placeholder, the checkout buttons will not POST anywhere.
-export const STRIPE_CHECKOUT_WORKER_URL =
+export const STRIPE_CHECKOUT_WORKER_URL: string =
   "https://stripe-checkout-automate.coachgerardonavas.workers.dev";
 
-const PLACEHOLDER_STRIPE = "https://stripe-checkout-automate.PLACEHOLDER.workers.dev";
+const PLACEHOLDER_STRIPE: string = "https://stripe-checkout-automate.PLACEHOLDER.workers.dev";
 
 export const isStripeCheckoutEnabled = (): boolean =>
   Boolean(STRIPE_CHECKOUT_WORKER_URL) &&
   STRIPE_CHECKOUT_WORKER_URL !== PLACEHOLDER_STRIPE;
 
-const PLACEHOLDER_GA = "G-XXXXXXXXXX";
-const PLACEHOLDER_SC = "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN";
+const PLACEHOLDER_GA: string = "G-XXXXXXXXXX";
+const PLACEHOLDER_SC: string = "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN";
 
 export const isGAEnabled = (): boolean =>
   Boolean(GA_ID) && GA_ID !== PLACEHOLDER_GA;
