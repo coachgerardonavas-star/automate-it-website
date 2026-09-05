@@ -139,7 +139,7 @@ export const translations = {
       // se nota la mejora. Cada una lleva su color de marca (ver
       // heroPhraseColors, mismo índice) — no reordenar uno sin el otro.
       heroPhrases: ["negocio.", "tiempo.", "dinero.", "operación."],
-      heroPhraseColors: ["#0052CC", "#F5A524", "#AADD00", "#00D9FF"],
+      heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"],
       subtitle:
         "Incorporamos a tu equipo un miembro digital que se encarga del trabajo repetitivo que hoy haces tú — dentro de las herramientas que ya usas. Es tu negocio: no tienes por qué hacerlo todo.",
       bullets: [
@@ -844,7 +844,7 @@ export const translations = {
       // Rotating final word: same colors and order as the Spanish version
       // (heroPhraseColors, same index) — keep the two in sync.
       heroPhrases: ["business.", "time.", "money.", "operations."],
-      heroPhraseColors: ["#0052CC", "#F5A524", "#AADD00", "#00D9FF"],
+      heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"],
       subtitle:
         "We add a digital team member who takes over the repetitive work you do today — inside the tools you already use. It's your business: you shouldn't have to do all of it.",
       bullets: [
