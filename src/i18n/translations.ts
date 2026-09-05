@@ -12,7 +12,11 @@ export const translations = {
       nav: { how: "Cómo funciona", plans: "Planes", about: "Quiénes somos", blog: "Blog", diagnostic: "Diagnóstico" },
       hero: {
         eyebrow: "MEJORA OPERATIVA PARA NEGOCIOS EN CRECIMIENTO",
-        title: "Tu operación debería darte más control, no más trabajo.",
+        h1Line1: "Creamos sistemas para que tomes el control de tu",
+        // Palabra final rotativa: cada una lleva su color de marca (mismo
+        // índice en heroPhraseColors) — no reordenar uno sin el otro.
+        heroPhrases: ["negocio.", "tiempo.", "dinero.", "operación."],
+        heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"],
         body: "Revisamos cómo fluye el trabajo en tu negocio, encontramos dónde se pierde tiempo o información y mejoramos lo que realmente vale la pena intervenir.",
         primary: "Ver dónde se traba mi operación",
         secondary: "Cómo trabajamos",
@@ -772,7 +776,7 @@ export const translations = {
 
     home2026: {
       nav: { how: "How it works", plans: "Plans", about: "About", blog: "Blog", diagnostic: "Diagnostic" },
-      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", title: "Your tools already work. We connect them.", body: "You regain control. We make sure information arrives on time and repetitive work moves forward inside the tools you already use.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
+      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", h1Line1: "We build systems so you take control of your", heroPhrases: ["business.", "time.", "money.", "operations."], heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"], body: "You regain control. We make sure information arrives on time and repetitive work moves forward inside the tools you already use.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
       dashboard: { label: "Illustrative example", title: "Operations pulse", live: "System active", metric: "Operations status", metricValue: "Visible", rows: [{ name: "Inquiries organized", status: "Up to date" }, { name: "Follow-ups scheduled", status: "In progress" }, { name: "Invoices to review", status: "2 pending" }] },
       ticker: ["FEWER MANUAL TASKS", "MORE VISIBILITY", "CONSISTENT FOLLOW-UP", "CONNECTED TOOLS"],
       problem: {
