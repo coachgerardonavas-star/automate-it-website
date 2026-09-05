@@ -21,7 +21,7 @@ const diagnostic = lang === "en" ? "/en/diagnostic" : "/diagnostico";
   <details class="mobile-menu">
     <summary aria-label={lang === "en" ? "Open menu" : "Abrir menú"}><span></span><span></span><span></span></summary>
     <nav aria-label={lang === "en" ? "Mobile navigation" : "Navegación móvil"}>
-      <a href="#como-funciona">{t.nav.how}</a><a href="#planes">{t.nav.plans}</a><a href="#quienes-somos">{t.nav.about}</a><a href={`${root}/blog`}>{t.nav.blog}</a>
+      <a href="#como-funciona">{t.nav.how}</a><a href="#planes">{t.nav.plans}</a><a href="#quienes-somos">{t.nav.about}</a><a href={`${root}/blog`}>{t.nav.blog}</a><a href={lang === "en" ? "/" : "/en/"}>{lang === "en" ? "Español" : "English"}</a>
     </nav>
   </details>
 </header>
