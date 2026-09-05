@@ -52,10 +52,11 @@ const diagPath = "/diagnostico";
         {t.h1Line1}<br />
         <span
           id="typewriter"
-          class="text-[var(--color-blue)]"
+          style={`color: ${t.heroPhraseColors?.[0] ?? "var(--color-blue)"}`}
           aria-live="polite"
           aria-label={t.h1Line2}
           data-phrases={JSON.stringify(t.heroPhrases)}
+          data-colors={JSON.stringify(t.heroPhraseColors ?? [])}
         ><span id="typewriter-text">{t.h1Line2}</span><span
             class="typewriter-cursor"
             aria-hidden="true">|</span></span>
@@ -149,7 +150,7 @@ const diagPath = "/diagnostico";
 
   .typewriter-cursor {
     animation: blink 530ms step-end infinite;
-    color: var(--color-blue);
+    color: currentColor;
   }
 
   @keyframes blink {
@@ -189,6 +190,14 @@ const diagPath = "/diagnostico";
     PHRASES = [];
   }
   if (!PHRASES.length && textEl) PHRASES = [textEl.textContent || ""];
+
+  let COLORS = [];
+  try {
+    COLORS = JSON.parse(container?.dataset.colors || "[]");
+  } catch {
+    COLORS = [];
+  }
+
   const cursor = container?.querySelector(".typewriter-cursor");
 
   const prefersReducedMotion = window.matchMedia(
@@ -229,6 +238,9 @@ const diagPath = "/diagnostico";
         window.setTimeout(erase, DELETE_MS);
       } else {
         phraseIndex = (phraseIndex + 1) % PHRASES.length;
+        if (COLORS.length && container) {
+          container.style.color = COLORS[phraseIndex % COLORS.length];
+        }
         window.setTimeout(type, BETWEEN_MS);
       }
     };

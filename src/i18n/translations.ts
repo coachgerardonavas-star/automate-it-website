@@ -133,17 +133,13 @@ export const translations = {
 
     hero: {
       eyebrow: "Un miembro digital para tu equipo · Desde $200/mes",
-      h1Line1: "Recupera el control",
-      h1Line2: "de tu negocio.",
-      // Frases del typewriter: completan h1Line1 y van de lo grande a lo
-      // cotidiano. Nunca poner funcionalidades aquí — el titular dejaría de
-      // vender una transformación y pasaría a ser una lista de features.
-      heroPhrases: [
-        "de tu negocio.",
-        "de tu día.",
-        "de tu agenda.",
-        "de tus fines de semana.",
-      ],
+      h1Line1: "Creamos sistemas para que tomes el control de tu",
+      h1Line2: "negocio.",
+      // Frases del typewriter: la palabra final rota entre las áreas donde
+      // se nota la mejora. Cada una lleva su color de marca (ver
+      // heroPhraseColors, mismo índice) — no reordenar uno sin el otro.
+      heroPhrases: ["negocio.", "tiempo.", "dinero.", "operación."],
+      heroPhraseColors: ["#0052CC", "#F5A524", "#AADD00", "#00D9FF"],
       subtitle:
         "Incorporamos a tu equipo un miembro digital que se encarga del trabajo repetitivo que hoy haces tú — dentro de las herramientas que ya usas. Es tu negocio: no tienes por qué hacerlo todo.",
       bullets: [
@@ -843,14 +839,12 @@ export const translations = {
 
     hero: {
       eyebrow: "A digital team member · From $200/mo",
-      h1Line1: "Take back control",
-      h1Line2: "of your business.",
-      heroPhrases: [
-        "of your business.",
-        "of your day.",
-        "of your calendar.",
-        "of your weekends.",
-      ],
+      h1Line1: "We build systems so you take control of your",
+      h1Line2: "business.",
+      // Rotating final word: same colors and order as the Spanish version
+      // (heroPhraseColors, same index) — keep the two in sync.
+      heroPhrases: ["business.", "time.", "money.", "operations."],
+      heroPhraseColors: ["#0052CC", "#F5A524", "#AADD00", "#00D9FF"],
       subtitle:
         "We add a digital team member who takes over the repetitive work you do today — inside the tools you already use. It's your business: you shouldn't have to do all of it.",
       bullets: [
