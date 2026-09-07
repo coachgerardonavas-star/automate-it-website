@@ -53,8 +53,21 @@ jobs:
           PY
       - name: Build
         run: npm run build
+      - name: Start local app for Pulso regression
+        shell: bash
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/astro-dev.log 2>&1 &
+          echo $! > /tmp/astro-dev.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4321/pulso/little-miracles-pediatrics?qa=1 >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/astro-dev.log
+          exit 1
       - name: Pulso regression audit
-        run: node scripts/pulso-audit.mjs
+        run: node scripts/pulso-audit.mjs http://127.0.0.1:4321
       - name: Security audit
         run: npm audit --audit-level=moderate
       - name: Commit validated migration
