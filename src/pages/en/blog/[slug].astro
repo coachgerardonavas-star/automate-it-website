@@ -7,9 +7,6 @@ import BlogArticle from "../../../components/BlogArticle.astro";
 
 export const prerender = true;
 
-const slugFromEntry = (post: CollectionEntry<"blog">) =>
-  post.id.replace(/\.(md|mdx)$/i, "");
-
 export async function getStaticPaths() {
   const posts = await getCollection(
     "blog",
@@ -17,7 +14,7 @@ export async function getStaticPaths() {
       data.lang === "en" && !data.draft
   );
   return posts.map((post) => ({
-    params: { slug: slugFromEntry(post) },
+    params: { slug: post.id.replace(/\.(md|mdx)$/i, "") },
     props: { post },
   }));
 }
