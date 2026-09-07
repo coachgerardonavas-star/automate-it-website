@@ -1,0 +1,22 @@
+name: Dependency Compatibility Probe
+
+on:
+  push:
+    branches:
+      - security/dependency-remediation-2026-09-07
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Query current package compatibility
+        shell: bash
+        run: |
+          for pkg in astro @astrojs/cloudflare @astrojs/markdoc @astrojs/react @astrojs/sitemap @astrojs/tailwind @keystatic/astro @keystatic/core puppeteer sharp; do
+            echo "===== $pkg ====="
+            npm view "$pkg" version
+            npm view "$pkg" peerDependencies --json || true
+          done
