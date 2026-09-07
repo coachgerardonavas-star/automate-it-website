@@ -35,6 +35,7 @@ const whatsappUrl = `https://wa.me/14074049495?text=${encodeURIComponent(whatsap
   description={`Revisión pública preparada para ${prospect.name}.`}
   noindex={true}
   chatbot={false}
+  analytics={Astro.url.searchParams.get("qa") !== "1"}
 >
   <main class="min-h-screen bg-[#f6f7f2] text-[#10263d]">
     <div class="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-20">

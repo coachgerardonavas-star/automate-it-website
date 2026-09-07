@@ -16,6 +16,7 @@ interface Props {
   description?: string;
   noindex?: boolean;
   chatbot?: boolean;
+  analytics?: boolean;
 }
 
 const {
@@ -24,13 +25,14 @@ const {
   description,
   noindex = false,
   chatbot = true,
+  analytics = true,
 } = Astro.props;
 const t = translations[lang];
 const pageTitle = title ?? t.siteTitle;
 const pageDescription = description ?? t.siteDescription;
 const ogLocale = lang === "en" ? "en_US" : "es_MX";
 const htmlLang = lang === "en" ? "en" : "es";
-const enableGA = isGAEnabled();
+const enableGA = analytics && isGAEnabled();
 const enableSC = isSearchConsoleEnabled();
 const canonicalUrl = Astro.url.href;
 // Lockup sobre fondo blanco sólido: las redes sociales componen la imagen de
