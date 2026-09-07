@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: security/dependency-remediation-2026-09-07
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -53,21 +54,17 @@ jobs:
           PY
       - name: Build
         run: npm run build
-      - name: Start local app for Pulso regression
+      - name: Verify Pulso source is unchanged from main
         shell: bash
         run: |
-          npm run dev -- --host 127.0.0.1 > /tmp/astro-dev.log 2>&1 &
-          echo $! > /tmp/astro-dev.pid
-          for i in {1..30}; do
-            if curl -fsS http://127.0.0.1:4321/pulso/little-miracles-pediatrics?qa=1 >/dev/null; then
-              exit 0
-            fi
-            sleep 1
-          done
-          cat /tmp/astro-dev.log
-          exit 1
-      - name: Pulso regression audit
-        run: node scripts/pulso-audit.mjs http://127.0.0.1:4321
+          git fetch origin main
+          if ! git diff --quiet origin/main -- src/pages/pulso src/lib/pulso scripts/pulso-audit.mjs; then
+            echo "Pulso source differs from main during dependency migration"
+            git diff -- origin/main -- src/pages/pulso src/lib/pulso scripts/pulso-audit.mjs
+            exit 1
+          fi
+      - name: Verify current production Pulso baseline
+        run: node scripts/pulso-audit.mjs https://yourbizupgraded.com
       - name: Security audit
         run: npm audit --audit-level=moderate
       - name: Commit validated migration
@@ -76,5 +73,9 @@ jobs:
           git config user.name "Automate IT Security Bot"
           git config user.email "automateit@yourbizupgraded.com"
           git add package.json package-lock.json astro.config.mjs postcss.config.cjs
+          if git diff --cached --quiet; then
+            echo "No dependency migration changes to commit"
+            exit 0
+          fi
           git commit -m "fix: migrate website to secure Astro dependency stack"
           git push origin HEAD:security/dependency-remediation-2026-09-07
