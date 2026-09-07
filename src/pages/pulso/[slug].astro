@@ -5,6 +5,7 @@ import { pulsoProspects11to15 } from "../../lib/pulso/prospects-11-15";
 import { pulsoProspect14Override } from "../../lib/pulso/prospect-14-override";
 import { pulsoProspects16to20 } from "../../lib/pulso/prospects-16-20";
 import { pulsoProspects21to30 } from "../../lib/pulso/prospects-21-30";
+import { pulsoProspect27Override } from "../../lib/pulso/prospect-27-override";
 
 export const prerender = false;
 
@@ -12,6 +13,9 @@ const value = Astro.params.slug ?? "";
 const prospect =
   (pulsoProspect14Override.slug === value || pulsoProspect14Override.id === value
     ? pulsoProspect14Override
+    : undefined) ??
+  (pulsoProspect27Override.slug === value || pulsoProspect27Override.id === value
+    ? pulsoProspect27Override
     : undefined) ??
   getPulsoProspect(value) ??
   pulsoProspects11to15.find((p) => p.slug === value || p.id === value) ??
