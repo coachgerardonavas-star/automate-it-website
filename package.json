@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && astro build",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && astro build && node scripts/fix-dotfile-chunks.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

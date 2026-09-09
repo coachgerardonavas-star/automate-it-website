@@ -14,6 +14,7 @@
  */
 
 import type { APIContext } from "astro";
+import { env as cfEnv } from "cloudflare:workers";
 import { resolveSession, resolveActiveOrg } from "./session";
 import { getSupabaseEnv, logVisit } from "./supabase";
 import { PORTAL_BASE } from "./config";
@@ -75,7 +76,7 @@ export async function requirePortal(context: APIContext): Promise<GuardResult> {
   const org = resolveActiveOrg(session, requested);
 
   const lang: Lang = session.user.locale ?? "es";
-  const env = getSupabaseEnv((context.locals as any)?.runtime?.env);
+  const env = getSupabaseEnv(cfEnv as unknown as Record<string, unknown>);
 
   const ctx: DataContext | null = org
     ? { org, role: session.user.role, env, accessToken, now: new Date() }
