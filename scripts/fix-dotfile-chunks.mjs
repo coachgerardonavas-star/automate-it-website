@@ -19,8 +19,9 @@
  */
 import { readdirSync, renameSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const SERVER_DIR = new URL("../dist/server", import.meta.url).pathname;
+const SERVER_DIR = fileURLToPath(new URL("../dist/server", import.meta.url));
 const CHUNKS_DIR = join(SERVER_DIR, "chunks");
 
 function walkMjsFiles(dir) {
