@@ -12,6 +12,7 @@
  */
 
 import type { APIContext, AstroCookies } from "astro";
+import { env as cfEnv } from "cloudflare:workers";
 import {
   getSupabaseEnv,
   getAuthUser,
@@ -98,7 +99,7 @@ export type SessionResult =
 export async function resolveSession(
   context: Pick<APIContext, "cookies" | "locals">
 ): Promise<SessionResult> {
-  const runtimeEnv = (context.locals as any)?.runtime?.env;
+  const runtimeEnv = cfEnv as unknown as Record<string, unknown>;
   const env = getSupabaseEnv(runtimeEnv);
   if (!env) return { status: "unconfigured" };
 
