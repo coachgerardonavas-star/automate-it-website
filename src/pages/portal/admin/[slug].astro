@@ -12,7 +12,6 @@
  */
 export const prerender = false;
 
-import { env as cfEnv } from "cloudflare:workers";
 import PortalLayout from "../../../layouts/PortalLayout.astro";
 import PortalUnconfigured from "../../../components/portal/PortalUnconfigured.astro";
 import PortalCard from "../../../components/portal/PortalCard.astro";
@@ -44,7 +43,7 @@ const { slug } = Astro.params;
 const target = session.orgs.find((o) => o.slug === slug);
 if (!target) return new Response(null, { status: 404 });
 
-const env = getSupabaseEnv(cfEnv as unknown as Record<string, unknown>);
+const env = getSupabaseEnv((Astro.locals as any)?.runtime?.env);
 const result = await getAdminAutomationDetail(target.id, env, ctx?.accessToken ?? null);
 const details = result.data;
 

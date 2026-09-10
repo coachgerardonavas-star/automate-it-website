@@ -1,5 +1,5 @@
 ---
-import { render, type CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import { translations, type Lang } from "../i18n/translations";
 import { jsonLd } from "../lib/jsonld";
 
@@ -18,8 +18,7 @@ const dateFmt = new Intl.DateTimeFormat(dateLocale, {
   day: "numeric",
 }).format(post.data.pubDate);
 
-const postSlug = post.id.replace(/\.(md|mdx)$/i, "");
-const canonicalUrl = `https://yourbizupgraded.com${blogBase}/${postSlug}/`;
+const canonicalUrl = `https://yourbizupgraded.com${blogBase}/${post.slug}/`;
 
 const blogPostingSchema = {
   "@context": "https://schema.org",
@@ -42,7 +41,7 @@ const blogPostingSchema = {
   },
 };
 
-const { Content } = await render(post);
+const { Content } = await post.render();
 ---
 
 <script

@@ -12,7 +12,6 @@
  */
 export const prerender = false;
 
-import { env as cfEnv } from "cloudflare:workers";
 import PortalLayout from "../../../layouts/PortalLayout.astro";
 import PortalUnconfigured from "../../../components/portal/PortalUnconfigured.astro";
 import PortalCard from "../../../components/portal/PortalCard.astro";
@@ -44,7 +43,7 @@ if (session.user.role !== "admin") {
 const copy = portalCopy(lang);
 const now = new Date();
 
-const runtimeEnv = cfEnv as unknown as Record<string, unknown>;
+const runtimeEnv = (Astro.locals as any)?.runtime?.env;
 const env = getSupabaseEnv(runtimeEnv);
 const result = await getAdminRows(session.orgs, env, ctx?.accessToken ?? null);
 const rows = result.data;

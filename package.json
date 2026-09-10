@@ -6,36 +6,31 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && astro build && node scripts/fix-dotfile-chunks.mjs && node scripts/fix-pages-output-dir.mjs",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "14.3.0",
-    "@astrojs/markdoc": "2.0.9",
-    "@astrojs/react": "6.0.5",
-    "@astrojs/sitemap": "3.7.4",
     "@fontsource/anton": "^5.2.7",
+    "@astrojs/cloudflare": "11.2.0",
+    "@astrojs/markdoc": "0.11.5",
+    "@astrojs/react": "3.6.3",
+    "@astrojs/sitemap": "3.1.6",
+    "@astrojs/tailwind": "^5.1.0",
     "@fontsource/open-sans": "^5.2.7",
-    "@keystatic/astro": "6.0.0",
-    "@keystatic/core": "0.6.9",
+    "@keystatic/astro": "5.0.6",
+    "@keystatic/core": "0.5.50",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
-    "astro": "7.3.1",
+    "astro": "^4.16.0",
     "lucide-astro": "^0.556.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "tailwindcss": "^3.4.13"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "puppeteer": "25.10.0",
-    "sharp": "0.35.4",
-    "wawoff2": "^2.0.1",
-    "wrangler": "^4.125.0"
-  },
-  "engines": {
-    "node": ">=24"
+    "puppeteer": "^24.42.0",
+    "sharp": "^0.34.5",
+    "wawoff2": "^2.0.1"
   }
 }
