@@ -19,16 +19,20 @@ const nap = {
 
 const queHacemos = [
   {
-    heading: "Un solo sistema, no cinco apps sueltas",
-    body: "El teléfono, WhatsApp y el chat del sitio operando juntos, conectados al calendario y al CRM. La información deja de viajar a mano de un lado a otro.",
+    heading: "Mapeamos cómo funciona hoy",
+    body: "Vemos cómo entra el trabajo, cómo avanza, quién participa, qué herramientas usa el equipo y dónde aparecen retrasos, errores o pasos que dependen demasiado de una persona.",
   },
   {
-    heading: "Lo instalamos nosotros",
-    body: "No te entregamos una herramienta para que aprendas a usarla. Conectamos lo que ya pagas, configuramos los procesos y entrenamos a tu equipo. Tú enciendes el switch.",
+    heading: "Priorizamos lo que más pesa",
+    body: "Buscamos dónde se pierde tiempo, información o dinero y elegimos primero el punto que tenga suficiente impacto para justificar un cambio.",
   },
   {
-    heading: "En español y en inglés",
-    body: "No es traducción genérica. Es entender cómo opera un dueño hispano en Estados Unidos: su idioma, sus clientes y la realidad de atender el negocio mientras suena el teléfono.",
+    heading: "Construimos la mejora adecuada",
+    body: "Podemos simplificar un proceso, quitar pasos, crear un formulario, corregir una parte del website, ordenar datos, conectar herramientas, crear un control o automatizar. La causa decide qué conviene construir.",
+  },
+  {
+    heading: "Medimos si funcionó",
+    body: "Antes de cerrar el trabajo definimos qué cambio debería verse en la operación. Después revisamos el resultado y ajustamos lo necesario.",
   },
 ];
 ---
@@ -36,7 +40,7 @@ const queHacemos = [
 <BaseLayout
   lang={lang}
   title="Quiénes somos — Automate IT LLC · Orlando, Florida"
-  description="Automate IT LLC es una empresa de automatización con inteligencia artificial registrada en Florida. Instalamos sistemas de recepción y seguimiento para pequeños negocios de servicios."
+  description="Ayudamos a dueños de pequeños y medianos negocios a encontrar dónde su operación pierde tiempo, información o dinero y a construir una mejora medible."
 >
   <Nav lang={lang} />
   <main>
@@ -58,32 +62,33 @@ const queHacemos = [
           <h1
             class="font-heading text-3xl sm:text-5xl leading-tight mb-5 text-white"
           >
-            Una empresa real, con nombre y teléfono.
+            Entramos en la operación para entender qué la está frenando.
           </h1>
           <p class="text-base sm:text-lg text-white/75 leading-relaxed">
-            {nap.legalName} es una compañía de responsabilidad limitada registrada
-            en el estado de Florida. Ayudamos a dueños de pequeños negocios de
-            servicios a dejar de perder clientes por no alcanzar a contestar.
+            Somos {nap.legalName}, una compañía registrada en Florida. Trabajamos
+            con dueños de pequeños y medianos negocios para entender cómo fluye
+            el trabajo, encontrar dónde se traba y mejorar lo que realmente vale
+            la pena intervenir.
           </p>
         </header>
 
         <section class="mb-14">
           <h2 class="font-heading text-2xl sm:text-3xl mb-4 text-white">
-            El problema que resolvemos
+            El problema que buscamos
           </h2>
           <p
             class="text-sm sm:text-base text-white/80 leading-relaxed mb-4"
           >
-            Cuando el dueño es también quien atiende, el teléfono suena mientras
-            tiene las manos ocupadas. El mensaje de WhatsApp llega mientras está
-            con un cliente. El presupuesto que quedó "en pensarlo" nunca vuelve a
-            tocarse, no por descuido, sino porque el seguimiento depende de que
-            alguien se acuerde.
+            A medida que un negocio crece, aparecen tareas que alguien tiene que
+            recordar, información que se mueve a mano, aprobaciones que esperan
+            al dueño, clientes que quedan pendientes y procesos que funcionan
+            porque una persona sabe cómo mantenerlos andando.
           </p>
           <p class="text-sm sm:text-base text-white/80 leading-relaxed">
-            No es un problema de esfuerzo ni de calidad. Es un problema de
-            capacidad: una persona no puede operar el negocio y atenderlo al
-            mismo tiempo. Eso es lo que automatizamos.
+            Revisamos ese flujo para encontrar la causa de la fricción. A veces
+            conviene cambiar un proceso. Otras veces hace falta conectar dos
+            herramientas, crear un control, ajustar el website o automatizar una
+            parte concreta. También puede ser mejor dejar algo como está.
           </p>
         </section>
 
@@ -112,10 +117,11 @@ const queHacemos = [
             Dónde estamos
           </h2>
           <p class="text-sm sm:text-base text-white/80 leading-relaxed">
-            Nuestra sede está en Orlando, Florida. El modelo de instalación es
-            100% remoto, así que atendemos negocios en cualquier estado del país
-            — Florida es nuestro mercado de origen, no un requisito para ser
-            cliente.
+            Nuestra sede está en Orlando, Florida. Podemos trabajar de forma
+            remota con negocios fuera del estado cuando el diagnóstico y el tipo
+            de intervención lo permiten. Florida sigue siendo nuestro mercado de
+            origen y el lugar donde podemos observar una operación en persona
+            cuando hace falta.
           </p>
         </section>
 
@@ -176,8 +182,9 @@ const queHacemos = [
             ¿Quieres ver dónde se te está yendo el tiempo?
           </h2>
           <p class="text-sm sm:text-base text-white/75 leading-relaxed mb-6">
-            El diagnóstico es gratuito y toma cinco minutos. Sales con un plan
-            claro de qué arreglar primero, lo hagas con nosotros o no.
+            El diagnóstico toma unos cinco minutos. Tus respuestas nos dan el
+            punto de partida para preparar La Radiografía de tu Operación y
+            decidir qué vale la pena revisar primero.
           </p>
           <a
             href="/diagnostico"
