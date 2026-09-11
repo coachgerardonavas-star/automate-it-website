@@ -5,19 +5,20 @@ import { pulsoProspects } from '../src/lib/pulso/prospects.ts';
 import { pulsoProspects11to15 } from '../src/lib/pulso/prospects-11-15.ts';
 import { pulsoProspects16to20 } from '../src/lib/pulso/prospects-16-20.ts';
 import { pulsoProspects21to30 } from '../src/lib/pulso/prospects-21-30.ts';
+import { pulsoProspects31to40 } from '../src/lib/pulso/prospects-31-40.ts';
 import { pulsoProspect14Override } from '../src/lib/pulso/prospect-14-override.ts';
 import { pulsoProspect27Override } from '../src/lib/pulso/prospect-27-override.ts';
 
 // Node 22.18+; fetches real HTML and executes its inline analytics scripts in
 // an isolated JS context. This proves calls/queueing, NOT GA4 persistence.
 const base = process.argv[2] || 'http://localhost:4321';
-const records = [...pulsoProspects, ...pulsoProspects11to15, ...pulsoProspects16to20, ...pulsoProspects21to30];
-assert.equal(records.length, 30);
-for (const key of ['id', 'slug']) assert.equal(new Set(records.map(p => p[key])).size, 30, `duplicate ${key}`);
-assert.equal(new Set(records.flatMap(p => [p.id, p.slug])).size, 60, 'cross-key collision');
+const records = [...pulsoProspects, ...pulsoProspects11to15, ...pulsoProspects16to20, ...pulsoProspects21to30, ...pulsoProspects31to40];
+assert.equal(records.length, 40);
+for (const key of ['id', 'slug']) assert.equal(new Set(records.map(p => p[key])).size, 40, `duplicate ${key}`);
+assert.equal(new Set(records.flatMap(p => [p.id, p.slug])).size, 80, 'cross-key collision');
 const effective = records.map(p => [pulsoProspect14Override, pulsoProspect27Override].find(o => o.id === p.id) || p);
-const expectedIds = ['little-miracles-016','fl-upholstery-017','orlando-pa-018','all-floridian-019','sol-borinquen-020','capella-immigration-021','immigration-universe-022','city-driving-school-023','kissimmee-notary-024','garay-eye-care-025','mrs-busy-bee-026','cleanair-contractors-027','legacy-fencing-028','in-phaze-electric-029','cg-auto-center-030'];
-const expectedSlugs = ['little-miracles-pediatrics','fl-upholstery','orlando-public-adjusters','all-floridian-insurance','sol-de-borinquen-bakery','capella-immigration-law','immigration-universe-attorneys','city-driving-school','kissimmee-notary-public','garay-eye-care','mrs-busy-bee-air-conditioning','cleanair-contractors-usa','legacy-fencing-corp','in-phaze-electric','cg-auto-center'];
+const expectedIds = ['little-miracles-016','fl-upholstery-017','orlando-pa-018','all-floridian-019','sol-borinquen-020','capella-immigration-021','immigration-universe-022','city-driving-school-023','kissimmee-notary-024','garay-eye-care-025','mrs-busy-bee-026','cleanair-contractors-027','legacy-fencing-028','in-phaze-electric-029','cg-auto-center-030','ana-studio-031','third-coat-032','sumtek-shoes-033','eco-green-auto-parts-034','maintenance-team-solutions-035','venelegal-036','rgc-builders-037','pa-paraguana-038','sofrito-latin-cafe-039','al-renovations-040'];
+const expectedSlugs = ['little-miracles-pediatrics','fl-upholstery','orlando-public-adjusters','all-floridian-insurance','sol-de-borinquen-bakery','capella-immigration-law','immigration-universe-attorneys','city-driving-school','kissimmee-notary-public','garay-eye-care','mrs-busy-bee-air-conditioning','cleanair-contractors-usa','legacy-fencing-corp','in-phaze-electric','cg-auto-center','ana-studio','third-coat','sumtek-shoes-usa','eco-green-auto-parts','maintenance-team-solutions','venelegal','rgc-builders','pa-paraguana','sofrito-latin-cafe','al-renovations'];
 assert.deepEqual(effective.slice(15).map(p => p.id), expectedIds);
 assert.deepEqual(effective.slice(15).map(p => p.slug), expectedSlugs);
 const decode = s => s.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
