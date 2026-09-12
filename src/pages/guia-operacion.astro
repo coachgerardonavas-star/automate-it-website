@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Guía para mejorar procesos y operaciones de un negocio | Automate IT";
+const description = "Guía práctica para detectar cuellos de botella, ordenar procesos, elegir un CRM, mejorar WhatsApp Business, landing pages, dashboards y decidir qué conviene automatizar.";
+const diagnostic = "/diagnostico";
+
+const faqs = [
+  { q: "¿Qué es un CRM y para qué sirve en un negocio pequeño?", a: "Un CRM reúne la información y el seguimiento de prospectos y clientes en un solo lugar. Sirve cuando contactos, cotizaciones, llamadas y próximos pasos están repartidos entre WhatsApp, correo, hojas de cálculo o la memoria del equipo. Antes de comprar uno, conviene definir qué información necesitas ver y qué pasos debe seguir cada oportunidad." },
+  { q: "¿Cómo sé qué CRM elegir para mi negocio?", a: "Empieza por tu proceso de venta actual: cómo entra un lead, quién responde, qué datos se guardan, cuándo se cotiza y cómo se hace seguimiento. El CRM adecuado debe apoyar ese flujo con la menor carga posible para el equipo. Precio, facilidad de uso, integraciones y visibilidad pesan más que una lista larga de funciones." },
+  { q: "¿Qué es HubSpot y cuándo tiene sentido usarlo?", a: "HubSpot es una plataforma que incluye CRM y herramientas de ventas, marketing y servicio. Puede tener sentido cuando necesitas ordenar contactos, oportunidades y seguimiento. La decisión depende del proceso que quieres controlar, el número de personas que lo usarán y las funciones que realmente necesitas." },
+  { q: "¿Cómo usar WhatsApp Business para atender mejor a los clientes?", a: "WhatsApp Business puede ordenar respuestas, datos básicos y puntos de contacto. El mayor valor aparece cuando defines qué debe pasar después de cada mensaje: quién responde, dónde se guarda la información, cuándo se crea una tarea y cuándo se necesita intervención humana." },
+  { q: "¿Qué es WhatsApp Business API?", a: "WhatsApp Business API permite conectar WhatsApp con sistemas externos y flujos de trabajo. Se usa cuando el volumen o el proceso exige más coordinación que la aplicación normal. Antes de implementarla, conviene mapear mensajes, permisos, responsables, excepciones y el destino de los datos." },
+  { q: "¿Qué significa workflow automation?", a: "Workflow automation es automatizar pasos dentro de un flujo de trabajo: mover datos, crear tareas, enviar avisos o activar el siguiente paso cuando ocurre algo. Funciona mejor cuando el proceso ya tiene reglas claras. Si el flujo está mal definido, automatizarlo puede mover el problema más rápido." },
+  { q: "¿Qué es business process management?", a: "Business process management, o gestión de procesos de negocio, consiste en entender, ordenar, medir y mejorar cómo se hace un trabajo de principio a fin. Incluye personas, decisiones, herramientas, datos y excepciones. La automatización puede formar parte de la mejora, según la causa del problema." },
+  { q: "¿Para qué sirve un business dashboard?", a: "Un dashboard reúne indicadores que ayudan a ver el estado de la operación sin buscar datos en varios lugares. Debe responder preguntas concretas: qué está pendiente, qué lleva demasiado tiempo detenido, dónde se acumula trabajo y qué necesita atención." },
+  { q: "¿Qué debe tener una landing page para generar leads?", a: "Una landing page necesita una promesa clara, una acción principal, información suficiente para generar confianza y un formulario o medio de contacto fácil de completar. También importa lo que ocurre después: velocidad de respuesta, registro del lead y seguimiento." },
+  { q: "¿Cómo sé si debo automatizar un proceso?", a: "Primero mide la fricción: frecuencia, tiempo, errores, retrasos, impacto y riesgo. Luego revisa la causa. A veces conviene automatizar; otras veces basta con quitar un paso, aclarar una responsabilidad, cambiar un formulario, conectar dos herramientas o crear un control." },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })),
+};
+---
+
+<BaseLayout lang="es" title={title} description={description}>
+  <main>
+    <article class="guide shell">
+      <header class="hero">
+        <p class="eyebrow">GUÍA DE OPERACIONES PARA PEQUEÑOS NEGOCIOS</p>
+        <h1>Cómo detectar qué está frenando tu negocio y decidir qué mejorar primero</h1>
+        <p class="lead">Cuando el trabajo aumenta, los problemas suelen aparecer entre un paso y el siguiente: un mensaje que nadie sigue, una cotización sin respuesta, información copiada a mano, una tarea sin dueño o un dato que vive en tres lugares. Esta guía te ayuda a encontrar esos puntos y elegir una mejora con criterio.</p>
+        <a class="button" href={diagnostic}>Descubre dónde se te va el tiempo →</a>
+      </header>
+
+      <nav class="toc" aria-label="Contenido de la guía">
+        <strong>En esta guía</strong>
+        <a href="#dependencia">1. Cuando todo depende del dueño</a>
+        <a href="#cuello">2. Cómo encontrar un cuello de botella</a>
+        <a href="#crm">3. CRM y seguimiento</a>
+        <a href="#whatsapp">4. WhatsApp Business</a>
+        <a href="#procesos">5. Procesos y workflow automation</a>
+        <a href="#dashboard">6. Dashboards y visibilidad</a>
+        <a href="#landing">7. Landing pages y captura de leads</a>
+        <a href="#rpa">8. RPA y tareas repetitivas</a>
+        <a href="#automatizar">9. Qué conviene automatizar</a>
+        <a href="#priorizar">10. Qué arreglar primero</a>
+        <a href="#faq">Preguntas frecuentes</a>
+      </nav>
+
+      <section id="dependencia"><h2>Cuando todo depende del dueño</h2><p>La dependencia aparece cuando una persona concentra decisiones, contexto o pasos que el resto necesita para avanzar. Se nota cuando el equipo espera una aprobación, pregunta varias veces por el estado de un trabajo o necesita que el dueño recuerde qué sigue.</p><p>Empieza por registrar durante una semana cada interrupción que llega al dueño. Anota qué pidió la otra persona, qué dato faltaba y qué paso quedó detenido. Las repeticiones muestran dónde el proceso necesita una regla, una fuente de información o una responsabilidad más clara.</p><div class="answer"><strong>Respuesta corta:</strong> si el mismo tipo de decisión o búsqueda de información vuelve al dueño varias veces por semana, ahí existe un buen punto para revisar el proceso.</div></section>
+
+      <section id="cuello"><h2>Cómo encontrar un cuello de botella</h2><p>Un cuello de botella es un punto donde el trabajo se acumula o espera más de lo razonable. Puede estar en una aprobación, una cotización, una llamada, la entrada de datos, una entrega o una persona con demasiadas tareas.</p><p>Dibuja el recorrido real de un trabajo desde que entra hasta que termina. Incluye personas, herramientas, decisiones y excepciones. Después marca dónde hay espera, retrabajo, datos duplicados, errores o preguntas repetidas. Ese mapa suele mostrar más que una lista de aplicaciones.</p><p>Mide cuatro cosas: cuántas veces ocurre, cuánto tarda, cuántas personas toca y qué pasa cuando falla. Esa base permite comparar problemas distintos con el mismo criterio.</p></section>
+
+      <section id="crm"><h2>CRM: ordenar clientes, oportunidades y seguimiento</h2><p>CRM significa customer relationship management. En la práctica, un CRM ayuda a saber quién es el cliente, qué pidió, en qué etapa está y cuál es el próximo paso. La señal de que necesitas revisar esta parte del negocio aparece cuando el equipo busca información en chats, correo, notas y hojas distintas.</p><p>Antes de elegir una herramienta como HubSpot u otro CRM, define las etapas reales de tu venta. Por ejemplo: lead nuevo, contactado, visita o llamada, cotización enviada, seguimiento, ganado o perdido. Cada etapa necesita un responsable y una condición clara para avanzar.</p><p>Un CRM aporta poco cuando obliga al equipo a duplicar datos o mantener campos que nadie usa. Empieza con la información mínima que ayuda a tomar una decisión o ejecutar el siguiente paso.</p></section>
+
+      <section id="whatsapp"><h2>WhatsApp Business: el mensaje es solo el inicio del proceso</h2><p>WhatsApp Business puede ser el canal donde empieza una venta, una cita o una solicitud de servicio. El problema operativo aparece después del mensaje: registrar el contacto, entender qué necesita, asignarlo, responder, crear una cita, preparar una cotización o programar seguimiento.</p><p>Para mejorar ese flujo, define qué tipos de mensajes recibes y qué debe ocurrir con cada uno. Algunas respuestas pueden usar plantillas. Algunas acciones pueden conectarse con un CRM o calendario. Los casos que requieren juicio deben llegar a una persona con el contexto completo.</p><p>WhatsApp Business API tiene sentido cuando necesitas conectar el canal con otros sistemas, manejar más volumen o coordinar varias personas. El diseño del proceso debe venir antes de la conexión técnica.</p></section>
+
+      <section id="procesos"><h2>Business process management y workflow automation</h2><p>La gestión de procesos de negocio busca entender y mejorar cómo se completa un trabajo. Workflow automation ejecuta algunos pasos de ese flujo mediante reglas. Son útiles cuando primero sabemos qué debe pasar, quién decide y qué excepciones existen.</p><p>Un flujo simple puede empezar cuando entra un formulario, crear un registro, asignar una tarea y avisar al responsable. Un flujo más complejo puede incluir aprobaciones, fechas límite y rutas distintas según el tipo de cliente.</p><p>Documentar el proceso ayuda incluso cuando ningún paso se automatiza. Reduce dudas, facilita entrenar a otra persona y deja visible dónde cambia el trabajo de manos.</p></section>
+
+      <section id="dashboard"><h2>Business dashboard: ver la operación sin perseguir datos</h2><p>Un dashboard sirve cuando responde preguntas que hoy exigen abrir varias herramientas o preguntar a varias personas. Un buen panel puede mostrar trabajos pendientes, cotizaciones sin respuesta, casos detenidos, próximos vencimientos o carga por responsable.</p><p>Empieza por preguntas, no por gráficos. ¿Qué necesito saber cada mañana? ¿Qué situación exige actuar hoy? ¿Qué atraso quiero detectar antes de que un cliente llame? Cada respuesta puede convertirse en un indicador.</p><p>Un panel con muchos números y ninguna decisión asociada añade trabajo. Mantén solo los datos que cambian una acción.</p></section>
+
+      <section id="landing"><h2>Landing pages: captar el lead y cuidar lo que pasa después</h2><p>Una landing page tiene una función concreta: ayudar a una persona a entender una oferta y dar el siguiente paso. El mensaje, la prueba de confianza, el formulario y el llamado a la acción deben apoyar esa tarea.</p><p>La conversión también depende del proceso posterior. Si el formulario funciona y el lead espera demasiado, llega incompleto al equipo o queda sin seguimiento, mejorar el diseño de la página resuelve solo una parte del problema.</p><p>Revisa la cadena completa: visita → acción → captura de datos → aviso → responsable → respuesta → seguimiento. Ahí puedes distinguir un problema de página de un problema operativo.</p></section>
+
+      <section id="rpa"><h2>RPA y tareas repetitivas</h2><p>RPA significa robotic process automation. Se usa para ejecutar tareas repetitivas con reglas claras, sobre todo cuando una persona repite pasos entre sistemas. Puede ser útil para mover datos, preparar registros o ejecutar acciones previsibles.</p><p>Antes de usar RPA, revisa si existe una integración más simple y estable entre las herramientas. También identifica excepciones y define qué debe hacer una persona cuando el flujo encuentra un caso fuera de la regla.</p></section>
+
+      <section id="automatizar"><h2>Cómo saber si conviene automatizar</h2><p>Una tarea frecuente, repetitiva y basada en reglas puede ser buena candidata. También importa su impacto. Automatizar algo que ocurre dos veces al mes y tarda un minuto puede aportar menos que corregir un paso que frena ventas todos los días.</p><p>Revisa frecuencia, tiempo, errores, retrasos, costo, riesgo y dependencia de una persona. Después busca la causa. La mejora puede ser quitar un paso, cambiar el orden, aclarar quién decide, ajustar un formulario, conectar herramientas, crear una alerta o automatizar una parte.</p><div class="answer"><strong>Regla práctica:</strong> elige la intervención más simple que quite la causa con un costo y riesgo razonables.</div></section>
+
+      <section id="priorizar"><h2>Qué arreglar primero</h2><p>Compara cada problema con cinco criterios: impacto, frecuencia, costo del problema, riesgo y esfuerzo de cambio. Un problema frecuente, costoso y fácil de corregir suele ser mejor primer proyecto que uno llamativo con poco efecto real.</p><p>En Automate IT usamos cuatro pasos: <strong>Mapear</strong> cómo fluye el trabajo, <strong>Priorizar</strong> la fricción con mayor peso, <strong>Construir</strong> la mejora adecuada y <strong>Medir</strong> si funcionó. El diagnóstico puede llevar a un cambio de proceso, un formulario, un ajuste del website, una conexión entre herramientas, un control, una automatización o dejar una parte como está.</p><p>La Radiografía de tu Operación parte de esa lógica: entender la causa antes de elegir la herramienta.</p><a class="button" href={diagnostic}>Comenzar diagnóstico →</a></section>
+
+      <section id="faq"><h2>Preguntas frecuentes sobre procesos, CRM y automatización</h2><div class="faq-list">{faqs.map((item) => <details><summary>{item.q}<span>+</span></summary><p>{item.a}</p></details>)}</div></section>
+    </article>
+  </main>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema).replace(/</g, "\\u003c")} />
+</BaseLayout>
+
+<style>
+  :global(body){background:#fff;color:#141a2b}.shell{width:min(920px,calc(100% - 40px));margin-inline:auto}.guide{padding:72px 0 96px}.hero{padding-bottom:48px;border-bottom:1px solid #e5e8ee}.eyebrow{color:#0052cc;font-weight:700;font-size:12px;letter-spacing:.16em}.hero h1{font-size:clamp(38px,5vw,62px);line-height:1.08;letter-spacing:-.035em;margin:18px 0 24px}.lead{font-size:20px;line-height:1.7;color:#45546d;max-width:800px}.button{display:inline-flex;margin-top:24px;padding:14px 20px;border-radius:12px;background:#0052cc;color:#fff;font-weight:700}.toc{display:grid;gap:10px;margin:42px 0;padding:28px;border:1px solid #dfe5ee;border-radius:16px;background:#f8fafc}.toc strong{margin-bottom:6px}.toc a{color:#0052cc}.guide section{scroll-margin-top:24px;padding:46px 0;border-bottom:1px solid #e5e8ee}.guide h2{font-size:clamp(28px,3vw,38px);line-height:1.2;margin:0 0 20px}.guide p{font-size:17px;line-height:1.8;color:#344563}.answer{margin:24px 0;padding:20px 22px;border-left:4px solid #00d9ff;background:#f5fbff;line-height:1.7}.faq-list{display:grid;gap:12px}.faq-list details{border:1px solid #dfe5ee;border-radius:12px;padding:0 18px}.faq-list summary{cursor:pointer;display:flex;justify-content:space-between;gap:18px;padding:18px 0;font-weight:700}.faq-list details p{margin:0;padding:0 0 20px;font-size:16px}@media(max-width:640px){.guide{padding-top:44px}.lead{font-size:18px}.toc{padding:22px}}
+</style>
