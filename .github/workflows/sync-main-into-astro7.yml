@@ -17,11 +17,28 @@ jobs:
         with:
           ref: glasswing/astro7-cloudflare14
           fetch-depth: 0
-      - name: Merge current main
+      - name: Merge current main and preserve Astro 7 compatibility
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
-          git merge origin/main --no-edit
-          git commit --amend -m "Sync main into Astro 7 migration" || true
+          set +e
+          git merge origin/main --no-commit --no-edit
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            conflicts=$(git diff --name-only --diff-filter=U)
+            echo "Conflicts:"
+            echo "$conflicts"
+            unexpected=$(echo "$conflicts" | grep -v -E '^(src/components/Hero\.astro|src/content\.config\.ts)$' || true)
+            if [ -n "$unexpected" ]; then
+              echo "Unexpected conflicts require manual review:"
+              echo "$unexpected"
+              exit 1
+            fi
+            git checkout --theirs src/components/Hero.astro
+            git checkout --ours src/content.config.ts
+            git add src/components/Hero.astro src/content.config.ts
+          fi
+          git commit -m "Sync main into Astro 7 migration"
           git push origin HEAD:glasswing/astro7-cloudflare14
