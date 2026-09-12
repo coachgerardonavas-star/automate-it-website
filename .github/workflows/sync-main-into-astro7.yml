@@ -1,0 +1,27 @@
+name: Sync main into Astro 7 migration
+
+on:
+  push:
+    branches: [glasswing/astro7-cloudflare14]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: ${{ !contains(github.event.head_commit.message, 'Sync main into Astro 7 migration') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout migration branch
+        uses: actions/checkout@v4
+        with:
+          ref: glasswing/astro7-cloudflare14
+          fetch-depth: 0
+      - name: Merge current main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git merge origin/main --no-edit
+          git commit --amend -m "Sync main into Astro 7 migration" || true
+          git push origin HEAD:glasswing/astro7-cloudflare14
