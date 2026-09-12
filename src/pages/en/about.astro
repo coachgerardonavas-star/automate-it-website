@@ -18,16 +18,20 @@ const nap = {
 
 const howWeWork = [
   {
-    heading: "One system, not five disconnected apps",
-    body: "Phone, WhatsApp and website chat working together, wired into your calendar and CRM. Information stops being carried by hand from one place to another.",
+    heading: "Map how work runs today",
+    body: "We look at how work comes in, how it moves, who is involved, which tools the team uses, and where delays, errors, or key-person dependencies show up.",
   },
   {
-    heading: "We install it for you",
-    body: "We don't hand you a tool and wish you luck. We connect what you already pay for, configure the processes and train your team. You flip the switch.",
+    heading: "Prioritize what matters most",
+    body: "We look for where time, information, or money is being lost and start with the point that has enough impact to justify a change.",
   },
   {
-    heading: "In English and Spanish",
-    body: "Not generic translation. We understand how a Hispanic business owner actually operates in the United States: the language, the customers, and the reality of running the business while the phone rings.",
+    heading: "Build the right improvement",
+    body: "We may simplify a process, remove steps, create a form, fix part of the website, organize data, connect tools, add a control, or automate a specific task. The cause guides the choice.",
+  },
+  {
+    heading: "Measure the result",
+    body: "Before we close the work, we define what should change in the operation. Then we review the result and adjust what needs attention.",
   },
 ];
 ---
@@ -35,7 +39,7 @@ const howWeWork = [
 <BaseLayout
   lang={lang}
   title="About us — Automate IT LLC · Orlando, Florida"
-  description="Automate IT LLC is an AI automation company registered in Florida. We install reception and follow-up systems for small service businesses."
+  description="We help small and midsize business owners find where their operation is losing time, information, or money and build a measurable improvement."
 >
   <Nav lang={lang} />
   <main>
@@ -57,30 +61,30 @@ const howWeWork = [
           <h1
             class="font-heading text-3xl sm:text-5xl leading-tight mb-5 text-white"
           >
-            A real company, with a name and a phone number.
+            We step into the operation to understand what is slowing it down.
           </h1>
           <p class="text-base sm:text-lg text-white/75 leading-relaxed">
-            {nap.legalName} is a limited liability company registered in the state
-            of Florida. We help small service business owners stop losing
-            customers they simply couldn't get to in time.
+            We are {nap.legalName}, a Florida-registered company. We work with
+            small and midsize business owners to understand how work moves,
+            find where it gets stuck, and improve what is worth changing.
           </p>
         </header>
 
         <section class="mb-14">
           <h2 class="font-heading text-2xl sm:text-3xl mb-4 text-white">
-            The problem we solve
+            The problem we look for
           </h2>
           <p class="text-sm sm:text-base text-white/80 leading-relaxed mb-4">
-            When the owner is also the one doing the work, the phone rings while
-            their hands are full. The WhatsApp message arrives mid-appointment.
-            The quote that ended in "let me think about it" never gets picked
-            back up — not out of carelessness, but because follow-up depends on
-            somebody remembering.
+            As a business grows, someone still has to remember tasks, move
+            information by hand, wait for the owner to approve the next step,
+            keep track of customers, and hold together processes that work
+            because one person knows what to do.
           </p>
           <p class="text-sm sm:text-base text-white/80 leading-relaxed">
-            It isn't a problem of effort or quality. It's a problem of capacity:
-            one person cannot run the business and answer it at the same time.
-            That's what we automate.
+            We review that flow to find the cause of the friction. The right
+            change may be a better process, a connection between two tools, a
+            control, a website fix, or automation for one specific step. In
+            some cases, the best decision is to leave a working part alone.
           </p>
         </section>
 
@@ -109,9 +113,10 @@ const howWeWork = [
             Where we are
           </h2>
           <p class="text-sm sm:text-base text-white/80 leading-relaxed">
-            We're based in Orlando, Florida. Installation is fully remote, so we
-            serve businesses in any state — Florida is where we started, not a
-            requirement to become a client.
+            We are based in Orlando, Florida. We can work remotely with
+            businesses outside the state when the diagnostic and the type of
+            work allow it. Florida remains our home market and the place where
+            we can observe an operation in person when needed.
           </p>
         </section>
 
@@ -172,8 +177,9 @@ const howWeWork = [
             Want to see where your time is going?
           </h2>
           <p class="text-sm sm:text-base text-white/75 leading-relaxed mb-6">
-            The diagnostic is free and takes five minutes. You walk away with a
-            clear plan of what to fix first, whether you do it with us or not.
+            The diagnostic takes about five minutes. Your answers give us the
+            starting point for your Operation X-Ray and help us decide what is
+            worth reviewing first.
           </p>
           <a
             href="/en/diagnostic"

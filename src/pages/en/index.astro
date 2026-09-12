@@ -1,10 +1,23 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Home2026 from "../../components/Home2026.astro";
+import SeoFaq from "../../components/SeoFaq.astro";
 
 const lang = "en";
 ---
 
 <BaseLayout lang={lang}>
-  <Home2026 lang={lang} />
+  <div class="home-with-seo-faq">
+    <Home2026 lang={lang} />
+    <SeoFaq lang={lang} />
+  </div>
 </BaseLayout>
+
+<style is:global>
+  .home-with-seo-faq { display: flex; flex-direction: column; }
+  .home-with-seo-faq > header { order: 0; }
+  .home-with-seo-faq > main { order: 1; }
+  .home-with-seo-faq > .seo-faq { order: 2; }
+  .home-with-seo-faq > footer { order: 3; }
+  .home-with-seo-faq > main .faq { display: none; }
+</style>

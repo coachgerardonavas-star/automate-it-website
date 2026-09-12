@@ -8,6 +8,21 @@ interface Props {
 
 const { lang = "es" } = Astro.props;
 const t = translations[lang].blog;
+const intro = lang === "en"
+  ? {
+      eyebrow: "OPERATIONS AND IMPROVEMENT",
+      heading: "Ideas to understand where your business gets stuck.",
+      subheading: "Processes, follow-up, team, data, tools, and practical changes that reduce friction and make the operation easier to see.",
+      guideHref: "/en/operations-guide",
+      guideLabel: "Read the operations improvement guide",
+    }
+  : {
+      eyebrow: "OPERACIÓN Y MEJORA",
+      heading: "Ideas para entender dónde se traba tu negocio.",
+      subheading: "Procesos, seguimiento, equipo, datos, herramientas y cambios concretos para reducir fricción y hacer más visible lo que pasa en tu operación.",
+      guideHref: "/guia-operacion",
+      guideLabel: "Leer la guía para mejorar procesos y operaciones",
+    };
 
 const all = await getCollection(
   "blog",
@@ -35,14 +50,17 @@ function fmtDate(d: Date) {
   <div class="max-w-5xl mx-auto px-5 lg:px-8">
     <header class="mb-12 sm:mb-16">
       <p class="text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold">
-        {t.eyebrow}
+        {intro.eyebrow}
       </p>
       <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-4">
-        {t.heading}
+        {intro.heading}
       </h1>
       <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">
-        {t.subheading}
+        {intro.subheading}
       </p>
+      <a href={intro.guideHref} class="inline-block mt-5 text-sm sm:text-base text-[var(--color-blue)] font-semibold hover:underline">
+        {intro.guideLabel} →
+      </a>
     </header>
 
     {

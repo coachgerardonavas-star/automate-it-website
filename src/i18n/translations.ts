@@ -12,7 +12,11 @@ export const translations = {
       nav: { how: "Cómo funciona", plans: "Planes", about: "Quiénes somos", blog: "Blog", diagnostic: "Diagnóstico" },
       hero: {
         eyebrow: "MEJORA OPERATIVA PARA NEGOCIOS EN CRECIMIENTO",
-        title: "Tu operación debería darte más control, no más trabajo.",
+        h1Line1: "Creamos sistemas para que tomes el control de tu",
+        // Palabra final rotativa: cada una lleva su color de marca (mismo
+        // índice en heroPhraseColors) — no reordenar uno sin el otro.
+        heroPhrases: ["negocio.", "tiempo.", "dinero.", "operación."],
+        heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"],
         body: "Revisamos cómo fluye el trabajo en tu negocio, encontramos dónde se pierde tiempo o información y mejoramos lo que realmente vale la pena intervenir.",
         primary: "Ver dónde se traba mi operación",
         secondary: "Cómo trabajamos",
@@ -34,12 +38,43 @@ export const translations = {
       problem: {
         eyebrow: "FRICCIÓN OPERATIVA",
         title: "Demasiado trabajo rutinario todavía depende de ti.",
-        body: "Mensajes que esperan respuesta, información repetida en varios lugares y pendientes que viven en la memoria del equipo. Ahí se pierden horas y oportunidades.",
+        body: "Así se ve tu operación cuando alguien más la revisa por primera vez.",
+        label: "Ejemplo ilustrativo",
+        problemaLabel: "Problema",
+        solucionLabel: "Solución",
         items: [
-          { number: "01", title: "Información dispersa", body: "Los datos viven entre mensajes, hojas de cálculo, correos y notas." },
-          { number: "02", title: "Seguimiento irregular", body: "Cada pendiente exige recordar, copiar, preguntar o volver a revisar." },
-          { number: "03", title: "Poca visibilidad", body: "Es difícil saber qué avanzó, qué se detuvo y qué necesita atención." },
+          {
+            id: 1,
+            titulo: "El cajero automático que vendía menos",
+            problema: "Una tienda de ropa instaló un cobro automatizado por mensaje. Antes, el vendedor en piso hacía dos o tres preguntas mientras cobraba: qué buscaba, para qué ocasión, qué talla. Esas respuestas alimentaban la próxima recomendación. El cobro automático se saltó esa parte. El cliente paga y se va. Las ventas bajaron.",
+            solucion: "La solución no fue instalar más. Fue apagar el paso que reemplazó la conversación, y devolver la pregunta al flujo — aunque fuera en un mensaje corto antes de cobrar.",
+          },
+          {
+            id: 2,
+            titulo: "El pedido que nadie actualizaba",
+            problema: "Un negocio de gabinetes de cocina a medida recibe la llamada del cliente a mitad de semana preguntando cómo va su pedido. Se lo explican, cuelga, y dos días después vuelve a llamar. Cada llamada interrumpe producción para repetir la misma información.",
+            solucion: "Confirmaciones automáticas en los puntos clave del proceso — medidas tomadas, en producción, listo para instalar — sin que nadie redacte el mensaje cada vez.",
+          },
+          {
+            id: 3,
+            titulo: "La disputa que se perdió por una foto tardía",
+            problema: "Una empresa de techos (roofers) documenta reclamos de seguro con fotos que a veces llegan días después del trabajo, porque dependen de que alguien las suba a mano. Una disputa se perdió por eso.",
+            solucion: "Captura de evidencia en el momento del trabajo, ligada directo al expediente del cliente — no a un rollo de fotos suelto.",
+          },
+          {
+            id: 4,
+            titulo: "El trámite que se atascaba solo",
+            problema: "Un negocio de HVAC participa en un programa de incentivos con varios pasos de papeleo. Uno de los pasos se retrasa porque depende de que alguien recuerde seguirlo.",
+            solucion: "Seguimiento del trámite que avisa cuándo un caso lleva demasiado tiempo detenido en un paso — antes de que se venza.",
+          },
+          {
+            id: 5,
+            titulo: "La ventana que se cerraba sin avisar",
+            problema: "Un realtor tiene un plazo de 10 a 15 días para entregar un informe de inspección antes de que se cierre una ventana contractual. Cuando coinciden varios casos a la vez, alguno se atrasa porque nadie está viendo los plazos en conjunto, solo caso por caso.",
+            solucion: "Un solo lugar donde se ven todos los plazos activos al mismo tiempo, con aviso antes de que el más próximo se venza.",
+          },
         ],
+        closing: "Algunos dueños de negocio no saben que eso por lo que pasan es un problema. Otros lo saben y se resignan a tenerlo. Y otros no saben quién podría ayudarlos. Es allí donde Automate IT hace una \"radiografía de las operaciones\" para identificar y solventar los cuellos de botella que te generan fricción.",
       },
       process: {
         eyebrow: "NUESTRA FORMA DE TRABAJAR",
@@ -102,17 +137,13 @@ export const translations = {
 
     hero: {
       eyebrow: "Un miembro digital para tu equipo · Desde $200/mes",
-      h1Line1: "Recupera el control",
-      h1Line2: "de tu negocio.",
-      // Frases del typewriter: completan h1Line1 y van de lo grande a lo
-      // cotidiano. Nunca poner funcionalidades aquí — el titular dejaría de
-      // vender una transformación y pasaría a ser una lista de features.
-      heroPhrases: [
-        "de tu negocio.",
-        "de tu día.",
-        "de tu agenda.",
-        "de tus fines de semana.",
-      ],
+      h1Line1: "Creamos sistemas para que tomes el control de tu",
+      h1Line2: "negocio.",
+      // Frases del typewriter: la palabra final rota entre las áreas donde
+      // se nota la mejora. Cada una lleva su color de marca (ver
+      // heroPhraseColors, mismo índice) — no reordenar uno sin el otro.
+      heroPhrases: ["negocio.", "tiempo.", "dinero.", "operación."],
+      heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"],
       subtitle:
         "Incorporamos a tu equipo un miembro digital que se encarga del trabajo repetitivo que hoy haces tú — dentro de las herramientas que ya usas. Es tu negocio: no tienes por qué hacerlo todo.",
       bullets: [
@@ -745,10 +776,50 @@ export const translations = {
 
     home2026: {
       nav: { how: "How it works", plans: "Plans", about: "About", blog: "Blog", diagnostic: "Diagnostic" },
-      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", title: "Your tools already work. We connect them.", body: "You regain control. We make sure information arrives on time and repetitive work moves forward inside the tools you already use.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
+      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", h1Line1: "We build systems so you take control of your", heroPhrases: ["business.", "time.", "money.", "operations."], heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"], body: "You regain control. We make sure information arrives on time and repetitive work moves forward inside the tools you already use.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
       dashboard: { label: "Illustrative example", title: "Operations pulse", live: "System active", metric: "Operations status", metricValue: "Visible", rows: [{ name: "Inquiries organized", status: "Up to date" }, { name: "Follow-ups scheduled", status: "In progress" }, { name: "Invoices to review", status: "2 pending" }] },
       ticker: ["FEWER MANUAL TASKS", "MORE VISIBILITY", "CONSISTENT FOLLOW-UP", "CONNECTED TOOLS"],
-      problem: { eyebrow: "OPERATIONAL FRICTION", title: "Too much routine work still depends on you.", body: "Messages waiting for a reply, information repeated in several places, and tasks living in your team's memory. That is where hours and opportunities disappear.", items: [{ number: "01", title: "Scattered information", body: "Data lives across messages, spreadsheets, emails, and notes." }, { number: "02", title: "Inconsistent follow-up", body: "Every open item requires someone to remember, copy, ask, or check again." }, { number: "03", title: "Limited visibility", body: "It is hard to know what moved, what stopped, and what needs attention." }] },
+      problem: {
+        eyebrow: "OPERATIONAL FRICTION",
+        title: "Too much routine work still depends on you.",
+        body: "This is what your operation looks like the first time someone else reviews it.",
+        label: "Illustrative example",
+        problemaLabel: "Problem",
+        solucionLabel: "Solution",
+        items: [
+          {
+            id: 1,
+            titulo: "The self-checkout that sold less",
+            problema: "A clothing store set up automated payment by message. Before, the floor rep asked two or three questions while taking payment: what the customer was looking for, for what occasion, what size. Those answers fed the next recommendation. The automated payment skipped that part. The customer pays and leaves. Sales dropped.",
+            solucion: "The fix wasn't installing more automation. It was turning off the step that replaced the conversation, and putting the question back into the flow — even as a short message before checkout.",
+          },
+          {
+            id: 2,
+            titulo: "The order nobody updated",
+            problema: "A custom kitchen cabinet shop gets the call midweek: the customer asking how their order is going. Someone explains, they hang up, and two days later they call again. Every call interrupts production to repeat the same information.",
+            solucion: "Automatic confirmations at the key points of the process — measurements taken, in production, ready to install — without anyone writing the message each time.",
+          },
+          {
+            id: 3,
+            titulo: "The dispute lost to a late photo",
+            problema: "A roofing company documents insurance claims with photos that sometimes arrive days after the job, because they depend on someone uploading them by hand. One dispute was lost because of it.",
+            solucion: "Evidence captured on the spot, linked directly to the customer's file — not to a loose roll of photos.",
+          },
+          {
+            id: 4,
+            titulo: "The paperwork that stalled on its own",
+            problema: "An HVAC business takes part in an incentive program with several paperwork steps. One step gets delayed because it depends on someone remembering to follow up.",
+            solucion: "Tracking that flags when a case has been stuck on one step too long — before it's due.",
+          },
+          {
+            id: 5,
+            titulo: "The window that closed without warning",
+            problema: "A realtor has 10 to 15 days to submit an inspection report before a contractual window closes. When several cases line up at once, one slips through because no one is watching all the deadlines together, only case by case.",
+            solucion: "One place to see every active deadline at once, with a warning before the nearest one is due.",
+          },
+        ],
+        closing: "Some business owners don't realize what they're dealing with is a problem. Others know and resign themselves to living with it. And others don't know who could help. That's where Automate IT runs an \"operations X-ray\" to identify and fix the bottlenecks creating friction.",
+      },
       process: { eyebrow: "HOW WE WORK", title: "We understand your operation and build from there.", steps: [{ number: "01", title: "Map", body: "We see how work flows today, including the tools and real-world exceptions." }, { number: "02", title: "Prioritize", body: "We choose the point where one practical improvement creates the most relief and control." }, { number: "03", title: "Build", body: "We connect the pieces and put the new workflow into use with your team." }, { number: "04", title: "Measure", body: "We review adoption, remove friction, and make progress visible." }] },
       plans: { eyebrow: "WAYS TO WORK TOGETHER", title: "Choose how much work you want to delegate.", items: [{ name: "Assistant", tag: "One essential workflow", body: "Solve one repetitive task and free up time quickly.", bullets: ["One prioritized process", "Implementation and testing", "Initial guidance"] }, { name: "Strategist", tag: "Several connected points", body: "Organize a complete part of the operation and connect its tools.", bullets: ["Operations map", "Coordinated workflows", "Tracking dashboard"] }, { name: "Manager", tag: "Continuous improvement", body: "Delegate the evolution of your systems and processes month by month.", bullets: ["Monthly priorities", "Continuous optimization", "Operational support"] }], cta: "Talk about my operation" },
       fit: { title: "This works best when…", good: ["You already have a recurring process", "Your team uses several tools", "You want to improve step by step", "You can participate in key decisions"], avoidTitle: "It may not fit if…", avoid: ["You want an instant solution without reviewing the process", "You want to replace every system at once", "There is no owner for the project"] },
@@ -772,14 +843,12 @@ export const translations = {
 
     hero: {
       eyebrow: "A digital team member · From $200/mo",
-      h1Line1: "Take back control",
-      h1Line2: "of your business.",
-      heroPhrases: [
-        "of your business.",
-        "of your day.",
-        "of your calendar.",
-        "of your weekends.",
-      ],
+      h1Line1: "We build systems so you take control of your",
+      h1Line2: "business.",
+      // Rotating final word: same colors and order as the Spanish version
+      // (heroPhraseColors, same index) — keep the two in sync.
+      heroPhrases: ["business.", "time.", "money.", "operations."],
+      heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"],
       subtitle:
         "We add a digital team member who takes over the repetitive work you do today — inside the tools you already use. It's your business: you shouldn't have to do all of it.",
       bullets: [

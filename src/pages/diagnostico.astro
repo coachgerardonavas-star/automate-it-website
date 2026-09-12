@@ -6,20 +6,26 @@ import DiagnosticoForm from "../components/DiagnosticoForm.astro";
 const lang = "es" as const;
 ---
 
-<BaseLayout lang={lang} title="Diagnóstico gratuito · Automate IT">
+<BaseLayout
+  lang={lang}
+  title="Diagnóstico gratuito de tu operación · Automate IT"
+  description="Cuéntanos cómo funciona hoy tu negocio. Revisamos dónde se traba el trabajo, qué impacto tiene y qué cambio vale la pena evaluar primero."
+>
   <Nav lang={lang} />
   <main class="min-h-[60vh] pt-10 pb-24">
     <div class="max-w-2xl mx-auto px-5 lg:px-8">
       <a href="/" class="inline-block text-sm text-[var(--color-text-muted)] hover:text-[var(--color-navy)] transition-colors mb-8">← Volver a la home</a>
       <header class="mb-8">
         <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-4">Diagnóstico gratuito de tu operación</h1>
-        <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed">Cuéntanos cómo funciona hoy tu negocio y qué se complica cuando aumenta el trabajo. No necesitas saber qué automatizar: esa parte empieza después de entender el proceso.</p>
+        <p class="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed">Cuéntanos cómo funciona hoy tu negocio y qué se complica cuando aumenta el trabajo. Revisamos el proceso, buscamos la causa y vemos qué cambio tendría más impacto.</p>
       </header>
-      <div class="mb-8 flex flex-col sm:flex-row gap-4 text-sm text-[var(--color-text-muted)]">
+      <div class="mb-5 flex flex-col sm:flex-row gap-4 text-sm text-[var(--color-text-muted)]">
+        <span>— 5 minutos.</span>
         <span>— Sin costo.</span>
-        <span>— Sin venta agresiva.</span>
-        <span>— Primero entendemos; después decidimos si vale la pena intervenir.</span>
+        <span>— Primero entendemos el problema; después evaluamos qué vale la pena cambiar.</span>
       </div>
+      <p class="mb-4 text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed">Tus respuestas son el punto de partida para preparar La Radiografía de tu Operación.</p>
+      <p class="mb-8 text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed">Si primero quieres entender cómo detectar cuellos de botella, elegir un CRM, mejorar WhatsApp Business o decidir qué proceso conviene cambiar, revisa nuestra <a href="/guia-operacion" class="text-[var(--color-blue)] font-semibold hover:underline">guía para mejorar procesos y operaciones</a>.</p>
       <DiagnosticoForm lang={lang} />
     </div>
   </main>
