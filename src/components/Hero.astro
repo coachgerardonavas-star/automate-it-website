@@ -198,7 +198,7 @@ const diagPath = "/diagnostico";
     COLORS = [];
   }
 
-  const cursor = container?.querySelector(".typewriter-cursor");
+  const cursor = container?.querySelector<HTMLElement>(".typewriter-cursor");
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -212,7 +212,7 @@ const diagPath = "/diagnostico";
     let charIndex = PHRASES[0].length;
     textEl.textContent = PHRASES[0];
 
-    const setCursor = (visible) => {
+    const setCursor = (visible: boolean) => {
       if (cursor) cursor.style.visibility = visible ? "visible" : "hidden";
     };
 
