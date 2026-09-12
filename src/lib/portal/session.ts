@@ -26,6 +26,7 @@ import type {
   OrgStatus,
   DataMode,
 } from "./types";
+import { getRuntimeEnv } from "./runtime";
 
 const ACCESS_COOKIE = "ait_at";
 const REFRESH_COOKIE = "ait_rt";
@@ -98,7 +99,7 @@ export type SessionResult =
 export async function resolveSession(
   context: Pick<APIContext, "cookies" | "locals">
 ): Promise<SessionResult> {
-  const runtimeEnv = (context.locals as any)?.runtime?.env;
+  const runtimeEnv = getRuntimeEnv();
   const env = getSupabaseEnv(runtimeEnv);
   if (!env) return { status: "unconfigured" };
 

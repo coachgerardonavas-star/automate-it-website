@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import { translations } from "../../i18n/translations";
-import { CircleAlert } from "lucide-astro";
+import { CircleAlert } from "@lucide/astro";
 
 const lang = "en" as const;
 const t = translations[lang].errorPage;
@@ -24,7 +24,7 @@ const t = translations[lang].errorPage;
         <span
           class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-danger/8 text-[var(--color-danger)]"
         >
-          <CircleAlert size={32} strokeWidth={2} />
+          <CircleAlert size={32} stroke-width={2} />
         </span>
         <h1 class="font-heading text-3xl sm:text-5xl leading-tight">
           {t.heading}

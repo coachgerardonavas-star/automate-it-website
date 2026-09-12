@@ -1,5 +1,9 @@
 /// <reference path="../.astro/types.d.ts" />
 
+declare module "cloudflare:workers" {
+  export const env: Record<string, unknown>;
+}
+
 interface Window {
   /**
    * Envío de eventos de conversión a GA4. La define el bloque inline de

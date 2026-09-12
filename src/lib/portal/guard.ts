@@ -16,6 +16,7 @@
 import type { APIContext } from "astro";
 import { resolveSession, resolveActiveOrg } from "./session";
 import { getSupabaseEnv, logVisit } from "./supabase";
+import { getRuntimeEnv } from "./runtime";
 import { PORTAL_BASE } from "./config";
 import type { DataContext } from "./data";
 import type { Organization, PortalSession } from "./types";
@@ -75,7 +76,7 @@ export async function requirePortal(context: APIContext): Promise<GuardResult> {
   const org = resolveActiveOrg(session, requested);
 
   const lang: Lang = session.user.locale ?? "es";
-  const env = getSupabaseEnv((context.locals as any)?.runtime?.env);
+  const env = getSupabaseEnv(getRuntimeEnv());
 
   const ctx: DataContext | null = org
     ? { org, role: session.user.role, env, accessToken, now: new Date() }

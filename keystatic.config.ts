@@ -4,7 +4,6 @@ export default config({
   storage: {
     kind: "github",
     repo: "coachgerardonavas-star/automate-it-website",
-    branch: "main",
   },
 
   ui: {

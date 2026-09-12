@@ -359,7 +359,7 @@ const es = {
     inHours: "en {n} h",
     inDays: "en {n} d",
   },
-} as const;
+};
 
 const en: typeof es = {
   brand: "Automate IT",
