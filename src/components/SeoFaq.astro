@@ -1,0 +1,72 @@
+---
+import type { Lang } from "../i18n/translations";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const es = [
+  { q: "¿Qué es un CRM y para qué sirve en un negocio pequeño?", a: "Un CRM reúne contactos, oportunidades y próximos pasos en un solo lugar. Ayuda cuando el seguimiento vive entre WhatsApp, correo, hojas de cálculo y la memoria del equipo.", href: "/guia-operacion#crm" },
+  { q: "¿Cómo sé qué CRM elegir para mi negocio?", a: "Empieza por tu proceso real de venta: cómo entra un lead, quién responde, qué datos se guardan, cuándo se cotiza y cómo se da seguimiento. La herramienta debe apoyar ese flujo con la menor carga posible.", href: "/guia-operacion#crm" },
+  { q: "¿Qué es HubSpot y cuándo tiene sentido usarlo?", a: "HubSpot incluye CRM y herramientas de ventas, marketing y servicio. Tiene sentido cuando necesitas ordenar contactos, oportunidades y seguimiento, siempre que encaje con el proceso que ya debes controlar.", href: "/guia-operacion#crm" },
+  { q: "¿Cómo usar WhatsApp Business para atender mejor a los clientes?", a: "Define qué debe pasar después de cada mensaje: quién responde, dónde se guarda la información, cuándo se crea una tarea y cuándo debe intervenir una persona.", href: "/guia-operacion#whatsapp" },
+  { q: "¿Qué es WhatsApp Business API?", a: "Permite conectar WhatsApp con otros sistemas y flujos de trabajo. Suele tener sentido cuando el volumen o la coordinación del equipo supera lo que puede manejar la aplicación normal.", href: "/guia-operacion#whatsapp" },
+  { q: "¿Qué significa workflow automation?", a: "Es automatizar pasos dentro de un flujo de trabajo, como mover datos, crear tareas o enviar avisos. Funciona mejor cuando las reglas del proceso ya están claras.", href: "/guia-operacion#procesos" },
+  { q: "¿Qué es business process management?", a: "Es entender, ordenar, medir y mejorar cómo se completa un trabajo de principio a fin. Incluye personas, decisiones, herramientas, datos y excepciones.", href: "/guia-operacion#procesos" },
+  { q: "¿Para qué sirve un business dashboard?", a: "Sirve para ver qué está pendiente, qué lleva demasiado tiempo detenido, dónde se acumula trabajo y qué necesita atención sin buscar datos en varias herramientas.", href: "/guia-operacion#dashboard" },
+  { q: "¿Qué debe tener una landing page para generar leads?", a: "Una promesa clara, una acción principal, señales de confianza y un formulario fácil. También importa el proceso posterior: respuesta, registro y seguimiento del lead.", href: "/guia-operacion#landing" },
+  { q: "¿Cómo sé si debo automatizar un proceso?", a: "Mide frecuencia, tiempo, errores, retrasos, impacto y riesgo. Después revisa la causa. La mejora puede ser automatizar, quitar un paso, aclarar una responsabilidad, ajustar un formulario o conectar herramientas.", href: "/guia-operacion#automatizar" },
+];
+
+const en = [
+  { q: "What is a CRM and what does it do for a small business?", a: "A CRM keeps contacts, opportunities, and next steps in one place. It helps when follow-up is spread across WhatsApp, email, spreadsheets, and the team's memory.", href: "/en/operations-guide#crm" },
+  { q: "How do I choose the right CRM for my business?", a: "Start with your real sales process: how a lead enters, who responds, what data gets saved, when you quote, and how follow-up works. The tool should support that flow with as little extra work as possible.", href: "/en/operations-guide#crm" },
+  { q: "What is HubSpot and when does it make sense to use it?", a: "HubSpot includes CRM, sales, marketing, and service tools. It can fit when you need to organize contacts, opportunities, and follow-up around a process you already understand.", href: "/en/operations-guide#crm" },
+  { q: "How can I use WhatsApp Business to serve customers better?", a: "Define what should happen after each message: who replies, where the information is saved, when a task is created, and when a person needs to step in.", href: "/en/operations-guide#whatsapp" },
+  { q: "What is the WhatsApp Business API?", a: "It lets WhatsApp connect with external systems and workflows. It usually makes sense when message volume or team coordination goes beyond what the standard app can handle.", href: "/en/operations-guide#whatsapp" },
+  { q: "What does workflow automation mean?", a: "It means automating steps inside a workflow, such as moving data, creating tasks, or sending alerts. It works best when the process rules are already clear.", href: "/en/operations-guide#processes" },
+  { q: "What is business process management?", a: "It is the practice of understanding, organizing, measuring, and improving how work gets completed from start to finish, including people, decisions, tools, data, and exceptions.", href: "/en/operations-guide#processes" },
+  { q: "What is a business dashboard used for?", a: "A dashboard helps you see what is pending, what has been stuck too long, where work is piling up, and what needs attention without hunting through several tools.", href: "/en/operations-guide#dashboard" },
+  { q: "What should a landing page include to generate leads?", a: "A clear promise, one main action, enough trust information, and an easy form. The response, lead capture, and follow-up process after the form matters too.", href: "/en/operations-guide#landing" },
+  { q: "How do I know if I should automate a process?", a: "Measure frequency, time, errors, delays, impact, and risk. Then look at the cause. The right improvement may be automation, removing a step, clarifying ownership, adjusting a form, or connecting tools.", href: "/en/operations-guide#automate" },
+];
+
+const items = lang === "en" ? en : es;
+const guideHref = lang === "en" ? "/en/operations-guide" : "/guia-operacion";
+const eyebrow = lang === "en" ? "COMMON QUESTIONS" : "PREGUNTAS FRECUENTES";
+const title = lang === "en" ? "Questions business owners search before they know what to fix." : "Preguntas que aparecen antes de saber qué conviene arreglar.";
+const guideLabel = lang === "en" ? "Read the full operations guide" : "Leer la guía completa de operaciones";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<section class="seo-faq section shell" id="faq">
+  <div class="section-intro">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{title}</h2>
+  </div>
+  <div class="faq-list">
+    {items.map((item) => (
+      <details>
+        <summary>{item.q}<span>+</span></summary>
+        <div class="answer">
+          <p>{item.a}</p>
+          <a href={item.href}>{lang === "en" ? "See the full explanation" : "Ver la explicación completa"} →</a>
+        </div>
+      </details>
+    ))}
+  </div>
+  <a class="guide-link" href={guideHref}>{guideLabel} →</a>
+</section>
+<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, "\\u003c")} />
+
+<style>
+  .seo-faq{padding-block:84px}.section-intro{max-width:760px;margin-bottom:34px}.eyebrow{margin:0 0 18px;color:#0052cc;font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase}.section-intro h2{font-size:clamp(30px,3.6vw,46px);line-height:1.15;letter-spacing:-.025em;margin:0}.faq-list{display:grid;gap:12px;max-width:900px}.faq-list details{border:1px solid #dfe5ee;border-radius:14px;background:#fff;padding:0 20px}.faq-list summary{cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:19px 0;font-weight:700;line-height:1.45}.faq-list summary span{color:#0052cc}.answer{padding:0 0 20px}.answer p{margin:0 0 12px;color:#45546d;line-height:1.7}.answer a,.guide-link{color:#0052cc;font-weight:700}.guide-link{display:inline-block;margin-top:24px}@media(max-width:640px){.seo-faq{padding-block:60px}.faq-list details{padding-inline:16px}}
+</style>
