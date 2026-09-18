@@ -21,9 +21,15 @@ export interface SupabaseEnv {
 /**
  * Lee la configuración del entorno.
  *
- * En Cloudflare las variables de runtime llegan por `locals.runtime.env`, no
- * por `import.meta.env` (que se resuelve en build). Se aceptan ambas para que
+ * En Cloudflare las variables de runtime llegan por `import { env } from
+ * "cloudflare:workers"` (cada caller la importa e inyecta acá; este archivo
+ * no depende de esa API para seguir siendo portable), no por
+ * `import.meta.env` (que se resuelve en build). Se aceptan ambas para que
  * `astro dev` funcione con un `.env` local.
+ *
+ * `Astro.locals.runtime.env` — la forma vieja, de Astro <6 — ya no existe: el
+ * adaptador lanza en cuanto se la toca. Si esto vuelve a fallar con "removed
+ * in Astro v6", es porque algún caller quedó sin migrar a `cloudflare:workers`.
  *
  * Devuelve null si falta configuración, en vez de lanzar: el portal muestra
  * entonces una pantalla honesta de "no configurado" y el sitio público sigue
