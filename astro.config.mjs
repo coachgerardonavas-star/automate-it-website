@@ -11,6 +11,12 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: "passthrough",
   }),
+  // Sin esto, @astrojs/cloudflare 14 provisiona automáticamente un binding de
+  // KV llamado SESSION para Astro.session — una API que este proyecto no usa
+  // (el portal maneja su propia sesión por cookies contra Supabase). Ese KV
+  // se genera sin un `id` de namespace real, y Cloudflare Pages rechaza
+  // cualquier kv_namespaces sin id al validar el wrangler.json redirigido.
+  session: false,
   integrations: [
     react(),
     markdoc(),
