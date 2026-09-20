@@ -456,6 +456,10 @@ export const translations = {
       pageDescription:
         "Ideas concretas para dueños de negocios que quieren recuperar su tiempo.",
       eyebrow: "Blog",
+      // Encabezado del bloque de artículos relacionados al final de cada
+      // entrada. Ese bloque existe para enlazar los artículos entre sí: sin él
+      // cada uno era una isla y el blog valía menos que la suma de sus partes.
+      relatedTitle: "Sigue leyendo",
       heading: "Pensamientos sobre automatización",
       subheading:
         "Cómo usar la IA en tu negocio, explicado simple y en 5 minutos. Sin hacerte sentir tonto por preguntar.",
@@ -710,6 +714,12 @@ export const translations = {
         { label: "Quiénes somos", href: "/quienes-somos" },
         { label: "Diagnóstico", href: "/diagnostico" },
         { label: "Blog", href: "/blog" },
+        // Páginas por industria. Van en el pie para que existan enlaces
+        // internos hacia ellas desde todo el sitio: una página a la que no
+        // apunta nada se rastrea tarde y mal. Solo en el pie español: son
+        // páginas que solo existen en español.
+        { label: "Para empresas de HVAC", href: "/automatizacion/hvac-orlando" },
+        { label: "Para plomeros", href: "/automatizacion/plomeria-orlando" },
         { label: "Privacidad", href: "/privacy-policy" },
         { label: "Términos", href: "/terms" },
       ],
@@ -1167,6 +1177,7 @@ export const translations = {
       pageDescription:
         "Concrete ideas for business owners who want to reclaim their time.",
       eyebrow: "Blog",
+      relatedTitle: "Keep reading",
       heading: "Thoughts on automation",
       subheading:
         "How to use AI in your business, explained simply in 5 minutes — without making you feel dumb for asking.",

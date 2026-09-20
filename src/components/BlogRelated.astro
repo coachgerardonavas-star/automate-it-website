@@ -1,0 +1,98 @@
+---
+/**
+ * "Sigue leyendo": tres artículos relacionados al final de cada entrada.
+ *
+ * Existe por una razón de posicionamiento, no decorativa. Los 25 artículos del
+ * blog no se enlazaban entre sí: cada uno apuntaba al diagnóstico y a nada más.
+ * Para un buscador eso son 25 páginas sueltas en vez de un cuerpo de contenido
+ * sobre un tema, y el conjunto vale menos que la suma de sus partes.
+ *
+ * **Cómo se decide qué está relacionado.** Por etiquetas compartidas, pero
+ * pesando cada una por lo rara que sea. Esto importa: `florida` aparece en 20
+ * de 25 artículos y `automatizacion` en 16, así que tratarlas igual que
+ * `no-shows` o `snowbirds-florida` haría que todo estuviera relacionado con
+ * todo, que es lo mismo que nada. Una etiqueta que comparten dos artículos pesa
+ * diez veces más que una que comparten veinte.
+ *
+ * Si dos artículos empatan, gana el más reciente.
+ */
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { Lang } from "../i18n/translations";
+import { translations } from "../i18n/translations";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  lang: Lang;
+}
+
+const { post, lang } = Astro.props;
+const t = translations[lang].blog;
+const blogBase = lang === "en" ? "/en/blog" : "/blog";
+
+const all = await getCollection(
+  "blog",
+  ({ data }: CollectionEntry<"blog">) => data.lang === lang && !data.draft
+);
+
+// Cuántas veces aparece cada etiqueta en todo el blog de este idioma.
+const tagFrequency = new Map<string, number>();
+for (const entry of all) {
+  for (const tag of entry.data.tags) {
+    tagFrequency.set(tag, (tagFrequency.get(tag) ?? 0) + 1);
+  }
+}
+
+const currentTags = new Set(post.data.tags);
+
+const related = all
+  .filter((entry) => entry.slug !== post.slug)
+  .map((entry) => {
+    let score = 0;
+    for (const tag of entry.data.tags) {
+      if (!currentTags.has(tag)) continue;
+      // Inverso de la frecuencia: lo raro identifica un tema, lo común no.
+      score += 1 / (tagFrequency.get(tag) ?? 1);
+    }
+    return { entry, score };
+  })
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return b.entry.data.pubDate.getTime() - a.entry.data.pubDate.getTime();
+  })
+  .slice(0, 3)
+  .map(({ entry }) => entry);
+---
+
+{
+  related.length > 0 && (
+    <nav
+      class="max-w-3xl mx-auto px-5 lg:px-8 pb-16 sm:pb-24"
+      aria-labelledby="sigue-leyendo"
+    >
+      <h2
+        id="sigue-leyendo"
+        class="font-heading text-xl sm:text-2xl mb-6 pt-10 border-t border-[var(--color-border)]"
+      >
+        {t.relatedTitle}
+      </h2>
+      <ul class="grid gap-4 sm:grid-cols-3">
+        {related.map((entry) => (
+          <li>
+            <a
+              href={`${blogBase}/${entry.slug}/`}
+              class="group block h-full rounded-lg border border-[var(--color-border)] p-4 transition-colors duration-200 hover:border-[var(--color-cyan)]"
+            >
+              <span class="block font-semibold text-sm leading-snug group-hover:text-[var(--color-blue)]">
+                {entry.data.title}
+              </span>
+              <span class="mt-2 block text-xs text-[var(--color-text-secondary)] line-clamp-3">
+                {entry.data.description}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}

@@ -88,9 +88,9 @@ También dejé puesto un chequeo automático que avisa si vuelve a aparecer un e
 - **El sitio en inglés:** congelado por ahora.
 - **Titulares del blog:** se acortan solo para Google, el artículo no se toca.
 - **Tamaño de cliente:** sin límite. Lo decides caso por caso, no por número de empleados.
-- **Responsable del sistema en el cliente:** se acuerda hablando, no va en el contrato.
+- **Responsable del sistema en el cliente:** su nombre queda en el acta de entrega que firma el cliente. No complica el contrato y aun así queda por escrito.
 
-> Sobre esta última: es tu decisión y la respeto, pero te dejo el riesgo por escrito una sola vez. Tus manuales dicen que cuando nadie del lado del cliente se hace cargo del sistema, el cliente cancela a los pocos meses — y no porque el sistema falle, sino porque nadie lo usó lo suficiente para notar que servía. Si lo acuerdas hablando, apunta el nombre de esa persona en tus notas igual. Cuando desaparezca, vas a querer tener a quién señalar.
+> Sobre esta última: quedó en el punto medio y me parece la mejor de las tres. Vendes sin meterle una cláusula más al contrato, y aun así el día de la entrega hay un papel firmado con un nombre. Tus manuales dicen que cuando nadie del lado del cliente se hace cargo, el proyecto se muere a los pocos meses — y no porque falle, sino porque nadie lo usó lo suficiente para notar que servía. Ese nombre es tu seguro.
 
 ---
 
@@ -104,4 +104,8 @@ No puedo editarlos yo desde aquí. Es copiar y pegar:
 
 **2. En `Manual_de_Adopcion.md`, sección 10**, en el pendiente del responsable interno, reemplázalo por:
 
-> Resuelto el 20-sep-2026: el responsable interno **no** entra como cláusula contractual. Se acuerda verbalmente en el diagnóstico y se registra su nombre en las notas del cliente.
+> Resuelto el 20-sep-2026: el responsable interno **no** entra como cláusula del SOW. Se nombra en el **Acta de Aceptación y Go-Live**, que el cliente firma al entregar el sistema. El SOW no se complica y el nombre queda por escrito igual.
+
+**Y en el Acta de Aceptación y Go-Live**, agrega esta línea:
+
+> **Responsable interno del sistema:** ______________________ (nombre y cargo). Es la persona del cliente que queda a cargo del uso diario del sistema y el primer punto de contacto de su equipo. No es soporte técnico ni responsable de reparar nada.

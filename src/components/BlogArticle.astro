@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { translations, type Lang } from "../i18n/translations";
 import { jsonLd } from "../lib/jsonld";
+import BlogRelated from "./BlogRelated.astro";
 
 interface Props {
   lang?: Lang;
@@ -130,6 +131,8 @@ const { Content } = await post.render();
     </div>
   </div>
 </article>
+
+<BlogRelated post={post} lang={lang} />
 
 <style>
   .prose-blog {
