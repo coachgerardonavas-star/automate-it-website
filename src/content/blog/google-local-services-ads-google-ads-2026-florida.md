@@ -1,5 +1,6 @@
 ---
 title: "Google migra los Local Services Ads a Google Ads en agosto 2026: lo que cambia para negocios de servicios en Florida"
+seoTitle: "Local Services Ads pasan a Google Ads: qué cambia"
 description: "Google está moviendo los Local Services Ads a su plataforma principal en agosto de 2026, empezando con HVAC, plomería, limpieza y lawn care. Si pagas por leads en Florida, esto cambia cómo compites — y qué tan caro sale no contestar a tiempo."
 pubDate: 2026-08-17
 lang: es

@@ -1,5 +1,6 @@
 ---
 title: "Por qué el snowbird se va en abril y tu caja lo siente en mayo: estacionalidad de negocios en Florida"
+seoTitle: "El snowbird se va en abril y tu caja lo siente en mayo"
 description: "Los snowbirds representan un 5% más de población en Florida. Cuando se van entre abril y mayo, muchos negocios hispanos enfrentan el golpe de caja más duro del año."
 pubDate: 2026-06-01
 lang: es

@@ -1,0 +1,165 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { jsonLd } from "../../lib/jsonld";
+import { verticales, type Vertical } from "../../data/verticales";
+
+/**
+ * Páginas por industria. El contenido vive en `src/data/verticales.ts`; esta
+ * plantilla solo lo maqueta. Añadir una industria es escribir datos, no código.
+ *
+ * Solo en español: ver la regla de congelación del inglés en `CLAUDE.md`. Por
+ * eso `BaseLayout` no recibirá un par de `hreflang` — `alternates.ts` no tiene
+ * entrada para estas rutas, así que no se declara traducción, que es lo
+ * correcto cuando no existe.
+ */
+export async function getStaticPaths() {
+  return verticales.map((v) => ({
+    params: { vertical: v.slug },
+    props: { v },
+  }));
+}
+
+interface Props {
+  v: Vertical;
+}
+
+const { v } = Astro.props;
+const canonical = `https://yourbizupgraded.com/automatizacion/${v.slug}/`;
+
+const orgRef = { "@id": "https://yourbizupgraded.com/#organization" };
+
+// El servicio cuelga de la organización por `@id` en vez de declarar una
+// entidad nueva: si no, cada página de industria crearía un "negocio" distinto
+// a ojos del buscador.
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: v.servicio,
+  description: v.descripcion,
+  provider: orgRef,
+  areaServed: [
+    { "@type": "City", name: "Orlando" },
+    { "@type": "State", name: "Florida" },
+  ],
+  serviceType: "Business Process Improvement",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Inicio",
+      item: "https://yourbizupgraded.com/",
+    },
+    { "@type": "ListItem", position: 2, name: v.titulo, item: canonical },
+  ],
+};
+---
+
+<BaseLayout lang="es" title={v.seoTitle} description={v.descripcion}>
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={jsonLd(serviceSchema)}
+  />
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={jsonLd(breadcrumbSchema)}
+  />
+
+  <Nav lang="es" />
+
+  <main>
+    <article class="py-16 sm:py-24">
+      <div class="max-w-3xl mx-auto px-5 lg:px-8">
+        <p
+          class="text-xs tracking-[0.28em] uppercase text-[var(--color-blue)] mb-4 font-semibold"
+        >
+          Central Florida
+        </p>
+        <h1 class="font-heading text-3xl sm:text-5xl leading-tight mb-6">
+          {v.titulo}
+        </h1>
+        <p class="text-lg leading-relaxed text-[var(--color-text-secondary)] mb-10">
+          {v.intro}
+        </p>
+
+        <a
+          href="/diagnostico"
+          class="inline-block rounded-md bg-[var(--color-blue)] text-white px-6 py-3 font-semibold transition-colors duration-200 hover:bg-[var(--color-navy)]"
+        >
+          Ver dónde se traba mi operación
+        </a>
+        <p class="text-sm text-[var(--color-text-muted)] mt-3">
+          Diagnóstico sin costo · Te llevas el mapa aunque no contrates
+        </p>
+
+        <section class="mt-16">
+          <h2 class="font-heading text-2xl sm:text-3xl mb-8">
+            Dónde se suele trabar
+          </h2>
+          <div class="space-y-8">
+            {
+              v.fricciones.map((f) => (
+                <div class="border-l-2 border-[var(--color-cyan)] pl-5">
+                  <h3 class="font-semibold mb-2">{f.titulo}</h3>
+                  <p class="text-[var(--color-text-secondary)] leading-relaxed">
+                    {f.cuerpo}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class="mt-16">
+          <h2 class="font-heading text-2xl sm:text-3xl mb-8">
+            Qué se puede construir
+          </h2>
+          <div class="space-y-8">
+            {
+              v.mecanismos.map((m) => (
+                <div>
+                  <h3 class="font-semibold mb-2">{m.titulo}</h3>
+                  <p class="text-[var(--color-text-secondary)] leading-relaxed">
+                    {m.cuerpo}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class="mt-16 rounded-lg border border-[var(--color-border)] p-6">
+          <h2 class="font-heading text-xl mb-3">Lo que no hacemos</h2>
+          <p class="text-[var(--color-text-secondary)] leading-relaxed">
+            {v.limites}
+          </p>
+        </section>
+
+        <section class="mt-16 pt-10 border-t border-[var(--color-border)]">
+          <h2 class="font-heading text-2xl sm:text-3xl mb-4">
+            Cómo empieza
+          </h2>
+          <p class="text-[var(--color-text-secondary)] leading-relaxed mb-8">
+            {v.cierre}
+          </p>
+          <a
+            href="/diagnostico"
+            class="inline-block rounded-md bg-[var(--color-blue)] text-white px-6 py-3 font-semibold transition-colors duration-200 hover:bg-[var(--color-navy)]"
+          >
+            Empezar el diagnóstico
+          </a>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <Footer lang="es" />
+</BaseLayout>

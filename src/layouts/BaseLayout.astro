@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { translations, type Lang } from "../i18n/translations";
+import { getAlternates } from "../i18n/alternates";
 import { jsonLd } from "../lib/jsonld";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
 import {
@@ -35,6 +36,13 @@ const htmlLang = lang === "en" ? "en" : "es";
 const enableGA = analytics && isGAEnabled();
 const enableSC = isSearchConsoleEnabled();
 const canonicalUrl = Astro.url.href;
+// Los `hreflang` salen de la tabla de equivalencias reales, no de asumir que
+// toda página en español tiene gemela en inglés en la misma ruta. Si no hay
+// contraparte declarada, no se emite ninguno: un alternate que apunta a una
+// página que no es la traducción se ignora y arrastra a los demás con él.
+// En una página `noindex` tampoco se emite, por la misma razón que no se emite
+// canonical: no participa en la indexación, así que no tiene nada que declarar.
+const alternates = noindex ? null : getAlternates(Astro.url.pathname);
 // Lockup sobre fondo blanco sólido: las redes sociales componen la imagen de
 // Open Graph sobre fondos impredecibles, así que aquí no sirve transparencia.
 const ogImageUrl = "https://yourbizupgraded.com/assets/logo-og.png";
@@ -55,7 +63,7 @@ const organizationSchema = {
   image: ogImageUrl,
   description: pageDescription,
   email: "automateit@yourbizupgraded.com",
-  telephone: "+1-407-214-5114",
+  telephone: "+1-407-404-9495",
   // Negocio de área de servicio: se declara la ciudad sede sin dirección de
   // calle, que es el patrón que Google espera cuando no hay local al público.
   address: {
@@ -131,21 +139,27 @@ const websiteSchema = {
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-    <link
-      rel="alternate"
-      hreflang="es"
-      href={new URL("/", Astro.site).toString()}
-    />
-    <link
-      rel="alternate"
-      hreflang="en"
-      href={new URL("/en/", Astro.site).toString()}
-    />
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href={new URL("/", Astro.site).toString()}
-    />
+    {
+      alternates && (
+        <>
+          <link
+            rel="alternate"
+            hreflang="es"
+            href={new URL(alternates.es, Astro.site).toString()}
+          />
+          <link
+            rel="alternate"
+            hreflang="en"
+            href={new URL(alternates.en, Astro.site).toString()}
+          />
+          <link
+            rel="alternate"
+            hreflang="x-default"
+            href={new URL(alternates.es, Astro.site).toString()}
+          />
+        </>
+      )
+    }
 
     {
       enableGA && (

@@ -1,5 +1,6 @@
 ---
 title: "Cuantas horas a la semana gastas contestando mensajes y llamadas — y cuanto vale ese tiempo"
+seoTitle: "Cuántas horas pierdes contestando y cuánto valen"
 description: "El dueno promedio de un negocio de servicios en Florida gasta entre 10 y 15 horas semanales en comunicacion con clientes. Si cobras $75 la hora por tu servicio, eso son entre $750 y $1,125 de tiempo tuyo que no aparece en ningun reporte de perdidas."
 pubDate: 2026-06-29
 lang: es

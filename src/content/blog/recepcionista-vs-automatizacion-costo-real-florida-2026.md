@@ -1,5 +1,6 @@
 ---
 title: "Recepcionista vs. automatización: el costo real para negocios de servicios en Florida en 2026"
+seoTitle: "Recepcionista vs. automatización: el costo real"
 description: "El salario de un recepcionista en Florida promedia $39,000 al año. El costo real, con impuestos, beneficios y rotación, llega a entre $56,000 y $65,000. Aquí está el desglose completo y lo que cuesta la alternativa."
 pubDate: 2026-08-11
 lang: es

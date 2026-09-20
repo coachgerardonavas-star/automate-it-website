@@ -1,5 +1,6 @@
 ---
 title: "El seguimiento que nunca haces: por que el 80% de los prospectos se pierde despues del primer contacto"
+seoTitle: "El 80% de los prospectos se pierde sin seguimiento"
 description: "El 80% de las ventas en negocios de servicios requiere cinco o mas contactos con el prospecto. El 44% de los duenos de negocio se rinde despues del primero. Aqui esta la logica detras del gap y como un sistema automatizado cierra esa brecha sin que tengas que recordarlo tu."
 pubDate: 2026-08-03
 lang: "es"

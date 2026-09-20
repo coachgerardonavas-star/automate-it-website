@@ -23,7 +23,17 @@ interface Props {
 
 const { post } = Astro.props;
 const lang = "es";
-const title = `${post.data.title} · Automate IT`;
+// El buscador corta el título alrededor de los 60 caracteres. Si el titular
+// del artículo ya llega solo, añadirle "· Automate IT" solo consigue que se
+// corte el final del titular, que es lo que importa. La marca ya viaja en el
+// dominio y en el schema.
+const BRAND_SUFFIX = " · Automate IT";
+// `seoTitle` es la versión corta para el buscador; si no existe, se usa el
+// titular del artículo. En cualquier caso, solo se añade el sufijo de marca
+// cuando cabe: si no, lo único que consigue es que se corte el final.
+const base = post.data.seoTitle ?? post.data.title;
+const title =
+  base.length + BRAND_SUFFIX.length > 60 ? base : `${base}${BRAND_SUFFIX}`;
 const description = post.data.description;
 ---
 

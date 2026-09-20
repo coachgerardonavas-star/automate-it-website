@@ -1,5 +1,6 @@
 ---
 title: "Cómo aparecer cuando alguien busca tu servicio en ChatGPT o Google en 2026"
+seoTitle: "Cómo aparecer cuando te buscan en ChatGPT o Google"
 description: "El 45% de los consumidores ya usa IA para encontrar negocios locales, pero solo el 1.2% de los negocios aparece en esas respuestas. Aquí están los cuatro factores que determinan quién aparece — y qué puedes hacer esta semana."
 pubDate: 2026-07-06
 lang: es

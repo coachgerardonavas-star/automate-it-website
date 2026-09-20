@@ -1,7 +1,7 @@
 # CLAUDE.md — automate-it-website
 
 ## Proyecto
-Sitio web one-page en Astro de Automate IT (yourbizupgraded.com): genera leads orgánicos de dueños de pequeños negocios hispanos en Florida para el servicio de recepción/comunicación automatizada con IA. Bilingüe ES/EN, sin scroll cinematográfico, foco en claridad, performance y deploy continuo.
+Sitio web one-page en Astro de Automate IT (yourbizupgraded.com): genera leads orgánicos de dueños de pequeños y medianos negocios (foco de mensaje: hispanos en Florida) para servicios de mejora operativa: entender la operación, encontrar dónde se pierde tiempo, información o dinero, y construir la mejora. La solución puede ser automatización, integración, simplificación de proceso, captura de datos, reporting o dashboard. **La IA es capacidad de entrega, no el posicionamiento** (Manual Maestro §2). Bilingüe ES/EN, sin scroll cinematográfico, foco en claridad, performance y deploy continuo.
 
 ## Stack
 - **Framework:** Astro `^4.16.0` (Astro 4.x) vía `@astrojs/cloudflare` 11.2.0
@@ -37,7 +37,9 @@ Definidos en `package.json` (todos vía Astro CLI):
 
 ## Reglas de i18n
 - Todo el copy del sitio vive en `src/i18n/translations.ts`.
-- Siempre actualizar ES y EN juntos — nunca uno solo.
+- **El copy de interfaz se actualiza en ES y EN juntos — nunca uno solo.** Esto no cambió.
+- 🧊 **El blog en inglés está congelado desde el 20-sep-2026** (decisión del CEO). Había 24 artículos en español contra 1 en inglés, y sostener la paridad costaba trabajo en cada cambio sin tráfico que lo justificara. Los artículos nuevos van **solo en español**. Las páginas principales en inglés (`/en/`, `/en/diagnostic`, `/en/about`, legales) se mantienen: sirven a quien llegue en inglés, y `Perfil_de_Cliente_Ideal.md` §6 prohíbe que el idioma sea un filtro. Descongelarlo es decisión del CEO.
+- **Al traducir una página nueva, agregar el par en `src/i18n/alternates.ts`.** Esa tabla alimenta los `hreflang` y el selector de idioma. Si el par no está, la página no declara traducción y el selector lleva al home del otro idioma — que es lo correcto, pero no es lo que quieres si la traducción sí existe.
 - Nunca editar archivos compilados (`dist/`, `.astro/`) directamente.
 - Componentes reciben `lang` prop (default `"es"`). ES en root, EN bajo `/en/`.
 
@@ -72,13 +74,15 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - **Jotform está descartado como herramienta.** Su API no escribe condiciones ni propiedades de preguntas — devuelve `200` y descarta en silencio. El formulario `262096329984067` quedó archivado (no borrado). Todo formulario nuevo se construye en el sitio.
 - **HubSpot: usar la CRM API, no Forms API v3.** Forms v3 descarta sin avisar cualquier campo que no esté definido en el formulario (verificado: `firstname` entró, `message` no, ambos con `200`). La CRM API falla ruidosamente.
 - **Frase PROHIBIDA en todo copy: "sin humo"** (ej. "IA sin humo"). No usarla nunca en ningún archivo de este repo (copy, componentes, blog, workers, manuales).
-- **El Manual Maestro vigente es `MANUAL_MAESTRO_v4_9.md`** (en este repo).
+- ⚠️ **El Manual Maestro vigente NO está en este repo.** Es `MANUAL_MAESTRO.md` (v7.2, 11-sep-2026) en la carpeta **ADN** de Google Drive. El `MANUAL_MAESTRO_v4_9.md` de este repo es de julio-2026 y quedó atrás: describe un modelo comercial por plataforma de voz (Retell/VoiceAIWrapper según número de clientes) que ya no aplica, y posiciona la IA como el producto. El manual vigente dice lo contrario: **"AI es una capacidad de delivery, no el producto ni el posicionamiento"**. Leer Drive antes de tomar cualquier decisión de mensaje, precio o alcance.
+- **Jerarquía de fuentes de verdad (Manual Maestro §6, todas en ADN/Drive):** mensaje y claims → `BrandScript_Automate_IT.md` · identidad → `Quienes_Somos.md` · a quién se le vende → `Perfil_de_Cliente_Ideal.md` · precios y SOW → `Manual_de_Pricing.md` · diagnóstico → `Protocolo_Diagnostico.md` · diseño de la intervención → `Arquitectura_de_Intervencion.md` · adopción → `Manual_de_Adopcion.md` · continuidad → `Ritual_de_Continuidad.md` · sitio → `WEBSITE_BRIEF.md`.
+- **Una sola versión vigente por manual (Manual Maestro §7.1-§7.2).** En ADN no se crean adendas, parches ni copias `v2/v3`: se edita el manual vigente en su sitio. Los nombres con número de versión que hay en este repo son copias históricas, no la fuente.
 - **El Manual de Instagram vigente es `Manual_Instagram_Automate_IT_v2_7.md`** (en el repo `automate-it`, NO en este).
 - ⚠️ **IntersectionObserver:** el observer que activa **todas** las animaciones `.reveal-on-scroll` vive dentro de `SeccionDolor.astro`. Si ese componente se elimina, mueve o condiciona su render, **todas** las animaciones de reveal dejan de funcionar. Antes de tocarlo, mover primero el observer a `BaseLayout.astro`.
 
 ## Documentos de referencia en este repo
-- `MANUAL_MAESTRO_v4_9.md` — Manual Maestro del sistema multi-agente (vigente).
-- `BrandScript_Automate_IT_v1_1.md` — BrandScript de marca (vigente).
+- `MANUAL_MAESTRO_v4_9.md` — copia histórica (julio-2026). **NO es el vigente**: el vigente es `MANUAL_MAESTRO.md` v7.2 en ADN/Drive. Se conserva por trazabilidad.
+- `BrandScript_Automate_IT_v1_1.md` — copia en repo. La fuente vigente es `BrandScript_Automate_IT.md` en ADN/Drive.
 - `Manual_de_Marca_v2_5.docx` — manual de marca visual/verbal (vigente).
 - `Quienes_Somos_v2_9.docx` — documento de identidad corporativa (vigente).
 - `WEBSITE_BRIEF.md` — brief del sitio web (fuente de verdad de diseño/mensaje).
@@ -99,6 +103,9 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - **Worker `stripe-checkout-automate`** — pagos Stripe.
 - **Google Analytics 4** — `G-PCJWLQ97K6` en `src/config/site.ts` (propiedad del CEO; reemplazó a la vieja `G-82JWGNDTLG` el 23-jul-2026 — esa propiedad ya no recibe nada). Eventos de conversión vía `window.trackEvent()`, definido en `BaseLayout.astro`.
 - **Telegram interno** — Chat ID `8348522203`.
+- 👥 **Sin techo de tamaño de cliente** (decisión del CEO, 20-sep-2026). No se rechaza un negocio por número de empleados: el filtro es la fricción real y el impacto potencial (`Perfil_de_Cliente_Ideal.md` §3-§4). Cierra el pendiente que §8 de ese manual dejaba abierto.
+- 🤝 **El responsable interno va en el acta de entrega, no en el SOW** (decisión del CEO, 20-sep-2026, revisada el mismo día). El contrato no se complica, pero al entregar el sistema el cliente firma el acta con el nombre de la persona que queda a cargo. Cierra el pendiente de `Manual_de_Adopcion.md` §10. El acta ya existe: `Automate IT — Acta de Aceptación y Go-Live` en Drive.
+- ☎️ **Teléfono público único: (407) 404-9495** (decisión del CEO, 20-sep-2026). El mismo número para llamadas, WhatsApp, el sitio, el schema `ProfessionalService` y la ficha de Google. Antes convivía con el (407) 214-5114, que ya no se usa en ninguna parte. El SEO local exige que nombre, dirección y teléfono sean idénticos en todos lados: si este número cambia, cambia en los cinco sitios a la vez.
 
 ## Oferta "Consultoría de Negocios para Emprendedores" (creada 30-jul-2026)
 Entrada post-venta para emprendedores y creadores. Precio de lista $500 como anclaje; se entrega **gratis** con el código promocional `NEGOCIOS` (100%).
@@ -159,10 +166,32 @@ Reglas estrictas del verde lima `#AADD00`: solo en estados "En vivo", "Activo", 
 9. **CTA final** (`#cta-form`).
 10. **Footer** — email, switcher de idioma, links legales (noindex hasta revisión legal).
 
-### Catálogo — plan base + módulos de canal (fuente de verdad: el sitio en vivo)
-- **Planes base:** Starter $99/mes (setup $199, sin HIPAA) · Professional $179/mes (setup $349, salud HIPAA).
-- **Módulos** (cada uno 300 min/mensajes/mes): Voz (Retell) +$149 · WhatsApp +$99 · Messenger/Web chat +$79 (no recomendado con Professional) · CRM & Leads +$99.
-- **Ejemplos:** Solo WhatsApp $198/mes · Voz HIPAA $328/mes · Voz+WhatsApp+CRM $446/mes · Clínica HIPAA Voz+WhatsApp+CRM $526/mes.
+### Catálogo — tres planes (fuente de verdad: `Manual_de_Pricing.md` en ADN/Drive)
+> ⚠️ Hasta el 20-sep-2026 esta sección describía un catálogo muerto (Starter $99/mes, Professional $179/mes y módulos de canal Voz/WhatsApp/Messenger/CRM). Ese catálogo no existe. Si algún archivo del repo todavía lo menciona, está desactualizado.
+
+| Plan | La frase | Incorporación | Mensual |
+|---|---|---|---|
+| **Asistente** | Hace por ti. | $1,000 | $200/mes |
+| **Estratega** | Piensa contigo. | $2,000 | $400/mes |
+| **Manager** | Coordina para ti. | $3,000 | $600/mes |
+
+- **Regla mnemotécnica:** la mensualidad es siempre el 20% de la incorporación. Cada escalón sube +$1,000 de instalación y +$200 de mensualidad.
+- **Compra sin mensualidad:** Asistente $2,500 · Estratega $5,000 · Manager $7,500. Deliberadamente por encima de incorporación + 3 meses.
+- **Condiciones:** 50% al firmar · 50% al pasar la Revisión de Aceptación · primera mensualidad a los 30 días del arranque · compromiso mínimo 3 meses · garantía 7 días o hasta el arranque en vivo.
+- **El plan no es el SOW.** El plan fija el nivel de intervención; el SOW fija el trabajo exacto. Nada es exigible hasta estar en el SOW firmado.
+- **El sitio ya no vende por autoservicio.** El CTA de cada plan lleva al diagnóstico (ver `SeccionServicios.astro`).
+- **Precios en el sitio:** `translations.ts` → `servicios.plans`. ES y EN juntos, siempre.
+
+### Ofertas de entrada — una sola puerta por prospecto, elegida por origen
+| Puerta | Precio | Para quién |
+|---|---|---|
+| Diagnóstico | $0 | Inbound tibio del sitio (`/diagnostico`) |
+| Radiografía de tu Operación | $1 | Frío, outreach (`/ia` — `noindex`, sin enlaces internos: solo funciona si mandas el link) |
+| Consultoría para Emprendedores | $500 de lista, gratis con código `NEGOCIOS` | Emprendedores y creadores (`/consultoria`) |
+
+Nunca dos puertas al mismo prospecto. Nunca ofrecer la de $1 después de haber ofrecido la gratis.
+
+> **`/empresas` se retiró el 20-sep-2026** (decisión del CEO). Publicaba "La Memoria Operativa", que `Manual_de_Pricing.md` §5 define como catálogo cerrado y cuyo canal, según `Perfil_de_Cliente_Ideal.md` §7, es "LinkedIn, referidos, outreach — **nunca** por la home". La ruta redirige 301 al home (`astro.config.mjs`). No volver a publicar esa oferta en el sitio sin que el CEO lo diga.
 
 ## BIT — Mascota / copiloto
 - Nav: avatar 28px con tooltip "Hola, soy BIT". Hero: avatar 36px + "Conoce a BIT…". Chatbot widget flotante (bottom-right).

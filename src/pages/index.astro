@@ -2,11 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Home2026 from "../components/Home2026.astro";
 import SeoFaq from "../components/SeoFaq.astro";
+import { translations } from "../i18n/translations";
 
 const lang = "es";
+const t = translations[lang];
 ---
 
-<BaseLayout lang={lang}>
+<BaseLayout lang={lang} title={t.homeTitle} description={t.homeDescription}>
   <div class="home-with-seo-faq">
     <Home2026 lang={lang} />
     <SeoFaq lang={lang} />

@@ -1,5 +1,6 @@
 ---
 title: "Temporada de huracanes: el sistema automatico sigue contestando aunque el local este cerrado"
+seoTitle: "Temporada de huracanes: quién contesta si cierras"
 description: "El 40% de los negocios no reabre tras un desastre (FEMA). En Florida, la diferencia entre retener y perder clientes durante un huracan no es el seguro — es si alguien contesto el telefono mientras estabas cerrado."
 pubDate: 2026-07-13
 lang: es

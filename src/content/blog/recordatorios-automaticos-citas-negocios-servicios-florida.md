@@ -1,5 +1,6 @@
 ---
 title: "No-shows: cuanto te cuesta cada cita que nadie llega a cumplir"
+seoTitle: "No-shows: cuánto te cuesta cada cita que nadie cumple"
 description: "El 23% de las citas en negocios de servicios termina en no-show. A $200 por slot vacio, un salon de belleza con 25 citas semanales pierde mas de $31,000 al ano. Los recordatorios automaticos reducen esa tasa por debajo del 5%."
 pubDate: 2026-06-22
 lang: es

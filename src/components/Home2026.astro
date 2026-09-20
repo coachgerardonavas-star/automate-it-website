@@ -130,7 +130,7 @@ const pageCopy = lang === "en"
   <section class="final-cta"><div class="shell"><p class="eyebrow">{t.final.eyebrow}</p><h2>{t.final.title}</h2><p>{t.final.body}</p><a class="button light" href={diagnostic}>{t.final.cta}<span>→</span></a></div></section>
 </main>
 
-<footer><div class="shell footer-inner"><div><img src="/assets/logo-lockup-light.webp" width="1084" height="246" alt="Automate IT"/><p>{t.footer.line}</p></div><div class="footer-links"><a href={`${root}/blog`}>{t.nav.blog}</a><a href={`${root}/privacidad`}>{t.footer.privacy}</a><a href={`${root}/terminos`}>{t.footer.terms}</a></div><p class="copyright">© {new Date().getFullYear()} {t.footer.rights}</p></div></footer>
+<footer><div class="shell footer-inner"><div><img src="/assets/logo-lockup-light.webp" width="1084" height="246" alt="Automate IT"/><p>{t.footer.line}</p></div><div class="footer-links"><a href={`${root}/blog`}>{t.nav.blog}</a><a href={t.footer.privacyHref}>{t.footer.privacy}</a><a href={t.footer.termsHref}>{t.footer.terms}</a></div><p class="copyright">© {new Date().getFullYear()} {t.footer.rights}</p></div></footer>
 
 <style>
   :global(body){background:#fff;background-image:none;color:#0a0e1a}

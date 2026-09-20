@@ -8,6 +8,15 @@ export const translations = {
     siteDescription:
       "Conectamos tus herramientas y construimos sistemas de trabajo que reducen tareas manuales, errores y seguimientos pendientes.",
 
+    // Título y descripción propios del home. `siteTitle` es el nombre de la
+    // marca y sirve de respaldo para cualquier página sin título; el home
+    // necesita además decir qué se hace y dónde, porque es la etiqueta que más
+    // pesa para un buscador. Sin "IA" a propósito: es una capacidad de entrega,
+    // no el posicionamiento (Manual Maestro §2).
+    homeTitle: "Automatización de procesos en Orlando | Automate IT",
+    homeDescription:
+      "Revisamos cómo fluye el trabajo en tu negocio, encontramos dónde se pierde tiempo o información y construimos la mejora. Diagnóstico sin costo.",
+
     home2026: {
       nav: { how: "Cómo funciona", plans: "Planes", about: "Quiénes somos", blog: "Blog", diagnostic: "Diagnóstico" },
       hero: {
@@ -120,7 +129,11 @@ export const translations = {
         ],
       },
       final: { eyebrow: "PRIMER PASO", title: "Encuentra el punto que más tiempo le está costando a tu negocio.", body: "Cuéntanos cómo funciona hoy tu operación. Te ayudaremos a identificar una mejora concreta por donde comenzar.", cta: "Comenzar diagnóstico" },
-      footer: { line: "Sistemas prácticos para operaciones más claras.", privacy: "Privacidad", terms: "Términos", rights: "Automate IT LLC. Todos los derechos reservados." },
+      // Las rutas legales van aquí y no hardcodeadas en el componente: el
+      // footer del home apuntaba a `/privacidad` y `/terminos`, que en español
+      // solo funcionan por redirección 301 y en inglés (`/en/privacidad`) no
+      // existen en absoluto — eran dos 404.
+      footer: { line: "Sistemas prácticos para operaciones más claras.", privacy: "Privacidad", privacyHref: "/privacy-policy", terms: "Términos", termsHref: "/terms", rights: "Automate IT LLC. Todos los derechos reservados." },
     },
 
     nav: {
@@ -439,10 +452,14 @@ export const translations = {
       prefillMessage: "Hola, vengo del sitio de Automate IT y quiero saber más.",
     },
     blog: {
-      pageTitle: "Blog · Automate IT",
+      pageTitle: "Blog de operaciones para negocios pequeños · Automate IT",
       pageDescription:
         "Ideas concretas para dueños de negocios que quieren recuperar su tiempo.",
       eyebrow: "Blog",
+      // Encabezado del bloque de artículos relacionados al final de cada
+      // entrada. Ese bloque existe para enlazar los artículos entre sí: sin él
+      // cada uno era una isla y el blog valía menos que la suma de sus partes.
+      relatedTitle: "Sigue leyendo",
       heading: "Pensamientos sobre automatización",
       subheading:
         "Cómo usar la IA en tu negocio, explicado simple y en 5 minutos. Sin hacerte sentir tonto por preguntar.",
@@ -697,13 +714,19 @@ export const translations = {
         { label: "Quiénes somos", href: "/quienes-somos" },
         { label: "Diagnóstico", href: "/diagnostico" },
         { label: "Blog", href: "/blog" },
+        // Páginas por industria. Van en el pie para que existan enlaces
+        // internos hacia ellas desde todo el sitio: una página a la que no
+        // apunta nada se rastrea tarde y mal. Solo en el pie español: son
+        // páginas que solo existen en español.
+        { label: "Para empresas de HVAC", href: "/automatizacion/hvac-orlando" },
+        { label: "Para plomeros", href: "/automatizacion/plomeria-orlando" },
         { label: "Privacidad", href: "/privacy-policy" },
         { label: "Términos", href: "/terms" },
       ],
       // NAP visible: mismo nombre, ciudad y teléfono que el schema y que el
       // perfil de Google. Si cambia uno, tienen que cambiar los tres.
-      phoneHref: "+14072145114",
-      phonePretty: "(407) 214-5114",
+      phoneHref: "+14074049495",
+      phonePretty: "(407) 404-9495",
       location: "Orlando, Florida · Atendemos en todo Estados Unidos",
       copyright: "© {year} Automate IT LLC. Todos los derechos reservados.",
       switcherLabel: "Idioma",
@@ -716,6 +739,12 @@ export const translations = {
 
     legal: {
       lastUpdated: "Última actualización:",
+      // Las legales heredaban la descripción genérica del sitio, así que dos
+      // páginas distintas se presentaban igual en los resultados de búsqueda.
+      privacyDescription:
+        "Cómo Automate IT LLC recopila, usa y protege tus datos personales, qué proveedores intervienen y cómo ejercer tus derechos sobre esa información.",
+      termsDescription:
+        "Condiciones de uso del sitio de Automate IT LLC y de los servicios contratados: alcance, responsabilidades, pagos y límites de lo que ofrecemos.",
       privacy: {
         title: "Política de privacidad",
         sections: [
@@ -774,6 +803,11 @@ export const translations = {
     siteDescription:
       "We connect your tools and build working systems that reduce manual tasks, errors, and missed follow-ups.",
 
+    // Ver la nota en el bloque `es`: el home lleva título y descripción propios.
+    homeTitle: "Business process automation in Orlando | Automate IT",
+    homeDescription:
+      "We map how work flows through your business, find where time or information gets lost, and build the fix. Free diagnostic.",
+
     home2026: {
       nav: { how: "How it works", plans: "Plans", about: "About", blog: "Blog", diagnostic: "Diagnostic" },
       hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", h1Line1: "We build systems so you take control of your", heroPhrases: ["business.", "time.", "money.", "operations."], heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"], body: "You regain control. We make sure information arrives on time and repetitive work moves forward inside the tools you already use.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
@@ -826,7 +860,7 @@ export const translations = {
       about: { eyebrow: "PEOPLE BEHIND THE SYSTEM", title: "Technology should support the way you work.", quote: "We work inside your operation, find where time, information, or money is being lost, and leave the improvement running with you.", name: "Gerardo Navas", role: "Founder of Automate IT" },
       faq: { eyebrow: "FREQUENTLY ASKED QUESTIONS", title: "What to know before we start.", items: [{ q: "Do I need to replace the tools I already use?", a: "In many cases, no. We first assess your current operation and look for ways to build on what already works." }, { q: "Where do we begin?", a: "With a short diagnostic. We identify the most costly friction and propose a concrete first scope." }, { q: "How long does implementation take?", a: "It depends on the process and integrations. Before starting, we define scope, stages, and dates so you know what to expect." }, { q: "Do I need technical knowledge?", a: "No. We discuss your operation in plain language and handle the technical work." }] },
       final: { eyebrow: "FIRST STEP", title: "Find the point costing your business the most time.", body: "Tell us how your operation works today. We will help identify one practical improvement to start with.", cta: "Start diagnostic" },
-      footer: { line: "Practical systems for clearer operations.", privacy: "Privacy", terms: "Terms", rights: "Automate IT LLC. All rights reserved." },
+      footer: { line: "Practical systems for clearer operations.", privacy: "Privacy", privacyHref: "/en/privacy-policy", terms: "Terms", termsHref: "/en/terms", rights: "Automate IT LLC. All rights reserved." },
     },
 
     nav: {
@@ -1139,10 +1173,11 @@ export const translations = {
       prefillMessage: "Hi, I came from the Automate IT site and I'd like to know more.",
     },
     blog: {
-      pageTitle: "Blog · Automate IT",
+      pageTitle: "Operations blog for small businesses · Automate IT",
       pageDescription:
         "Concrete ideas for business owners who want to reclaim their time.",
       eyebrow: "Blog",
+      relatedTitle: "Keep reading",
       heading: "Thoughts on automation",
       subheading:
         "How to use AI in your business, explained simply in 5 minutes — without making you feel dumb for asking.",
@@ -1397,8 +1432,8 @@ export const translations = {
         { label: "Privacy", href: "/en/privacy-policy" },
         { label: "Terms", href: "/en/terms" },
       ],
-      phoneHref: "+14072145114",
-      phonePretty: "(407) 214-5114",
+      phoneHref: "+14074049495",
+      phonePretty: "(407) 404-9495",
       location: "Orlando, Florida · Serving the entire United States",
       copyright: "© {year} Automate IT LLC. All rights reserved.",
       switcherLabel: "Language",
@@ -1409,6 +1444,10 @@ export const translations = {
 
     legal: {
       lastUpdated: "Last updated:",
+      privacyDescription:
+        "How Automate IT LLC collects, uses, and protects your personal data, which providers are involved, and how to exercise your rights over that information.",
+      termsDescription:
+        "Terms of use for the Automate IT LLC website and contracted services: scope, responsibilities, payments, and the limits of what we offer.",
       privacy: {
         title: "Privacy policy",
         sections: [

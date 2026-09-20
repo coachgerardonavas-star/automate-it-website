@@ -1,5 +1,6 @@
 ---
 title: "Cuanto te cuesta cada llamada que no contestas (y como detener la sangria)"
+seoTitle: "Cuánto te cuesta cada llamada que no contestas"
 description: "El 62% de las llamadas a negocios pequeños quedan sin respuesta. En servicios para el hogar, cada una vale hasta $1,200 en ingresos perdidos. Aqui tienes los numeros y tres pasos para cortar la perdida."
 pubDate: 2026-05-25
 lang: es

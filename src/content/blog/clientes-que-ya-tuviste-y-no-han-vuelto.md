@@ -1,5 +1,6 @@
 ---
 title: "Clientes que ya tuviste y no han vuelto: el dinero que duerme en tu base de datos"
+seoTitle: "Clientes que no han vuelto: el dinero que tienes dormido"
 description: "Cada negocio de servicios tiene una lista de clientes que vinieron una o dos veces y desaparecieron. Reactivarlos cuesta entre 5 y 25 veces menos que conseguir uno nuevo. Aqui esta como activar esa base sin llamar uno por uno."
 pubDate: 2026-06-08
 lang: es

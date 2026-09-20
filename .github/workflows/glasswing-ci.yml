@@ -31,3 +31,7 @@ jobs:
         run: npm audit --omit=dev --audit-level=high
       - name: Build
         run: npm run build
+      # El sitio compilaba perfecto mientras servía trece enlaces internos
+      # rotos. Astro no comprueba que una URL escrita a mano lleve a algún lado.
+      - name: Check internal links
+        run: npm run check:links
