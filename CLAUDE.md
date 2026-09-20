@@ -37,7 +37,9 @@ Definidos en `package.json` (todos vía Astro CLI):
 
 ## Reglas de i18n
 - Todo el copy del sitio vive en `src/i18n/translations.ts`.
-- Siempre actualizar ES y EN juntos — nunca uno solo.
+- **El copy de interfaz se actualiza en ES y EN juntos — nunca uno solo.** Esto no cambió.
+- 🧊 **El blog en inglés está congelado desde el 20-sep-2026** (decisión del CEO). Había 24 artículos en español contra 1 en inglés, y sostener la paridad costaba trabajo en cada cambio sin tráfico que lo justificara. Los artículos nuevos van **solo en español**. Las páginas principales en inglés (`/en/`, `/en/diagnostic`, `/en/about`, legales) se mantienen: sirven a quien llegue en inglés, y `Perfil_de_Cliente_Ideal.md` §6 prohíbe que el idioma sea un filtro. Descongelarlo es decisión del CEO.
+- **Al traducir una página nueva, agregar el par en `src/i18n/alternates.ts`.** Esa tabla alimenta los `hreflang` y el selector de idioma. Si el par no está, la página no declara traducción y el selector lleva al home del otro idioma — que es lo correcto, pero no es lo que quieres si la traducción sí existe.
 - Nunca editar archivos compilados (`dist/`, `.astro/`) directamente.
 - Componentes reciben `lang` prop (default `"es"`). ES en root, EN bajo `/en/`.
 
@@ -101,6 +103,7 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - **Worker `stripe-checkout-automate`** — pagos Stripe.
 - **Google Analytics 4** — `G-PCJWLQ97K6` en `src/config/site.ts` (propiedad del CEO; reemplazó a la vieja `G-82JWGNDTLG` el 23-jul-2026 — esa propiedad ya no recibe nada). Eventos de conversión vía `window.trackEvent()`, definido en `BaseLayout.astro`.
 - **Telegram interno** — Chat ID `8348522203`.
+- ☎️ **Teléfono público único: (407) 404-9495** (decisión del CEO, 20-sep-2026). El mismo número para llamadas, WhatsApp, el sitio, el schema `ProfessionalService` y la ficha de Google. Antes convivía con el (407) 214-5114, que ya no se usa en ninguna parte. El SEO local exige que nombre, dirección y teléfono sean idénticos en todos lados: si este número cambia, cambia en los cinco sitios a la vez.
 
 ## Oferta "Consultoría de Negocios para Emprendedores" (creada 30-jul-2026)
 Entrada post-venta para emprendedores y creadores. Precio de lista $500 como anclaje; se entrega **gratis** con el código promocional `NEGOCIOS` (100%).
@@ -186,7 +189,7 @@ Reglas estrictas del verde lima `#AADD00`: solo en estados "En vivo", "Activo", 
 
 Nunca dos puertas al mismo prospecto. Nunca ofrecer la de $1 después de haber ofrecido la gratis.
 
-> ⚠️ **`/empresas` publica "La Memoria Operativa" y es indexable.** `Manual_de_Pricing.md` §5 dice "catálogo cerrado: no se publica, no se ofrece de entrada", y `Perfil_de_Cliente_Ideal.md` §7 dice que su canal es "LinkedIn, referidos, outreach — **nunca** por la home". Contradicción abierta pendiente de decisión del CEO; ver `ANALISIS_VENTA_Y_SEO_2026-09-20.md`.
+> **`/empresas` se retiró el 20-sep-2026** (decisión del CEO). Publicaba "La Memoria Operativa", que `Manual_de_Pricing.md` §5 define como catálogo cerrado y cuyo canal, según `Perfil_de_Cliente_Ideal.md` §7, es "LinkedIn, referidos, outreach — **nunca** por la home". La ruta redirige 301 al home (`astro.config.mjs`). No volver a publicar esa oferta en el sitio sin que el CEO lo diga.
 
 ## BIT — Mascota / copiloto
 - Nav: avatar 28px con tooltip "Hola, soy BIT". Hero: avatar 36px + "Conoce a BIT…". Chatbot widget flotante (bottom-right).

@@ -715,8 +715,8 @@ export const translations = {
       ],
       // NAP visible: mismo nombre, ciudad y teléfono que el schema y que el
       // perfil de Google. Si cambia uno, tienen que cambiar los tres.
-      phoneHref: "+14072145114",
-      phonePretty: "(407) 214-5114",
+      phoneHref: "+14074049495",
+      phonePretty: "(407) 404-9495",
       location: "Orlando, Florida · Atendemos en todo Estados Unidos",
       copyright: "© {year} Automate IT LLC. Todos los derechos reservados.",
       switcherLabel: "Idioma",
@@ -1421,8 +1421,8 @@ export const translations = {
         { label: "Privacy", href: "/en/privacy-policy" },
         { label: "Terms", href: "/en/terms" },
       ],
-      phoneHref: "+14072145114",
-      phonePretty: "(407) 214-5114",
+      phoneHref: "+14074049495",
+      phonePretty: "(407) 404-9495",
       location: "Orlando, Florida · Serving the entire United States",
       copyright: "© {year} Automate IT LLC. All rights reserved.",
       switcherLabel: "Language",

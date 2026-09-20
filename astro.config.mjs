@@ -41,5 +41,11 @@ export default defineConfig({
     "/privacidad": "/privacy-policy",
     "/terminos": "/terms",
     "/en/privacy": "/en/privacy-policy",
+    // `/empresas` publicaba "La Memoria Operativa". Se retiró el 20-sep-2026
+    // por decisión del CEO: el Manual de Pricing §5 la define como catálogo
+    // cerrado y el Perfil de Cliente Ideal §7 dice que su canal es LinkedIn y
+    // referidos, nunca la web. Se redirige en vez de borrarla a secas para que
+    // quien tenga el enlace guardado llegue a algún lado y no a un error.
+    "/empresas": "/",
   },
 });

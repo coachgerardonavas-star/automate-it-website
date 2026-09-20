@@ -30,9 +30,10 @@ export const HUBSPOT_FORM_GUID_DIAGNOSTICO = "c3800beb-7430-4f16-bb9e-c1989b9ebf
 
 // Número real de WhatsApp Business (Meta Cloud API) — verificado en vivo vía Graph API el
 // 14-ago-2026: display_phone_number "+1 407-404-9495", verified_name "Automate IT".
-// OJO: es distinto del (407) 214-5114 que aparece como NAP público en el resto del sitio
-// (BaseLayout, quienes-somos, about) — ese es el teléfono de contacto general, no el de
-// WhatsApp. No unificarlos sin confirmar con el CEO.
+// Desde el 20-sep-2026 este ES el teléfono público único de Automate IT, por decisión
+// del CEO: el mismo número para llamadas, WhatsApp, el sitio, el schema y la ficha de
+// Google. Antes convivía con el (407) 214-5114, y tener dos números partía la señal de
+// identidad que el SEO local necesita. Si cambia, tiene que cambiar en los cinco sitios.
 export const WHATSAPP_NUMBER = "14074049495";
 
 // El diagnóstico dejó de postear a la Forms API v3 el 7-ago-2026: esa API
