@@ -24,7 +24,12 @@ const copyright = t.copyright.replace("{year}", String(year));
           class="inline-flex items-center mb-4"
           aria-label={lang === "en" ? "Automate IT — home" : "Automate IT — inicio"}
         >
-          <span class="font-heading text-xl tracking-tight">
+          {/* `text-white` explícito: sin él, el span hereda
+          `--color-text-primary` (#050A18), que es exactamente el mismo valor
+          que `--color-bg-dark` del pie. La palabra "AUTOMATE" quedaba
+          invisible sobre el fondo y solo se veía "IT", que sí trae color
+          propio. Contraste 1:1. */}
+          <span class="font-heading text-xl tracking-tight text-white">
             AUTOMATE <span class="text-brand-cyan">IT</span>
           </span>
         </a>
