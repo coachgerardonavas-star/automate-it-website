@@ -1,5 +1,6 @@
 ---
 title: "WhatsApp para agendar citas: lo que los numeros dicen sobre negocios de servicios en Florida"
+seoTitle: "WhatsApp para agendar citas: qué dicen los números"
 description: "El 98% de los mensajes de WhatsApp se abren. Los recordatorios automatizados reducen las citas perdidas hasta un 60%. Si tu negocio de servicios todavia agenda por telefono o formulario web, aqui estan los numeros que cambian el calculo."
 pubDate: 2026-06-01
 lang: es

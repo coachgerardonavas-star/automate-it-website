@@ -1,5 +1,6 @@
 ---
 title: "Google Business Profile en 2026: cómo proteger tu perfil y seguir apareciendo en búsquedas locales"
+seoTitle: "Google Business Profile: cómo proteger tu perfil en 2026"
 description: "Google suspendió miles de perfiles en abril de 2026. Los AI Overviews están reduciendo el map pack a dos o tres negocios. Si tienes un servicio local en Florida, aquí tienes lo que cambió y lo que tienes que hacer esta semana."
 pubDate: 2026-06-15
 lang: es

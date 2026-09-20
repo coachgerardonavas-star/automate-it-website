@@ -1,5 +1,6 @@
 ---
 title: "Por qué los negocios de servicios cobran tarde y cuánto dinero dejan en el aire cada semana"
+seoTitle: "Por qué los negocios de servicios cobran tarde"
 description: "El 59% de los pequeños negocios en EE.UU. carga facturas con más de 30 días de retraso, según el reporte de QuickBooks 2026. En servicios, el retraso no empieza cuando el cliente no paga. Empieza antes, en los pasos manuales que van del trabajo terminado a la factura enviada."
 pubDate: 2026-09-15
 lang: "es"

@@ -1,5 +1,6 @@
 ---
 title: "Cuando contratas a alguien para coordinar pero el problema es el proceso"
+seoTitle: "Contratas a alguien para coordinar y el problema es otro"
 description: "Muchos duenos de negocios de servicios contratan a un coordinador para manejar el volumen. Si la informacion sigue fragmentada entre WhatsApp, correo y Excel, el coordinador trabaja igual de limitado que trabajaba el dueno. Como distinguir cuando necesitas una persona y cuando necesitas un proceso."
 pubDate: 2026-09-01
 lang: "es"

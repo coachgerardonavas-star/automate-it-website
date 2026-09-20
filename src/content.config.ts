@@ -8,6 +8,14 @@ const blog = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
+    /**
+     * Titular corto solo para el resultado de búsqueda. El buscador corta
+     * alrededor de los 60 caracteres, y varios titulares del blog llegan a
+     * 100 o más: se publicaban mutilados a media frase. Este campo deja el
+     * titular del artículo intacto en la página y le da al buscador una
+     * versión que cabe entera. Si no se pone, se usa `title`.
+     */
+    seoTitle: z.string().optional(),
     description: z.string(),
     pubDate: z.coerce.date(),
     lang: z.enum(["es", "en"]),

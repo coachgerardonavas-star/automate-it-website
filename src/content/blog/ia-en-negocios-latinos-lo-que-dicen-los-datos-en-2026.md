@@ -1,5 +1,6 @@
 ---
 title: "IA en negocios latinos: lo que dicen los datos en 2026 (y lo que aun falta)"
+seoTitle: "IA en negocios latinos: lo que dicen los datos en 2026"
 description: "El 82% de los pequenos negocios ya usa IA. Entre los empresarios latinos, la adopcion se duplico desde 2024. Aqui estan los numeros reales y el punto ciego que la mayoria todavia no ha cubierto."
 pubDate: 2026-06-08
 lang: es

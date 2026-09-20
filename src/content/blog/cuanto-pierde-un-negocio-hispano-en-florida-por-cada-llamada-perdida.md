@@ -1,5 +1,6 @@
 ---
 title: "Cuánto pierde un negocio hispano en Florida por cada llamada perdida"
+seoTitle: "Cuánto pierde un negocio en Florida por llamada perdida"
 description: "Los pequeños negocios pierden $126,000 al año por llamadas perdidas. El 85% de quienes no reciben respuesta nunca vuelven a llamar. Descubre el costo real."
 pubDate: 2026-05-31
 lang: es

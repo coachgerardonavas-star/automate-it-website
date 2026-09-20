@@ -28,10 +28,12 @@ const lang = "en";
 // corte el final del titular, que es lo que importa. La marca ya viaja en el
 // dominio y en el schema.
 const BRAND_SUFFIX = " · Automate IT";
+// `seoTitle` es la versión corta para el buscador; si no existe, se usa el
+// titular del artículo. En cualquier caso, solo se añade el sufijo de marca
+// cuando cabe: si no, lo único que consigue es que se corte el final.
+const base = post.data.seoTitle ?? post.data.title;
 const title =
-  post.data.title.length + BRAND_SUFFIX.length > 60
-    ? post.data.title
-    : `${post.data.title}${BRAND_SUFFIX}`;
+  base.length + BRAND_SUFFIX.length > 60 ? base : `${base}${BRAND_SUFFIX}`;
 const description = post.data.description;
 ---
 

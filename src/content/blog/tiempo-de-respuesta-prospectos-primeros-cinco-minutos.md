@@ -1,5 +1,6 @@
 ---
 title: "Tiempo de respuesta: por que los primeros cinco minutos deciden si ese prospecto se convierte en cliente"
+seoTitle: "Los primeros 5 minutos deciden si el prospecto compra"
 description: "Un prospecto te contacta. Si no recibes respuesta en cinco minutos, su probabilidad de convertirse en cliente cae 21 veces segun datos del MIT. Aqui esta la logica detras del numero y como los negocios de servicios en Florida pueden corregirlo."
 pubDate: 2026-07-21
 lang: "es"

@@ -1,5 +1,6 @@
 ---
 title: "Florida sube el salario mínimo a $15 en septiembre: lo que cambia para tu negocio de servicios"
+seoTitle: "Salario mínimo de $15 en Florida: qué cambia para ti"
 description: "El 30 de septiembre de 2026, el salario mínimo en Florida sube de $14 a $15 la hora. Cada empleado en esa banda te cuesta entre $2,600 y $2,900 más al año con impuestos incluidos. Aquí están los números y tres decisiones que puedes tomar antes de que llegue el cambio."
 pubDate: 2026-07-28
 lang: es

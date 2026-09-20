@@ -1,5 +1,6 @@
 ---
 title: "Resenas de Google en 2026: por que son tu mejor vendedor y como conseguirlas sin pedirlas manualmente"
+seoTitle: "Reseñas de Google: cómo conseguirlas sin pedirlas a mano"
 description: "Google cambio sus reglas en marzo 2026: ahora pesa la consistencia, no la cantidad acumulada. Para negocios de servicios en Florida, 4 a 8 resenas nuevas por mes son la diferencia entre aparecer en el Map Pack o ser invisible. Aqui tienes el mecanismo."
 pubDate: 2026-06-16
 lang: es
