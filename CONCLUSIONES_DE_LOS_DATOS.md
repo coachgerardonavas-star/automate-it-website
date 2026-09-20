@@ -177,3 +177,17 @@ Lo digo para que puedas comprobarlo rápido y barato, no para cubrirme:
 - **Si el dueño sabe el número exacto de llamadas perdidas**, entonces la fricción no es invisible y el argumento pierde fuerza.
 
 Las tres se resuelven con una noche de llamadas y una tarde de visitas. **Ninguna se resuelve con más expedientes.**
+
+---
+
+## 8. Confirmación cruzada — reseñas negativas reales (20-sep-2026)
+
+El CEO trajo un segundo reporte, hecho aparte: una revisión de los 337 dossiers completos buscando específicamente reseñas y quejas negativas confirmadas (no aisladas). Resultado, dicho sin inflar: solo **7 de 336 negocios (2.1%)** tienen un patrón real. El resto es reputación buena, o insuficiente evidencia. No hay muestra para decir "el problema típico de los plomeros" con reseñas.
+
+Pero de esos 7 casos confirmados, **6 tienen como núcleo la misma cosa**: no es calidad del trabajo, es falta de seguimiento y comunicación después de que el servicio empieza. Promesas sin cumplir, semanas sin devolver una llamada, un reclamo de garantía ignorado.
+
+**Por qué esto importa para este documento:** es una segunda fuente, independiente de la primera. La sección 3 llegó a "el trabajo entra por varias puertas que no se juntan, y nadie sabe cuánto se pierde" mirando la web pública de 308 negocios — formularios, horarios, teléfonos. Esta llega a "falla de seguimiento post-servicio" mirando reseñas reales de clientes en 337 negocios. Dos caminos distintos, mismo destino. Eso pesa más que cualquiera de los dos por separado.
+
+**Para el terreno, sin rodeos:** de los 7 casos confirmados, ninguno es candidato para visita en frío. BELFOR y Del-Air son cadenas grandes con corporate — no hay dueño en el mostrador. Cargo King es de Miami. RentCare es dolor de inquilinos, no del dueño que paga. Kevin's Tree Service es pequeño y está cerca, pero es un vertical fuera de foco. No cambia la lista de `LISTA_PARA_VISITAR.md` ni `HOJAS_DE_VISITA.md`.
+
+Lo que sí cambia: cuando entres a una empresa de restauración o HVAC y sueltes la pregunta de seguimiento, no es una corazonada tuya. Hay evidencia de clientes reales, en tu propia industria, diciendo exactamente eso.
