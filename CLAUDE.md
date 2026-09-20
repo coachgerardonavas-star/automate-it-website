@@ -103,6 +103,8 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - **Worker `stripe-checkout-automate`** — pagos Stripe.
 - **Google Analytics 4** — `G-PCJWLQ97K6` en `src/config/site.ts` (propiedad del CEO; reemplazó a la vieja `G-82JWGNDTLG` el 23-jul-2026 — esa propiedad ya no recibe nada). Eventos de conversión vía `window.trackEvent()`, definido en `BaseLayout.astro`.
 - **Telegram interno** — Chat ID `8348522203`.
+- 👥 **Sin techo de tamaño de cliente** (decisión del CEO, 20-sep-2026). No se rechaza un negocio por número de empleados: el filtro es la fricción real y el impacto potencial (`Perfil_de_Cliente_Ideal.md` §3-§4). Cierra el pendiente que §8 de ese manual dejaba abierto.
+- 🤝 **El responsable interno no va en el SOW** (decisión del CEO, 20-sep-2026). Se acuerda verbalmente en el diagnóstico y su nombre se registra en las notas del cliente. Cierra el pendiente de `Manual_de_Adopcion.md` §10. El riesgo que ese manual describe (sin responsable, el cliente cancela a los pocos meses) sigue en pie: se gestiona con seguimiento, no con contrato.
 - ☎️ **Teléfono público único: (407) 404-9495** (decisión del CEO, 20-sep-2026). El mismo número para llamadas, WhatsApp, el sitio, el schema `ProfessionalService` y la ficha de Google. Antes convivía con el (407) 214-5114, que ya no se usa en ninguna parte. El SEO local exige que nombre, dirección y teléfono sean idénticos en todos lados: si este número cambia, cambia en los cinco sitios a la vez.
 
 ## Oferta "Consultoría de Negocios para Emprendedores" (creada 30-jul-2026)

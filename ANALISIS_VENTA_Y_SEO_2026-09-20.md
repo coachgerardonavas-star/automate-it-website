@@ -372,3 +372,30 @@ Detector de enlaces internos sobre las 49 páginas del build:
 La única ruta que el detector sigue marcando es `/portal/login`, y es correcto: el portal es SSR (`prerender = false`), así que no existe como archivo en `dist`.
 
 **Lo que esta pasada NO prueba:** que el sitio publicado esté sirviendo este build. Eso sigue sin poder verificarse desde aquí.
+
+
+---
+
+# DECISIONES DEL CEO — 20 de septiembre de 2026
+
+Cierran las cuatro preguntas abiertas de §8.2 y dos más de SEO.
+
+| # | Decisión | Estado |
+|---|---|---|
+| D-1 | **`/empresas` se retira.** Redirección 301 al home para no romper enlaces guardados ni perder la señal de la URL. | Aplicado |
+| D-2 | **Teléfono público único: (407) 404-9495**, el de WhatsApp Business. Unificado en schema, `translations.ts` (ES y EN), `quienes-somos`, `about` y `site.ts`. Desbloquea el Google Business Profile. | Aplicado |
+| D-3 | **Sin techo de tamaño de cliente.** El filtro es fricción e impacto, no headcount. Cierra `Perfil_de_Cliente_Ideal.md` §8. | Pendiente de reflejar en ADN |
+| D-4 | **El responsable interno no entra como cláusula del SOW.** Se acuerda verbalmente y se registra en las notas del cliente. Cierra `Manual_de_Adopcion.md` §10. El riesgo descrito en §1 de ese manual sigue vigente y se gestiona con seguimiento. | Pendiente de reflejar en ADN |
+| S-7 | **Blog en inglés congelado.** Artículos nuevos solo en español; páginas principales en inglés se mantienen (ICP §6 prohíbe que el idioma sea filtro). | Aplicado |
+| — | **Titulares del blog:** no se reescriben. Se añade `seoTitle` al frontmatter, que solo cambia lo que muestra el buscador. 19 artículos. | Aplicado |
+
+**Nota de gobierno documental:** D-3 y D-4 tienen que escribirse en sus manuales propietarios de ADN, que es donde manda la regla §7.1-§7.2 del Manual Maestro. El conector de Drive de esta sesión puede leer y crear archivos, pero no reescribir el contenido de uno existente, así que el texto exacto a pegar quedó en `RESUMEN_PARA_GERARDO.md`. Mientras no se pegue, ADN y este repo dicen cosas distintas.
+
+## Entregables nuevos
+
+- `FICHA_GOOGLE_datos_para_copiar.md` — nombre, categorías, zonas, descripción (675 de 750 caracteres) y servicios, listos para pegar en el formulario de Google. Marca explícitamente los tres datos que el CEO tiene que aportar (horario, fecha de apertura, fotos).
+- `RESUMEN_PARA_GERARDO.md` — el mismo análisis sin tecnicismos, en una página.
+
+## Pendiente al crear la ficha de Google
+
+Añadir la URL del perfil al array `sameAs` del schema en `BaseLayout.astro`. Es lo que le confirma al buscador que la ficha y el dominio son la misma entidad. Hoy ese array solo lleva Instagram.
