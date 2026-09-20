@@ -72,12 +72,11 @@ También dejé puesto un chequeo automático que avisa si vuelve a aparecer un e
 
 ## Lo que te toca a ti
 
-| # | Qué | Por qué |
+| # | Qué | Estado |
 |---|---|---|
-| 1 | **Crear la ficha de Google.** Te dejé todo escrito en `FICHA_GOOGLE_datos_para_copiar.md`: solo copias y pegas. | Es lo más importante que te falta para que te encuentren en Orlando, y no la tienes. Es gratis. |
-| 2 | **Decirme si publico los cambios** del sitio. | Hasta que no lo digas, tu sitio sigue igual que siempre. |
-| 3 | **Mirar Search Console** y decirme tres números: páginas indexadas, impresiones de los últimos 28 días y clics. | Yo no tengo acceso. Sin esos números no sé si tu sitio está trayendo gente o no. |
-| 4 | **Empezar a llamar.** | Es lo único de esta lista que produce dinero. |
+| 1 | ~~Crear la ficha de Google.~~ | ✅ **Hecho el 20-sep.** Se editó sobre "Automate IT LLC", que ya estaba verificado — no el duplicado sin verificar que se creó por error al inicio. El nombre público se cambió a "Automate IT" ahí mismo: queda pendiente de revisión de Google (puede tardar, y si no coincide con tu registro legal público, puede rechazarse — vigílalo). Faltan la fecha de apertura y las fotos. El link ya está enlazado desde el sitio. |
+| 2 | **Mirar Search Console** y decirme tres números: páginas indexadas, impresiones de los últimos 28 días y clics. | Pendiente. Yo no tengo acceso. Sin esos números no sé si tu sitio está trayendo gente o no. |
+| 3 | **Empezar a llamar.** | Pendiente. Es lo único de esta lista que produce dinero. |
 
 ---
 

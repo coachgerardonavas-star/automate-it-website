@@ -1,6 +1,9 @@
 # Ficha de Google — datos listos para copiar
 
-> Para crear el perfil en **google.com/business**. Todo lo de aquí ya coincide con lo que dice tu sitio web, que es lo que Google compara.
+> ✅ **Creada el 20-sep-2026.** Enlace público: https://share.google/pIpFbx0iQxY8MyyaO — ya está enlazado desde el sitio (`sameAs` del schema).
+> Se editó sobre "Automate IT LLC", que ya estaba verificado en el Business Manager, no sobre un duplicado nuevo. El cambio de nombre a "Automate IT" quedó pendiente de revisión de Google. Faltan: fecha de apertura y fotos (logo/portada).
+>
+> Todo lo de aquí ya coincide con lo que dice tu sitio web, que es lo que Google compara.
 > **Regla de oro:** si algo cambia aquí, tiene que cambiar también en el sitio. Google desconfía cuando encuentra dos versiones del mismo negocio.
 
 ---

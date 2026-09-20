@@ -84,9 +84,19 @@ const organizationSchema = {
     "Operational Dashboards",
   ],
   // sameAs es el campo por el que un buscador confirma que estos perfiles y
-  // este dominio son la misma entidad. Agregar aquí LinkedIn y el perfil de
-  // Google Business en cuanto existan.
-  sameAs: ["https://www.instagram.com/automateit.usa/"],
+  // este dominio son la misma entidad. Agregar aquí LinkedIn en cuanto exista.
+  //
+  // El perfil de Google Business se creó el 20-sep-2026 sobre "Automate IT
+  // LLC", que ya venía verificado en el Business Manager — no sobre el
+  // duplicado sin verificar que se creó por error al inicio del flujo. El
+  // nombre público se cambió a "Automate IT" ahí mismo; ese cambio queda
+  // pendiente de revisión de Google (puede tardar y, si no coincide con el
+  // registro legal público, puede rechazarse — si eso pasa, no es este link
+  // el que hay que tocar).
+  sameAs: [
+    "https://www.instagram.com/automateit.usa/",
+    "https://share.google/pIpFbx0iQxY8MyyaO",
+  ],
 };
 
 const websiteSchema = {
