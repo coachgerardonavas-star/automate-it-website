@@ -2,7 +2,8 @@
 
 > **Fecha:** 20 de septiembre de 2026
 > **Alcance:** estado real del negocio, cuello de botella de ventas, auditoría SEO del sitio.
-> **Estado:** análisis y recomendación. No cambia código ni copy.
+> **Estado:** análisis, recomendación y correcciones aplicadas.
+> **Segunda pasada (20-sep):** revisión contra los manuales vigentes de ADN. Ver §6, §7 y §8.
 
 ---
 
@@ -19,7 +20,9 @@
 
 - **El sitio en vivo.** La red de esta sesión bloqueó la salida a `yourbizupgraded.com` (el proxy rechazó la conexión). Todo lo que digo de SEO sale del **código fuente del repo**, que es lo que se despliega, pero no verifiqué el HTML servido, ni tiempos de carga reales, ni el sitemap publicado.
 - **Search Console y GA4.** No tengo acceso. No sé cuántas impresiones, clics o páginas indexadas tienes hoy. Eso lo tienes que mirar tú, y es lo primero que te pido más abajo.
-- Manuales de Drive que no abrí: `MANUAL_MAESTRO.md` (versión 11-sep), `Arquitectura_de_Intervencion.md`, `Manual_de_Adopcion.md`, `Ritual_de_Continuidad.md`, `Perfil_de_Cliente_Ideal.md`. Si alguno contradice lo que digo aquí, ese manual gana.
+- `Ritual_de_Continuidad.md` sigue sin abrir. Si contradice algo de aquí, ese manual gana.
+
+> **Actualización del 20-sep (segunda pasada).** A pedido del CEO se leyeron completos `MANUAL_MAESTRO.md` (v7.2, 11-sep-2026), `Arquitectura_de_Intervencion.md` (v1.0, 11-sep), `Manual_de_Adopcion.md` (v1.1, 11-sep) y `Perfil_de_Cliente_Ideal.md` (v1.0, 15-ago). El resultado está en las secciones 6, 7 y 8. **Dos de mis recomendaciones anteriores quedaron corregidas por esos manuales** y así se marcan.
 
 ---
 
@@ -185,3 +188,114 @@ Abre Search Console y dime tres números: **páginas indexadas, impresiones de l
 ## 5. La frase que resume todo
 
 Tienes una máquina de investigación sobredimensionada conectada a una máquina de contacto que casi no existe. 308 dossiers, 50 correos, 0 respuestas, 0 clientes. El trabajo que falta no es más análisis — es marcar un teléfono.
+
+
+---
+
+# SEGUNDA PASADA — Revisión contra los manuales vigentes
+
+Leídos completos el 20-sep-2026: `MANUAL_MAESTRO.md` v7.2, `Arquitectura_de_Intervencion.md` v1.0, `Manual_de_Adopcion.md` v1.1 y `Perfil_de_Cliente_Ideal.md` v1.0.
+
+## 6. Contradicciones encontradas
+
+### 6.1 Las que contradicen al repo y al sitio
+
+| # | Contradicción | Quién manda | Estado |
+|---|---|---|---|
+| C-1 | `CLAUDE.md` declaraba `MANUAL_MAESTRO_v4_9.md` (repo, julio) como el manual vigente. El vigente es **v7.2 en ADN/Drive**. El del repo posiciona la IA como producto y describe un modelo comercial por plataforma de voz (Retell directo 0-4 clientes, VoiceAIWrapper 5+) que ya no existe. | Manual Maestro §2 y §6 | **Resuelto** |
+| C-2 | `CLAUDE.md` describía el negocio como *"servicio de recepción/comunicación automatizada con IA"*. El manual vigente dice: **"AI es una capacidad de delivery, no el producto ni el posicionamiento"**. El copy del sitio ya estaba alineado con el manual nuevo; solo `CLAUDE.md` seguía en el viejo. | Manual Maestro §2 | **Resuelto** |
+| C-3 | `CLAUDE.md` traía el catálogo muerto (Starter $99 / Professional $179 + módulos de canal). Vigente: Asistente / Estratega / Manager. | Pricing §1 | **Resuelto** |
+| C-4 | `/empresas` publica "La Memoria Operativa", indexable y sin `noindex`. Pricing §5: *"catálogo cerrado: no se publica, no se ofrece de entrada"*. ICP §7: su canal es *"LinkedIn, referidos, outreach — **nunca** por la home"*. **Dos manuales vigentes, no uno.** | Pricing §5 + ICP §7 | **Abierto — decisión del CEO** |
+| C-5 | Nombres de manual versionados en el repo (`MANUAL_MAESTRO_v4_9.md`, `BrandScript_..._v1_1.md`, `Manual_de_Marca_v2_5.docx`, `Quienes_Somos_v2_9.docx`) contra la regla de "un solo archivo por manual, nombre estable, sin número de versión". La regla gobierna ADN, no el repo — pero mientras `CLAUDE.md` los declarara "vigentes", el repo funcionaba como una ADN paralela que se desincroniza. | Manual Maestro §7.1-§7.2 | **Resuelto** (marcados como copia histórica) |
+
+### 6.2 Las que corrigen mi propio análisis
+
+| # | Lo que yo dije | Lo que dicen los manuales | Corrección |
+|---|---|---|---|
+| M-1 | Páginas SEO por vertical: "HVAC, roofing, restauración". | Hipótesis Comercial v1: concentrar el aprendizaje **primero en HVAC y plumbing / home services con dispatch**. | **HVAC y plomería primero.** Roofing y restauración después, no en la primera tanda. |
+| M-2 | "Tu ventaja es ser un dueño hispano en Kissimmee hablándole a otro dueño hispano en Kissimmee." | ICP §6, regla permanente: geografía e idioma **nunca** son filtro. Son foco de mensaje y de targeting de marketing, no condición de elegibilidad. | La frase vale como *targeting*. Pero queda explícito: **nunca rechazar ni redirigir un lead por estar fuera de Florida o por hablar inglés.** El Manual Maestro v4.9 §16-bis documenta que eso ya pasó con un lead real. |
+| M-3 | Meta: "~2 diagnósticos por semana" y "cerrar el primer cliente". | Manual Maestro §2.1 e ICP §1-bis ya fijan la métrica de esta fase: **20-30 conversaciones comerciales útiles**, y al llegar ahí se revisa la hipótesis. | Adopto la métrica de la empresa, no la mía. El objetivo de Operación Pulso no es "un cliente", es **evidencia suficiente para validar o tumbar la hipótesis**. |
+
+### 6.3 Lo que los manuales confirman (no contradicen)
+
+- **Congelar Sherlock** no es opinión: es aplicar el **Cost Efficiency Gate** (Manual Maestro §10.4), que trata tokens, ejecuciones y APIs como dinero de la compañía y obliga a *"detener una estrategia de prueba cuando los fallos demuestren que seguir ejecutando no aporta nueva evidencia"*. 308 dossiers contra 0 conversaciones es exactamente el caso que la regla describe.
+- **Teléfono y presencial sobre correo frío**: Manual Maestro §2.1 e ICP §1-bis dicen *"preferencia por reuniones y observación presencial cuando aporte valor"*.
+- **ICP §3, regla dura:** *"nadie automatiza lo que no está vendiendo. Primero hay que vender; automatizar viene después."* Es la regla que Automate IT le aplica a sus prospectos, escrita también en el copy del sitio, y es la que la propia empresa no se está aplicando.
+
+---
+
+## 7. El hallazgo nuevo: Operación Pulso ya está construida y sin usar
+
+Esto no se veía en la primera pasada porque solo aparece al cruzar el Manual Maestro con el repo.
+
+**Manual Maestro §2.2** le pone nombre y ventana a la campaña: *"Operación Pulso — Central Florida 2026"*, agosto-diciembre de 2026, para *"generar evidencia sobre ICP, mensaje, buying group e intervenciones repetibles"*.
+
+**En el repo ya existe la máquina completa:**
+
+- `src/lib/pulso/` — **40 prospectos** con dossier reducido a formato de página: hallazgos con fuentes verificables, un apartado de "lo que desconozco" y un cierre que invita a llamar.
+- `src/pages/pulso/[slug].astro` — una página personalizada por prospecto.
+- `src/pages/r/[prospect].ts` — redirección corta que etiqueta la visita con `source: "qr"` y `campaign: "pulso_print"`.
+
+Ese `pulso_print` + `qr` dice para qué fue diseñada la campaña: **material impreso con código QR, entregado en persona.** Y encaja con las cotizaciones de tarjetas NFC metálicas que estás pidiendo por correo desde el 16-sep.
+
+**La conclusión incomoda:** el canal correcto ya estaba elegido, aprobado en el manual y construido en código. Los ~50 correos fríos del 4-sep fueron un desvío al canal más débil, con la infraestructura del canal fuerte terminada y apagada.
+
+Esto **cambia mi recomendación de la primera pasada**. No es "empezar a llamar por teléfono" a secas. Es **encender Operación Pulso como fue diseñada**: impreso o NFC + QR + visita o llamada, con la página personalizada de `/pulso/<slug>` como el material que deja la conversación abierta. El teléfono es el primer toque; la página es lo que queda.
+
+---
+
+## 8. La cola
+
+### 8.1 Resuelto en esta pasada
+
+| # | Qué | Archivo | Verificación |
+|---|---|---|---|
+| R-1 | **`hreflang` arreglado.** Antes apuntaba siempre a `/` y `/en/` desde toda página. Ahora sale de una tabla explícita de equivalencias reales, y **no se emite nada** cuando la página no tiene contraparte en el otro idioma — declarar una traducción inexistente es peor que no declarar. Se suprime también en páginas `noindex`. | `src/i18n/alternates.ts` (nuevo), `src/layouts/BaseLayout.astro` | Build OK. Verificado en el HTML generado: `/diagnostico/` → `/en/diagnostic/`; el artículo con par ES/EN los declara recíprocos; los 23 artículos solo-ES no declaran ninguno; `/ia` (noindex) no declara ni canonical ni alternates. |
+| R-2 | **`hreflang` alineado con `canonical`.** El build genera un directorio por página, así que las URLs servidas llevan barra final. Los `hreflang` ahora la llevan también; si no, la autorreferencia y el canonical son URLs distintas y la reciprocidad puede fallar. | `src/i18n/alternates.ts` | Verificado: canonical y `hreflang` self coinciden carácter por carácter. |
+| R-3 | **Home con título y descripción propios**, ES y EN. Antes heredaba el genérico *"Automate IT — Operaciones que avanzan solas"*: sin servicio, sin ciudad, sin intención de búsqueda. Sin la palabra "IA", por Manual Maestro §2. | `src/i18n/translations.ts`, `src/pages/index.astro`, `src/pages/en/index.astro` | ES: *"Automatización y mejora de procesos para negocios en Orlando \| Automate IT"*. EN: *"Business process automation and improvement in Orlando, FL \| Automate IT"*. |
+| R-4 | **Bug en la redirección de Pulso.** El flag `?qa=1` se aplicaba **después** del `return`, así que nunca se ejecutaba: abrir `/r/<slug>?qa=1` no propagaba nada a la página destino. | `src/pages/r/[prospect].ts` | Código muerto movido antes del `return`. |
+| R-5 | **`CLAUDE.md` corregido** en tres frentes: catálogo vigente (C-3), posicionamiento (C-2) y punteros a los manuales reales de ADN con su jerarquía de fuentes de verdad (C-1, C-5). Se añadió la tabla de puertas de entrada y la nota de la contradicción C-4. | `CLAUDE.md` | — |
+
+### 8.2 Decisiones que solo el CEO puede cerrar
+
+Cuatro, y dos las dejan abiertas los propios manuales.
+
+| # | Decisión | Quién la abrió | Por qué importa ya |
+|---|---|---|---|
+| D-1 | **`/empresas`: ¿sale del índice o se corrige el manual?** Hoy publica una oferta que dos manuales vigentes marcan como catálogo cerrado. | Contradicción C-4 | Sacar una página del índice es difícil de revertir rápido en SEO. No lo hago sin tu palabra. |
+| D-2 | **¿Cuál es el teléfono público único?** Hoy circulan tres: (407) 214-5114 en el schema y en Quiénes Somos, (321) 217-1239 en la firma del correo automático, (407) 404-9495 en WhatsApp. | Auditoría SEO §3, punto 4 | Bloquea el Google Business Profile: la ficha se crea con un número, y ese número tiene que ser el mismo en todas partes desde el día uno. |
+| D-3 | **¿Sigue vigente el techo de ~30 empleados?** `Perfil_de_Cliente_Ideal.md` §8 lo dice con todas sus letras: *"Sin cifra vigente que lo confirme (…) hace falta que el CEO lo confirme y se escriba aquí con la razón"*. | ICP §8 | Decide a quién se llama mañana. |
+| D-4 | **¿El responsable interno entra como cláusula estándar en los SOW?** `Manual_de_Adopcion.md` §10 lo deja pendiente de revisión legal. | Adopción §10 | Adopción §1: la mensualidad se pierde entre "instalado" y "en uso". El responsable interno es el seguro contra eso. |
+
+### 8.3 Cola de ejecución
+
+**Ventas — esta semana.** Es lo único que mueve la caja.
+
+| # | Acción | Fundamento |
+|---|---|---|
+| V-1 | Congelar Sherlock. Ni un dossier más hasta tener 20-30 conversaciones. | Manual Maestro §10.4 |
+| V-2 | **Encender Operación Pulso como fue diseñada**: impreso/NFC + QR + contacto directo, con `/pulso/<slug>` como material. Los 40 prospectos ya están cargados. | Manual Maestro §2.2 + `src/lib/pulso/` |
+| V-3 | Empezar por **HVAC y plomería** de Kissimmee y Orlando. | Manual Maestro §2.1, ICP §1-bis (corrige M-1) |
+| V-4 | Métrica de la fase: **20-30 conversaciones comerciales útiles**, registrando los campos que pide `Protocolo_Diagnostico.md` §1-bis (señal, proceso, línea base, indicador, impacto, decisor, aprobador, objeción, intervención, precio, resultado). Al llegar ahí, se revisa la hipótesis. | Manual Maestro §2.1 (corrige M-3) |
+| V-5 | Regla que no se rompe: **ningún lead se rechaza por geografía ni idioma.** | ICP §6 (corrige M-2) |
+
+**SEO — costo casi cero, efecto acumulativo.**
+
+| # | Acción | Estado |
+|---|---|---|
+| S-1 | Crear el Google Business Profile y pedir verificación. | Bloqueado por D-2 |
+| S-2 | Unificar el teléfono en sitio, schema, firmas y GBP. | Bloqueado por D-2 |
+| S-3 | `hreflang`, título del home, `CLAUDE.md`. | **Hecho** (R-1 a R-5) |
+| S-4 | Decidir qué pasa con `/empresas`. | Bloqueado por D-1 |
+| S-5 | Publicar 3 páginas de servicio × vertical: **HVAC y plomería primero**. | Pendiente |
+| S-6 | Agregar `BreadcrumbList` en blog y páginas internas. | Pendiente |
+| S-7 | Decidir: ¿se llena el sitio en inglés (24 ES vs 1 EN) o se congela? | Pendiente |
+| S-8 | Mirar Search Console: páginas indexadas, impresiones 28 días, clics. **Solo lo puedes hacer tú.** | Pendiente |
+
+**Cuando haya un cliente pagando.**
+
+| # | Acción |
+|---|---|
+| P-1 | Retomar herramientas internas (Warren, Sheryl, CreatorFlow, DMs de Instagram). No antes. |
+| P-2 | Aplicar `Arquitectura_de_Intervencion.md` al primer proyecto: línea base, extracción de criterio con casos reales, Definición de Instalado copiada al SOW, registro operativo único. |
+| P-3 | Aplicar `Manual_de_Adopcion.md`: responsable interno nombrado, las cuatro piezas de entrega (y la tarjeta de fallas, que es la que más se salta), vigilancia activa los primeros 30 días. |

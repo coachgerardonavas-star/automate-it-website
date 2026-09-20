@@ -17,6 +17,10 @@ export const GET: APIRoute = ({ params, url }) => {
     campaign: "pulso_print",
   });
 
+  // El flag de QA venía DESPUÉS del `return`, así que nunca se ejecutaba:
+  // abrir `/r/<slug>?qa=1` no propagaba nada a la página de destino.
+  if (url.searchParams.get("qa") === "1") query.set("qa", "1");
+
   return new Response(null, {
     status: 302,
     headers: {
@@ -24,5 +28,4 @@ export const GET: APIRoute = ({ params, url }) => {
       "Cache-Control": "no-store, max-age=0",
     },
   });
-  if (url.searchParams.get("qa") === "1") query.set("qa", "1");
 };

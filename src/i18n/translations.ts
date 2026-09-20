@@ -8,6 +8,16 @@ export const translations = {
     siteDescription:
       "Conectamos tus herramientas y construimos sistemas de trabajo que reducen tareas manuales, errores y seguimientos pendientes.",
 
+    // Título y descripción propios del home. `siteTitle` es el nombre de la
+    // marca y sirve de respaldo para cualquier página sin título; el home
+    // necesita además decir qué se hace y dónde, porque es la etiqueta que más
+    // pesa para un buscador. Sin "IA" a propósito: es una capacidad de entrega,
+    // no el posicionamiento (Manual Maestro §2).
+    homeTitle:
+      "Automatización y mejora de procesos para negocios en Orlando | Automate IT",
+    homeDescription:
+      "Revisamos cómo fluye el trabajo en tu negocio, encontramos dónde se pierde tiempo o información y construimos la mejora. Diagnóstico sin costo.",
+
     home2026: {
       nav: { how: "Cómo funciona", plans: "Planes", about: "Quiénes somos", blog: "Blog", diagnostic: "Diagnóstico" },
       hero: {
@@ -773,6 +783,12 @@ export const translations = {
     siteTitle: "Automate IT — Operations that keep moving",
     siteDescription:
       "We connect your tools and build working systems that reduce manual tasks, errors, and missed follow-ups.",
+
+    // Ver la nota en el bloque `es`: el home lleva título y descripción propios.
+    homeTitle:
+      "Business process automation and improvement in Orlando, FL | Automate IT",
+    homeDescription:
+      "We map how work flows through your business, find where time or information gets lost, and build the fix. Free diagnostic.",
 
     home2026: {
       nav: { how: "How it works", plans: "Plans", about: "About", blog: "Blog", diagnostic: "Diagnostic" },
