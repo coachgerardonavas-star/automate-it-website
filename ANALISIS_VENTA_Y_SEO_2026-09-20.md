@@ -18,7 +18,7 @@
 
 **No pude revisar (y por qué):**
 
-- **El sitio en vivo.** La red de esta sesión bloqueó la salida a `yourbizupgraded.com` (el proxy rechazó la conexión). Todo lo que digo de SEO sale del **código fuente del repo**, que es lo que se despliega, pero no verifiqué el HTML servido, ni tiempos de carga reales, ni el sitemap publicado.
+- **El sitio en vivo.** La red de esta sesión bloquea la salida a `yourbizupgraded.com`: el gateway responde **403 al CONNECT**. No es el dominio — también rechazó `telemetry.astro.build`, así que es la política de red del entorno. Se reintentó el 20-sep y sigue igual. Para revisar el sitio servido hay que permitir el dominio en la política de red del entorno (ver https://code.claude.com/docs/en/claude-code-on-the-web). Todo lo que digo de SEO sale del **HTML que produce el build**, que es lo que Cloudflare publica.
 - **Search Console y GA4.** No tengo acceso. No sé cuántas impresiones, clics o páginas indexadas tienes hoy. Eso lo tienes que mirar tú, y es lo primero que te pido más abajo.
 - `Ritual_de_Continuidad.md` sigue sin abrir. Si contradice algo de aquí, ese manual gana.
 
@@ -299,3 +299,76 @@ Cuatro, y dos las dejan abiertas los propios manuales.
 | P-1 | Retomar herramientas internas (Warren, Sheryl, CreatorFlow, DMs de Instagram). No antes. |
 | P-2 | Aplicar `Arquitectura_de_Intervencion.md` al primer proyecto: línea base, extracción de criterio con casos reales, Definición de Instalado copiada al SOW, registro operativo único. |
 | P-3 | Aplicar `Manual_de_Adopcion.md`: responsable interno nombrado, las cuatro piezas de entrega (y la tarjeta de fallas, que es la que más se salta), vigilancia activa los primeros 30 días. |
+
+
+---
+
+# TERCERA PASADA — Auditoría del HTML construido (20-sep)
+
+Sin acceso al sitio servido, se auditó el **build completo**: 49 páginas HTML, sus enlaces internos y sus etiquetas. Eso sí encontró defectos que leer el código fuente no revela.
+
+## 9. Defectos encontrados y corregidos
+
+### 9.1 La imagen de Open Graph no existe
+
+`BaseLayout` declara en **las 49 páginas**:
+
+```
+og:image        → https://yourbizupgraded.com/assets/logo-og.png
+twitter:image   → el mismo archivo
+schema.logo     → el mismo archivo
+schema.image    → el mismo archivo
+```
+
+**El archivo no estaba en `public/assets/`.** Los únicos logos del repo eran `logo-lockup.webp`, `logo-lockup-light.webp` y `logo-mark.webp`.
+
+Consecuencia: cada enlace del sitio compartido por WhatsApp, Facebook, LinkedIn, X o iMessage se veía **sin imagen de vista previa**, y el `logo` que declara la entidad a Google apuntaba a un 404. Para una campaña cuyo material son páginas personalizadas que se comparten por enlace, eso es caro.
+
+**Corregido.** Se generó `public/assets/logo-og.png` — 1200×630, lockup centrado al 62% del ancho, sobre blanco sólido y sin canal alfa, exactamente como pide el comentario que ya estaba en `BaseLayout` (*"las redes componen la imagen sobre fondos impredecibles, así que aquí no sirve transparencia"*). Es una composición del lockup existente: si hay una pieza diseñada, reemplazar el archivo y listo — el nombre y las medidas ya son los correctos.
+
+*Salvedad honesta: no pude comprobar el 404 contra el sitio en vivo. La certeza viene de que el archivo no está en el repo y Cloudflare Pages publica el output del repo.*
+
+### 9.2 Once enlaces del sitio terminaban en 404 — todos del selector de idioma
+
+`switchLangPath` (en `src/i18n/utils.ts`) prefijaba `/en` a la ruta actual y solo conocía **cinco** equivalencias. Resultado, verificado en el HTML construido:
+
+| Estando en | El selector mandaba a | Existe |
+|---|---|---|
+| `/empresas` | `/en/empresas` | No |
+| `/ia` | `/en/ia` | No |
+| `/consultoria` | `/en/consultoria` | No |
+| `/quienes-somos` | `/en/quienes-somos` | No — la página es `/en/about` |
+| `/terminos-consultoria-emprendedores` | `/en/terminos-consultoria-emprendedores` | No — es `/en/consulting-terms` |
+| `/acuerdo-colaboracion` | `/en/acuerdo-colaboracion` | No |
+| `/terminos-consulta` | `/en/terminos-consulta` | No |
+| `/404` | `/en/404` | No |
+| `/en/about` | `/about` | No — es `/quienes-somos` |
+| `/en/consulting-terms` | `/consulting-terms` | No — es `/terminos-consultoria-emprendedores` |
+
+**Es el mismo defecto que tenían los `hreflang`**: asumir que la ruta en el otro idioma es la misma con prefijo.
+
+**Corregido** reusando `alternates.ts`, la tabla que ya se creó para los `hreflang`. Cuando la página no tiene contraparte real, el selector lleva al home del otro idioma en vez de a un 404; los artículos sin traducción llevan al listado del blog.
+
+### 9.3 Los enlaces legales del home en inglés eran 404
+
+`Home2026.astro` construía las rutas a mano: `` `${root}/privacidad` `` y `` `${root}/terminos` ``, con `root` vacío en español y `/en` en inglés.
+
+- Home ES → `/privacidad`, `/terminos`: funcionan, pero solo por redirección 301. Un salto extra en cada página.
+- Home EN → `/en/privacidad`, `/en/terminos`: **no existen y no tienen redirección** (`astro.config.mjs` solo redirige `/en/privacy`). **404 los dos.**
+
+Es decir: si alguien aterrizaba en el sitio en inglés, los dos enlaces legales del pie estaban rotos.
+
+**Corregido.** Las rutas pasaron a `translations.ts` (`privacyHref` / `termsHref`, ES y EN juntos, como manda la regla del repo de no hardcodear en componentes) y apuntan a las URLs canónicas: `/privacy-policy`, `/terms`, `/en/privacy-policy`, `/en/terms`.
+
+## 10. Verificación
+
+Detector de enlaces internos sobre las 49 páginas del build:
+
+| | Antes | Después |
+|---|---|---|
+| Enlaces internos rotos | **13** | **0** |
+| `og:image` resuelve | No | Sí |
+
+La única ruta que el detector sigue marcando es `/portal/login`, y es correcto: el portal es SSR (`prerender = false`), así que no existe como archivo en `dist`.
+
+**Lo que esta pasada NO prueba:** que el sitio publicado esté sirviendo este build. Eso sigue sin poder verificarse desde aquí.

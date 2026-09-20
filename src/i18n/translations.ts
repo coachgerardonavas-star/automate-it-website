@@ -130,7 +130,11 @@ export const translations = {
         ],
       },
       final: { eyebrow: "PRIMER PASO", title: "Encuentra el punto que más tiempo le está costando a tu negocio.", body: "Cuéntanos cómo funciona hoy tu operación. Te ayudaremos a identificar una mejora concreta por donde comenzar.", cta: "Comenzar diagnóstico" },
-      footer: { line: "Sistemas prácticos para operaciones más claras.", privacy: "Privacidad", terms: "Términos", rights: "Automate IT LLC. Todos los derechos reservados." },
+      // Las rutas legales van aquí y no hardcodeadas en el componente: el
+      // footer del home apuntaba a `/privacidad` y `/terminos`, que en español
+      // solo funcionan por redirección 301 y en inglés (`/en/privacidad`) no
+      // existen en absoluto — eran dos 404.
+      footer: { line: "Sistemas prácticos para operaciones más claras.", privacy: "Privacidad", privacyHref: "/privacy-policy", terms: "Términos", termsHref: "/terms", rights: "Automate IT LLC. Todos los derechos reservados." },
     },
 
     nav: {
@@ -842,7 +846,7 @@ export const translations = {
       about: { eyebrow: "PEOPLE BEHIND THE SYSTEM", title: "Technology should support the way you work.", quote: "We work inside your operation, find where time, information, or money is being lost, and leave the improvement running with you.", name: "Gerardo Navas", role: "Founder of Automate IT" },
       faq: { eyebrow: "FREQUENTLY ASKED QUESTIONS", title: "What to know before we start.", items: [{ q: "Do I need to replace the tools I already use?", a: "In many cases, no. We first assess your current operation and look for ways to build on what already works." }, { q: "Where do we begin?", a: "With a short diagnostic. We identify the most costly friction and propose a concrete first scope." }, { q: "How long does implementation take?", a: "It depends on the process and integrations. Before starting, we define scope, stages, and dates so you know what to expect." }, { q: "Do I need technical knowledge?", a: "No. We discuss your operation in plain language and handle the technical work." }] },
       final: { eyebrow: "FIRST STEP", title: "Find the point costing your business the most time.", body: "Tell us how your operation works today. We will help identify one practical improvement to start with.", cta: "Start diagnostic" },
-      footer: { line: "Practical systems for clearer operations.", privacy: "Privacy", terms: "Terms", rights: "Automate IT LLC. All rights reserved." },
+      footer: { line: "Practical systems for clearer operations.", privacy: "Privacy", privacyHref: "/en/privacy-policy", terms: "Terms", termsHref: "/en/terms", rights: "Automate IT LLC. All rights reserved." },
     },
 
     nav: {
