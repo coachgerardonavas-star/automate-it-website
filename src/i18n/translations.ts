@@ -13,8 +13,7 @@ export const translations = {
     // necesita además decir qué se hace y dónde, porque es la etiqueta que más
     // pesa para un buscador. Sin "IA" a propósito: es una capacidad de entrega,
     // no el posicionamiento (Manual Maestro §2).
-    homeTitle:
-      "Automatización y mejora de procesos para negocios en Orlando | Automate IT",
+    homeTitle: "Automatización de procesos en Orlando | Automate IT",
     homeDescription:
       "Revisamos cómo fluye el trabajo en tu negocio, encontramos dónde se pierde tiempo o información y construimos la mejora. Diagnóstico sin costo.",
 
@@ -453,7 +452,7 @@ export const translations = {
       prefillMessage: "Hola, vengo del sitio de Automate IT y quiero saber más.",
     },
     blog: {
-      pageTitle: "Blog · Automate IT",
+      pageTitle: "Blog de operaciones para negocios pequeños · Automate IT",
       pageDescription:
         "Ideas concretas para dueños de negocios que quieren recuperar su tiempo.",
       eyebrow: "Blog",
@@ -730,6 +729,12 @@ export const translations = {
 
     legal: {
       lastUpdated: "Última actualización:",
+      // Las legales heredaban la descripción genérica del sitio, así que dos
+      // páginas distintas se presentaban igual en los resultados de búsqueda.
+      privacyDescription:
+        "Cómo Automate IT LLC recopila, usa y protege tus datos personales, qué proveedores intervienen y cómo ejercer tus derechos sobre esa información.",
+      termsDescription:
+        "Condiciones de uso del sitio de Automate IT LLC y de los servicios contratados: alcance, responsabilidades, pagos y límites de lo que ofrecemos.",
       privacy: {
         title: "Política de privacidad",
         sections: [
@@ -789,8 +794,7 @@ export const translations = {
       "We connect your tools and build working systems that reduce manual tasks, errors, and missed follow-ups.",
 
     // Ver la nota en el bloque `es`: el home lleva título y descripción propios.
-    homeTitle:
-      "Business process automation and improvement in Orlando, FL | Automate IT",
+    homeTitle: "Business process automation in Orlando | Automate IT",
     homeDescription:
       "We map how work flows through your business, find where time or information gets lost, and build the fix. Free diagnostic.",
 
@@ -1159,7 +1163,7 @@ export const translations = {
       prefillMessage: "Hi, I came from the Automate IT site and I'd like to know more.",
     },
     blog: {
-      pageTitle: "Blog · Automate IT",
+      pageTitle: "Operations blog for small businesses · Automate IT",
       pageDescription:
         "Concrete ideas for business owners who want to reclaim their time.",
       eyebrow: "Blog",
@@ -1429,6 +1433,10 @@ export const translations = {
 
     legal: {
       lastUpdated: "Last updated:",
+      privacyDescription:
+        "How Automate IT LLC collects, uses, and protects your personal data, which providers are involved, and how to exercise your rights over that information.",
+      termsDescription:
+        "Terms of use for the Automate IT LLC website and contracted services: scope, responsibilities, payments, and the limits of what we offer.",
       privacy: {
         title: "Privacy policy",
         sections: [

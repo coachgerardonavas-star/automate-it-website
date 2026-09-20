@@ -39,6 +39,39 @@ const blogPostingSchema = {
     "@type": "WebPage",
     "@id": canonicalUrl,
   },
+  // Sin `image`, el resultado del buscador sale sin miniatura y el artículo
+  // compite en desventaja contra cualquiera que sí la traiga.
+  image: "https://yourbizupgraded.com/assets/logo-og.png",
+};
+
+// Migas de pan: es lo que hace que el resultado en el buscador muestre
+// "yourbizupgraded.com › Blog › Título" en vez de la URL cruda, y le dice al
+// buscador dónde encaja el artículo dentro del sitio.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: post.data.lang === "en" ? "Home" : "Inicio",
+      item: post.data.lang === "en"
+        ? "https://yourbizupgraded.com/en/"
+        : "https://yourbizupgraded.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: `https://yourbizupgraded.com${blogBase}/`,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: post.data.title,
+      item: canonicalUrl,
+    },
+  ],
 };
 
 const { Content } = await post.render();
@@ -48,6 +81,11 @@ const { Content } = await post.render();
   type="application/ld+json"
   is:inline
   set:html={jsonLd(blogPostingSchema)}
+/>
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={jsonLd(breadcrumbSchema)}
 />
 
 <article class="py-16 sm:py-24">
