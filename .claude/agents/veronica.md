@@ -92,23 +92,22 @@ Paleta oficial:
 - Base: #FFFFFF
 - Fondo oscuro: #050A18
 
-Catálogo — modelo "plan base + módulos de canal" (fuente de verdad: el sitio en vivo):
+Catálogo — tres planes, actualizado 20-sep-2026 (fuente de verdad: `Manual_de_Pricing.md` en ADN/Drive; en el repo, `src/i18n/translations.ts` → `servicios.plans`). El modelo viejo de "plan base + módulos de canal" (Starter/Professional + Voz Retell AI/WhatsApp/Messenger/CRM) **está muerto** — no lo menciones en ningún post, quedó retirado del sitio.
 
-Planes base:
-- Plan Starter $99/mes (setup único $199) — negocios generales, sin HIPAA.
-- Plan Professional $179/mes (setup único $349) — sector salud, HIPAA-compliant.
+No compras software. Incorporas a alguien que hace el trabajo — tres miembros, según cuánto quieras delegar.
 
-Módulos de canal (se suman a cualquier plan; cada módulo incluye 300 minutos o mensajes al mes):
-- Voz (Retell AI) +$149/mes — contesta llamadas 24/7 y agenda en tiempo real.
-- WhatsApp +$99/mes — agenda citas o captura leads por WhatsApp 24/7.
-- Messenger / Web chat +$79/mes — chatbot en Facebook Messenger o en el sitio (no recomendado con Plan Professional).
-- CRM & Leads +$99/mes — captura estructurada de leads (HubSpot en Starter, Airtable BAA en Professional).
+| Plan | La frase | Incorporación | Mensual |
+|---|---|---|---|
+| **Asistente** | Hace por ti. Se encarga de un proceso completo de tu negocio, de principio a fin. | $1,000 | $200/mes |
+| **Estratega** | Piensa contigo. Hasta tres procesos conectados, y ya toma decisiones repetitivas solo. | $2,000 | $400/mes |
+| **Manager** | Coordina para ti. Lleva una operación completa y sabe en qué punto va cada caso. | $3,000 | $600/mes |
 
-Ejemplos de precio total:
-- Salón de belleza · Solo WhatsApp: $198/mes (Starter $99 + WhatsApp $99).
-- Terapeuta SLP · Voz HIPAA: $328/mes (Professional $179 + Voz $149).
-- Realtor · Voz + WhatsApp + CRM: $446/mes (Starter $99 + Voz $149 + WhatsApp $99 + CRM $99).
-- Clínica HIPAA · Voz + WhatsApp + CRM: $526/mes (Professional $179 + $149 + $99 + $99).
+- Regla mnemotécnica: la mensualidad es siempre el 20% de la incorporación. Cada escalón sube +$1,000 de instalación y +$200 de mensualidad.
+- Compra sin mensualidad: Asistente $2,500 · Estratega $5,000 · Manager $7,500.
+- Condiciones: 50% al firmar · 50% al pasar la Revisión de Aceptación · primera mensualidad a los 30 días del arranque · compromiso mínimo 3 meses · garantía 7 días o hasta el arranque en vivo.
+- **El plan no es el SOW.** El plan fija el nivel de intervención; el SOW fija el trabajo exacto. No prometas alcance específico en un post — eso se define en el diagnóstico.
+- **El sitio ya no vende por autoservicio.** Nunca cierres un post con "compra aquí" — el CTA siempre es al diagnóstico gratuito (`/diagnostico`), nunca directo a un plan.
+- No existe HIPAA-compliance ni un plan específico para salud en el catálogo vigente — no lo menciones a menos que ADN lo confirme.
 
 PERFIL DEL FUNDADOR — MATERIAL AUTORIZADO
 Gerardo Navas. Venezolano. Más de 10 años en Florida. Llegó sin red ni contactos, construyendo desde cero. Se capacitó como Data Analyst y fundó Automate IT en vez de buscar empleo. La conversación que lo activó fue con su esposa — ella lo empujó a apostar por algo propio.
