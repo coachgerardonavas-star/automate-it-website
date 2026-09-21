@@ -4,6 +4,12 @@ Quiénes Somos — Identidad Corporativa
 
 Versión 2.9 · Julio 13, 2026 · Confidencial
 
+**⚠ ESTA NO ES LA FUENTE VIGENTE.** La fuente vigente de este manual es `Quienes_Somos.md`, en la carpeta ADN de Google Drive (v3.2, 10-sep-2026) — ese documento ya no lista precios aquí, los delega a `Manual_de_Pricing.md`, siguiendo la regla de una sola versión vigente por manual (Manual Maestro §7.1-§7.2). Esta copia de repo se corrigió el 21-sep-2026 solo para dejar de contradecir el catálogo actual; no se sigue manteniendo como documento de gobierno.
+
+**▶ CORRECCIÓN 21-sep-2026 (auditoría de documentos)**
+
+*Los planes Starter/Professional + módulos de canal de §3.1-§3.3, la fila "Plan objetivo" de §4.1 y la heurística de $328/mes en §6 citaban el catálogo retirado por decisión del CEO el 20-sep-2026. Reemplazados por el catálogo vigente (Asistente/Estratega/Manager), igual al de `Manual_de_Pricing.md` en ADN/Drive.*
+
 **▶ CAMBIO v2.9 (Julio 13, 2026)**
 
 *"Florida" se retira como requisito de elegibilidad en Misión, Visión, Público Objetivo y Buyer Persona. El modelo es 100% remoto — Florida es el mercado de origen, no un filtro. Motivado por evidencia real: el agente Marc rechazó un lead legítimo fuera de Florida en producción (13 jul 2026). Ver BrandScript v1.1 §5 para la regla completa.*
@@ -28,37 +34,17 @@ Un mundo donde cualquier pequeño negocio — independientemente del idioma de s
 
 El producto central de Automate IT es un sistema de recepción y comunicación automatizada: agentes de voz y chatbots que atienden a clientes 24/7 en inglés y en español, agendan citas, capturan leads y los registran en el CRM — sin intervención humana para lo rutinario. Todo en un solo sistema, no en cinco apps sueltas.
 
-## **3.1 Planes Base**
+## **3.1 Planes — catálogo vigente (Asistente / Estratega / Manager)**
 
-| **Plan** | **Para quién** | **Precio/mes** | **Setup** |
+| **Plan** | **La frase** | **Incorporación** | **Mensual** |
 | --- | --- | --- | --- |
-| Starter | Negocios generales — sin HIPAA | $99/mes | $199 |
-| Professional | Sector salud — HIPAA-compliant | $179/mes | $349 |
+| Asistente | Hace por ti. | $1,000 | $200/mes |
+| Estratega | Piensa contigo. | $2,000 | $400/mes |
+| Manager | Coordina para ti. | $3,000 | $600/mes |
 
-## **3.2 Módulos de Canal**
+La mensualidad es siempre el 20% de la incorporación. Cada escalón sube +$1,000 de instalación y +$200 de mensualidad. **El plan no es el SOW:** fija el nivel de intervención, no el trabajo exacto. Precios, condiciones y reglas de upgrade completas: `Manual_de_Pricing.md`.
 
-| **Módulo** | **Qué hace** | **Precio/mes** |
-| --- | --- | --- |
-| Voz (Retell AI) | Atiende llamadas telefónicas | +$149 |
-| WhatsApp | Responde mensajes de WhatsApp | +$99 |
-| Messenger / Webchat | Chat del sitio web o Facebook | +$79 |
-| CRM & Leads | Registra y da seguimiento a prospectos | +$99 |
-
-## **3.3 Precio Mínimo Funcional — NUEVO v2.7**
-
-**⚠ IMPORTANTE: El plan base por sí solo no entrega ningún valor funcional al cliente. Es la plataforma que conecta los canales. Sin al menos un módulo activado, el cliente no tiene nada operativo.**
-
-Precio mínimo de entrada real:
-
-| **Combinación** | **Precio/mes** | **Setup** | **Para quién** |
-| --- | --- | --- | --- |
-| Starter + WhatsApp | $198/mes | $199 | Negocio que genera leads por WhatsApp — ENTRADA MÍNIMA |
-| Starter + Voz | $248/mes | $199 | Negocio cuyo canal principal son llamadas |
-| Starter + Voz + WhatsApp | $347/mes | $199 | Negocio con ambos canales activos |
-| Professional + Voz | $328/mes | $349 | Sector salud — EJEMPLO CANÓNICO DE VENTA |
-| Professional + Voz + WhatsApp | $427/mes | $349 | Sector salud con múltiples canales |
-
-*Regla de cotización: nunca cotizar el plan base solo. Siempre incluir el módulo que resuelve el dolor principal. El CRM **&** Leads es upsell — no va en la cotización inicial salvo que el cliente lo pida o sea evidente la necesidad.*
+*Regla de cotización: el plan se determina después del diagnóstico, según autonomía (¿el proceso hace, piensa o coordina?) y volumen de procesos — nunca se asume antes de hablar con el prospecto.*
 
 # **4. Público Objetivo**
 
@@ -77,7 +63,7 @@ El cliente ideal de Automate IT no se define por su profesión — se define por
 | Dolor central | “Pierdo clientes porque no puedo contestar. Y cuando llamo de vuelta, ya encontraron a alguien más.” |
 | Barrera secundaria | “No me siento cómodo atendiendo en inglés cuando me llaman.” |
 | Disparador de compra | Perdió un cliente que sabe que pudo haber retenido — no por precio ni calidad, sino por no haber contestado a tiempo. |
-| Plan objetivo | Starter $99/mes + mínimo un módulo. NUNCA el plan base solo. |
+| Plan objetivo | Se determina en el diagnóstico — Asistente, Estratega o Manager según el proceso que le duele. Nunca se asume antes de diagnosticar. |
 
 ## **4.2 Cliente correcto vs. cliente incorrecto**
 
@@ -119,8 +105,8 @@ El cliente es el héroe; Automate IT es el guía. Todo mensaje empieza por el pr
 | **Heurística** | **Uso** |
 | --- | --- |
 | “Cada llamada sin contestar es un cliente que llama al siguiente en Google.” | Fuerte — todas las piezas. |
-| “$328/mes vs $2,917/mes de recepcionista bilingüe en Florida.” | Siempre mes vs mes — nunca mes vs año. |
+| “$200/mes vs $2,917/mes de recepcionista bilingüe en Florida.” | Siempre mes vs mes — nunca mes vs año. Ancla vigente, igual a `Manual_de_Pricing.md` §2. |
 | “No necesitas aprender IA. Yo te instalo el sistema, tú enciendes el switch.” | Done-for-you en una frase. Amplificar. |
 | “24/7/365 sin días festivos.” | Debilitada — usar como soporte, no como gancho. |
 
-Automate IT LLC · Quiénes Somos · v2.9 · Julio 13, 2026 · Confidencial
+Automate IT LLC · Quiénes Somos · v2.9 (copia de repo, corregida 21-sep-2026) · Confidencial

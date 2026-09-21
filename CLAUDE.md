@@ -85,7 +85,7 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - `MANUAL_MAESTRO_v4_9.md` — copia histórica (julio-2026). **NO es el vigente**: el vigente es `MANUAL_MAESTRO.md` v7.2 en ADN/Drive. Se conserva por trazabilidad.
 - `BrandScript_Automate_IT_v1_1.md` — copia en repo. La fuente vigente es `BrandScript_Automate_IT.md` en ADN/Drive.
 - `Manual_de_Marca_v2_5.docx` — manual de marca visual/verbal (vigente).
-- `Quienes_Somos_v2_9.docx` — documento de identidad corporativa (vigente).
+- `Quienes_Somos_v2_9.docx` — copia en repo, con el precio corregido al catálogo vigente el 21-sep-2026. **No es la fuente vigente**: la fuente vigente es `Quienes_Somos.md` v3.2 en ADN/Drive, que ya no lista precios y los delega a `Manual_de_Pricing.md`.
 - `WEBSITE_BRIEF.md` — brief del sitio web (fuente de verdad de diseño/mensaje).
 - `README.md` — readme base del repo.
 - `archive/` — versiones superadas de los manuales de arriba, conservadas por trazabilidad (no vigentes): `MANUAL_MAESTRO_v4.4.md`, `Automate_IT_Quienes_Somos_v2_5.md`, `plan_marketing_2026_v2_3.md`.
