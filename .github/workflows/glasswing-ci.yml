@@ -28,7 +28,7 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
       - name: Audit production dependencies
-        run: npm audit --omit=dev --audit-level=high
+        run: node scripts/audit-gate.mjs --omit=dev
       - name: Build
         run: npm run build
       # El sitio compilaba perfecto mientras servía trece enlaces internos
