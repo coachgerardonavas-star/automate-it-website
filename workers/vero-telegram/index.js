@@ -23,7 +23,8 @@ cambios", "no cambies nada", "déjalo como está", "verbatim", "publícalo así"
 
 Automate IT: empresa Florida que vende automatización de comunicación con IA
 (agentes de voz, WhatsApp, CRM) a pequeños negocios hispanos.
-Planes: Starter $99/mes · Professional $179/mes (HIPAA).
+Planes: Asistente $1,000 + $200/mes · Estratega $2,000 + $400/mes · Manager $3,000 + $600/mes.
+No compras software — incorporas a alguien que hace el trabajo. El plan no es el SOW.
 Sitio: yourbizupgraded.com
 
 POSICIONAMIENTO CENTRAL:

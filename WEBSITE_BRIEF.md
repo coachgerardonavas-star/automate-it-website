@@ -134,7 +134,8 @@
 
 ## 8. Lo que NO hacemos (decisiones explícitas)
 
-- **No usamos WordPress.** Plugin Amelia queda descartado. Reservaciones nativas en n8n.
+- **No usamos WordPress.** Plugin Amelia queda descartado.
+- **No usamos n8n** (decisión del CEO, 31-jul-2026, ver `CLAUDE.md`). Esta sección decía "reservaciones nativas en n8n"; quedó retirado por completo, ni interno ni como producto — automatización interna va por Make o Workers propios.
 - **No usamos Calendly.** Por costo y por coherencia con el mensaje.
 - **No usamos chatbot en el sitio público.** El bot de venta es Retell vía llamada o formulario directo.
 - **No metemos testimonios falsos.** Si no hay testimonios reales todavía, esa sección no existe.

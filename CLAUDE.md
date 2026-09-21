@@ -49,6 +49,7 @@ Cada uno tiene su `wrangler.toml` en `workers/<nombre>/`:
 - **health-check** — health check de URLs Tier 0 (cron `*/15 * * * *`). KV `STATE`; service bindings a `bit-chat-3126` y `stripe-checkout-automate`. `workers_dev=false`, sin preview URLs. account_id configurado.
 - **stripe-checkout** — pagos Stripe (worker `stripe-checkout-automate`). `main = src/index.ts`. Secret: `STRIPE_SECRET_KEY`. `workers_dev=true`.
 - **stripe-webhook** — webhook de Stripe (worker `stripe-webhook-automate`). `main = src/index.ts`. Secrets: `STRIPE_WEBHOOK_SECRET`, `TELEGRAM_BOT_TOKEN`. Avisa por Telegram al completarse un checkout. Registrado en Stripe como endpoint `we_1TzFZcAHnOzMvXBg9DrZxbdG`, escuchando solo `checkout.session.completed`.
+- **vero-telegram** — bot de Telegram que recibe del CEO, llama a la API de Anthropic con el prompt de Vero y responde. `main = index.js`. KV `APPROVALS`. `ALLOWED_CHAT_ID` fijo al chat del CEO. Es la base sobre la que se montan los agentes por departamento cuando se retomen (ver Reglas críticas, regla de n8n).
 - **consultoria-intake** — recibe el formulario de `/consultoria` y la firma de `/acuerdo-colaboracion` (ruta `/acuerdo`). Escribe en HubSpot con la **CRM API** (contacto + nota + deal) y avisa por Telegram. Secrets: `HUBSPOT_TOKEN`, `TELEGRAM_BOT_TOKEN`.
 
 ## Client Portal (`/portal`) — agregado 11-ago-2026
