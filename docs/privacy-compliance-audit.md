@@ -60,13 +60,20 @@ Separación pedida en el handoff:
 
 ### 4b. Inferencias sensibles en el análisis de llamadas
 
-**STATUS:** FIXED (Make) · NEEDS OWNER INPUT (Retell y datos viejos)
-**EVIDENCE:** El escenario 5637378 escribía en la nota de HubSpot "Sexo (inferido, NO confirmado)" y "Nacionalidad (solo si la mencionó)", a partir de campos que configura el agente de Retell.
+**STATUS:** FIXED (Make) · NEEDS OWNER INPUT (Retell)
+**EVIDENCE:** El escenario 5637378 escribía en la nota de HubSpot "Sexo (inferido, NO confirmado)" y "Nacionalidad (solo si la mencionó)", a partir de campos que configura el agente de Retell. Conteo en HubSpot (solo lectura, 26-sep-2026): **29 notas** tienen esas líneas. En **ninguna** la nacionalidad tiene valor. El sexo dice "desconocido" en todas menos 10, y esas 10 son pruebas del propio CEO (su nombre, sus números o contactos marcados PRUEBA/TEST). **No hay datos inferidos de terceros reales guardados.**
 **ACTION TAKEN:** Se retiraron las dos variables y las dos líneas de la nota en Make 5637378. La descripción del escenario dice que no se vuelvan a agregar.
 **REMAINING RISK:**
 - El agente de Retell sigue configurado para inferirlos: hay que quitarlos en su panel.
-- Las notas ya creadas en HubSpot conservan esos datos. Recomendación: borrar esas dos líneas de las notas existentes.
-- Dossiers internos: el CEO preguntó si esos datos pueden quedar solo ahí. Técnicamente sí, pero el riesgo es el mismo, porque las leyes de privacidad no distinguen entre CRM y documento interno. Recomendación: en los dossiers anotar el **idioma de preferencia**, que sí tiene uso operativo, y no el sexo ni la nacionalidad.
+- Las 29 notas viejas conservan las líneas vacías o con datos de prueba. Riesgo bajo; se pueden limpiar si se quiere.
+- Dossiers internos: el CEO preguntó si esos datos pueden quedar solo ahí. Técnicamente sí, pero el riesgo es el mismo, porque las leyes de privacidad no distinguen entre CRM y documento interno. Recomendación: en los dossiers anotar el **idioma de preferencia**, no el sexo ni la nacionalidad.
+
+### 4c. Agente de voz entrante "Alejandro"
+
+**STATUS:** NEEDS OWNER INPUT
+**EVIDENCE:** El CEO indicó que ningún número de la empresa lo contesta una IA. Pero HubSpot tiene **17 notas de "Voz inbound (Alejandro)"** del 21 y 24 de agosto de 2026, de números desconocidos con prefijo 570, casi todas con audio ininteligible (probable spam). El número que usaba Retell para llamar también tiene prefijo 570. Todo indica que **ese número de Retell tenía un agente IA contestando llamadas entrantes, al menos hasta el 24-ago-2026**, y que se guardaron en HubSpot los teléfonos de quienes llamaron.
+**ACTION TAKEN:** Ninguna. No tengo acceso al panel de Retell.
+**REMAINING RISK:** Si ese agente sigue activo, cualquiera que llame a ese número habla con una IA que graba, y la política dice que no hacemos eso. El CEO tiene que verificarlo en Retell y desactivarlo, o avisar para ajustar la política.
 
 ## 5. Testimonios, reseñas y casos
 
@@ -140,23 +147,23 @@ Fuera del formulario: sexo inferido y nacionalidad en el análisis de Retell (í
 
 ## 11. Conservación y eliminación
 
-**STATUS:** NEEDS OWNER INPUT
-**EVIDENCE:** No hay regla de retención en código, workers ni Make. HubSpot conserva indefinidamente. Existe un escenario de Make **inactivo** "Maintenance — Delete HubSpot Contact" (6038101), bajo demanda: hay una herramienta de borrado manual, no una política.
-**ACTION TAKEN:** La política dice la verdad: "Todavía no tenemos plazos fijos... conservamos tu información en nuestro CRM hasta que nos pidas eliminarla", y que proveedores pueden conservar copias.
-**Propuesta para revisión del CEO/abogado** (compatible con lo que ya existe):
-  1. Leads que nunca se convirtieron: eliminar contacto y notas de HubSpot a los 24 meses sin actividad (una búsqueda filtrada + el escenario 6038101 existente).
-  2. Firmas de acuerdos: conservar mientras dure la colaboración + el plazo que indique el abogado.
-  3. Telegram: borrar avisos de leads del chat interno cada 90 días.
-  4. Make: revisar la retención del historial de ejecuciones según el plan.
-  5. Retell: configurar la retención de grabaciones/transcripciones en su panel.
-  6. Al recibir una solicitud de eliminación: borrar en HubSpot, Telegram y Retell, y registrar la fecha.
+**STATUS:** FIXED (política) · NEEDS OWNER INPUT (proceso)
+**EVIDENCE:** No hay regla de retención en código, workers ni Make. HubSpot conserva indefinidamente. Existe un escenario de Make **inactivo** "Maintenance — Delete HubSpot Contact" (6038101), bajo demanda.
+**ACTION TAKEN:** Decisión del CEO (26-sep-2026): **los leads que no se convierten en clientes se eliminan 24 meses después de su último contacto.** La política lo dice así. Para clientes, sigue sin plazo fijo (mientras dure la relación o hasta que pidan eliminarla).
+**REMAINING RISK:** La política ahora es un compromiso y **el borrado es manual**: si nadie lo hace, la política deja de ser cierta. Propuesta de proceso:
+  1. Cada trimestre: en HubSpot, filtrar contactos sin deal ganado y con última actividad hace más de 24 meses → eliminar (a mano o con el escenario 6038101).
+  2. Telegram: borrar avisos de leads del chat interno con la misma regla.
+  3. Make: revisar la retención del historial de ejecuciones según el plan.
+  4. Retell: configurar la retención de grabaciones y transcripciones en su panel, o borrarlas.
+  5. Al recibir una solicitud de eliminación: borrar en HubSpot, Telegram y Retell, y registrar la fecha.
+  El primer borrado real tocaría en jul-2028 (los leads más antiguos son de 2026), así que hay tiempo para automatizarlo.
 
 ## 12. Contacto para privacidad
 
 **STATUS:** VERIFIED COMPLIANT
 **EVIDENCE:** `automateit@yourbizupgraded.com` es el correo de la empresa: aparece en el footer (`mailto:`), en términos, y es la cuenta dueña de los escenarios de Make. Teléfono `(407) 404-9495`, el número público único según `CLAUDE.md` y `src/config/site.ts`. La política vive en `/privacy-policy` y `/en/privacy-policy`, enlazadas desde el footer (`translations.*.home2026.footer`, `footer.privacyHref`); `/privacidad` y `/en/privacy` redirigen 301.
 **ACTION TAKEN:** Se agregó el teléfono a la sección de responsable, y enlace a la política desde el formulario de diagnóstico.
-**REMAINING RISK:** Observación fuera del repo: el correo de confirmación del diagnóstico (Make 5148358, módulo Gmail) firma con **(321) 217-1239**, no con el número público único. NEEDS OWNER INPUT (corregir en Make).
+**ACTION TAKEN (Make):** el correo de confirmación del diagnóstico (Make 5148358, módulo Gmail) firmaba con (321) 217-1239. Se cambió a (407) 404-9495 el 26-sep-2026 con aprobación del CEO.
 
 ## 13. Consistencia en el sitio
 
@@ -184,14 +191,15 @@ Fuera del formulario: sexo inferido y nacionalidad en el análisis de Retell (í
 
 ## Preguntas abiertas para el CEO (NEEDS OWNER INPUT)
 
-Respondidas el 26-sep-2026: llamada con IA → retirada; sexo/nacionalidad → retirados de Make; números de la empresa → los contesta el CEO; WhatsApp → a mano; Retell → grababa y guardaba; Claude/Vero → sí, a veces.
+Respondidas el 26-sep-2026: llamada con IA → retirada; teléfono del correo → corregido; retención → 24 meses para leads; sexo/nacionalidad → retirados de Make; números de la empresa → los contesta el CEO; WhatsApp → a mano; Retell → grababa y guardaba; Claude/Vero → sí, a veces.
 
 Pendientes:
 1. GA4: ¿Google Signals o vinculación con Google Ads? (el CEO no lo sabe; hay que revisarlo en GA4). ¿Cloudflare Web Analytics activo? (ítem 8)
-2. Quitar sexo/nacionalidad del agente en Retell y de las notas viejas de HubSpot; cuánto tiempo conserva Retell las grabaciones (ítem 4b).
+2. Quitar sexo/nacionalidad del agente en Retell; cuánto tiempo conserva Retell las grabaciones (ítem 4b).
+2b. Verificar y desactivar el agente entrante "Alejandro" en el número de Retell (ítem 4c).
 3. Cuenta de Anthropic: retención y entrenamiento (ítem 4).
-4. Plazos de conservación (propuesta en ítem 11).
-5. Correo de confirmación de Make con (321) 217-1239 (ítem 12).
+4. Proceso trimestral de borrado a 24 meses (ítem 11).
+
 
 ## Para revisión legal (NEEDS LEGAL REVIEW)
 

@@ -787,7 +787,7 @@ export const translations = {
           },
           {
             heading: "Cuánto tiempo conservamos tu información",
-            body: "Todavía no tenemos plazos fijos de conservación. Mientras los definimos, conservamos tu información en nuestro CRM hasta que nos pidas eliminarla. Algunos proveedores (por ejemplo, el historial de mensajes o los registros de automatizaciones) pueden conservar copias según sus propias reglas.",
+            body: "Si no llegas a ser cliente, conservamos tu información en nuestro CRM hasta 24 meses después de tu último contacto con nosotros, y después la eliminamos. Si eres cliente, todavía no tenemos un plazo fijo: la conservamos mientras dure la relación y hasta que nos pidas eliminarla. En cualquier caso, puedes pedirnos que la eliminemos antes. Algunos proveedores (por ejemplo, el historial de mensajes o los registros de automatizaciones) pueden conservar copias según sus propias reglas.",
           },
           {
             heading: "Tus solicitudes",
@@ -1518,7 +1518,7 @@ export const translations = {
           },
           {
             heading: "How long we keep your information",
-            body: "We do not yet have fixed retention periods. Until we define them, we keep your information in our CRM until you ask us to delete it. Some providers (for example, message history or automation logs) may keep copies under their own rules.",
+            body: "If you do not become a client, we keep your information in our CRM for up to 24 months after your last contact with us, and then delete it. If you are a client, we do not yet have a fixed period: we keep it for as long as the relationship lasts and until you ask us to delete it. Either way, you can ask us to delete it sooner. Some providers (for example, message history or automation logs) may keep copies under their own rules.",
           },
           {
             heading: "Your requests",

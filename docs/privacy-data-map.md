@@ -8,6 +8,8 @@
 - **Llamada automática con IA retirada.** Se quitó el módulo de Retell (llamada saliente "Gaby") del escenario Make 5148358. El resto del flujo sigue igual: Telegram, correo de confirmación, HubSpot y deal. La configuración del módulo quedó respaldada fuera del repo; también está en el historial de versiones del escenario en Make.
 - **Sexo inferido y nacionalidad retirados** de la nota de HubSpot y de las variables del escenario Make 5637378. Pendiente del CEO: quitarlos también del análisis del agente en el panel de Retell.
 - **Confirmado por el CEO:** ningún número de la empresa lo contesta una IA (el agente entrante "Alejandro" no está en uso); WhatsApp se responde a mano; Retell **grababa y guardaba transcripciones** de las llamadas hechas; el CEO **a veces** pasa datos de leads o respuestas de la consultoría por Claude o Vero (Anthropic).
+- El correo de confirmación de 5148358 ahora firma con (407) 404-9495.
+- ⚠️ HubSpot muestra 17 llamadas entrantes atendidas por "Alejandro" (IA) en ago-2026 en el número de Retell (prefijo 570). Pendiente que el CEO verifique si sigue activo (auditoría 4c).
 - Las tablas de abajo ya reflejan estos cambios.
 
 > Regla: si cambias un formulario, un worker, un escenario de Make o agregas un proveedor, actualiza este archivo y la política en el mismo commit.
@@ -62,7 +64,7 @@ Todos los campos viajan juntos por `POST` JSON a `diagnostico-intake` (Cloudflar
 | `regulated` | ¿Datos con requisitos especiales? (No/Sí/No estoy seguro) | Sí | Nota HubSpot | **Enrutamiento de privacidad**: Sí o No estoy seguro → sin Make, sin Retell, sin texto libre en Telegram ni en propiedades | No |
 | `context` | Qué te hizo buscar ayuda (texto libre) | Sí | HubSpot `descripcion`, nota, Telegram (400 chars), Make `message` → Retell | Diagnóstico | Puede, de forma manual. **Omitido** si es ruta regulada |
 
-**Retención:** no hay regla de retención en código ni en Make. HubSpot conserva indefinidamente. ❓ Retención en Telegram, Gmail (enviados), historial de ejecuciones de Make y Retell → **NEEDS OWNER INPUT**.
+**Retención:** decisión del CEO (26-sep-2026): leads que no compran se eliminan 24 meses después del último contacto (proceso manual, ver auditoría ítem 11). ❓ Retención en Telegram, Gmail (enviados), historial de ejecuciones de Make y Retell → **NEEDS OWNER INPUT**.
 
 **Logs:** si HubSpot falla, el worker registra en Cloudflare solo email, nombres de campos llenos y la bandera regulada (no el contenido). `observability.enabled = true`.
 
