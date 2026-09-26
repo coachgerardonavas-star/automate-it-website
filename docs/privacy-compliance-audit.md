@@ -8,10 +8,10 @@ Estados: VERIFIED COMPLIANT · FIXED · NEEDS OWNER INPUT · NEEDS LEGAL REVIEW 
 
 ---
 
-## Prioridad alta — leer primero
+## Prioridad alta — estado al 26-sep-2026
 
-1. **Llamadas automáticas con agente de voz IA a cada lead del diagnóstico** (ítem 4). El formulario no lo decía. Ya se avisa en el formulario y en la política, pero **avisar no es lo mismo que tener consentimiento** para una llamada con voz artificial. NEEDS LEGAL REVIEW antes de subir tráfico.
-2. **El análisis post-llamada guarda "sexo inferido" e "indicio de nacionalidad" en HubSpot** (ítem 4b). Recomendación: quitarlos. NEEDS OWNER INPUT.
+1. **Llamadas automáticas con agente de voz IA a cada lead del diagnóstico** (ítem 4). **Resuelto por decisión del CEO:** la llamada se retiró de Make. Queda pendiente el histórico: grabaciones en Retell.
+2. **"Sexo inferido" e "indicio de nacionalidad" en HubSpot** (ítem 4b). **Retirados** del escenario de Make. Pendiente: quitarlos del agente en Retell y decidir qué hacer con las notas viejas.
 3. **Sin aviso de cookies/consentimiento para GA4** (ítem 8). NEEDS LEGAL REVIEW.
 
 ---
@@ -44,24 +44,29 @@ Estados: VERIFIED COMPLIANT · FIXED · NEEDS OWNER INPUT · NEEDS LEGAL REVIEW 
 
 ## 4. Transparencia sobre IA
 
-**STATUS:** FIXED (divulgación) · NEEDS LEGAL REVIEW (consentimiento)
-**EVIDENCE:** El escenario de Make **5148358** (activo) llama a `api.retellai.com/v2/create-phone-call` por cada diagnóstico no regulado: agente de voz IA "Gaby" llama al teléfono que dejó el lead, con metadata de nombre, tipo de negocio y descripción completa. El escenario **5637378** (activo) recibe el análisis de la llamada y lo guarda en HubSpot y Telegram. El formulario no lo avisaba y la política no lo mencionaba. El worker sí excluye de este flujo a quien marca datos regulados o "no estoy seguro" (`isRegulatedRisk`), verificado.
+**STATUS:** FIXED
+**EVIDENCE:** El escenario de Make **5148358** llamaba a `api.retellai.com/v2/create-phone-call` por cada diagnóstico no regulado: el agente de voz IA "Gaby" llamaba al teléfono del lead, con su nombre, tipo de negocio y descripción completa. Según el CEO, Retell grababa y guardaba la transcripción. El formulario no lo avisaba. El worker ya excluía a quien marcaba datos regulados o "no estoy seguro" (`isRegulatedRisk`), verificado.
 Separación pedida en el handoff:
 - A) "Automate IT usa IA en sus servicios" — ya estaba en el sitio.
-- B) "Datos que tú envías los procesa IA" — **sí ocurre** en el diagnóstico (Retell) y **puede ocurrir** en la consultoría (términos, cláusula 7). No ocurre en la firma del acuerdo ni en pagos. WhatsApp: el agente "Marc" está inactivo.
-**FILE/LOCATION:** `DiagnosticoForm.astro` (aviso bajo el teléfono + aviso antes del botón), política sección "Uso de inteligencia artificial con tus datos".
-**ACTION TAKEN:** Aviso junto al campo de teléfono: "Si lo dejas, es posible que te llame un asistente de voz con inteligencia artificial para continuar el diagnóstico." Aviso antes del botón (antes estaba después) con enlace a la política. La política nombra a Retell AI, qué datos recibe, que genera un resumen y una evaluación, y la excepción de la ruta regulada. No se afirma nada sobre entrenamiento de modelos.
-**REMAINING RISK — NEEDS LEGAL REVIEW:** Una llamada con voz generada por IA puede requerir **consentimiento previo expreso** del destinatario (y escrito, si se considera telemarketing) bajo la TCPA; la FCC declaró en febrero de 2024 que las voces generadas por IA cuentan como "voz artificial". La ley de Florida sobre llamadas de telemercadeo (FTSA) también exige consentimiento escrito para llamadas automatizadas. Dejar el teléfono en un formulario **no es necesariamente** ese consentimiento. **No puedo confirmar la conclusión legal**; es exactamente lo que tiene que revisar un abogado. Opciones técnicas para el CEO:
-  1. Pausar el módulo de Retell en 5148358 hasta tener opinión legal (lo más seguro).
-  2. Agregar una casilla de consentimiento explícita y opcional para la llamada, y que el worker solo mande el teléfono a Make si está marcada (requiere cambiar el formulario **y redesplegar** `diagnostico-intake`).
-  No hice ninguno de los dos: ambos cambian una integración de producción fuera del sitio.
+- B) "Tus datos pasan por IA" — **sí ocurre, de forma manual**: el CEO a veces pasa datos de leads y respuestas de la consultoría por Claude o Vero (Anthropic). No hay procesamiento automático con IA desde ningún formulario (verificado después del cambio). WhatsApp se responde a mano; ningún número de la empresa lo atiende una IA.
+**ACTION TAKEN (26-sep-2026, con aprobación del CEO):**
+- Se retiró el módulo de Retell de Make 5148358. El resto del escenario sigue activo.
+- Política, sección de IA: uso manual de herramientas de terceros (Claude, de Anthropic); no hay llamadas automáticas con IA ni WhatsApp con IA; declaración del histórico (llamadas de Retell hasta el 26-sep-2026, grabadas, con resumen y evaluación en el CRM) y cómo pedir que se borre.
+- Formulario: el aviso de privacidad va antes del botón y enlaza a la política. El aviso de llamada con IA junto al teléfono se agregó y se quitó en esta misma rama, porque la llamada ya no existe.
+**REMAINING RISK:**
+- Las personas llamadas antes del 26-sep-2026 recibieron una llamada con voz de IA sin consentimiento explícito documentado. NEEDS LEGAL REVIEW: si ese histórico implica alguna acción (TCPA; FTSA de Florida).
+- Si la llamada vuelve, antes hace falta opinión legal, una casilla de consentimiento en el formulario y actualizar la política.
+- Cuenta de Anthropic: revisar retención y entrenamiento de los datos que se pegan en Claude/Vero. NEEDS OWNER INPUT.
 
 ### 4b. Inferencias sensibles en el análisis de llamadas
 
-**STATUS:** NEEDS OWNER INPUT · NEEDS LEGAL REVIEW
-**EVIDENCE:** Escenario 5637378 escribe en la nota de HubSpot "⚧ Sexo (inferido, NO confirmado)" y "🌎 Nacionalidad (solo si la mencionó)", a partir de `custom_analysis_data.sexo_inferido` y `nacionalidad_indicio` que configura el agente de Retell.
-**ACTION TAKEN:** Ninguna en producción. No se publicó en la política a propósito: la corrección correcta es dejar de inferirlo, no anunciarlo.
-**REMAINING RISK:** Inferir sexo y origen nacional de una llamada y guardarlos junto a un "score" del lead es un riesgo de discriminación y de privacidad, y no tiene propósito operativo declarado. Recomendación: quitar ambos campos del análisis del agente en Retell y de la nota en Make 5637378. Puedo hacer la parte de Make si el CEO lo aprueba.
+**STATUS:** FIXED (Make) · NEEDS OWNER INPUT (Retell y datos viejos)
+**EVIDENCE:** El escenario 5637378 escribía en la nota de HubSpot "Sexo (inferido, NO confirmado)" y "Nacionalidad (solo si la mencionó)", a partir de campos que configura el agente de Retell.
+**ACTION TAKEN:** Se retiraron las dos variables y las dos líneas de la nota en Make 5637378. La descripción del escenario dice que no se vuelvan a agregar.
+**REMAINING RISK:**
+- El agente de Retell sigue configurado para inferirlos: hay que quitarlos en su panel.
+- Las notas ya creadas en HubSpot conservan esos datos. Recomendación: borrar esas dos líneas de las notas existentes.
+- Dossiers internos: el CEO preguntó si esos datos pueden quedar solo ahí. Técnicamente sí, pero el riesgo es el mismo, porque las leyes de privacidad no distinguen entre CRM y documento interno. Recomendación: en los dossiers anotar el **idioma de preferencia**, que sí tiene uso operativo, y no el sexo ni la nacionalidad.
 
 ## 5. Testimonios, reseñas y casos
 
@@ -123,14 +128,14 @@ Búsqueda de "HIPAA compliant", "HIPAA ready", "PHI", "BAA", "protected health i
 | Campo | ¿Necesario antes de hablar? | Recomendación |
 |---|---|---|
 | name, email | Sí | Mantener |
-| phone | Opcional; hoy dispara la llamada con IA | Mantener opcional; decidir consentimiento (ítem 4) |
+| phone | Opcional | Mantener opcional (ya no dispara la llamada con IA) |
 | business_name, public_url, role | Útil, no indispensable | Mantener (bajo riesgo, ya opcionales salvo `role`) |
 | business_type, context (texto libre) | Útil | Mantener; son los campos con más riesgo de que alguien pegue datos sensibles: el aviso ya lo advierte |
 | weekly_demand, entry_channels, friction, frequency, desired_outcome, key_person_dependency, urgency | Sí para el diagnóstico | Mantener (categóricos, bajo riesgo) |
 | regulated | Sí: es el que protege | Mantener |
 | Dirección, tamaño del equipo, pregunta de pacientes | — | **Ya no se piden** (solo existían en el formulario viejo) |
 
-Fuera del formulario: sexo inferido y nacionalidad en el análisis de Retell (ítem 4b) → **eliminar**. IP de la firma enviada a Telegram → innecesaria en el aviso (ya queda en HubSpot); recomendación: quitarla del mensaje de Telegram en `consultoria-intake`.
+Fuera del formulario: sexo inferido y nacionalidad en el análisis de Retell (ítem 4b) → retirados de Make; falta quitarlos en Retell. IP de la firma enviada a Telegram → innecesaria en el aviso (ya queda en HubSpot); recomendación: quitarla del mensaje de Telegram en `consultoria-intake`.
 **ACTION TAKEN:** Ningún campo eliminado (todos tienen uso operativo).
 
 ## 11. Conservación y eliminación
@@ -179,19 +184,19 @@ Fuera del formulario: sexo inferido y nacionalidad en el análisis de Retell (í
 
 ## Preguntas abiertas para el CEO (NEEDS OWNER INPUT)
 
-1. ¿Pausamos la llamada automática de Retell hasta tener opinión legal, o agregamos casilla de consentimiento? (ítem 4)
-2. ¿Autorizas quitar "sexo inferido" y "nacionalidad" del análisis de Retell y de la nota en Make? (ítem 4b)
-3. En GA4: ¿Google Signals o vinculación con Google Ads activos? En Cloudflare: ¿Web Analytics activo? (ítem 8)
-4. Retell: ¿graba audio? ¿guarda transcripciones? ¿cuánto tiempo? ¿el número de la empresa recibe llamadas atendidas por "Alejandro"? (mapa §3)
-5. WhatsApp: con "Marc" inactivo, ¿cómo se responden hoy los mensajes? (mapa §6)
-6. ¿Pasas respuestas de la consultoría o datos de leads por Claude/Vero u otra IA? (mapa §4, §10)
-7. Plazos de conservación (propuesta en ítem 11).
-8. Correo de confirmación de Make con (321) 217-1239 (ítem 12).
+Respondidas el 26-sep-2026: llamada con IA → retirada; sexo/nacionalidad → retirados de Make; números de la empresa → los contesta el CEO; WhatsApp → a mano; Retell → grababa y guardaba; Claude/Vero → sí, a veces.
+
+Pendientes:
+1. GA4: ¿Google Signals o vinculación con Google Ads? (el CEO no lo sabe; hay que revisarlo en GA4). ¿Cloudflare Web Analytics activo? (ítem 8)
+2. Quitar sexo/nacionalidad del agente en Retell y de las notas viejas de HubSpot; cuánto tiempo conserva Retell las grabaciones (ítem 4b).
+3. Cuenta de Anthropic: retención y entrenamiento (ítem 4).
+4. Plazos de conservación (propuesta en ítem 11).
+5. Correo de confirmación de Make con (321) 217-1239 (ítem 12).
 
 ## Para revisión legal (NEEDS LEGAL REVIEW)
 
-1. Consentimiento para llamadas con voz de IA (TCPA / FTSA).
+1. Llamadas con voz de IA ya hechas sin consentimiento documentado (TCPA / FTSA), y requisitos si se reactivan.
 2. Qué leyes estatales de privacidad aplican y si hace falta sección de derechos por estado.
 3. Consentimiento de cookies/analítica.
-4. Inferencias de sexo y nacionalidad en la calificación de leads.
+4. Inferencias de sexo y nacionalidad ya guardadas en HubSpot.
 5. Revisión general del texto nuevo de la política antes de considerarlo definitivo.

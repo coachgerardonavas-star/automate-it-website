@@ -3,6 +3,13 @@
 **Última verificación:** 26-sep-2026 · **Método:** lectura del código de este repo (sitio + `workers/`) y lectura, solo consulta, de los escenarios de Make activos (5148358, 5637378) y de la lista de escenarios del equipo 2245368.
 **Uso:** documento interno. No es asesoría legal. Lo que dice la Política de privacidad pública (`src/i18n/translations.ts` → `legal.privacy`) tiene que coincidir con este mapa.
 
+## 0. Cambios del 26-sep-2026 (decisiones del CEO tras la auditoría)
+
+- **Llamada automática con IA retirada.** Se quitó el módulo de Retell (llamada saliente "Gaby") del escenario Make 5148358. El resto del flujo sigue igual: Telegram, correo de confirmación, HubSpot y deal. La configuración del módulo quedó respaldada fuera del repo; también está en el historial de versiones del escenario en Make.
+- **Sexo inferido y nacionalidad retirados** de la nota de HubSpot y de las variables del escenario Make 5637378. Pendiente del CEO: quitarlos también del análisis del agente en el panel de Retell.
+- **Confirmado por el CEO:** ningún número de la empresa lo contesta una IA (el agente entrante "Alejandro" no está en uso); WhatsApp se responde a mano; Retell **grababa y guardaba transcripciones** de las llamadas hechas; el CEO **a veces** pasa datos de leads o respuestas de la consultoría por Claude o Vero (Anthropic).
+- Las tablas de abajo ya reflejan estos cambios.
+
 > Regla: si cambias un formulario, un worker, un escenario de Make o agregas un proveedor, actualiza este archivo y la política en el mismo commit.
 
 Convenciones:
@@ -38,22 +45,22 @@ Todos los campos viajan juntos por `POST` JSON a `diagnostico-intake` (Cloudflar
 
 | Campo (`name`) | Qué pregunta | Requerido | Destino | Propósito | ¿Pasa por IA? |
 |---|---|---|---|---|---|
-| `name` | Tu nombre | Sí | HubSpot (firstname/lastname), nota HubSpot, Telegram, Make → Gmail, Make → Retell | Identificar y contactar | Sí, si hay teléfono y no es ruta regulada (Retell) |
+| `name` | Tu nombre | Sí | HubSpot (firstname/lastname), nota HubSpot, Telegram, Make → Gmail, Make → Retell | Identificar y contactar | Puede, de forma manual (Claude/Vero) |
 | `email` | Email | Sí (validado en worker) | HubSpot (llave del upsert), Telegram, Make → Gmail (correo de confirmación) | Contacto | No |
-| `phone` | Teléfono o WhatsApp | No | HubSpot, Make → **Retell (llamada automática con IA)** | Contacto; dispara llamada | Sí (Retell) |
-| `business_name` | Nombre del negocio | No | Nota HubSpot, Telegram, Make (dentro de `message`) | Contexto | Sí, indirectamente: Make lo mete en `message` → `descripcion` → metadata de Retell |
+| `phone` | Teléfono o WhatsApp | No | HubSpot, Make → **Retell (llamada automática con IA)** | Contacto | No (llamada con IA retirada el 26-sep-2026) |
+| `business_name` | Nombre del negocio | No | Nota HubSpot, Telegram, Make (dentro de `message`) | Contexto | Puede, de forma manual |
 | `public_url` | Website o perfil público | No | HubSpot `website`, nota, Make (campo `address`) | Contexto | No |
-| `role` | Tu rol | Sí | Nota HubSpot, Make `message` | Calificación | Sí (vía `message`) |
-| `business_type` | Qué vende tu negocio (texto libre) | Sí | HubSpot `tipo_de_negocio`, nota, Make `industry` → Retell `tipo_negocio` | Calificación | Sí. **Omitido** en HubSpot-propiedades, Telegram y Make si ruta regulada |
-| `weekly_demand` | Volumen semanal | Sí | Nota HubSpot, Telegram, Make `message` | Calificación | Sí (vía `message`) |
-| `entry_channels[]` | Canales de entrada | No | Nota, Make `message` | Diagnóstico | Sí (vía `message`) |
-| `friction` | Qué cuesta más | Sí | Nota, Telegram, Make `message`, GA4 (evento `generate_lead`, valor de categoría) | Diagnóstico; medición | Sí (vía `message`) |
-| `frequency` | Frecuencia | Sí | Nota, Telegram, Make `message`; se usa para `hs_lead_status` | Calificación | Sí (vía `message`) |
-| `desired_outcome` | Qué notarías primero | Sí | Nota, Telegram, Make `message` | Diagnóstico | Sí (vía `message`) |
-| `key_person_dependency` | Si falta una persona clave | Sí | Nota, Make `message` | Diagnóstico | Sí (vía `message`) |
-| `urgency` | Cuándo revisar | Sí | HubSpot `urgencia`, nota, Telegram, Make `message`, GA4 (valor de categoría) | Calificación; medición | Sí (vía `message`) |
+| `role` | Tu rol | Sí | Nota HubSpot, Make `message` | Calificación | Puede, de forma manual |
+| `business_type` | Qué vende tu negocio (texto libre) | Sí | HubSpot `tipo_de_negocio`, nota, Make `industry` → Retell `tipo_negocio` | Calificación | Puede, de forma manual. **Omitido** en propiedades de HubSpot, Telegram y Make si es ruta regulada |
+| `weekly_demand` | Volumen semanal | Sí | Nota HubSpot, Telegram, Make `message` | Calificación | Puede, de forma manual |
+| `entry_channels[]` | Canales de entrada | No | Nota, Make `message` | Diagnóstico | Puede, de forma manual |
+| `friction` | Qué cuesta más | Sí | Nota, Telegram, Make `message`, GA4 (evento `generate_lead`, valor de categoría) | Diagnóstico; medición | Puede, de forma manual |
+| `frequency` | Frecuencia | Sí | Nota, Telegram, Make `message`; se usa para `hs_lead_status` | Calificación | Puede, de forma manual |
+| `desired_outcome` | Qué notarías primero | Sí | Nota, Telegram, Make `message` | Diagnóstico | Puede, de forma manual |
+| `key_person_dependency` | Si falta una persona clave | Sí | Nota, Make `message` | Diagnóstico | Puede, de forma manual |
+| `urgency` | Cuándo revisar | Sí | HubSpot `urgencia`, nota, Telegram, Make `message`, GA4 (valor de categoría) | Calificación; medición | Puede, de forma manual |
 | `regulated` | ¿Datos con requisitos especiales? (No/Sí/No estoy seguro) | Sí | Nota HubSpot | **Enrutamiento de privacidad**: Sí o No estoy seguro → sin Make, sin Retell, sin texto libre en Telegram ni en propiedades | No |
-| `context` | Qué te hizo buscar ayuda (texto libre) | Sí | HubSpot `descripcion`, nota, Telegram (400 chars), Make `message` → Retell | Diagnóstico | Sí. **Omitido** si ruta regulada |
+| `context` | Qué te hizo buscar ayuda (texto libre) | Sí | HubSpot `descripcion`, nota, Telegram (400 chars), Make `message` → Retell | Diagnóstico | Puede, de forma manual. **Omitido** si es ruta regulada |
 
 **Retención:** no hay regla de retención en código ni en Make. HubSpot conserva indefinidamente. ❓ Retención en Telegram, Gmail (enviados), historial de ejecuciones de Make y Retell → **NEEDS OWNER INPUT**.
 
@@ -74,18 +81,17 @@ Navegador ──POST JSON──▶ diagnostico-intake (Cloudflare)
           ├─▶ Telegram: aviso con nombre, email, teléfono, sitio, tipo, mensaje
           ├─▶ Gmail (google-email): correo de confirmación al lead
           └─▶ HubSpot: upsert contacto (lead_status CALIENTE), busca deals
-                 ├─▶ Retell AI: POST create-phone-call → LLAMADA SALIENTE CON AGENTE DE VOZ IA ("Gaby")
-                 │      metadata enviada: nombre, tipo de negocio, descripción (message completo), id HubSpot
                  └─▶ HubSpot: crea deal si no existe
+
+(Hasta el 26-sep-2026 había además una LLAMADA SALIENTE CON AGENTE DE VOZ IA de Retell ("Gaby"),
+ con nombre, tipo de negocio y descripción completa. Retirada por decisión del CEO.)
 ```
 
-Después de la llamada, Retell envía el análisis a Make → escenario **5637378 "Retell — Post-Call Score"** (activo):
-- Guarda en HubSpot: teléfono, lead status, lifecycle stage, canal, idioma, y una **nota** con nombre, contacto dado en la llamada, negocio, hora, score, razón, necesidad principal, **"Sexo (inferido, NO confirmado)"**, **"Nacionalidad (solo si la mencionó)"** y resumen de la llamada (1000 chars).
+Hasta el 26-sep-2026, después de cada llamada Retell enviaba el análisis a Make → escenario **5637378 "Retell — Post-Call Score"** (sigue activo, pero ya no le llegan llamadas nuevas):
+- Guarda en HubSpot: teléfono, lead status, lifecycle stage, canal, idioma, y una **nota** con nombre, contacto dado en la llamada, negocio, hora, score, razón, necesidad principal y resumen de la llamada (1000 chars). Hasta el 26-sep-2026 la nota incluía también "sexo inferido" y "nacionalidad": retirados. **Las notas ya creadas siguen en HubSpot con esos datos** (ver auditoría, ítem 4b).
 - Envía a Telegram: nombre, teléfono, negocio, idioma, necesidad, razón y resumen.
 
-⚠️ La inferencia de sexo y el indicio de nacionalidad **no están en la política pública** a propósito: la recomendación es eliminarlos del análisis de Retell y de la nota de Make, no publicarlos. Ver auditoría, ítem 4b.
-
-❓ Qué modelo de lenguaje usa Retell por detrás, si Retell graba el audio o conserva transcripciones y por cuánto tiempo, y si el número de la empresa recibe llamadas entrantes atendidas por el agente "Alejandro" → **NEEDS OWNER INPUT** (configuración en el panel de Retell, no en este repo).
+Confirmado por el CEO: Retell **grababa y guardaba transcripciones**; ningún número de la empresa lo atiende una IA. ❓ Cuánto tiempo conserva Retell esas grabaciones → **NEEDS OWNER INPUT** (panel de Retell).
 
 ---
 
@@ -94,7 +100,7 @@ Después de la llamada, Retell envía el análisis a Make → escenario **563737
 Campos: `ref` (id de sesión de Stripe, oculto), `nombre`, `email`, `telefono`, `negocio`, `tipo_negocio`, `tamano`, `urgencia`, `problema[]`, `problema_otro`, `como_contesta`, `llamadas_perdidas`, `tiene_web`, `estilo_web[]`, `paleta`, `complica[]`, `redes[]`, `automatizar`, `algo_mas`, `terminos` (checkbox requerido), `permiso_marketing` (checkbox opcional).
 
 Destinos ✅: HubSpot CRM API (contacto + nota + deal en pipeline "Ventas"), Telegram (aviso), GA4 desde el navegador (`form_submit_consultoria` con `tipo_negocio`, `urgencia`, `tamano`, `problemas`; sin nombre/email/teléfono).
-IA: los términos (cláusula 7) dicen que **se pueden** usar herramientas de IA para preparar recomendaciones. ❓ Si en la práctica el CEO pega las respuestas en Claude u otra herramienta → **NEEDS OWNER INPUT**. La política pública lo describe como "podemos usar", igual que los términos.
+IA: los términos (cláusula 7) dicen que **se pueden** usar herramientas de IA. Confirmado por el CEO: **a veces** pasa respuestas por Claude o Vero (Anthropic). La política lo dice así, nombrando a Anthropic.
 
 ## 5. Firma del acuerdo (`/acuerdo-colaboracion` → `consultoria-intake/acuerdo`)
 
@@ -106,7 +112,7 @@ Propósito: evidencia de la firma. El formulario ya avisa que se registran fecha
 ## 6. WhatsApp
 
 Flujo ✅: botón `wa.me` → app de WhatsApp → número WhatsApp Business (Meta Cloud API) → worker `whatsapp-webhook` → webhook de Make (hook 2466172) → escenario 5414594 **"Marc — WhatsApp Agent"**.
-Estado verificado: el escenario **está inactivo** (`isActive: false`, 0 ejecuciones). ❓ Mientras está inactivo, Make puede encolar los webhooks que llegan. ❓ Cómo se responden hoy los mensajes de WhatsApp (¿manual, desde qué app?) → **NEEDS OWNER INPUT**.
+Estado verificado: el escenario **está inactivo** (`isActive: false`, 0 ejecuciones). Confirmado por el CEO: los mensajes **se responden a mano**. ❓ Mientras está inactivo, Make puede encolar los webhooks que llegan (revisar si hay cola acumulada).
 Si "Marc" se reactiva y usa un modelo de IA para responder, la sección de IA de la política debe decirlo **antes** de activarlo.
 
 ## 7. Pagos (Stripe)
@@ -134,7 +140,7 @@ Supabase Auth (email + contraseña) y datos de la organización con RLS. Cookies
 
 - `bit-chat-3126`: sigue desplegado pero el sitio no lo llama desde el 14-ago-2026.
 - `ai-committee`: proxy interno a Anthropic para una herramienta local; CORS solo localhost.
-- `vero-telegram`: bot del CEO; `ALLOWED_CHAT_ID` fijo. ❓ Si el CEO reenvía datos de leads a Vero (Anthropic), eso es procesamiento con IA de datos de leads → **NEEDS OWNER INPUT**.
+- `vero-telegram`: bot del CEO; `ALLOWED_CHAT_ID` fijo. Confirmado: el CEO a veces le pasa datos de leads → procesamiento manual con IA (Anthropic), declarado en la política.
 - `health-check`: consulta URLs propias.
 
 ## 11. Inventario de proveedores
@@ -147,9 +153,9 @@ Supabase Auth (email + contraseña) y datos de la organización con RLS. Cookies
 | Telegram | Avisos internos | Nombre, email, negocio, urgencia, contexto (400 chars), IP de firma, resúmenes de llamada, pagos | Workers + Make | Sí | No | Borrado del historial del chat |
 | Google (Workspace/Gmail) | Correo | Email y nombre (confirmación del diagnóstico; confirmación de pagos) | Make 5148358, 5182085 | Sí | No | — |
 | Google Analytics | Analítica | Cookies, páginas, eventos de categoría | `BaseLayout.astro` | Sí | No | Signals/Ads linking |
-| Retell AI | Llamadas con agente de voz IA | Nombre, teléfono, tipo de negocio, descripción completa del diagnóstico; conversación de la llamada | Make 5148358 (saliente), 5637378 (post-llamada) | Sí | **Sí** | Modelo, grabación, retención, términos de entrenamiento |
+| Retell AI | Llamadas con agente de voz IA (retiradas el 26-sep-2026) | Histórico: nombre, teléfono, tipo de negocio, descripción del diagnóstico; grabación y transcripción | Make 5637378 (post-llamada, ya sin llamadas nuevas) | Sí, como histórico | **Sí** | Retención de grabaciones; borrar el análisis de sexo/nacionalidad del agente |
 | Meta / WhatsApp | Mensajería | Mensajes y número de quien escribe | `whatsapp-webhook` | Sí | No (Marc inactivo) | Cómo se responde hoy |
 | Stripe | Pagos | Tarjeta (solo Stripe), nombre, email, monto | `/ia`, links de pago, `stripe-webhook` | Sí | No | — |
 | Supabase | Base de datos del portal | Cuentas y datos de clientes contratados | `src/lib/portal/*` | Sí | No | — |
 | flagcdn.com | Imágenes externas | Datos técnicos de la solicitud | `Nav.astro`, `Home2026.astro` | Sí | No | Autoalojar |
-| Anthropic | IA | Nada desde formularios públicos (verificado) | `ai-committee`, `vero-telegram`, `bit-chat-3126` (sin uso público) | No aplica | Sí | Uso manual por el CEO |
+| Anthropic | IA | Nada automático desde formularios públicos (verificado). Uso manual: el CEO a veces pasa datos de leads y respuestas de consultoría por Claude o Vero | `vero-telegram`, uso manual | Sí | Sí | Revisar la configuración de retención/entrenamiento de la cuenta |
