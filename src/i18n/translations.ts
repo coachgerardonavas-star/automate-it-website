@@ -583,7 +583,7 @@ export const translations = {
       successBody:
         "Te contactamos en menos de 24 horas al email que dejaste. Mientras tanto, revisa tu carpeta de spam por si nuestro mail termina ahí.",
       privacyDisclaimer:
-        "Tus datos no se comparten ni se venden. Los usamos solo para coordinar tu diagnóstico.",
+        "No vendemos tus datos. Los usamos para coordinar tu diagnóstico y los procesan los proveedores que usamos para operar. Detalle en la Política de privacidad.",
       businessTypes: [
         "Dental",
         "Legal",
@@ -615,7 +615,7 @@ export const translations = {
       title: "Algo salió mal · Automate IT",
       heading: "Hubo un problema con tu pago.",
       subheading:
-        "No te preocupes: no se cobró nada y tus datos están a salvo.",
+        "No te preocupes: no se cobró nada. Los datos de pago los procesa Stripe, no nuestro sitio.",
       bodyIntro: "Puedes:",
       bullets: [
         "Volver a intentarlo desde la página de planes.",
@@ -694,7 +694,7 @@ export const translations = {
       errorSubmitFallback:
         "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
       privacyDisclaimer:
-        "Tus datos no se comparten ni se venden. Los usamos solo para coordinar tu diagnóstico.",
+        "No vendemos tus datos. Los usamos para coordinar tu diagnóstico y los procesan los proveedores que usamos para operar. Detalle en la Política de privacidad.",
     },
 
     footer: {
@@ -748,25 +748,58 @@ export const translations = {
       privacy: {
         title: "Política de privacidad",
         sections: [
+          // Esta política describe lo que el sistema HACE, verificado contra el
+          // código y los escenarios de Make el 26-sep-2026. Si cambia un flujo
+          // (un proveedor nuevo, un campo nuevo en un formulario, una llamada
+          // automática que se apaga), esta política cambia en el mismo commit.
+          // Inventario completo: docs/privacy-data-map.md.
           {
-            heading: "Quién recopila tus datos",
-            body: "Este sitio y los servicios asociados son operados por Automate IT LLC. Para cualquier asunto relacionado con tus datos personales puedes contactarnos en automateit@yourbizupgraded.com.",
+            heading: "Quién es responsable de tus datos",
+            body: "Este sitio y los servicios asociados son operados por Automate IT LLC, una empresa de Florida, Estados Unidos. Para cualquier pregunta o solicitud sobre tus datos personales escríbenos a automateit@yourbizupgraded.com o llámanos al (407) 404-9495.",
           },
           {
-            heading: "Qué datos recopilamos",
-            body: "Recopilamos únicamente los datos que tú nos proporcionas: nombre, teléfono, correo electrónico y los mensajes que nos envías por WhatsApp o a través del formulario web.",
+            heading: "Qué información recopilamos",
+            body: "Datos de contacto: nombre, correo electrónico y teléfono o WhatsApp. Información sobre tu negocio que nos das en nuestros formularios: nombre del negocio, sitio web o perfil público, tu rol, qué vende tu negocio, volumen de trabajo, canales por los que te llegan clientes, qué se complica en tu operación, urgencia, si tu operación maneja datos con requisitos especiales de privacidad o regulación, y todo lo que escribas en los campos de texto libre. Si llenas el cuestionario de consultoría, también tus respuestas sobre atención, sitio web, redes sociales y preferencias, y si aceptas o no que usemos tu caso en marketing. Si firmas un acuerdo en este sitio, guardamos tu nombre, correo, la cuenta que indiques, la versión del texto que aceptaste, la fecha, tu dirección IP y el tipo de navegador, como constancia de la firma. También recibimos los mensajes que nos envías por WhatsApp o correo, y la información que surja en llamadas contigo (ver la sección sobre inteligencia artificial). Si pagas algo, el pago lo procesa Stripe: nosotros no vemos ni guardamos los datos de tu tarjeta; recibimos tu nombre, correo, el monto y el estado del pago.",
           },
           {
-            heading: "Para qué usamos tus datos",
-            body: "Usamos tus datos para responder tus consultas, enviarte información sobre nuestro servicio y mejorar nuestros sistemas de automatización.",
+            heading: "Información que se recopila automáticamente",
+            body: "Como cualquier sitio web, al visitarnos tu navegador envía datos técnicos como tu dirección IP, tipo de navegador y dispositivo, la página que visitas y la página de la que vienes. Nuestro proveedor de hosting (Cloudflare) procesa esos datos para servir el sitio, y nuestros formularios usan la dirección IP para limitar envíos repetidos. Usamos Google Analytics para medir cómo se usa el sitio (ver la sección de cookies). Algunas imágenes pequeñas, como las banderas del selector de idioma, se cargan desde un servicio externo (flagcdn.com), que recibe los datos técnicos normales de esa solicitud.",
           },
           {
-            heading: "No vendemos tus datos",
-            body: "No vendemos, alquilamos ni compartimos tus datos personales con terceros con fines comerciales.",
+            heading: "Para qué usamos tu información",
+            body: "Para responder tus consultas; preparar tu diagnóstico o consultoría; contactarte por correo, WhatsApp o teléfono sobre lo que solicitaste; dar seguimiento comercial; prestar los servicios que contrates; procesar pagos; dejar constancia de acuerdos firmados; proteger el sitio contra abuso; y entender cómo se usa el sitio.",
           },
           {
-            heading: "Eliminación de tus datos",
-            body: "Puedes solicitar la eliminación de tus datos en cualquier momento escribiéndonos a automateit@yourbizupgraded.com. Procesaremos tu solicitud lo antes posible.",
+            heading: "Uso de inteligencia artificial con tus datos",
+            body: "Si completas el diagnóstico y dejas tu teléfono, es posible que recibas una llamada de un asistente de voz con inteligencia artificial para continuar el diagnóstico. Esa llamada la opera un proveedor de voz con IA (Retell AI), que recibe tu nombre, tu teléfono, el tipo de negocio y lo que escribiste sobre tu operación. Después de la llamada, ese sistema genera un resumen y una evaluación de tu interés y necesidad, que guardamos en nuestro CRM. Si en el formulario indicas que tu operación maneja datos con requisitos especiales de privacidad, o que no estás seguro, no se hace esa llamada automática y tu texto libre no se envía a ese flujo: te contactamos de forma manual. En la consultoría para emprendedores podemos usar herramientas de inteligencia artificial para preparar las recomendaciones a partir de tus respuestas. Usar IA como parte de nuestros servicios no significa que toda la información que nos das pase por un sistema de IA: esta sección describe los casos en que sí ocurre.",
+          },
+          {
+            heading: "Con quién compartimos tu información",
+            body: "No vendemos ni alquilamos tu información personal. Para operar, tu información pasa por proveedores que la procesan por encargo nuestro: Cloudflare (hosting del sitio y procesamiento de formularios), HubSpot (CRM donde guardamos contactos y notas), Make (automatización que conecta esos sistemas), Telegram (avisos internos al equipo cuando llega una solicitud), Google (correo electrónico y Google Analytics), Retell AI (llamadas con asistente de voz), Meta/WhatsApp (mensajes que nos envías por WhatsApp), Stripe (pagos) y Supabase (portal privado de clientes). Cada proveedor trata la información bajo sus propios términos.",
+          },
+          {
+            heading: "Cookies y analítica",
+            body: "Usamos Google Analytics 4, que coloca cookies en tu navegador para contar visitas y distinguir visitantes. Cuando envías un formulario registramos el evento con datos de categoría (por ejemplo, la urgencia que elegiste), nunca tu nombre, correo o teléfono. No usamos píxeles publicitarios ni herramientas de grabación de sesión. El portal privado de clientes usa cookies necesarias para mantener tu sesión iniciada. Puedes bloquear o borrar cookies desde la configuración de tu navegador.",
+          },
+          {
+            heading: "Información sensible",
+            body: "No envíes por nuestros formularios, WhatsApp ni correo información de pacientes, historias clínicas, contraseñas, números de tarjeta ni datos personales de tus clientes o empleados. Nuestros formularios no están diseñados para recibir ese tipo de información. Si tu negocio maneja información de salud protegida, lo conversamos por un canal apropiado antes de recibir cualquier dato de ese tipo.",
+          },
+          {
+            heading: "Cuánto tiempo conservamos tu información",
+            body: "Todavía no tenemos plazos fijos de conservación. Mientras los definimos, conservamos tu información en nuestro CRM hasta que nos pidas eliminarla. Algunos proveedores (por ejemplo, el historial de mensajes o los registros de automatizaciones) pueden conservar copias según sus propias reglas.",
+          },
+          {
+            heading: "Tus solicitudes",
+            body: "Puedes pedirnos una copia de tu información, que la corrijamos o que la eliminemos, y dejar de recibir comunicaciones nuestras, escribiendo a automateit@yourbizupgraded.com. Atendemos cada solicitud lo antes posible.",
+          },
+          {
+            heading: "Seguridad",
+            body: "El sitio y nuestros formularios usan conexiones cifradas (HTTPS), y las credenciales de nuestros proveedores no se exponen en el navegador. Ningún sistema es completamente seguro, así que no podemos garantizar que la información nunca sea accedida sin autorización.",
+          },
+          {
+            heading: "Cambios a esta política",
+            body: "Si cambiamos cómo tratamos tu información, actualizamos esta página y la fecha de arriba.",
           },
         ],
       },
@@ -1301,7 +1334,7 @@ export const translations = {
       successBody:
         "We'll contact you within 24 hours at the email you provided. Meanwhile, check your spam folder in case our message ends up there.",
       privacyDisclaimer:
-        "Your data isn't shared or sold. We only use it to coordinate your diagnostic.",
+        "We do not sell your data. We use it to coordinate your diagnostic, and it is processed by the providers we use to operate. Details in the Privacy policy.",
       businessTypes: [
         "Dental",
         "Legal",
@@ -1332,7 +1365,7 @@ export const translations = {
       title: "Something went wrong · Automate IT",
       heading: "There was a problem with your payment.",
       subheading:
-        "Don't worry — nothing was charged and your data is safe.",
+        "Don't worry — nothing was charged. Payment details are processed by Stripe, not by our site.",
       bodyIntro: "You can:",
       bullets: [
         "Try again from the plans page.",
@@ -1409,7 +1442,7 @@ export const translations = {
       errorSubmitFallback:
         "Something went wrong. Email us at automateit@yourbizupgraded.com",
       privacyDisclaimer:
-        "Your data isn't shared or sold. We only use it to coordinate your diagnostic.",
+        "We do not sell your data. We use it to coordinate your diagnostic, and it is processed by the providers we use to operate. Details in the Privacy policy.",
     },
 
     footer: {
@@ -1452,24 +1485,52 @@ export const translations = {
         title: "Privacy policy",
         sections: [
           {
-            heading: "Who collects your data",
-            body: "This website and its associated services are operated by Automate IT LLC. For any matter related to your personal data, you can contact us at automateit@yourbizupgraded.com.",
+            heading: "Who is responsible for your data",
+            body: "This website and its associated services are operated by Automate IT LLC, a Florida company in the United States. For any question or request about your personal data, email automateit@yourbizupgraded.com or call (407) 404-9495.",
           },
           {
-            heading: "What data we collect",
-            body: "We only collect the data you provide to us: name, phone number, email address, and the messages you send us via WhatsApp or through the web form.",
+            heading: "What information we collect",
+            body: "Contact details: name, email address, and phone or WhatsApp number. Information about your business that you give us in our forms: business name, website or public profile, your role, what your business sells, workload, the channels customers reach you through, what gets hard in your operation, urgency, whether your operation handles data with special privacy or regulatory requirements, and anything you write in free-text fields. If you complete the consulting questionnaire, also your answers about customer response, website, social media, and preferences, and whether or not you allow us to use your case in marketing. If you sign an agreement on this site, we keep your name, email, the account you provide, the version of the text you accepted, the date, your IP address, and your browser type, as a record of the signature. We also receive the messages you send us by WhatsApp or email, and information that comes up in calls with you (see the artificial intelligence section). If you pay for something, Stripe processes the payment: we do not see or store your card details; we receive your name, email, the amount, and the payment status.",
           },
           {
-            heading: "How we use your data",
-            body: "We use your data to respond to your inquiries, send you information about our service, and improve our automation systems.",
+            heading: "Information collected automatically",
+            body: "Like any website, when you visit, your browser sends technical data such as your IP address, browser and device type, the page you visit, and the page you came from. Our hosting provider (Cloudflare) processes that data to serve the site, and our forms use the IP address to limit repeated submissions. We use Google Analytics to measure how the site is used (see the cookies section). Some small images, such as the flags in the language switcher, load from an external service (flagcdn.com), which receives the normal technical data of that request.",
           },
           {
-            heading: "We don't sell your data",
-            body: "We do not sell, rent, or share your personal data with third parties for commercial purposes.",
+            heading: "How we use your information",
+            body: "To respond to your inquiries; prepare your diagnostic or consultation; contact you by email, WhatsApp, or phone about what you requested; follow up commercially; provide the services you hire us for; process payments; keep a record of signed agreements; protect the site against abuse; and understand how the site is used.",
           },
           {
-            heading: "Deleting your data",
-            body: "You can request the deletion of your data at any time by writing to us at automateit@yourbizupgraded.com. We will process your request as soon as possible.",
+            heading: "Use of artificial intelligence with your data",
+            body: "If you complete the diagnostic and leave your phone number, you may receive a call from an AI voice assistant to continue the diagnostic. That call is run by an AI voice provider (Retell AI), which receives your name, phone number, business type, and what you wrote about your operation. After the call, that system generates a summary and an assessment of your interest and needs, which we store in our CRM. If you indicate in the form that your operation handles data with special privacy requirements, or that you are not sure, that automated call is not made and your free text is not sent into that flow: we contact you manually. In the consulting service for entrepreneurs, we may use artificial intelligence tools to prepare recommendations from your answers. Using AI as part of our services does not mean that all the information you give us goes through an AI system: this section describes the cases where it does.",
+          },
+          {
+            heading: "Who we share your information with",
+            body: "We do not sell or rent your personal information. To operate, your information passes through providers that process it on our behalf: Cloudflare (site hosting and form processing), HubSpot (the CRM where we keep contacts and notes), Make (automation that connects those systems), Telegram (internal alerts to our team when a request arrives), Google (email and Google Analytics), Retell AI (AI voice assistant calls), Meta/WhatsApp (messages you send us on WhatsApp), Stripe (payments), and Supabase (private client portal). Each provider handles the information under its own terms.",
+          },
+          {
+            heading: "Cookies and analytics",
+            body: "We use Google Analytics 4, which places cookies in your browser to count visits and distinguish visitors. When you submit a form, we record the event with category data (for example, the urgency you chose), never your name, email, or phone. We do not use advertising pixels or session-recording tools. The private client portal uses cookies needed to keep you signed in. You can block or delete cookies in your browser settings.",
+          },
+          {
+            heading: "Sensitive information",
+            body: "Do not send patient information, medical records, passwords, card numbers, or personal data about your customers or employees through our forms, WhatsApp, or email. Our forms are not designed to receive that kind of information. If your business handles protected health information, we discuss it through an appropriate channel before receiving any data of that kind.",
+          },
+          {
+            heading: "How long we keep your information",
+            body: "We do not yet have fixed retention periods. Until we define them, we keep your information in our CRM until you ask us to delete it. Some providers (for example, message history or automation logs) may keep copies under their own rules.",
+          },
+          {
+            heading: "Your requests",
+            body: "You can ask us for a copy of your information, ask us to correct or delete it, and stop receiving communications from us, by emailing automateit@yourbizupgraded.com. We handle each request as soon as possible.",
+          },
+          {
+            heading: "Security",
+            body: "The site and our forms use encrypted connections (HTTPS), and our providers' credentials are not exposed in the browser. No system is completely secure, so we cannot guarantee that information will never be accessed without authorization.",
+          },
+          {
+            heading: "Changes to this policy",
+            body: "If we change how we handle your information, we update this page and the date above.",
           },
         ],
       },

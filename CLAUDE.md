@@ -206,6 +206,13 @@ Nunca dos puertas al mismo prospecto. Nunca ofrecer la de $1 después de haber o
 - Cero jerga hueca. Sustantivos concretos, verbos directos.
 - **No prometer números no verificados.** Sin dato → copy cualitativo; sin dato → mecanismo.
 - Sin testimonios inventados.
+- **Resultados de clientes vs. ejemplos (regla FTC, 26-sep-2026):**
+  - **Resultado real de cliente:** solo con evidencia guardada y permiso escrito del cliente (en la consultoría, la casilla `permiso_marketing`). Sin las dos cosas, no se publica.
+  - **Ejemplo ilustrativo:** debe llevar la etiqueta visible "Ejemplo ilustrativo" / "Illustrative example". No quitar esas etiquetas.
+  - Nunca generar nombre, foto, negocio, cita, calificación con estrellas ni historia de un cliente ficticio y presentarlo como real. Tampoco personas generadas con IA presentadas como clientes.
+  - Estadísticas de terceros en el blog: siempre con fuente nombrada. Un número sin fuente sobre lo que logra la automatización no se publica.
+- **Privacidad: lo que decimos = lo que el sistema hace.** Si agregas un campo a un formulario, un proveedor, un flujo de Make o una llamada automática, actualiza en el mismo commit la política (`translations.ts` → `legal.privacy`, ES y EN) y `docs/privacy-data-map.md`. Nunca escribir "no compartimos tus datos" ni "solo recopilamos X": los datos pasan por proveedores. La fórmula vigente es "No vendemos tus datos" + que los procesan los proveedores que usamos para operar. Auditoría completa en `docs/privacy-compliance-audit.md`.
+- Nunca afirmar "HIPAA compliant", "100% seguro" ni garantías de seguridad absolutas.
 - Voz: incertidumbre honesta.
 - **Frase prohibida: "sin humo"** (ver Reglas críticas).
 
