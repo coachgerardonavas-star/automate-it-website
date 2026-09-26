@@ -159,9 +159,39 @@ async function sendTelegram(env, chatId, text) {
   }
 }
 
+// Telegram manda en cada llamada la cabecera X-Telegram-Bot-Api-Secret-Token con
+// el valor que se le dio al registrar el webhook. Sin esta verificación, cualquiera
+// que conozca la URL puede mandar un JSON con el from.id del CEO: aprobar briefs,
+// gastar tokens de Anthropic y recibir las respuestas en su propio chat.
+//
+// Secret: TELEGRAM_WEBHOOK_SECRET (wrangler secret put TELEGRAM_WEBHOOK_SECRET).
+// Telegram solo acepta A-Z, a-z, 0-9, _ y -, de 1 a 256 caracteres.
+// Paso manual del CEO, DESPUÉS de desplegar este worker con el secret puesto:
+// volver a registrar el webhook con setWebhook pasando secret_token con el MISMO
+// valor. Mientras no coincidan, el worker rechaza todo y Vero no responde.
+async function isFromTelegram(request, env) {
+  const expected = env.TELEGRAM_WEBHOOK_SECRET;
+  // Sin secret configurado se rechaza todo: fallar cerrado, nunca dejar pasar.
+  if (!expected) return false;
+  const received = request.headers.get('X-Telegram-Bot-Api-Secret-Token');
+  if (!received) return false;
+  const enc = new TextEncoder();
+  const a = enc.encode(received);
+  const b = enc.encode(expected);
+  if (a.byteLength !== b.byteLength) return false;
+  return crypto.subtle.timingSafeEqual(a, b);
+}
+
 export default {
   async fetch(request, env) {
+    // El GET queda abierto a propósito: health-check lo usa como sonda (GET /)
+    // y no procesa nada ni toca KV ni la API.
     if (request.method !== 'POST') return new Response('OK');
+
+    if (!(await isFromTelegram(request, env))) {
+      console.warn('vero-telegram: POST rechazado, secret_token ausente o incorrecto');
+      return new Response('Unauthorized', { status: 401 });
+    }
 
     let body;
     try { body = await request.json(); } catch { return new Response('OK'); }

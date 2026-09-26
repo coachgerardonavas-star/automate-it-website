@@ -26,6 +26,8 @@ Hoy el worker no comprueba que el POST lo mande Telegram. Cualquiera que conozca
 
 **Esto va antes que cualquier herramienta.** Si el mensaje se puede falsificar, la regla de permisos de la sección 3 no protege nada.
 
+> **Implementado en código el 26-sep-2026** (`isFromTelegram()` en `index.js`). **Falta el paso manual del CEO** para que quede activo en producción: poner el secret, desplegar y volver a registrar el webhook con `secret_token`. Los pasos están en `CLAUDE.md`, entrada vero-telegram de "Workers activos". Hasta que se despliegue, el worker en vivo sigue sin verificar.
+
 ## 3. Regla de permisos para herramientas
 
 Principio (de JARVIS): **por defecto, denegar.** Una lista de "herramientas peligrosas" siempre se queda corta, porque solo contiene lo que alguien pensó. Lo que no está en la lista corre sin control.
