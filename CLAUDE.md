@@ -84,6 +84,7 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - ⚠️ **IntersectionObserver:** el observer que activa **todas** las animaciones `.reveal-on-scroll` vive dentro de `SeccionDolor.astro`. Si ese componente se elimina, mueve o condiciona su render, **todas** las animaciones de reveal dejan de funcionar. Antes de tocarlo, mover primero el observer a `BaseLayout.astro`.
 
 ## Documentos de referencia en este repo
+- `MANUAL_ONBOARDING_CLIENTES_v1_0.md` — ciclo de vida del cliente estándar (Asistente/Estratega/Manager): documento fuente del artifact "Pipeline del Cliente", plantilla de propuesta, mecanismo de cobro por depósito, checklist de go-live y borrador de renovación/cancelación (vigente en este repo; no reemplaza el checklist propio de La Memoria Operativa en el repo `automate-it`).
 - `MANUAL_MAESTRO_v4_9.md` — copia histórica (julio-2026). **NO es el vigente**: el vigente es `MANUAL_MAESTRO.md` v7.2 en ADN/Drive. Se conserva por trazabilidad.
 - `BrandScript_Automate_IT_v1_1.md` — copia en repo. La fuente vigente es `BrandScript_Automate_IT.md` en ADN/Drive.
 - `Manual_de_Marca_v2_5.docx` — manual de marca visual/verbal (vigente).
