@@ -18,7 +18,7 @@ import { env as cfEnv } from "cloudflare:workers";
 import { resolveSession, resolveActiveOrg } from "./session";
 import { getSupabaseEnv, logVisit } from "./supabase";
 import { PORTAL_BASE } from "./config";
-import { readDemoLang, demoIdentity } from "./demo-session";
+import { readDemo, demoIdentity, type DemoProfile } from "./demo-session";
 import type { DataContext } from "./data";
 import type { Organization, PortalSession } from "./types";
 import type { Lang } from "../../i18n/translations";
@@ -50,10 +50,10 @@ export async function requirePortal(context: APIContext): Promise<GuardResult> {
   // la cookie de demo se ignora. Ver `demo-session.ts` para por qué esto no
   // abre datos de nadie.
   if (result.status !== "authenticated") {
-    const demoLang = readDemoLang(context.cookies);
-    if (demoLang) {
+    const demo = readDemo(context.cookies);
+    if (demo) {
       context.locals.portalDemo = true;
-      return { ok: publicDemoContext(context, demoLang) };
+      return { ok: publicDemoContext(context, demo) };
     }
   }
 
@@ -165,13 +165,13 @@ function devPreviewContext(context: APIContext): PortalPageContext {
  * Contexto de la demo pública. Misma forma que la vitrina de desarrollo, pero
  * con rol client y el idioma que eligió el prospecto.
  */
-function publicDemoContext(context: APIContext, lang: Lang): PortalPageContext {
-  const { user, org } = demoIdentity(lang);
+function publicDemoContext(context: APIContext, demo: DemoProfile): PortalPageContext {
+  const { user, org } = demoIdentity(demo);
   return {
     session: { user, orgs: [org], activeOrg: org },
     org,
     ctx: { org, role: user.role, env: null, accessToken: null, now: new Date() },
-    lang,
+    lang: demo.lang,
     currentPath: context.url.pathname,
   };
 }

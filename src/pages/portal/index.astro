@@ -38,11 +38,25 @@ const rangeParam = Astro.url.searchParams.get("range");
 const range: RangeKey = isValidRange(rangeParam) ? rangeParam : "30d";
 
 const now = new Date();
-const hour = now.getHours();
+// Hora de Florida, no la del servidor: el Worker corre en UTC, y a las 10 de la
+// mañana en Orlando saludaba "Buenas tardes".
+const hour = Number(
+  new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    hourCycle: "h23",
+    timeZone: "America/New_York",
+  }).format(now)
+);
 const greeting =
   hour < 12 ? copy.greeting.morning : hour < 19 ? copy.greeting.afternoon : copy.greeting.evening;
 
 const firstName = (session.user.fullName ?? session.user.email).split(/[\s@]/)[0];
+
+// En la demo pública el prospecto escribió el nombre de su negocio: se lo
+// mostramos. A un cliente real se le deja el texto genérico de siempre.
+const subtitle = Astro.locals.portalDemo && org
+  ? copy.greeting.subtitleNamed.replace("{business}", () => org.name)
+  : copy.greeting.subtitle;
 
 const result = ctx ? await getOverview(ctx, range) : null;
 const mode = result?.mode ?? "demo";
@@ -95,7 +109,7 @@ const rangeLabels = copy.range as Record<string, string>;
           {greeting}, {firstName}.
         </h1>
         <p class="mt-1 text-sm text-[var(--color-text-secondary)]">
-          {copy.greeting.subtitle}
+          {subtitle}
         </p>
       </div>
 

@@ -82,6 +82,8 @@ const es = {
     afternoon: "Buenas tardes",
     evening: "Buenas noches",
     subtitle: "Esto es lo que está pasando en tu negocio.",
+    // Demo pública: el prospecto escribió el nombre de su negocio.
+    subtitleNamed: "Esto es lo que está pasando en {business}.",
   },
 
   range: {
@@ -443,6 +445,7 @@ const en: typeof es = {
     afternoon: "Good afternoon",
     evening: "Good evening",
     subtitle: "Here's what's happening in your business.",
+    subtitleNamed: "Here's what's happening at {business}.",
   },
 
   range: {
