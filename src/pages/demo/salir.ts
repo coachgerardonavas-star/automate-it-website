@@ -9,5 +9,5 @@ export const prerender = false;
 export const GET: APIRoute = (context) => {
   const lang = parseLang(context.url.searchParams.get("lang"));
   clearDemoCookie(context.cookies);
-  return context.redirect(lang === "en" ? "/en/demo" : "/demo");
+  return context.redirect(lang === "en" ? "/en/demo/" : "/demo/");
 };

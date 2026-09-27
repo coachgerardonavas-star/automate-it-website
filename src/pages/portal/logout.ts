@@ -31,7 +31,7 @@ export const POST: APIRoute = async (context) => {
   const demoLang = readDemoLang(context.cookies);
   if (demoLang) {
     clearDemoCookie(context.cookies);
-    return context.redirect(demoLang === "en" ? "/en/demo" : "/demo");
+    return context.redirect(demoLang === "en" ? "/en/demo/" : "/demo/");
   }
 
   return context.redirect(`${PORTAL_BASE}/login`);

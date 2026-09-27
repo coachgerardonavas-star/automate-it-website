@@ -710,7 +710,7 @@ export const translations = {
       back: "Atrás",
       skip: "Ir a la demo",
       switchLang: "English",
-      switchLangHref: "/en/demo",
+      switchLangHref: "/en/demo/",
       sampleLabel: "Ejemplo",
       slides: [
         {
@@ -1487,7 +1487,7 @@ export const translations = {
       back: "Back",
       skip: "Go to the demo",
       switchLang: "Español",
-      switchLangHref: "/demo",
+      switchLangHref: "/demo/",
       sampleLabel: "Sample",
       slides: [
         {
