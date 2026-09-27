@@ -1,5 +1,5 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "automate-it-website",
+  "name": "automate-it-website-worker",
   "compatibility_date": "2026-09-25"
 }
