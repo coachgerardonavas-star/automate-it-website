@@ -18,6 +18,8 @@ import { NAV_ITEMS, ADMIN_NAV_ITEM, PORTAL_BASE } from "../lib/portal/config";
 import type { Organization, PortalUser } from "../lib/portal/types";
 import PortalSidebar from "../components/portal/PortalSidebar.astro";
 import PortalTopbar from "../components/portal/PortalTopbar.astro";
+import PortalIcon from "../components/portal/PortalIcon.astro";
+import { WHATSAPP_NUMBER } from "../config/site";
 
 interface Props {
   lang?: PortalLang;
@@ -40,6 +42,15 @@ const {
 const copy = portalCopy(lang);
 const items = user.role === "admin" ? [...NAV_ITEMS, ADMIN_NAV_ITEM] : NAV_ITEMS;
 const htmlLang = lang === "en" ? "en" : "es";
+
+// Demo pública: un prospecto recorre el portal con datos de ejemplo. Se le
+// agregan dos cosas que un cliente no necesita — el cambio de idioma (un
+// cliente lo tiene en su perfil) y la salida hacia el diagnóstico.
+const isPublicDemo = Astro.locals.portalDemo === true;
+const demo = copy.demoSession;
+const switchLangHref = `/demo/entrar?lang=${demo.switchLangCode}&next=${encodeURIComponent(currentPath)}`;
+const exitHref = `/demo/salir?lang=${lang}`;
+const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(demo.whatsappMessage)}`;
 ---
 
 <!doctype html>
@@ -62,7 +73,19 @@ const htmlLang = lang === "en" ? "en" : "es";
     <title>{title} · {copy.brand}</title>
   </head>
   <body class="bg-[#F7F8FA] text-[var(--color-text-primary)] antialiased">
-    <div class="portal-root" data-drawer-root>
+    {isPublicDemo && (
+      <div class="demo-strip">
+        <span class="demo-strip__label">
+          <span class="demo-strip__dot" aria-hidden="true"></span>
+          {demo.barLabel}
+        </span>
+        <span class="demo-strip__links">
+          <a href={switchLangHref} hreflang={demo.switchLangCode}>{demo.switchLang}</a>
+          <a href={exitHref}>{demo.exit}</a>
+        </span>
+      </div>
+    )}
+    <div class="portal-root" data-drawer-root data-demo={isPublicDemo ? "true" : undefined}>
       <PortalSidebar
         lang={lang}
         items={items}
@@ -92,6 +115,26 @@ const htmlLang = lang === "en" ? "en" : "es";
         </main>
       </div>
     </div>
+
+    {isPublicDemo && (
+      <div class="demo-cta" role="region" aria-label={demo.barLabel}>
+        <a class="demo-cta__primary" href={demo.ctaHref} data-demo-cta="diagnostico">
+          <span class="sm:hidden">{demo.ctaShort}</span>
+          <span class="hidden sm:inline">{demo.cta}</span>
+          <PortalIcon name="arrow-right" size={18} />
+        </a>
+        <a
+          class="demo-cta__whatsapp"
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-demo-cta="whatsapp"
+        >
+          <PortalIcon name="message-circle" size={18} />
+          <span>{demo.whatsapp}</span>
+        </a>
+      </div>
+    )}
 
     <style>
       .portal-root {
@@ -146,6 +189,119 @@ const htmlLang = lang === "en" ? "en" : "es";
       @media (prefers-reduced-motion: reduce) {
         .portal-scrim {
           transition: none;
+        }
+      }
+
+      /* --- Demo pública --- */
+      .demo-strip {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.25rem 1rem;
+        padding: 0.5rem 1rem;
+        background: var(--color-bg-dark);
+        color: #fff;
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+      .demo-strip__label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .demo-strip__dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 999px;
+        background: #00d9ff;
+      }
+      .demo-strip__links {
+        display: inline-flex;
+        gap: 1rem;
+      }
+      .demo-strip__links a {
+        color: #c9d4e5;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .demo-strip__links a:hover {
+        color: #fff;
+      }
+
+      /* La barra de abajo tapa el final del contenido si no se le deja lugar. */
+      .portal-root[data-demo="true"] .portal-content {
+        padding-bottom: 7rem;
+      }
+
+      .demo-cta {
+        position: fixed;
+        z-index: 35;
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: max(0.75rem, env(safe-area-inset-bottom));
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 12px;
+        background: var(--color-bg-dark);
+        box-shadow: 0 12px 32px rgba(5, 10, 24, 0.28);
+      }
+      .demo-cta a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 44px;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: background-color 200ms var(--ease-brand);
+      }
+      .demo-cta__primary {
+        flex: 1;
+        padding: 0 1rem;
+        background: var(--color-blue);
+        color: #fff;
+      }
+      .demo-cta__primary:hover {
+        background: var(--color-navy);
+      }
+      .demo-cta__whatsapp {
+        padding: 0 0.875rem;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+      }
+      .demo-cta__whatsapp span {
+        /* En teléfono queda solo el icono: el ancho es para el botón principal. */
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+      .demo-cta__whatsapp:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .demo-cta a:focus-visible {
+        outline: 2px solid #00d9ff;
+        outline-offset: 2px;
+      }
+
+      @media (min-width: 640px) {
+        .demo-cta {
+          left: auto;
+          right: 1.5rem;
+          bottom: 1.5rem;
+          width: auto;
+        }
+        .demo-cta__whatsapp span {
+          position: static;
+          width: auto;
+          height: auto;
+          clip: auto;
         }
       }
     </style>

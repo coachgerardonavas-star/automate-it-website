@@ -97,6 +97,23 @@ const es = {
     body: "Esta cuenta todavía no está conectada a tus herramientas. Los números de abajo son de ejemplo y no describen tu negocio.",
   },
 
+  // Demo pública (prospecto que llegó desde la tarjeta NFC). No tiene cuenta,
+  // así que el aviso de arriba ("esta cuenta todavía no está conectada") no
+  // le aplica: se le explica qué está mirando y se le da la salida.
+  demoSession: {
+    bannerTitle: "Estás viendo una demo",
+    bannerBody: "El negocio y las cifras son de ejemplo. Así se vería tu panel una vez conectemos tus herramientas: con tus clientes, tus citas y tus números reales.",
+    barLabel: "Demo · datos de ejemplo",
+    cta: "Quiero esto para mi negocio",
+    ctaShort: "Lo quiero",
+    ctaHref: "/diagnostico",
+    whatsapp: "Escríbenos por WhatsApp",
+    whatsappMessage: "Hola, vi la demo del panel de Automate IT y quiero saber cómo se vería en mi negocio.",
+    switchLang: "English",
+    switchLangCode: "en",
+    exit: "Salir de la demo",
+  },
+
   kpi: {
     // "Tiempo de respuesta" a secas invita a preguntar "¿de quién, a qué?".
     // Nombrar las dos puntas hace que el número se explique solo.
@@ -439,6 +456,20 @@ const en: typeof es = {
   demoBanner: {
     title: "Demo data",
     body: "This account isn't connected to your tools yet. The numbers below are examples and don't describe your business.",
+  },
+
+  demoSession: {
+    bannerTitle: "You're viewing a demo",
+    bannerBody: "The business and the numbers are examples. This is how your dashboard would look once we connect your tools: with your customers, your appointments and your real numbers.",
+    barLabel: "Demo · sample data",
+    cta: "I want this for my business",
+    ctaShort: "I want this",
+    ctaHref: "/en/diagnostic",
+    whatsapp: "Message us on WhatsApp",
+    whatsappMessage: "Hi, I saw the Automate IT dashboard demo and I'd like to know how it would look for my business.",
+    switchLang: "Español",
+    switchLangCode: "es",
+    exit: "Exit demo",
   },
 
   kpi: {

@@ -11,3 +11,14 @@ interface Window {
    */
   trackEvent?: (name: string, params?: Record<string, unknown>) => void;
 }
+
+declare namespace App {
+  interface Locals {
+    /**
+     * true cuando el request del portal se sirve como demo pública (sin
+     * sesión real). Lo marca `requirePortal` y lo leen el layout y el aviso
+     * de datos de ejemplo para hablarle a un prospecto, no a un cliente.
+     */
+    portalDemo?: boolean;
+  }
+}

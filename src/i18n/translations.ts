@@ -697,6 +697,71 @@ export const translations = {
         "Tus datos no se comparten ni se venden. Los usamos solo para coordinar tu diagnóstico.",
     },
 
+    // Tour de /demo: lo que abre la tarjeta NFC. Cuatro pantallas que se pasan
+    // con el dedo y terminan en el portal con datos de ejemplo. Sin cifras:
+    // quien lo ve todavía no es cliente y no hay números suyos que mostrar.
+    demoTour: {
+      metaTitle: "Mira cómo funciona | Automate IT",
+      metaDescription:
+        "Un recorrido de un minuto: qué hacemos, cómo trabajamos y el panel donde ves tu negocio.",
+      brandLine: "Your business, upgraded.",
+      regionLabel: "Recorrido de Automate IT",
+      next: "Siguiente",
+      back: "Atrás",
+      skip: "Ir a la demo",
+      switchLang: "English",
+      switchLangHref: "/en/demo",
+      sampleLabel: "Ejemplo",
+      slides: [
+        {
+          eyebrow: "Lo que pasa hoy",
+          title: "Tu negocio funciona. Pero depende de que tú estés en todo.",
+          body: "No es falta de ganas. Es que el trabajo entra por todos lados y la única pieza que lo conecta eres tú.",
+          items: [
+            "Mensajes que se contestan tarde, o nunca.",
+            "Seguimiento que depende de tu memoria.",
+            "Información regada entre WhatsApp, papel y Excel.",
+          ],
+        },
+        {
+          eyebrow: "Lo que hacemos",
+          title: "Entendemos tu operación y construimos la mejora.",
+          body: "Encontramos dónde se te va el tiempo, la información o el dinero, y lo arreglamos dentro de las herramientas que ya usas.",
+          items: [
+            "Diagnóstico: vemos dónde entra el trabajo y dónde se enfría.",
+            "Implementación: conectamos tus herramientas y dejamos el trabajo repetitivo funcionando.",
+            "Optimización: el sistema se ajusta a medida que tu negocio cambia.",
+          ],
+        },
+        {
+          eyebrow: "Lo que tú ves",
+          title: "Un panel donde ves qué pasó hoy, sin preguntarle a nadie.",
+          body: "Desde el teléfono, en cualquier momento.",
+          items: [
+            "Quién escribió y quién sigue esperando respuesta.",
+            "Las citas de la semana y si están confirmadas.",
+            "Qué está funcionando solo y qué necesita tu atención.",
+          ],
+        },
+        {
+          eyebrow: "Demo en vivo",
+          title: "Míralo tú mismo.",
+          body: "Entra al panel de un negocio de ejemplo y recórrelo como si fuera el tuyo. No necesitas cuenta.",
+          items: [],
+        },
+      ],
+      mockKpis: [
+        { label: "Primera respuesta", value: "42 s" },
+        { label: "Consultas fuera de horario", value: "23" },
+        { label: "Citas agendadas", value: "18" },
+      ],
+      mockAttention: "3 clientes esperan tu respuesta",
+      pillars: ["Ver", "Entender", "Actuar"],
+      openDemo: "Abrir la demo",
+      talk: "Prefiero hablar con alguien",
+      whatsappMessage: "Hola, vi el recorrido de Automate IT y quiero saber cómo se vería en mi negocio.",
+    },
+
     footer: {
       tagline: "Your business, upgraded.",
       description:
@@ -1410,6 +1475,68 @@ export const translations = {
         "Something went wrong. Email us at automateit@yourbizupgraded.com",
       privacyDisclaimer:
         "Your data isn't shared or sold. We only use it to coordinate your diagnostic.",
+    },
+
+    demoTour: {
+      metaTitle: "See how it works | Automate IT",
+      metaDescription:
+        "A one-minute walkthrough: what we do, how we work, and the dashboard where you see your business.",
+      brandLine: "Your business, upgraded.",
+      regionLabel: "Automate IT walkthrough",
+      next: "Next",
+      back: "Back",
+      skip: "Go to the demo",
+      switchLang: "Español",
+      switchLangHref: "/demo",
+      sampleLabel: "Sample",
+      slides: [
+        {
+          eyebrow: "What happens today",
+          title: "Your business works. But it depends on you being everywhere.",
+          body: "It's not a lack of effort. Work comes in from every direction, and the only thing connecting it is you.",
+          items: [
+            "Messages answered late, or never.",
+            "Follow-up that depends on your memory.",
+            "Information scattered across WhatsApp, paper and Excel.",
+          ],
+        },
+        {
+          eyebrow: "What we do",
+          title: "We understand your operation and build the improvement.",
+          body: "We find where you're losing time, information or money, and fix it inside the tools you already use.",
+          items: [
+            "Diagnosis: we see where work comes in and where it goes cold.",
+            "Implementation: we connect your tools and leave the repetitive work running.",
+            "Optimization: the system adjusts as your business changes.",
+          ],
+        },
+        {
+          eyebrow: "What you see",
+          title: "A dashboard that shows what happened today, without asking anyone.",
+          body: "From your phone, any time.",
+          items: [
+            "Who reached out and who is still waiting for a reply.",
+            "This week's appointments and whether they're confirmed.",
+            "What's running on its own and what needs your attention.",
+          ],
+        },
+        {
+          eyebrow: "Live demo",
+          title: "See it for yourself.",
+          body: "Open the dashboard of a sample business and explore it as if it were yours. No account needed.",
+          items: [],
+        },
+      ],
+      mockKpis: [
+        { label: "First reply", value: "42 s" },
+        { label: "After-hours inquiries", value: "23" },
+        { label: "Appointments booked", value: "18" },
+      ],
+      mockAttention: "3 customers are waiting for your reply",
+      pillars: ["See", "Understand", "Act"],
+      openDemo: "Open the demo",
+      talk: "I'd rather talk to someone",
+      whatsappMessage: "Hi, I saw the Automate IT walkthrough and I'd like to know how it would look for my business.",
     },
 
     footer: {

@@ -28,6 +28,7 @@ const PAIRS: Array<[string, string]> = [
   ["/privacy-policy", "/en/privacy-policy"],
   ["/terms", "/en/terms"],
   ["/terminos-consultoria-emprendedores", "/en/consulting-terms"],
+  ["/demo", "/en/demo"],
   // Único artículo con las dos versiones publicadas. Los demás son solo ES.
   [
     "/blog/por-que-tu-negocio-te-tiene-secuestrado",

@@ -11,6 +11,7 @@ import type { APIRoute } from "astro";
 import { getSupabaseEnv, signOut } from "../../lib/portal/supabase";
 import { clearSessionCookies, ACCESS_COOKIE } from "../../lib/portal/session";
 import { PORTAL_BASE } from "../../lib/portal/config";
+import { readDemoLang, clearDemoCookie } from "../../lib/portal/demo-session";
 
 export const prerender = false;
 
@@ -23,6 +24,15 @@ export const POST: APIRoute = async (context) => {
   }
 
   clearSessionCookies(context.cookies);
+
+  // Quien sale de la demo pública es un prospecto: no tiene cuenta, así que
+  // mandarlo al login no le sirve. Vuelve al tour en su idioma.
+  const demoLang = readDemoLang(context.cookies);
+  if (demoLang) {
+    clearDemoCookie(context.cookies);
+    return context.redirect(demoLang === "en" ? "/en/demo" : "/demo");
+  }
+
   return context.redirect(`${PORTAL_BASE}/login`);
 };
 

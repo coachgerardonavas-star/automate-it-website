@@ -17,6 +17,7 @@ import type { APIContext } from "astro";
 import { resolveSession, resolveActiveOrg } from "./session";
 import { getSupabaseEnv, logVisit } from "./supabase";
 import { PORTAL_BASE } from "./config";
+import { readDemoLang, demoIdentity } from "./demo-session";
 import type { DataContext } from "./data";
 import type { Organization, PortalSession } from "./types";
 import type { Lang } from "../../i18n/translations";
@@ -42,6 +43,18 @@ type GuardResult =
  */
 export async function requirePortal(context: APIContext): Promise<GuardResult> {
   const result = await resolveSession(context);
+
+  // Demo pública (tarjeta NFC → /demo → /demo/entrar). Va después de
+  // `resolveSession` a propósito: si hay una sesión real, esa gana siempre y
+  // la cookie de demo se ignora. Ver `demo-session.ts` para por qué esto no
+  // abre datos de nadie.
+  if (result.status !== "authenticated") {
+    const demoLang = readDemoLang(context.cookies);
+    if (demoLang) {
+      context.locals.portalDemo = true;
+      return { ok: publicDemoContext(context, demoLang) };
+    }
+  }
 
   if (result.status === "unconfigured") {
     // Sesión de vitrina para desarrollo local.
@@ -143,6 +156,21 @@ function devPreviewContext(context: APIContext): PortalPageContext {
     // datos sembrados sin intentar ninguna consulta.
     ctx: { org, role: user.role, env: null, accessToken: null, now: new Date() },
     lang: "es",
+    currentPath: context.url.pathname,
+  };
+}
+
+/**
+ * Contexto de la demo pública. Misma forma que la vitrina de desarrollo, pero
+ * con rol client y el idioma que eligió el prospecto.
+ */
+function publicDemoContext(context: APIContext, lang: Lang): PortalPageContext {
+  const { user, org } = demoIdentity(lang);
+  return {
+    session: { user, orgs: [org], activeOrg: org },
+    org,
+    ctx: { org, role: user.role, env: null, accessToken: null, now: new Date() },
+    lang,
     currentPath: context.url.pathname,
   };
 }

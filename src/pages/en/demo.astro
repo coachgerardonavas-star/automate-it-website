@@ -1,0 +1,28 @@
+---
+/**
+ * /en/demo — destino de la tarjeta NFC.
+ *
+ * `noindex`: es material de visita en persona, no una página para buscadores.
+ * Sin Nav ni botón flotante de WhatsApp: es una presentación a pantalla
+ * completa, y el tour ya trae sus propias salidas.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import DemoTour from "../../components/DemoTour.astro";
+import { translations } from "../../i18n/translations";
+
+const lang = "en" as const;
+const t = translations[lang].demoTour;
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.metaTitle}
+  description={t.metaDescription}
+  noindex={true}
+  chatbot={false}
+>
+  <main>
+    <h1 class="sr-only">{t.metaTitle}</h1>
+    <DemoTour lang={lang} />
+  </main>
+</BaseLayout>
