@@ -30,8 +30,43 @@ export const DEMO_USER_ID = "public-demo";
 /** Lo que dura la demo abierta en el navegador del prospecto. */
 const DEMO_MAX_AGE = 60 * 60 * 24;
 
-export function setDemoCookie(cookies: AstroCookies, lang: Lang) {
-  cookies.set(DEMO_COOKIE, lang, {
+/**
+ * Lo que el prospecto escribió en `/demo`. Vive solo en la cookie de su
+ * navegador: el servidor no lo guarda en ningún otro lado.
+ */
+export interface DemoProfile {
+  lang: Lang;
+  name: string;
+  business: string;
+}
+
+const NAME_MAX = 40;
+const BUSINESS_MAX = 60;
+
+/**
+ * Limpia un texto que viene de un formulario público: sin caracteres de
+ * control, espacios colapsados y largo acotado. El escape HTML lo hace Astro
+ * al pintar; esto evita que un texto enorme o invisible rompa el diseño.
+ */
+export function cleanText(raw: unknown, max: number): string {
+  const clean = String(raw ?? "")
+    .replace(/[\p{C}]/gu, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  // Por caracteres, no por unidades UTF-16: así un emoji no queda partido.
+  return Array.from(clean).slice(0, max).join("").trim();
+}
+
+export function toProfile(raw: { lang?: unknown; name?: unknown; business?: unknown }): DemoProfile {
+  return {
+    lang: parseLang(typeof raw.lang === "string" ? raw.lang : null),
+    name: cleanText(raw.name, NAME_MAX),
+    business: cleanText(raw.business, BUSINESS_MAX),
+  };
+}
+
+export function setDemoCookie(cookies: AstroCookies, profile: DemoProfile) {
+  cookies.set(DEMO_COOKIE, JSON.stringify(profile), {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
@@ -44,11 +79,28 @@ export function clearDemoCookie(cookies: AstroCookies) {
   cookies.delete(DEMO_COOKIE, { path: "/" });
 }
 
+/**
+ * Perfil de la demo, o null si este navegador no la abrió.
+ *
+ * Acepta también el formato anterior de la cookie (solo "es"/"en"), para que
+ * una demo abierta antes de este cambio no se rompa.
+ */
+export function readDemo(cookies: AstroCookies): DemoProfile | null {
+  const value = cookies.get(DEMO_COOKIE)?.value;
+  if (!value) return null;
+  if (value === "es" || value === "en") return { lang: value, name: "", business: "" };
+  try {
+    const parsed = JSON.parse(value);
+    if (parsed && typeof parsed === "object") return toProfile(parsed);
+  } catch {
+    // Cookie ilegible: se trata como si no hubiera demo abierta.
+  }
+  return null;
+}
+
 /** Idioma de la demo, o null si este navegador no la abrió. */
 export function readDemoLang(cookies: AstroCookies): Lang | null {
-  const value = cookies.get(DEMO_COOKIE)?.value;
-  if (value === "es" || value === "en") return value;
-  return null;
+  return readDemo(cookies)?.lang ?? null;
 }
 
 export function parseLang(raw: string | null): Lang {
@@ -56,25 +108,26 @@ export function parseLang(raw: string | null): Lang {
 }
 
 /**
- * Usuario y organización de la demo.
+ * Usuario y organización de la demo, con el nombre y el negocio que escribió
+ * el prospecto. Si llegó sin escribirlos (un enlace viejo, o entró directo a
+ * `/demo/entrar`), se usa el negocio de ejemplo de siempre.
  *
- * El negocio es de ejemplo y lo dice el aviso de cada pantalla. Sin gerente de
- * cuenta: un nombre inventado frente a un prospecto sería una promesa sobre
- * quién lo va a atender.
+ * Sin gerente de cuenta: un nombre inventado frente a un prospecto sería una
+ * promesa sobre quién lo va a atender.
  */
-export function demoIdentity(lang: Lang): { user: PortalUser; org: Organization } {
+export function demoIdentity(profile: DemoProfile): { user: PortalUser; org: Organization } {
   return {
     user: {
       id: DEMO_USER_ID,
       email: "demo@yourbizupgraded.com",
-      fullName: "Carlos Méndez",
+      fullName: profile.name || "Carlos Méndez",
       role: "client",
-      locale: lang,
+      locale: profile.lang,
     },
     org: {
       id: "public-demo-org",
-      name: "Carlos Plumbing",
-      slug: "carlos-plumbing",
+      name: profile.business || "Carlos Plumbing",
+      slug: "demo",
       status: "healthy",
       dataMode: "demo",
       accountManager: null,
