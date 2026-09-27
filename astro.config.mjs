@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
 import keystatic from "@keystatic/astro";
@@ -8,12 +7,13 @@ import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
   site: "https://yourbizupgraded.com",
-  output: "hybrid",
+  output: "static",
   adapter: cloudflare({
     imageService: "passthrough",
+    prerenderEnvironment: "node",
   }),
+  session: false,
   integrations: [
-    tailwind({ applyBaseStyles: false }),
     react(),
     markdoc(),
     keystatic(),
@@ -23,6 +23,7 @@ export default defineConfig({
       filter: (page) =>
         !page.includes("/keystatic") &&
         !page.includes("/en/keystatic") &&
+        !page.includes("/demo") &&
         !page.includes("/portal") &&
         !page.includes("/pulso") &&
         !page.includes("/r/"),

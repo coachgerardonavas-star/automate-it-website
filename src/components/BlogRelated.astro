@@ -45,7 +45,7 @@ for (const entry of all) {
 const currentTags = new Set(post.data.tags);
 
 const related = all
-  .filter((entry) => entry.slug !== post.slug)
+  .filter((entry) => entry.id !== post.id)
   .map((entry) => {
     let score = 0;
     for (const tag of entry.data.tags) {
@@ -80,7 +80,7 @@ const related = all
         {related.map((entry) => (
           <li>
             <a
-              href={`${blogBase}/${entry.slug}/`}
+              href={`${blogBase}/${entry.id.replace(/\.(md|mdx)$/i, "")}/`}
               class="group block h-full rounded-lg border border-[var(--color-border)] p-4 transition-colors duration-200 hover:border-[var(--color-cyan)]"
             >
               <span class="block font-semibold text-sm leading-snug group-hover:text-[var(--color-blue)]">
