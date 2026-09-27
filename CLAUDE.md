@@ -4,20 +4,21 @@
 Sitio web one-page en Astro de Automate IT (yourbizupgraded.com): genera leads orgánicos de dueños de pequeños y medianos negocios (foco de mensaje: hispanos en Florida) para servicios de mejora operativa: entender la operación, encontrar dónde se pierde tiempo, información o dinero, y construir la mejora. La solución puede ser automatización, integración, simplificación de proceso, captura de datos, reporting o dashboard. **La IA es capacidad de entrega, no el posicionamiento** (Manual Maestro §2). Bilingüe ES/EN, sin scroll cinematográfico, foco en claridad, performance y deploy continuo.
 
 ## Stack
-- **Framework:** Astro `^4.16.0` (Astro 4.x) vía `@astrojs/cloudflare` 11.2.0
-- **Estilos:** Tailwind CSS `^3.4.13` vía `@astrojs/tailwind` `^5.1.0`
-- **UI/islas:** React 18.3.1 (`@astrojs/react` 3.6.3) — uso puntual
-- **CMS:** Keystatic (`@keystatic/astro` 5.0.6 / `@keystatic/core` 0.5.50)
+- **Framework:** Astro 7.3.5 vía `@astrojs/cloudflare` 14.3.3
+- **Estilos:** Tailwind CSS 3.4 vía PostCSS (`postcss.config.cjs`)
+- **UI/islas:** React 18.3.1 (`@astrojs/react` 7.0.0) — uso puntual
+- **CMS:** Keystatic (`@keystatic/astro` 6.0.0 / `@keystatic/core` 0.6.9)
 - **Iconos:** `lucide-astro` · **Fuentes:** `@fontsource/open-sans` (self-hosted)
-- **Node:** sin `.nvmrc` ni campo `engines` en package.json — no hay versión fijada en el repo (usar LTS 18+, compatible con Astro 4)
+- **Node:** 24 en CI; `package.json` exige >=22.12.0.
 - **Animaciones:** CSS puro + IntersectionObserver. **Sin GSAP. Sin Three.js.**
-- **Deploy:** Cloudflare Pages — auto-deploy al hacer push a `main` desde GitHub.
+- **Deploy:** Cloudflare Workers para Astro 7. `npm run build` genera `dist/server/wrangler.json`; `npm run deploy:built` despliega ese build. Configurar Workers Builds con Node 24, comando de build `npm run build` y comando de despliegue `npm run deploy:built`. Pages sigue atendiendo el dominio hasta cambiar su ruta de forma explícita; `CF_PAGES=1` cancela el build nuevo para proteger la versión actual.
 - **Repo:** coachgerardonavas-star/automate-it-website · rama `main`
 
 ## Comandos
 Definidos en `package.json` (todos vía Astro CLI):
 - `npm run dev` — servidor de desarrollo (`astro dev`, también `npm start`)
 - `npm run build` — build de producción (`astro build`)
+- `npm run deploy:built` — despliega el build ya generado en Cloudflare Workers
 - `npm run preview` — preview del build (`astro preview`)
 - `npm run astro` — CLI de Astro directo
 
@@ -65,7 +66,6 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 - **Demo vs producción:** cada organización tiene `data_mode` (`demo` | `live`). El modo viaja *dentro* de la respuesta (`DataEnvelope.mode`) y `DemoBanner` lo pinta a partir de ahí. Nunca mostrar cifras sembradas sin ese aviso.
 - **Copy:** `src/lib/portal/copy.ts`, ES y EN juntos. No usa `translations.ts` (ese archivo es del sitio público). El idioma sale del perfil del usuario, no de la URL.
 - **Variables:** `SUPABASE_URL` y `SUPABASE_ANON_KEY` (ver `.env.example`). Sin ellas el portal muestra una pantalla de "no configurado" y **el sitio público sigue funcionando**.
-- `src/pages/portal/preview-dev.astro` es una previsualización con datos sembrados que **solo responde en `astro dev`**: en producción devuelve 404 (`import.meta.env.DEV`). Sirve para revisar la UI sin base conectada. No lee cookies ni emite tokens.
 
 ## Reglas críticas del proyecto
 - 🚫 **n8n queda FUERA por completo** (decisión del CEO, 31-jul-2026): ni como infraestructura interna **ni como producto para vender a clientes**. Esto revierte la regla anterior, que lo mantenía como producto vendible. No proponerlo, no cotizarlo, no reactivarlo sin que el CEO lo diga explícitamente. Para automatización interna se usa Make o Workers propios.
@@ -92,7 +92,7 @@ Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del 
 
 ## Stack — detalle no negociable
 - **Blog:** Astro Content Collections. Posts en `src/content/blog/*.md` con frontmatter `{ title, description, pubDate, lang, author, tags, draft }`. Listing en `/blog` y `/en/blog`; artículo dinámico `/blog/[slug]` y `/en/blog/[slug]` filtrado por `lang` en `getStaticPaths`.
-- **i18n:** built-in Astro 4 i18n + carpetas. Strings centralizadas en `src/i18n/translations.ts`. Rutas: `/`, `/diagnostico`, `/privacidad`, `/terminos` y equivalentes EN `/en/`, `/en/diagnostic`, `/en/privacy`, `/en/terms`.
+- **i18n:** rutas por idioma de Astro + carpetas. Strings centralizadas en `src/i18n/translations.ts`. Rutas: `/`, `/diagnostico`, `/privacidad`, `/terminos` y equivalentes EN `/en/`, `/en/diagnostic`, `/en/privacy`, `/en/terms`.
 - **Analytics e integraciones:** placeholders en `src/config/site.ts`. BaseLayout emite scripts solo cuando `isGAEnabled()` / `isSearchConsoleEnabled()` son true.
 - **Performance:** Lighthouse mobile baseline 98/96/100/100. FCP 1.6s, LCP 2.0s, TBT 0ms, CLS 0. Favicon SVG, mascota webp 320px, Open Sans self-hosted, Manifold CF preload.
 - Antes de agregar una librería JS pesada, **detenerse** y buscar solución CSS pura; proponer al CEO antes de instalar.

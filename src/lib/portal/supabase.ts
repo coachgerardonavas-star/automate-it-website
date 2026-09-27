@@ -21,9 +21,9 @@ export interface SupabaseEnv {
 /**
  * Lee la configuración del entorno.
  *
- * En Cloudflare las variables de runtime llegan por `locals.runtime.env`, no
- * por `import.meta.env` (que se resuelve en build). Se aceptan ambas para que
- * `astro dev` funcione con un `.env` local.
+ * En Workers las variables de runtime llegan por `cloudflare:workers`.
+ * Cada caller inyecta `env` aquí; `import.meta.env` queda como respaldo
+ * para desarrollo local.
  *
  * Devuelve null si falta configuración, en vez de lanzar: el portal muestra
  * entonces una pantalla honesta de "no configurado" y el sitio público sigue

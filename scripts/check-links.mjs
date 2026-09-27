@@ -7,7 +7,7 @@
  * inexistente, el selector de idioma apuntando a rutas que no existen y los
  * enlaces legales del home en inglés) los habría atrapado este script.
  *
- * Recorre cada página de `dist/`, junta todos los `href` y `src` internos y
+ * Recorre cada página de `dist/client/`, junta todos los `href` y `src` internos y
  * comprueba que resuelvan a un archivo publicado, a una redirección declarada
  * en `astro.config.mjs` o a una ruta que se sirve en el servidor.
  *
@@ -16,19 +16,26 @@
  * automático. Va aparte de `npm run build` a propósito: un enlace roto no debe
  * impedir que el sitio se publique, solo avisar.
  */
-import { readdir, readFile, stat } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
-const DIST = "dist";
+const DIST = "dist/client";
 
 /** Redirecciones declaradas en `astro.config.mjs`: existen aunque no sean archivos. */
-const REDIRECTS = new Set(["/privacidad", "/terminos", "/en/privacy"]);
+const REDIRECTS = new Set(["/privacidad", "/terminos", "/en/privacy", "/empresas"]);
 
 /**
  * Rutas que se generan en el servidor (`prerender = false`), así que nunca
- * aparecen como archivo en `dist` aunque sí respondan en producción.
+ * aparecen como archivo en `dist/client` aunque sí respondan en producción.
  */
-const SERVER_ROUTES = [/^\/portal(\/|$)/, /^\/pulso\//, /^\/r\//, /^\/keystatic/, /^\/acuerdo(\/|$)/];
+const SERVER_ROUTES = [
+  /^\/portal(\/|$)/,
+  /^\/demo\/(entrar|salir)\/?$/,
+  /^\/pulso\//,
+  /^\/r\//,
+  /^\/keystatic/,
+  /^\/acuerdo(\/|$)/,
+];
 
 const SKIP_SCHEMES = /^(https?:|mailto:|tel:|javascript:|data:|#)/;
 
@@ -42,7 +49,7 @@ async function walk(dir) {
   return out;
 }
 
-/** Convierte una ruta de archivo de `dist` en la URL con la que se sirve. */
+/** Convierte una ruta de archivo de `dist/client` en la URL con la que se sirve. */
 function servedUrl(file) {
   const rel = path.relative(DIST, file).split(path.sep).join("/");
   if (rel === "index.html") return "/";
