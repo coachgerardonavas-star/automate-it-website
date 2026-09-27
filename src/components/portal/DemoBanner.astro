@@ -20,6 +20,12 @@ interface Props {
 
 const { lang, mode } = Astro.props;
 const copy = portalCopy(lang);
+
+// Un prospecto en la demo pública no tiene cuenta: el aviso de "tu cuenta
+// todavía no está conectada" no le aplica. Mismo aviso visible, otro texto.
+const isPublicDemo = Astro.locals.portalDemo === true;
+const title = isPublicDemo ? copy.demoSession.bannerTitle : copy.demoBanner.title;
+const body = isPublicDemo ? copy.demoSession.bannerBody : copy.demoBanner.body;
 ---
 
 {mode === "demo" && (
@@ -31,9 +37,9 @@ const copy = portalCopy(lang);
       <PortalIcon name="circle-help" size={18} />
     </span>
     <div class="min-w-0">
-      <p class="text-sm font-semibold text-[#6B4700]">{copy.demoBanner.title}</p>
+      <p class="text-sm font-semibold text-[#6B4700]">{title}</p>
       <p class="mt-0.5 text-xs leading-relaxed text-[#6B4700]/90">
-        {copy.demoBanner.body}
+        {body}
       </p>
     </div>
   </div>
