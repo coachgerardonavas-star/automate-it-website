@@ -1,0 +1,11 @@
+name = "www-redirect"
+main = "index.js"
+compatibility_date = "2026-09-25"
+account_id = "0eb99d5fd784e62ca2519c2ca0627ea5"
+workers_dev = false
+preview_urls = false
+
+# Dominio propio: www.yourbizupgraded.com (asignado en Workers → Domains).
+routes = [
+  { pattern = "www.yourbizupgraded.com", custom_domain = true }
+]

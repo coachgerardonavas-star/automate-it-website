@@ -11,7 +11,7 @@ Sitio web one-page en Astro de Automate IT (yourbizupgraded.com): genera leads o
 - **Iconos:** `lucide-astro` · **Fuentes:** `@fontsource/open-sans` (self-hosted)
 - **Node:** 24 en CI; `package.json` exige >=22.12.0.
 - **Animaciones:** CSS puro + IntersectionObserver. **Sin GSAP. Sin Three.js.**
-- **Deploy:** Cloudflare Workers para Astro 7. `npm run build` genera `dist/server/wrangler.json`; `npm run deploy:built` despliega ese build. Configurar Workers Builds con Node 24, comando de build `npm run build` y comando de despliegue `npm run deploy:built`. Pages sigue atendiendo el dominio hasta cambiar su ruta de forma explícita; `CF_PAGES=1` cancela el build nuevo para proteger la versión actual.
+- **Deploy:** Cloudflare Workers, Worker `automate-it-website-worker`, atado a `yourbizupgraded.com` como dominio propio desde el 27-sep-2026. Workers Builds despliega solo cada push a `main` (Node 24 vía `.node-version`; build `npm run build`, despliegue `npm run deploy:built`). `workers_dev` y `preview_urls` apagados: el sitio solo se sirve en el dominio. Secrets del Worker: `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET` (faltan `SUPABASE_URL` y `SUPABASE_ANON_KEY`: sin ellas el portal muestra "no configurado"). El proyecto de Pages `automate-it-website` quedó sin dominio y con despliegues apagados; se conserva solo como vuelta atrás. `CF_PAGES=1` sigue cancelando cualquier build en Pages. ⚠️ Desde una sesión en la nube de Claude Code, `wrangler deploy` del sitio falla con 401 al subir los assets (el proxy reemplaza el token temporal de subida); el despliegue del sitio es solo por Workers Builds. Correr `wrangler` dentro de `workers/<nombre>/` siempre con `--config ./wrangler.toml`: si queda un `dist/` del sitio, Wrangler toma esa configuración en su lugar.
 - **Repo:** coachgerardonavas-star/automate-it-website · rama `main`
 
 ## Comandos
@@ -52,6 +52,7 @@ Cada uno tiene su `wrangler.toml` en `workers/<nombre>/`:
 - **stripe-webhook** — webhook de Stripe (worker `stripe-webhook-automate`). `main = src/index.ts`. Secrets: `STRIPE_WEBHOOK_SECRET`, `TELEGRAM_BOT_TOKEN`. Avisa por Telegram al completarse un checkout. Registrado en Stripe como endpoint `we_1TzFZcAHnOzMvXBg9DrZxbdG`, escuchando solo `checkout.session.completed`.
 - **vero-telegram** — bot de Telegram que recibe del CEO, llama a la API de Anthropic con el prompt de Vero y responde. `main = index.js`. KV `APPROVALS`. `ALLOWED_CHAT_ID` fijo al chat del CEO. Es la base sobre la que se montan los agentes por departamento cuando se retomen (ver Reglas críticas, regla de n8n).
 - **consultoria-intake** — recibe el formulario de `/consultoria` y la firma de `/acuerdo-colaboracion` (ruta `/acuerdo`). Escribe en HubSpot con la **CRM API** (contacto + nota + deal) y avisa por Telegram. Secrets: `HUBSPOT_TOKEN`, `TELEGRAM_BOT_TOKEN`.
+- **www-redirect** — atado a `www.yourbizupgraded.com` (dominio propio). Responde 301 a `yourbizupgraded.com` conservando ruta y query. `main = index.js`, sin secrets, `workers_dev=false`.
 
 ## Client Portal (`/portal`) — agregado 11-ago-2026
 Aplicación privada multi-tenant montada sobre el mismo repo. **No es parte del sitio público**: no se indexa, no lleva BIT, no aparece en el sitemap y usa su propio layout (`PortalLayout.astro`), no `BaseLayout`.
