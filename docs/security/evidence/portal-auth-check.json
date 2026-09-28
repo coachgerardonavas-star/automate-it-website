@@ -1,0 +1,40 @@
+{
+  "time": "2026-09-28T10:28:00.504Z",
+  "project": "fryufcddrbeewqcwyavz",
+  "checks": [
+    {
+      "name": "temporary-client-without-memberships",
+      "passed": true
+    },
+    {
+      "name": "invalid-credentials-rejected",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "login-and-secure-session-cookies",
+      "status": 302,
+      "passed": true
+    },
+    {
+      "name": "authenticated-portal",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "rls-client-sees-only-its-test-organization",
+      "count": 1,
+      "passed": true
+    },
+    {
+      "name": "logout-and-private-route-protection",
+      "status": 302,
+      "passed": true
+    },
+    {
+      "name": "temporary-account-profile-and-organization-deleted",
+      "passed": true
+    }
+  ],
+  "passed": true
+}
