@@ -5,6 +5,7 @@ Sitio web one-page en Astro de Automate IT (yourbizupgraded.com): genera leads o
 
 ## Stack
 - **Framework:** Astro 7.3.5 vía `@astrojs/cloudflare` 14.3.3
+- **Preview de seguridad:** entorno `security_preview`, Worker `automate-it-website-security-verify`, con `workers.dev` habilitado y sin dominio propio. Seleccionar `CLOUDFLARE_ENV=security_preview` durante el build; el deploy toma la configuración generada. Evidencia y reversa: `docs/security/astro-upgrade-verification.md`. La configuración de producción conserva `workers_dev=false` y `preview_urls=false`.
 - **Estilos:** Tailwind CSS 3.4 vía PostCSS (`postcss.config.cjs`)
 - **UI/islas:** React 18.3.1 (`@astrojs/react` 7.0.0) — uso puntual
 - **CMS:** Keystatic (`@keystatic/astro` 6.0.0 / `@keystatic/core` 0.6.9)

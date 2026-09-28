@@ -1,0 +1,325 @@
+{
+  "time": "2026-09-28T02:29:30.590Z",
+  "base": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev",
+  "referenceMainCommit": "fd3d973",
+  "checks": [
+    {
+      "type": "public",
+      "path": "/",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/"
+    },
+    {
+      "type": "public",
+      "path": "/en/",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/en/"
+    },
+    {
+      "type": "public",
+      "path": "/diagnostico",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/diagnostico/"
+    },
+    {
+      "type": "public",
+      "path": "/en/diagnostic",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/en/diagnostic/"
+    },
+    {
+      "type": "public",
+      "path": "/blog",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/blog/"
+    },
+    {
+      "type": "public",
+      "path": "/blog/cuando-el-negocio-crece-pero-sigues-igual-de-ocupado",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/blog/cuando-el-negocio-crece-pero-sigues-igual-de-ocupado/"
+    },
+    {
+      "type": "public",
+      "path": "/quienes-somos",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/quienes-somos/"
+    },
+    {
+      "type": "public",
+      "path": "/demo",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/demo/"
+    },
+    {
+      "type": "public",
+      "path": "/en/demo",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/en/demo/"
+    },
+    {
+      "type": "public",
+      "path": "/portal/login",
+      "status": 200,
+      "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/activity",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/admin",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/admin/demo",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/appointments",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/automations",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/conversations",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/customers",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/files",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/insights",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/leads",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/reports",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "protected",
+      "path": "/portal/settings",
+      "status": 302,
+      "location": "/portal/login"
+    },
+    {
+      "type": "redirect",
+      "path": "/empresas",
+      "status": 301,
+      "location": "/"
+    },
+    {
+      "type": "redirect",
+      "path": "/privacidad",
+      "status": 301,
+      "location": "/privacy-policy"
+    },
+    {
+      "type": "redirect",
+      "path": "/terminos",
+      "status": 301,
+      "location": "/terms"
+    },
+    {
+      "type": "redirect",
+      "path": "/en/privacy",
+      "status": 301,
+      "location": "/en/privacy-policy"
+    },
+    {
+      "type": "demo-flow",
+      "lang": "es",
+      "buttonText": "Abrir la demo",
+      "status": 200,
+      "personalized": true,
+      "exampleData": true
+    },
+    {
+      "type": "demo-route",
+      "lang": "es",
+      "path": "/portal/leads",
+      "status": 200
+    },
+    {
+      "type": "demo-route",
+      "lang": "es",
+      "path": "/portal/conversations",
+      "status": 200
+    },
+    {
+      "type": "demo-route",
+      "lang": "es",
+      "path": "/portal/settings",
+      "status": 200
+    },
+    {
+      "type": "demo-flow",
+      "lang": "en",
+      "buttonText": "Open the demo",
+      "status": 200,
+      "personalized": true,
+      "exampleData": true
+    },
+    {
+      "type": "demo-route",
+      "lang": "en",
+      "path": "/portal/leads",
+      "status": 200
+    },
+    {
+      "type": "demo-route",
+      "lang": "en",
+      "path": "/portal/conversations",
+      "status": 200
+    },
+    {
+      "type": "demo-route",
+      "lang": "en",
+      "path": "/portal/settings",
+      "status": 200
+    },
+    {
+      "type": "sitemap",
+      "status": 200,
+      "count": 50,
+      "excluded": true
+    },
+    {
+      "type": "noindex",
+      "path": "/demo/",
+      "noindex": true
+    },
+    {
+      "type": "noindex",
+      "path": "/en/demo/",
+      "noindex": true
+    },
+    {
+      "type": "noindex",
+      "path": "/portal/login",
+      "noindex": true
+    },
+    {
+      "type": "noindex",
+      "path": "/consultoria/",
+      "noindex": true
+    },
+    {
+      "type": "noindex",
+      "path": "/acuerdo-colaboracion/",
+      "noindex": true
+    },
+    {
+      "type": "sitemap-identity",
+      "productionCount": 50,
+      "sameSitemap": true
+    },
+    {
+      "type": "noindex-identity",
+      "path": "/demo/",
+      "same": true,
+      "robots": {
+        "header": null,
+        "meta": [
+          "<meta name=\"robots\" content=\"noindex,nofollow\">"
+        ]
+      }
+    },
+    {
+      "type": "noindex-identity",
+      "path": "/en/demo/",
+      "same": true,
+      "robots": {
+        "header": null,
+        "meta": [
+          "<meta name=\"robots\" content=\"noindex,nofollow\">"
+        ]
+      }
+    },
+    {
+      "type": "noindex-identity",
+      "path": "/portal/login",
+      "same": true,
+      "robots": {
+        "header": "noindex, nofollow",
+        "meta": [
+          "<meta name=\"robots\" content=\"noindex,nofollow\">"
+        ]
+      }
+    },
+    {
+      "type": "noindex-identity",
+      "path": "/consultoria/",
+      "same": true,
+      "robots": {
+        "header": null,
+        "meta": [
+          "<meta name=\"robots\" content=\"noindex,nofollow\">"
+        ]
+      }
+    },
+    {
+      "type": "noindex-identity",
+      "path": "/acuerdo-colaboracion/",
+      "same": true,
+      "robots": {
+        "header": null,
+        "meta": [
+          "<meta name=\"robots\" content=\"noindex,nofollow\">"
+        ]
+      }
+    },
+    {
+      "type": "noindex-identity",
+      "path": "/d/verification-missing-document",
+      "same": true,
+      "robots": {
+        "header": "noindex, nofollow",
+        "meta": []
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "serverCommitClaimed": false,
+  "previewVersion": "7caeb0e5-852c-443b-af53-052a413d695b"
+}
