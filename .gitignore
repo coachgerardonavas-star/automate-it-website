@@ -41,6 +41,7 @@ skills-lock.json
 
 # Temp work folders
 tmp-bit/
+.verification/
 
 # Imágenes generadas (banco de imágenes IA) — no versionar
 banco/

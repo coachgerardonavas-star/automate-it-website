@@ -1,0 +1,50 @@
+{
+  "url": "https://automate-it-website-security-verify.coachgerardonavas.workers.dev/",
+  "time": "2026-09-28T02:30:35.391Z",
+  "lighthouseVersion": "13.5.0",
+  "formFactor": "mobile",
+  "throttlingMethod": "simulate",
+  "throttling": {
+    "rttMs": 150,
+    "throughputKbps": 1638.4,
+    "requestLatencyMs": 562.5,
+    "downloadThroughputKbps": 1474.5600000000002,
+    "uploadThroughputKbps": 675,
+    "cpuSlowdownMultiplier": 4
+  },
+  "scores": {
+    "performance": 94,
+    "accessibility": 95,
+    "best-practices": 100,
+    "seo": 100,
+    "agentic-browsing": 98
+  },
+  "metrics": {
+    "first-contentful-paint": {
+      "value": 1675.3220000000001,
+      "unit": "millisecond",
+      "display": "1.7 s"
+    },
+    "largest-contentful-paint": {
+      "value": 2751.473,
+      "unit": "millisecond",
+      "display": "2.8 s"
+    },
+    "total-blocking-time": {
+      "value": 20,
+      "unit": "millisecond",
+      "display": "20 ms"
+    },
+    "cumulative-layout-shift": {
+      "value": 0.07333409265752841,
+      "unit": "unitless",
+      "display": "0.073"
+    },
+    "speed-index": {
+      "value": 2557.88151993351,
+      "unit": "millisecond",
+      "display": "2.6 s"
+    }
+  },
+  "warnings": []
+}
