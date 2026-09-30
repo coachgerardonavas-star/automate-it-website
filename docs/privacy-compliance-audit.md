@@ -1,0 +1,210 @@
+# Auditoría de privacidad, IA y testimonios — yourbizupgraded.com
+
+**Fecha:** 26-sep-2026 · **Rama:** `claude/privacy-compliance-audit-wfaj4w`
+**Alcance:** sitio público (Astro), workers de `workers/`, y escenarios de Make que reciben datos del sitio (consulta de solo lectura).
+**Esto no es asesoría legal.** Los ítems marcados NEEDS LEGAL REVIEW requieren un abogado. Mapa de datos completo: `docs/privacy-data-map.md`.
+
+Estados: VERIFIED COMPLIANT · FIXED · NEEDS OWNER INPUT · NEEDS LEGAL REVIEW · NOT APPLICABLE
+
+---
+
+## Prioridad alta — estado al 26-sep-2026
+
+1. **Llamadas automáticas con agente de voz IA a cada lead del diagnóstico** (ítem 4). **Resuelto por decisión del CEO:** la llamada se retiró de Make. Queda pendiente el histórico: grabaciones en Retell.
+2. **"Sexo inferido" e "indicio de nacionalidad" en HubSpot** (ítem 4b). **Retirados** del escenario de Make. Pendiente: quitarlos del agente en Retell y decidir qué hacer con las notas viejas.
+3. **Sin aviso de cookies/consentimiento para GA4** (ítem 8). NEEDS LEGAL REVIEW.
+
+---
+
+## 1. La política de privacidad no coincidía con el formulario
+
+**STATUS:** FIXED
+**EVIDENCE:** La política decía "Recopilamos únicamente... nombre, teléfono, correo electrónico y los mensajes". El formulario vivo (`DiagnosticoForm.astro`) pide 16 campos, incluido nombre del negocio, sitio web, rol, qué vende, volumen, canales, fricción, frecuencia, resultado deseado, dependencia de persona clave, urgencia, pregunta de datos regulados y dos textos libres. La consultoría pide ~20 campos más; la firma del acuerdo guarda IP y navegador.
+**FILE/LOCATION:** `src/i18n/translations.ts` → `es.legal.privacy` y `en.legal.privacy`; `src/pages/privacy-policy.astro`, `src/pages/en/privacy-policy.astro` (fecha).
+**ACTION TAKEN:** Política reescrita en ES y EN por categorías, sin "únicamente". 12 secciones: responsable, qué recopilamos, datos automáticos, para qué, IA, con quién, cookies, información sensible, conservación, solicitudes, seguridad, cambios. Se quitó "mejorar nuestros sistemas de automatización" como finalidad porque no hay nada en el código que lo haga.
+**REMAINING RISK:** La política no tiene sección de derechos por estado (Florida Digital Bill of Rights, CCPA/CPRA, etc.) porque decidir si aplican depende de umbrales de ingresos y volumen de datos que no están en el repo. NEEDS LEGAL REVIEW.
+
+> Nota: el handoff mencionaba un formulario con dirección, tamaño de equipo y pregunta HIPAA. Ese formulario **ya no está en producción**: es el bloque `diagnosticoPage` de `translations.ts`, que no usa ningún componente.
+
+## 2. Frase absoluta "tus datos no se comparten"
+
+**STATUS:** FIXED
+**EVIDENCE:** El formulario vivo ya decía "Tus datos no se venden" (no "no se comparten"). Las frases "no se comparten ni se venden" / "isn't shared or sold" seguían en `ctaFinal.privacyDisclaimer` y `diagnosticoPage.privacyDisclaimer` (ES/EN), hoy código muerto. La política decía "No vendemos, alquilamos ni compartimos... con terceros con fines comerciales". En realidad los datos pasan por Cloudflare, HubSpot, Make, Telegram, Google, Retell AI, Meta, Stripe y Supabase.
+**Verificación de "no vendemos":** no hay píxeles publicitarios, no hay integración con brokers ni exportación de listas en el código. No se puede verificar la configuración de Google Signals / vinculación con Google Ads (ver ítem 8).
+**FILE/LOCATION:** `translations.ts` (política, `ctaFinal`, `diagnosticoPage`), `DiagnosticoForm.astro`, `terminos-consulta.astro`, `terminos-consultoria-emprendedores.astro`, `en/consulting-terms.astro`.
+**ACTION TAKEN:** Fórmula única en todo el sitio: "No vendemos tus datos" + "los procesan los proveedores que usamos para operar" + referencia a la política. Se quitó "solo" de "se usan solo para" en los términos (los datos también se usan para seguimiento comercial y pasan por proveedores).
+**REMAINING RISK:** Si GA4 tiene Google Signals o vinculación con Ads activa, algunas leyes estatales pueden tratar eso como "compartir para publicidad". NEEDS OWNER INPUT + NEEDS LEGAL REVIEW.
+
+## 3. Inventario de proveedores
+
+**STATUS:** FIXED (documentado)
+**EVIDENCE:** Ver `docs/privacy-data-map.md` §11. Todos los proveedores nombrados en la política tienen evidencia en código o en un blueprint de Make activo. No se nombró Twilio (lo menciona un FAQ muerto, pero no hay evidencia de uso actual).
+**ACTION TAKEN:** Lista de proveedores en la política; tabla con datos, propósito, dónde se invoca, IA y pendientes en el mapa.
+**REMAINING RISK:** Configuración fuera del repo (paneles de Retell, Cloudflare, GA4, HubSpot) no verificada. NEEDS OWNER INPUT en los puntos marcados ❓ del mapa.
+
+## 4. Transparencia sobre IA
+
+**STATUS:** FIXED
+**EVIDENCE:** El escenario de Make **5148358** llamaba a `api.retellai.com/v2/create-phone-call` por cada diagnóstico no regulado: el agente de voz IA "Gaby" llamaba al teléfono del lead, con su nombre, tipo de negocio y descripción completa. Según el CEO, Retell grababa y guardaba la transcripción. El formulario no lo avisaba. El worker ya excluía a quien marcaba datos regulados o "no estoy seguro" (`isRegulatedRisk`), verificado.
+Separación pedida en el handoff:
+- A) "Automate IT usa IA en sus servicios" — ya estaba en el sitio.
+- B) "Tus datos pasan por IA" — **sí ocurre, de forma manual**: el CEO a veces pasa datos de leads y respuestas de la consultoría por Claude o Vero (Anthropic). No hay procesamiento automático con IA desde ningún formulario (verificado después del cambio). WhatsApp se responde a mano; ningún número de la empresa lo atiende una IA.
+**ACTION TAKEN (26-sep-2026, con aprobación del CEO):**
+- Se retiró el módulo de Retell de Make 5148358. El resto del escenario sigue activo.
+- Política, sección de IA: uso manual de herramientas de terceros (Claude, de Anthropic); no hay llamadas automáticas con IA ni WhatsApp con IA; declaración del histórico (llamadas de Retell hasta el 26-sep-2026, grabadas, con resumen y evaluación en el CRM) y cómo pedir que se borre.
+- Formulario: el aviso de privacidad va antes del botón y enlaza a la política. El aviso de llamada con IA junto al teléfono se agregó y se quitó en esta misma rama, porque la llamada ya no existe.
+**REMAINING RISK:**
+- Las personas llamadas antes del 26-sep-2026 recibieron una llamada con voz de IA sin consentimiento explícito documentado. NEEDS LEGAL REVIEW: si ese histórico implica alguna acción (TCPA; FTSA de Florida).
+- Si la llamada vuelve, antes hace falta opinión legal, una casilla de consentimiento en el formulario y actualizar la política.
+- Cuenta de Anthropic: revisar retención y entrenamiento de los datos que se pegan en Claude/Vero. NEEDS OWNER INPUT.
+
+### 4b. Inferencias sensibles en el análisis de llamadas
+
+**STATUS:** FIXED (Make) · NEEDS OWNER INPUT (Retell)
+**EVIDENCE:** El escenario 5637378 escribía en la nota de HubSpot "Sexo (inferido, NO confirmado)" y "Nacionalidad (solo si la mencionó)", a partir de campos que configura el agente de Retell. Conteo en HubSpot (solo lectura, 26-sep-2026): **29 notas** tienen esas líneas. En **ninguna** la nacionalidad tiene valor. El sexo dice "desconocido" en todas menos 10, y esas 10 son pruebas del propio CEO (su nombre, sus números o contactos marcados PRUEBA/TEST). **No hay datos inferidos de terceros reales guardados.**
+**ACTION TAKEN:** Se retiraron las dos variables y las dos líneas de la nota en Make 5637378. La descripción del escenario dice que no se vuelvan a agregar.
+**REMAINING RISK:**
+- El agente de Retell sigue configurado para inferirlos: hay que quitarlos en su panel.
+- Las 29 notas viejas conservan las líneas vacías o con datos de prueba. Riesgo bajo; se pueden limpiar si se quiere.
+- Dossiers internos: el CEO preguntó si esos datos pueden quedar solo ahí. Técnicamente sí, pero el riesgo es el mismo, porque las leyes de privacidad no distinguen entre CRM y documento interno. Recomendación: en los dossiers anotar el **idioma de preferencia**, no el sexo ni la nacionalidad.
+
+### 4c. Agente de voz entrante "Alejandro"
+
+**STATUS:** NEEDS OWNER INPUT
+**EVIDENCE:** El CEO indicó que ningún número de la empresa lo contesta una IA. Pero HubSpot tiene **17 notas de "Voz inbound (Alejandro)"** del 21 y 24 de agosto de 2026, de números desconocidos con prefijo 570, casi todas con audio ininteligible (probable spam). El número que usaba Retell para llamar también tiene prefijo 570. Todo indica que **ese número de Retell tenía un agente IA contestando llamadas entrantes, al menos hasta el 24-ago-2026**, y que se guardaron en HubSpot los teléfonos de quienes llamaron.
+**ACTION TAKEN:** Ninguna. No tengo acceso al panel de Retell.
+**REMAINING RISK:** Si ese agente sigue activo, cualquiera que llame a ese número habla con una IA que graba, y la política dice que no hacemos eso. El CEO tiene que verificarlo en Retell y desactivarlo, o avisar para ajustar la política.
+
+## 5. Testimonios, reseñas y casos
+
+**STATUS:** VERIFIED COMPLIANT
+**EVIDENCE:** Búsqueda en todo `src/` (componentes, páginas, `translations.ts`, `data/`, 26 posts del blog) de testimonios, reseñas, estrellas, citas, "cliente", "caso de éxito", "case study", fotos de clientes. Resultado:
+- Sin testimonios, reseñas ni calificaciones con estrellas.
+- Los 5 casos del home (`home2026.problem.items`: tienda de ropa, gabinetes, roofers, HVAC, realtor) se renderizan con la etiqueta visible "Ejemplo ilustrativo" / "Illustrative example" en cada tarjeta (`Home2026.astro:86`). Se conservaron.
+- La única cita con nombre es del fundador (Gerardo Navas), identificado como tal.
+- `/pulso/*` son revisiones preparadas para prospectos reales (negocios con nombre), `noindex`, fuera del sitemap, enviadas por link. No presentan a esos negocios como clientes.
+- La consultoría pide permiso de marketing en casilla separada y opcional (`permiso_marketing`), con revocación por email. Buena práctica, se conserva.
+**ACTION TAKEN:** Regla nueva en `CLAUDE.md` (Reglas de copy): resultado real = evidencia + permiso; ejemplo = etiqueta visible; nunca clientes ficticios presentados como reales.
+**REMAINING RISK:** Ninguno detectado en páginas vivas.
+
+## 6. Claims de marketing
+
+**STATUS:** VERIFIED COMPLIANT (páginas principales) · NEEDS OWNER INPUT (blog)
+**EVIDENCE — páginas principales** (home, quiénes somos, diagnóstico, guías, verticales, `/ia`, consultoría): sin porcentajes, horas ahorradas, montos ni garantías. Los términos dicen explícitamente "no garantiza resultados". Clasificación: sin claims A/B/D.
+**EVIDENCE — blog:** los posts usan muchas estadísticas de terceros con fuente nombrada (clasificación B: dato de terceros; varias fuentes son blogs de proveedores de software, calidad baja). No hay resultados de clientes de Automate IT. Claims **sin fuente o presentados como observación propia** (clasificación D):
+
+| Post | Línea | Claim | Por qué D |
+|---|---|---|---|
+| `por-que-tu-negocio-te-tiene-secuestrado.md` | 20 | "Cuando dueños... nos cuentan su día, casi todos describen... 4 a 8 horas semanales" | Se presenta como observación propia; no hay datos en el repo |
+| `cuando-el-negocio-crece-pero-sigues-igual-de-ocupado.md` | 33 | "entre 8 y 15 horas semanales del dueño" en home services de Central Florida | Sin fuente |
+| `cuanto-tiempo-pierdes-contestando-tu-mismo-y-cuanto-vale-ese-tiempo.md` | 4, 16 | "entre 10 y 15 horas semanales" (en la descripción aparece como "el dueño promedio") | Sin fuente |
+| `ia-en-negocios-latinos-lo-que-dicen-los-datos-en-2026.md` | 51 | "Un recordatorio automático por texto reduce esa tasa por debajo del 5%" | Sin fuente en ese post (otro post lo atribuye a AgentZap/MGMA para *dos* recordatorios) |
+| `5-senales-de-que-necesitas-un-agente-inbound.md` | 16 | "Cada llamada perdida... es entre $200 y $1,500 según tu rubro" | Sin fuente |
+| `cuanto-pierde-un-negocio-hispano-en-florida-por-cada-llamada-perdida.md` | 48 | "hasta un 90% menos... con mejor consistencia y cobertura real 24/7" | Comparación de desempeño sin fuente |
+
+**ACTION TAKEN:** Solo marcado. No reescribí el blog porque agregar una fuente que no puedo verificar sería inventar sustento.
+**REMAINING RISK:** Bajo-medio. Recomendación: agregar fuente o convertir a lenguaje cualitativo ("puede consumir varias horas a la semana"). Si el CEO tiene notas de las conversaciones del primer post, basta con decirlo sin número.
+
+## 7. Datos recopilados automáticamente
+
+**STATUS:** FIXED
+**EVIDENCE:** Cloudflare procesa IP/UA/URL/referer de cada solicitud (hosting y Workers con `observability`); los workers usan `CF-Connecting-IP` para rate limiting; la firma guarda IP y User-Agent en HubSpot y manda la IP a Telegram; GA4 pone cookies; las banderas del selector de idioma se cargan desde `flagcdn.com`.
+**FILE/LOCATION:** política, sección "Información que se recopila automáticamente"; `acuerdo-colaboracion.astro` (el aviso decía fecha, hora e IP; ahora también "tipo de navegador", que el worker ya guardaba).
+**REMAINING RISK:** Recomendación de minimización: autoalojar las 2 banderas SVG (`us.svg`, `ve.svg`) en `public/` y dejar de mandar a flagcdn.com la IP de cada visitante. Cambio chico, no lo hice porque no es parte de alinear la política.
+
+## 8. Cookies y analítica
+
+**STATUS:** FIXED (divulgación) · NEEDS LEGAL REVIEW (consentimiento)
+**EVIDENCE:** GA4 `G-PCJWLQ97K6` en `BaseLayout.astro`, `anonymize_ip: true`, carga diferida ~2 s. Eventos `generate_lead` y `form_submit_consultoria` solo con valores de categoría (verificado: sin nombre, email ni teléfono). Portal: cookies `httpOnly` de sesión. No hay GTM contenedor, Meta Pixel, LinkedIn Insight, Clarity, Hotjar ni grabación de sesión.
+**ACTION TAKEN:** Sección "Cookies y analítica" en la política con lo verificado. No se inventó un banner ni arquitectura de consentimiento.
+**REMAINING RISK:** El sitio carga GA4 sin consentimiento previo. Para visitantes de EE. UU. suele bastar la divulgación, pero depende de los estados y de si hay visitantes de la UE/Reino Unido. NEEDS LEGAL REVIEW. NEEDS OWNER INPUT: ¿Google Signals o vinculación con Google Ads activos en GA4? ¿Cloudflare Web Analytics activo en el panel?
+
+## 9. Pregunta HIPAA / datos regulados
+
+**STATUS:** VERIFIED COMPLIANT (sitio) · NEEDS LEGAL REVIEW (menor)
+**EVIDENCE:** El formulario vivo pregunta "¿Tu operación maneja datos con requisitos especiales de privacidad o regulación?" (No/Sí/No estoy seguro). Qué pasa con la respuesta (verificado en `workers/diagnostico-intake/src/index.ts`): Sí o No estoy seguro → no se envía `business_type` ni `context` a propiedades de HubSpot, no se manda texto libre a Telegram, **no se llama a Make ni a Retell**; la nota marca "RUTA MANUAL". El formulario ya decía "No incluyas información de pacientes, contraseñas ni datos sensibles" (se conserva).
+Búsqueda de "HIPAA compliant", "HIPAA ready", "PHI", "BAA", "protected health information" en páginas vivas: **ninguna afirmación de cumplimiento**. Las menciones de BAA están en copy muerto (`paquetes.faq`, `diagnosticoPage`) y dicen que primero hay que firmar BAAs, no que ya se cumple.
+**ACTION TAKEN:** La política dice que no se envíe información de pacientes y que los formularios no están diseñados para recibirla. No se afirma cumplimiento HIPAA en ninguna parte.
+**REMAINING RISK:** Aunque la ruta regulada no dispara la llamada, la nota de HubSpot sí guarda el resto de respuestas estructuradas. Bajo. Si Automate IT llegara a manejar PHI para un cliente, hace falta revisión legal y BAAs antes.
+
+## 10. Minimización de datos
+
+**STATUS:** NEEDS OWNER INPUT
+**EVIDENCE / análisis por campo del diagnóstico** ("¿lo necesitamos antes de hablar con el lead?"):
+
+| Campo | ¿Necesario antes de hablar? | Recomendación |
+|---|---|---|
+| name, email | Sí | Mantener |
+| phone | Opcional | Mantener opcional (ya no dispara la llamada con IA) |
+| business_name, public_url, role | Útil, no indispensable | Mantener (bajo riesgo, ya opcionales salvo `role`) |
+| business_type, context (texto libre) | Útil | Mantener; son los campos con más riesgo de que alguien pegue datos sensibles: el aviso ya lo advierte |
+| weekly_demand, entry_channels, friction, frequency, desired_outcome, key_person_dependency, urgency | Sí para el diagnóstico | Mantener (categóricos, bajo riesgo) |
+| regulated | Sí: es el que protege | Mantener |
+| Dirección, tamaño del equipo, pregunta de pacientes | — | **Ya no se piden** (solo existían en el formulario viejo) |
+
+Fuera del formulario: sexo inferido y nacionalidad en el análisis de Retell (ítem 4b) → retirados de Make; falta quitarlos en Retell. IP de la firma enviada a Telegram → innecesaria en el aviso (ya queda en HubSpot); recomendación: quitarla del mensaje de Telegram en `consultoria-intake`.
+**ACTION TAKEN:** Ningún campo eliminado (todos tienen uso operativo).
+
+## 11. Conservación y eliminación
+
+**STATUS:** FIXED (política) · NEEDS OWNER INPUT (proceso)
+**EVIDENCE:** No hay regla de retención en código, workers ni Make. HubSpot conserva indefinidamente. Existe un escenario de Make **inactivo** "Maintenance — Delete HubSpot Contact" (6038101), bajo demanda.
+**ACTION TAKEN:** Decisión del CEO (26-sep-2026): **los leads que no se convierten en clientes se eliminan 24 meses después de su último contacto.** La política lo dice así. Para clientes, sigue sin plazo fijo (mientras dure la relación o hasta que pidan eliminarla).
+**REMAINING RISK:** La política ahora es un compromiso y **el borrado es manual**: si nadie lo hace, la política deja de ser cierta. Propuesta de proceso:
+  1. Cada trimestre: en HubSpot, filtrar contactos sin deal ganado y con última actividad hace más de 24 meses → eliminar (a mano o con el escenario 6038101).
+  2. Telegram: borrar avisos de leads del chat interno con la misma regla.
+  3. Make: revisar la retención del historial de ejecuciones según el plan.
+  4. Retell: configurar la retención de grabaciones y transcripciones en su panel, o borrarlas.
+  5. Al recibir una solicitud de eliminación: borrar en HubSpot, Telegram y Retell, y registrar la fecha.
+  El primer borrado real tocaría en jul-2028 (los leads más antiguos son de 2026), así que hay tiempo para automatizarlo.
+
+## 12. Contacto para privacidad
+
+**STATUS:** VERIFIED COMPLIANT
+**EVIDENCE:** `automateit@yourbizupgraded.com` es el correo de la empresa: aparece en el footer (`mailto:`), en términos, y es la cuenta dueña de los escenarios de Make. Teléfono `(407) 404-9495`, el número público único según `CLAUDE.md` y `src/config/site.ts`. La política vive en `/privacy-policy` y `/en/privacy-policy`, enlazadas desde el footer (`translations.*.home2026.footer`, `footer.privacyHref`); `/privacidad` y `/en/privacy` redirigen 301.
+**ACTION TAKEN:** Se agregó el teléfono a la sección de responsable, y enlace a la política desde el formulario de diagnóstico.
+**ACTION TAKEN (Make):** el correo de confirmación del diagnóstico (Make 5148358, módulo Gmail) firmaba con (321) 217-1239. Se cambió a (407) 404-9495 el 26-sep-2026 con aprobación del CEO.
+
+## 13. Consistencia en el sitio
+
+**STATUS:** FIXED
+**EVIDENCE / ACTION:** Búsqueda de "no compartimos", "no se comparten", "no vendemos", "únicamente", "solo recopilamos", "not share", "privacy", "terceros", "cookies", "a salvo", "safe". Cambios:
+- `translations.ts`: `ctaFinal.privacyDisclaimer` y `diagnosticoPage.privacyDisclaimer` (ES/EN) → fórmula nueva (código muerto, corregido para que no vuelva).
+- `translations.ts`: `errorPage.subheading` (ES/EN) decía "tus datos están a salvo" → "Los datos de pago los procesa Stripe, no nuestro sitio."
+- Términos de consulta y de consultoría (ES/EN): cláusula de privacidad alineada; fecha actualizada.
+- `hero.trustBadges` "Tus datos no se venden" / "Your data is never sold": consistente, se deja (código muerto).
+**REMAINING RISK:** Copy muerto con afirmaciones no verificadas que **no** toqué porque describe servicios a clientes, no a este sitio: `paquetes.faq` — "Automate IT no almacena ni tiene acceso al contenido de las conversaciones... (Retell AI, Twilio)" y "podemos configurar el agente para que no grabe". Hoy contradice lo que hace el propio flujo de leads (los resúmenes de Retell sí se guardan en HubSpot). Si `SeccionPaquetes` vuelve a usarse, revisar primero.
+
+## 14. Promesas de seguridad
+
+**STATUS:** FIXED
+**EVIDENCE:** Búsqueda de "100% seguro", "completamente seguro", "military", "encriptación", "never share", "fully compliant": ninguna en páginas vivas. La única absoluta era "tus datos están a salvo" (página de error de pago), corregida.
+**ACTION TAKEN:** La sección "Seguridad" de la política describe solo lo verificado (HTTPS con HSTS en `public/_headers`; credenciales de proveedores como secrets de Workers, no en el navegador) y dice que ningún sistema es completamente seguro.
+
+## 15. Secretos
+
+**STATUS:** VERIFIED COMPLIANT (en este cambio) · NEEDS OWNER INPUT (preexistente)
+**EVIDENCE:** Los documentos nuevos no incluyen tokens, claves, URLs de webhook, ids de agente ni números de origen de llamadas.
+**REMAINING RISK (preexistente, no introducido aquí):** `workers/whatsapp-webhook/index.js` tiene la URL del webhook de Make escrita en el código. El hook exige la cabecera `x-make-apikey` (secret), así que la URL sola no basta para inyectar datos, pero conviene moverla a un secret.
+
+---
+
+## Preguntas abiertas para el CEO (NEEDS OWNER INPUT)
+
+Respondidas el 26-sep-2026: llamada con IA → retirada; teléfono del correo → corregido; retención → 24 meses para leads; sexo/nacionalidad → retirados de Make; números de la empresa → los contesta el CEO; WhatsApp → a mano; Retell → grababa y guardaba; Claude/Vero → sí, a veces.
+
+Pendientes:
+1. GA4: ¿Google Signals o vinculación con Google Ads? (el CEO no lo sabe; hay que revisarlo en GA4). ¿Cloudflare Web Analytics activo? (ítem 8)
+2. Quitar sexo/nacionalidad del agente en Retell; cuánto tiempo conserva Retell las grabaciones (ítem 4b).
+2b. Verificar y desactivar el agente entrante "Alejandro" en el número de Retell (ítem 4c).
+3. Cuenta de Anthropic: retención y entrenamiento (ítem 4).
+4. Proceso trimestral de borrado a 24 meses (ítem 11).
+
+
+## Para revisión legal (NEEDS LEGAL REVIEW)
+
+1. Llamadas con voz de IA ya hechas sin consentimiento documentado (TCPA / FTSA), y requisitos si se reactivan.
+2. Qué leyes estatales de privacidad aplican y si hace falta sección de derechos por estado.
+3. Consentimiento de cookies/analítica.
+4. Inferencias de sexo y nacionalidad ya guardadas en HubSpot.
+5. Revisión general del texto nuevo de la política antes de considerarlo definitivo.
