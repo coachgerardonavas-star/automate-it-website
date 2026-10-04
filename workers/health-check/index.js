@@ -8,6 +8,19 @@ const SERVICES = [
     action: "Revisar Cloudflare dashboard y logs del sitio.",
   },
   {
+    // Añadido el 4-oct-2026 tras la revisión de seguridad de Smart Tap (GS-24):
+    // la app corre en Render y nada avisaba si se caía. /demo no toca datos de
+    // clientes, así que vigilarla no ensucia la base ni gasta cupo de registros.
+    key: "smarttap",
+    name: "Smart Tap (smarttap.yourbizupgraded.com)",
+    url: "https://smarttap.yourbizupgraded.com/demo",
+    impact:
+      "Las tarjetas NFC de los negocios abren una página caída — los clientes no pueden registrar su visita.",
+    fallback: "inactivo (no hay vía alternativa de registro).",
+    action:
+      "Revisar el servicio smart-tap en Render (Logs/Events) y el estado de Supabase.",
+  },
+  {
     key: "bit-chat-3126",
     name: "bit-chat-3126 (Worker BIT)",
     binding: "BIT_CHAT",
