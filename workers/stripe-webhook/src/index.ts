@@ -10,8 +10,9 @@
  */
 
 import { mirrorSubscription, recordSyncError, type MirrorEnv } from "./portal-mirror";
+import { scheduleSmartTapTermEnd, termAlert, type SmartTapTermEnv } from "./smart-tap-term";
 
-export interface Env extends MirrorEnv {
+export interface Env extends MirrorEnv, SmartTapTermEnv {
   STRIPE_WEBHOOK_SECRET: string;
   /** Same bot as vero-telegram. Set with `wrangler secret put TELEGRAM_BOT_TOKEN`. */
   TELEGRAM_BOT_TOKEN?: string;
@@ -327,6 +328,15 @@ export default {
         // waitUntil so Stripe gets its 200 immediately and stops retrying,
         // regardless of how slow Telegram is.
         ctx.waitUntil(notifyTelegram(env, buildCheckoutAlert(obj, env)));
+        // Smart Tap: fija el fin del compromiso de 3 mensualidades (Términos,
+        // punto 7). Cualquier falla avisa por Telegram para hacerlo a mano.
+        ctx.waitUntil(
+          scheduleSmartTapTermEnd(env, obj).then(async (result) => {
+            console.log("[smart-tap-term]", result.kind, "subscriptionId" in result ? result.subscriptionId : "");
+            const alert = termAlert(result, escapeHtml);
+            if (alert) await notifyTelegram(env, alert);
+          })
+        );
       }
 
       // Espejo hacia el Client Portal. Igual que arriba: en `waitUntil`, para
