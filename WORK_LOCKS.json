@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "repository": "coachgerardonavas-star/automate-it-website",
+  "board_issue": 101,
+  "created_by": "ChatGPT, CEO-authorized organizational rollout 2026-10-19",
+  "description": "Registro atomico de reservas por hojas del Tablero Vivo. Aislado de main; no ejecuta agentes ni despliega codigo.",
+  "claim_policy": {
+    "scope": "task IDs as listed in board issue; parent area and child task are mutually exclusive",
+    "read_first": [
+      "board_issue",
+      "recent PRs and recent PIN comments",
+      "this registry"
+    ],
+    "acquisition": "Commit updated JSON against currently read branch HEAD, update ref with expected_sha; on mismatch retry read, do not work until claim succeeds",
+    "required_fields": [
+      "claim_id",
+      "task_id",
+      "agent_name",
+      "claimed_at_utc",
+      "last_seen_at_utc",
+      "state",
+      "work_branch",
+      "pr",
+      "summary"
+    ],
+    "possible_states": [
+      "ACTIVE",
+      "PAUSED",
+      "STALE_REQUIRES_CEO_REVIEW"
+    ],
+    "stale_after_minutes": 120,
+    "stale_behavior": "not auto-free; CEO-authorized checked transfer only",
+    "identity": "Agent self-declared; GitHub authenticated account and commit/comment UTC provide audit trail",
+    "release": "Publish result PIN with tested SHA and outcome, then remove only own claim using compare-and-swap update",
+    "enforcement_limit": "Cooperative agent convention; no forced GitHub merge gate"
+  },
+  "resource_policy": {
+    "default_agent": "ChatGPT",
+    "paid_ai_api_invocations_without_fresh_specific_ceo_approval": 0,
+    "automatic_codex_work_claude_invocations": 0,
+    "automatic_retries": 0,
+    "automated_Make_runs": 0,
+    "new_scheduled_GitHub_Actions": 0,
+    "avoid": "redundant CI/reviews, repetitive broad scans, re-reading full history or spending tokens on avoidable reports",
+    "special_rule": "Use existing required CI only when actual code change warrants it; no reruns for same SHA without explanation",
+    "safeguards": "Independent review for security changes; no secrets, remote database, merge, production deploy or paid API without separate authorization."
+  },
+  "claims": {}
+}
