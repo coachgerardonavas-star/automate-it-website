@@ -38,7 +38,7 @@ const UI_ONLY_PAIRS: Record<string, string> = {
  * `hreflang`: asumir que la ruta en el otro idioma es la misma con prefijo.
  *
  * Ahora la fuente es la tabla real de `alternates.ts`. Cuando la página no
- * tiene contraparte (`/empresas`, `/ia`, `/consultoria`, los artículos que solo
+ * tiene contraparte (`/empresas`, `/consultoria`, los artículos que solo
  * existen en español), el selector lleva al home del otro idioma: no es la
  * traducción, pero es una página real. Un 404 nunca es la mejor opción.
  */
