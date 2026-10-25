@@ -48,5 +48,12 @@ export default defineConfig({
     // referidos, nunca la web. Se redirige en vez de borrarla a secas para que
     // quien tenga el enlace guardado llegue a algún lado y no a un error.
     "/empresas": "/",
+    // La "Radiografía de tu Operación" por $1 se retiró el 25-oct-2026 por
+    // decisión del CEO (nunca tuvo cobros; su Payment Link quedó desactivado en
+    // Stripe). Quien tenga guardado el enlace de /ia llega al diagnóstico
+    // gratis, que es la puerta vigente. Sus términos (archivados fuera del
+    // repo) se redirigen a los términos generales.
+    "/ia": "/diagnostico",
+    "/terminos-consulta": "/terms",
   },
 });

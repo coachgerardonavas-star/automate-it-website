@@ -103,9 +103,9 @@ const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.prefi
    * inútil esa métrica. Mismo criterio que se usó con los diagnósticos fuera de
    * alcance.
    *
-   * Tampoco hace falta retener la navegación como en el checkout de /ia: el
-   * enlace abre en pestaña nueva, así que esta página no se descarga y el
-   * evento alcanza a salir sin trucos.
+   * Tampoco hace falta retener la navegación antes de salir: el enlace abre
+   * en pestaña nueva, así que esta página no se descarga y el evento alcanza
+   * a salir sin trucos.
    *
    * `trackEvent` deduplica por nombre dentro de la carga de página: si alguien
    * vuelve y hace clic otra vez, sigue siendo la misma intención.
