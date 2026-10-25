@@ -10,7 +10,7 @@
  */
 
 import { mirrorSubscription, recordSyncError, type MirrorEnv } from "./portal-mirror";
-import { scheduleSmartTapTermEnd, termAlert, type SmartTapTermEnv } from "./smart-tap-term";
+import type { SmartTapTermEnv } from "./smart-tap-term";
 
 export interface Env extends MirrorEnv, SmartTapTermEnv {
   STRIPE_WEBHOOK_SECRET: string;
@@ -328,15 +328,10 @@ export default {
         // waitUntil so Stripe gets its 200 immediately and stops retrying,
         // regardless of how slow Telegram is.
         ctx.waitUntil(notifyTelegram(env, buildCheckoutAlert(obj, env)));
-        // Smart Tap: fija el fin del compromiso de 3 mensualidades (Términos,
-        // punto 7). Cualquier falla avisa por Telegram para hacerlo a mano.
-        ctx.waitUntil(
-          scheduleSmartTapTermEnd(env, obj).then(async (result) => {
-            console.log("[smart-tap-term]", result.kind, "subscriptionId" in result ? result.subscriptionId : "");
-            const alert = termAlert(result, escapeHtml);
-            if (alert) await notifyTelegram(env, alert);
-          })
-        );
+        // Smart Tap: el corte automático a las 3 mensualidades (PR #87) queda
+        // APAGADO por decisión del CEO (25-oct-2026). Los Términos v5 §7 y el
+        // Payment Link dicen renovación automática mes a mes. La lógica sigue en
+        // ./smart-tap-term.ts solo para poder revertir con `git revert`.
       }
 
       // Espejo hacia el Client Portal. Igual que arriba: en `waitUntil`, para
