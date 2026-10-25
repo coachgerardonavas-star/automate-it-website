@@ -59,7 +59,8 @@ Los 3 productos y sus precios de catálogo **ya existen y son correctos**:
 | Manager | `prod_V141crmzjbjMsM` | `price_1U11uB…` $3,000 | `price_1U11u7…` $600/mes | `price_1U11uF…` $7,500 |
 
 Lo que **no** existía: ningún Payment Link. Solo hay 2 links activos en toda la cuenta —
-el de la Consultoría de $1 y el de la Consultoría para Emprendedores. El catálogo estándar
+el de la Consultoría de $1 (RETIRADO 25-oct-2026: link desactivado, nunca tuvo cobros) y el
+de la Consultoría para Emprendedores. El catálogo estándar
 no tenía forma de cobrarse sin armar una factura a mano desde cero cada vez.
 
 ### Decisión del CEO (14-ago-2026): link de depósito por miembro
@@ -87,8 +88,8 @@ CEO tiene que crear los 3 links él mismo, un minuto cada uno:
 
 **Cómo se usa en el pipeline:** el link **no va público en el sitio**. Se manda uno a uno,
 por correo o WhatsApp, después de que la propuesta (Gap 01) fue aceptada en la llamada de
-cierre. Igual que hoy funciona el link del $1 — visible solo para quien ya avanzó en la
-conversación, nunca como botón de autoservicio.
+cierre. Visible solo para quien ya avanzó en la conversación, nunca como botón de
+autoservicio.
 
 **Regla vigente (ya probada con la Consultoría para Emprendedores):** un cobro de $0 por
 cupón 100% reporta `payment_status: "paid"` — nunca filtrar por eso para distinguir

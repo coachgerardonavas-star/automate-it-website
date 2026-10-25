@@ -74,6 +74,8 @@ Si contesta esa pregunta, ya tienes la conversación. Si no, cuelgas y sigues.
 
 ### Semana 2-4 — Cerrar el primero
 
+> **RETIRADO 25-oct-2026:** la Radiografía de $1 y `/ia` se retiraron por decisión del CEO (nunca tuvieron cobros). `/ia` redirige 301 a `/diagnostico`. El punto 5 queda como registro histórico.
+
 **5. Una sola puerta por prospecto, y para llamada fría la puerta es la Radiografía de $1** (Pricing §6). Pero ojo: `/ia` está en `noindex` y **no hay un solo enlace interno hacia ella en todo el sitio**. Es una página que solo existe si tú mandas el link. Eso está bien si es deliberado; está mal si creías que la gente la encuentra.
 
 **6. Cobra el primer cliente a precio de catálogo.** Asistente: $1,000 de incorporación + $200/mes. Sin descuento de "cliente fundador". Un descuento en el primer cliente te fija un techo del que no sales, y el Manual de Pricing ya te da el ancla correcta: $200/mes contra $2,917/mes de un recepcionista bilingüe.
