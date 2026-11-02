@@ -1,5 +1,7 @@
 ---
 import { translations, type Lang } from "../i18n/translations";
+import SeasonRibbon from "./SeasonRibbon.astro";
+import SmartTapHome from "./SmartTapHome.astro";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = translations[lang].home2026;
@@ -21,6 +23,8 @@ const pageCopy = lang === "en"
       brandStatement: "Creamos sistemas para que tomes el control de tu negocio.",
     };
 ---
+
+{lang === "es" && <SeasonRibbon />}
 
 <header class="site-nav">
   <a class="brand" href={`${root}/`} aria-label="Automate IT">
@@ -100,6 +104,8 @@ const pageCopy = lang === "en"
   </section>
 
   <div class="ticker">{t.ticker.map((item) => <span>{item}<i>✦</i></span>)}</div>
+
+  {lang === "es" && <SmartTapHome />}
 
   <section class="section process" id="como-funciona">
     <div class="shell"><div class="section-intro"><p class="eyebrow">{t.process.eyebrow}</p><h2>{pageCopy.processTitle}</h2></div>

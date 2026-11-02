@@ -18,6 +18,7 @@ interface Props {
   noindex?: boolean;
   chatbot?: boolean;
   analytics?: boolean;
+  season?: boolean;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   noindex = false,
   chatbot = true,
   analytics = true,
+  season = false,
 } = Astro.props;
 const t = translations[lang];
 const pageTitle = title ?? t.siteTitle;
@@ -249,6 +251,52 @@ const websiteSchema = {
       is:inline
       set:html={jsonLd(websiteSchema)}
     />
+
+    {
+      season && (
+        <script is:inline>
+          // Setea [data-season="otono"] en <html> ANTES del primer paint, para
+          // que la cinta y los adornos de Otoño no parpadeen. Duplica a mano
+          // (sin imports) la lógica pura de src/lib/season-calendar.ts — ver
+          // el comentario de ese archivo. Mantener ambos sincronizados.
+          //
+          // Override manual solo para QA, no persiste entre cargas:
+          //   ?season=otono   -> fuerza la cinta y los adornos
+          //   ?season=ninguno -> fuerza la versión base, sin cinta ni adornos
+          (function () {
+            function fallRangeForYear(year) {
+              if (year === 2026) return { start: "2026-11-02", end: "2026-11-24" };
+              var firstDay = new Date(Date.UTC(year, 10, 1)).getUTCDay();
+              var end = 1 + ((4 - firstDay + 7) % 7) + 21 - 2;
+              return { start: year + "-09-22", end: year + "-11-" + (end < 10 ? "0" + end : end) };
+            }
+            function localDateString(now) {
+              var parts = new Intl.DateTimeFormat("en-US", {
+                timeZone: "America/New_York",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              }).formatToParts(now);
+              var get = function (type) {
+                for (var i = 0; i < parts.length; i++) if (parts[i].type === type) return parts[i].value;
+              };
+              return get("year") + "-" + get("month") + "-" + get("day");
+            }
+
+            var override = new URLSearchParams(location.search).get("season");
+            var active;
+            if (override === "otono" || override === "ninguno") {
+              active = override === "otono";
+            } else {
+              var date = localDateString(new Date());
+              var range = fallRangeForYear(Number(date.slice(0, 4)));
+              active = date >= range.start && date <= range.end;
+            }
+            if (active) document.documentElement.setAttribute("data-season", "otono");
+          })();
+        </script>
+      )
+    }
 
     <title>{pageTitle}</title>
   </head>
