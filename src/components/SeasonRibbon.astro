@@ -1,0 +1,95 @@
+---
+/**
+ * Cinta de Otoño, aprobada por el CEO. Copy palabra por palabra de
+ * /workspace/website-automateit/smarttap-seccion/ribbon.html — no editar el
+ * texto visible.
+ *
+ * No es sticky: scrollea con la página. Solo se pinta cuando `<html>` trae
+ * [data-season="otono"] (lo setea el script inline en BaseLayout.astro).
+ * Sin este atributo, `display:none` la esconde por completo — así que no
+ * hace falta ninguna condición de servidor más allá de `lang === "es"` en
+ * el llamador.
+ *
+ * Regla del CEO: los adornos de temporada no se pueden ocultar. Por eso,
+ * a diferencia del mockup original, esta versión NO lleva el botón "×" ni
+ * el localStorage que lo acompañaba.
+ */
+---
+
+<div class="season-ribbon" role="note" data-season-ribbon>
+  <img
+    class="leaf"
+    src="/assets/smart-tap/fall/hoja-arce-ambar.svg"
+    alt=""
+    aria-hidden="true"
+    width="20"
+    height="20"
+  /><b>Feliz otoño</b><span class="long">Temporada de volver: que tus clientes regresen una y otra vez.</span><span
+    class="short">Feliz otoño de parte de Automate IT</span
+  >
+</div>
+
+<style is:global>
+  .season-ribbon {
+    display: none;
+  }
+  [data-season="otono"] .season-ribbon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: linear-gradient(90deg, #5e2410, #4a1d0d 50%, #5e2410);
+    color: #fff;
+    font: 600 15px/1.3 "Open Sans", sans-serif;
+    padding: 11px 24px;
+    letter-spacing: 0.01em;
+    z-index: 60;
+  }
+  .season-ribbon b {
+    font-family: "Manifold CF", Montserrat, system-ui, sans-serif;
+    font-weight: 800;
+    color: #f5c77a;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+  .season-ribbon .leaf {
+    width: 20px;
+    height: 20px;
+    flex: none;
+  }
+  .season-ribbon .short {
+    display: none;
+  }
+  .season-ribbon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 3px;
+    background: linear-gradient(90deg, #c2571a, #e0a040 35%, #6b7a32 65%, #c2571a);
+  }
+  @media (max-width: 760px) {
+    [data-season="otono"] .season-ribbon {
+      font-size: 13px;
+      padding: 9px 20px;
+      gap: 8px;
+      text-align: center;
+    }
+    .season-ribbon b,
+    .season-ribbon .long {
+      display: none;
+    }
+    .season-ribbon .short {
+      display: inline;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-season] * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
