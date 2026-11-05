@@ -773,24 +773,36 @@ export const translations = {
         title: "Política de privacidad",
         sections: [
           {
-            heading: "Quién recopila tus datos",
-            body: "Este sitio y los servicios asociados son operados por Automate IT LLC. Para cualquier asunto relacionado con tus datos personales puedes contactarnos en automateit@yourbizupgraded.com.",
+            heading: "Responsable y contacto",
+            body: "Automate IT LLC opera este sitio y los formularios asociados. Para consultas sobre el tratamiento de datos personales, escríbenos a automateit@yourbizupgraded.com.",
           },
           {
-            heading: "Qué datos recopilamos",
-            body: "Recopilamos únicamente los datos que tú nos proporcionas: nombre, teléfono, correo electrónico y los mensajes que nos envías por WhatsApp o a través del formulario web.",
+            heading: "Información que recopilamos",
+            body: "Cuando solicitas información o una demostración, podemos recibir tu nombre, correo, teléfono, nombre o tipo de negocio y la información que incluyas en el formulario. Al visitar el sitio también pueden procesarse datos técnicos necesarios para su funcionamiento y seguridad, como dirección IP, navegador y registros de acceso.",
           },
           {
-            heading: "Para qué usamos tus datos",
-            body: "Usamos tus datos para responder tus consultas, enviarte información sobre nuestro servicio y mejorar nuestros sistemas de automatización.",
+            heading: "Finalidades y comunicaciones comerciales",
+            body: "Utilizamos la información para responder solicitudes, preparar demostraciones, dar seguimiento a conversaciones iniciadas por ti, gestionar nuestra relación comercial y mantener la seguridad y operación del sitio. Una solicitud de demostración no equivale por sí sola a aceptar correos promocionales. Cuando corresponda obtener consentimiento para marketing, lo solicitamos de forma independiente; puedes retirar ese permiso o cancelar la suscripción cuando lo desees.",
           },
           {
-            heading: "No vendemos tus datos",
-            body: "No vendemos, alquilamos ni compartimos tus datos personales con terceros con fines comerciales.",
+            heading: "Proveedores que nos ayudan a prestar el servicio",
+            body: "Utilizamos proveedores que procesan información en nuestro nombre para alojar el sitio, recibir formularios, gestionar contactos y mantener las operaciones. En particular, los formularios de solicitud de demostración y sus registros de contacto se gestionan mediante HubSpot como plataforma de formularios y CRM. Podemos emplear servicios de infraestructura, seguridad y analítica según estén habilitados. No vendemos ni alquilamos datos personales a terceros para sus propias campañas comerciales.",
           },
           {
-            heading: "Eliminación de tus datos",
-            body: "Puedes solicitar la eliminación de tus datos en cualquier momento escribiéndonos a automateit@yourbizupgraded.com. Procesaremos tu solicitud lo antes posible.",
+            heading: "Cookies y datos técnicos",
+            body: "El sitio y los servicios integrados pueden utilizar cookies u otras tecnologías para funciones necesarias, protección contra abusos y medición cuando esté habilitada. Algunas tecnologías dependen del servicio de terceros utilizado. La disponibilidad de controles de cookies depende de cada funcionalidad o proveedor.",
+          },
+          {
+            heading: "Conservación y protección",
+            body: "Conservamos los datos durante el tiempo razonablemente necesario para responder la solicitud, mantener nuestra relación comercial y cumplir obligaciones aplicables. Revisamos los datos que ya no necesitamos y aplicamos medidas razonables de acceso y protección. Ningún sistema puede garantizar seguridad absoluta.",
+          },
+          {
+            heading: "Tus solicitudes de privacidad",
+            body: "Puedes escribir a automateit@yourbizupgraded.com para solicitar acceso, corrección o eliminación de los datos personales que controlamos, o para consultar u oponerte a usos de marketing cuando corresponda. Evaluaremos cada solicitud conforme a las obligaciones legales y los registros que debamos conservar.",
+          },
+          {
+            heading: "Cambios en esta política",
+            body: "Actualizaremos esta página si cambian materialmente nuestras prácticas de datos. La fecha de actualización aparece en la parte superior de esta política.",
           },
         ],
       },
@@ -1497,24 +1509,36 @@ export const translations = {
         title: "Privacy policy",
         sections: [
           {
-            heading: "Who collects your data",
-            body: "This website and its associated services are operated by Automate IT LLC. For any matter related to your personal data, you can contact us at automateit@yourbizupgraded.com.",
+            heading: "Controller and contact",
+            body: "Automate IT LLC operates this website and its related forms. For questions about how personal information is handled, contact automateit@yourbizupgraded.com.",
           },
           {
-            heading: "What data we collect",
-            body: "We only collect the data you provide to us: name, phone number, email address, and the messages you send us via WhatsApp or through the web form.",
+            heading: "Information we collect",
+            body: "When you request information or a demonstration, we may receive your name, email, phone number, business name or type, and any details you provide in the form. Visits to the website may also involve technical data necessary for operation and security, such as an IP address, browser details, and access logs.",
           },
           {
-            heading: "How we use your data",
-            body: "We use your data to respond to your inquiries, send you information about our service, and improve our automation systems.",
+            heading: "Purposes and marketing communications",
+            body: "We use information to respond to inquiries, prepare demonstrations, follow up on conversations you initiate, manage our business relationship, and operate and protect the website. Requesting a demonstration does not, by itself, constitute consent to promotional emails. Where marketing consent is required, we request it separately; you may withdraw that permission or unsubscribe at any time.",
           },
           {
-            heading: "We don't sell your data",
-            body: "We do not sell, rent, or share your personal data with third parties for commercial purposes.",
+            heading: "Service providers",
+            body: "We use service providers that process information on our behalf to host the website, receive forms, manage contacts, and support operations. In particular, demonstration request forms and corresponding contact records are managed through HubSpot as our forms and CRM platform. Infrastructure, security, and analytics services may also be used when enabled. We do not sell or rent personal information to third parties for their own marketing campaigns.",
           },
           {
-            heading: "Deleting your data",
-            body: "You can request the deletion of your data at any time by writing to us at automateit@yourbizupgraded.com. We will process your request as soon as possible.",
+            heading: "Cookies and technical information",
+            body: "The website and integrated services may use cookies and similar technologies for essential functions, abuse prevention, and measurement where enabled. Some technologies depend on the third-party service used. The availability of cookie controls varies by feature and provider.",
+          },
+          {
+            heading: "Retention and security",
+            body: "We retain information for as long as reasonably necessary to respond to requests, maintain our business relationship, and meet applicable obligations. We review data that is no longer needed and apply reasonable access and security measures. No system can guarantee absolute security.",
+          },
+          {
+            heading: "Your privacy requests",
+            body: "You may contact automateit@yourbizupgraded.com to request access to, correction of, or deletion of personal information we control, or to ask questions about or object to marketing uses when applicable. We assess requests in line with applicable requirements and records we must retain.",
+          },
+          {
+            heading: "Changes to this policy",
+            body: "We will update this page if our data practices materially change. The updated date appears at the top of this policy.",
           },
         ],
       },
