@@ -93,3 +93,11 @@
     }
   }
 </style>
+
+<script is:inline>
+if(document.documentElement.dataset.season === "otono") {
+  const css=document.createElement("link"); css.rel="stylesheet"; css.href="/assets/smart-tap/fall/otono-decor.css"; document.head.appendChild(css);
+  const js=document.createElement("script"); js.src="/assets/smart-tap/fall/otono-decor.js"; js.dataset.assetBase="/assets/smart-tap/fall/"; js.defer=true;
+  window.addEventListener("DOMContentLoaded",()=>document.body.appendChild(js),{once:true});
+}
+</script>

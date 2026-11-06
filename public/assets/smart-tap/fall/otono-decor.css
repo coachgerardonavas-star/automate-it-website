@@ -1,0 +1,266 @@
+/* ============================================================
+   Otoño con movimiento · drop-in para yourbizupgraded.com
+   y smarttap.yourbizupgraded.com
+   Solo se activa con [data-season="otono"] en <html>.
+   Assets: --otono-asset-base (default: ./assets/)
+   ============================================================ */
+:root{
+  --otono-asset-base: ./assets/;
+  --fall-rust:#8C3A1B;
+  --fall-rust-deep:#5E2410;
+  --fall-orange:#C2571A;
+  --fall-amber:#E0A040;
+  --fall-amber-hi:#F5C77A;
+  --fall-olive:#6B7A32;
+  --fall-cream:#FBF6EE;
+}
+
+/* ---------- capa de hojas cayendo ---------- */
+.otono-fall-layer{
+  display:none;
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:45;
+  overflow:hidden;
+  contain:strict;
+}
+[data-season="otono"] .otono-fall-layer{display:block}
+html.st-season-hidden .otono-fall-layer{display:none!important}
+
+.otono-fall-leaf{
+  position:absolute;
+  top:-12%;
+  width:var(--leaf-size,28px);
+  height:auto;
+  opacity:0;
+  will-change:transform,opacity;
+  animation: otono-drift var(--dur,14s) linear var(--delay,0s) infinite;
+  filter: drop-shadow(0 2px 3px rgba(94,36,16,.18));
+}
+.otono-fall-leaf img,
+.otono-fall-leaf svg{display:block;width:100%;height:auto}
+
+@keyframes otono-drift{
+  0%{
+    transform: translate3d(0,-8vh,0) rotate(var(--rot0,0deg));
+    opacity:0;
+  }
+  8%{opacity:var(--op,.78)}
+  85%{opacity:var(--op,.78)}
+  100%{
+    transform: translate3d(var(--drift,40px),108vh,0) rotate(var(--rot1,160deg));
+    opacity:0;
+  }
+}
+
+/* ---------- guirnalda: balanceo suave ---------- */
+[data-season="otono"] .st-garland,
+[data-season="otono"] .otono-garland,
+[data-season="otono"] .otono-nav-garland,
+html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) nav::after{
+  animation: otono-sway 5.5s ease-in-out infinite;
+  transform-origin:50% 0%;
+  will-change:transform;
+}
+@keyframes otono-sway{
+  0%,100%{transform:translate3d(0,0,0) rotate(-.6deg)}
+  50%{transform:translate3d(0,2px,0) rotate(.7deg)}
+}
+
+/* ---------- cinta: brillo cálido sutil ---------- */
+[data-season="otono"] .season-ribbon{
+  background:
+    linear-gradient(105deg, transparent 0%, rgba(245,199,122,.14) 42%, transparent 68%),
+    linear-gradient(90deg,#5E2410,#4A1D0D 50%,#5E2410);
+  background-size:220% 100%,100% 100%;
+  animation: otono-ribbon-sheen 9s ease-in-out infinite;
+}
+@keyframes otono-ribbon-sheen{
+  0%,100%{background-position:120% 0,0 0}
+  50%{background-position:-20% 0,0 0}
+}
+[data-season="otono"] .season-ribbon .leaf{
+  animation: otono-leaf-tilt 3.8s ease-in-out infinite;
+  transform-origin:50% 60%;
+}
+@keyframes otono-leaf-tilt{
+  0%,100%{transform:rotate(-8deg)}
+  50%{transform:rotate(10deg)}
+}
+
+/* ---------- banda cálida / textura en heroes ---------- */
+[data-season="otono"] .st-home{
+  background:
+    url("/assets/smart-tap/fall/patron-hojas-claro.svg") 0 0/300px 300px,
+    radial-gradient(1100px 520px at 92% 0%,rgba(224,160,64,.28),transparent 60%),
+    radial-gradient(700px 420px at 0% 100%,rgba(194,87,26,.12),transparent 65%),
+    linear-gradient(180deg, rgba(251,246,238,.55) 0%, transparent 220px),
+    linear-gradient(rgba(0,82,204,.07) 1px,transparent 1px) 0 0/32px 32px,
+    linear-gradient(90deg,rgba(0,82,204,.07) 1px,transparent 1px) 0 0/32px 32px,#EEF1F8;
+}
+/* smarttap /inicio hero wrap */
+[data-season="otono"] .wrap,
+html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .wrap{
+  background-image:
+    url("/assets/smart-tap/fall/patron-hojas-claro.svg"),
+    radial-gradient(ellipse at 90% 8%,rgba(224,160,64,.28),transparent 58%),
+    radial-gradient(ellipse at 0% 100%,rgba(140,58,27,.10),transparent 50%),
+    linear-gradient(180deg,rgba(251,246,238,.5) 0%,transparent 260px),
+    linear-gradient(rgba(0,82,204,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,82,204,.08) 1px,transparent 1px);
+  background-size:300px,100% 100%,100% 100%,100% 100%,32px 32px,32px 32px;
+}
+/* main-site hero (el de automatización, debajo de Smart Tap) */
+[data-season="otono"] .hero.shell{
+  position:relative;
+  background:
+    radial-gradient(ellipse at 85% 0%,rgba(224,160,64,.18),transparent 55%),
+    radial-gradient(ellipse at 10% 100%,rgba(140,58,27,.06),transparent 50%);
+}
+[data-season="otono"] .hero.shell::after{
+  content:"";
+  position:absolute;left:0;right:0;top:0;height:4px;pointer-events:none;
+  background:linear-gradient(90deg,#C2571A,#E0A040 40%,#6B7A32 70%,#C2571A);
+  opacity:.85;
+}
+
+/* ---------- hojas sueltas del hero: flotación suave ---------- */
+[data-season="otono"] .st-leaf,
+html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .hero::before{
+  animation: otono-float 6.5s ease-in-out infinite;
+}
+[data-season="otono"] .st-l2{animation-delay:-1.4s}
+[data-season="otono"] .st-l3{animation-delay:-2.8s}
+[data-season="otono"] .st-l4{animation-delay:-4.1s}
+@keyframes otono-float{
+  0%,100%{transform:translate3d(0,0,0) rotate(var(--base-rot,0deg))}
+  50%{transform:translate3d(0,-6px,0) rotate(calc(var(--base-rot,0deg) + 6deg))}
+}
+[data-season="otono"] .st-l1{--base-rot:18deg}
+[data-season="otono"] .st-l2{--base-rot:-24deg}
+[data-season="otono"] .st-l3{--base-rot:40deg}
+[data-season="otono"] .st-l4{--base-rot:-8deg}
+
+/* ramillete y cosecha */
+[data-season="otono"] .st-sprig,
+[data-season="otono"] .st-harvest,
+html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .phone::before,
+html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .stats::before{
+  animation: otono-bob 4.8s ease-in-out infinite;
+}
+@keyframes otono-bob{
+  0%,100%{transform:translate3d(0,0,0) rotate(-5deg)}
+  50%{transform:translate3d(0,-4px,0) rotate(-2deg)}
+}
+[data-season="otono"] .st-harvest{animation-name:otono-bob-harvest}
+@keyframes otono-bob-harvest{
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(0,-3px,0)}
+}
+
+/* ---------- hover de CTAs (solo transform/opacity/shadow) ---------- */
+[data-season="otono"] .st-btn,
+[data-season="otono"] .hero .button,
+[data-season="otono"] a.button{
+  transition: transform .22s ease, box-shadow .22s ease, background-color .22s ease;
+}
+[data-season="otono"] .st-btn-primary:hover,
+[data-season="otono"] .hero .button:hover,
+[data-season="otono"] a.button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 28px rgba(0,82,204,.34);
+}
+[data-season="otono"] .st-btn-secondary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(0,61,165,.16);
+}
+/* acento otoñal sutil al lado del CTA primario en Smart Tap */
+[data-season="otono"] .st-ctas{
+  position:relative;
+}
+[data-season="otono"] .st-ctas::after{
+  content:"";
+  position:absolute;
+  right:-8px;bottom:-6px;
+  width:54px;height:44px;
+  background:
+    url("/assets/smart-tap/fall/calabaza.svg") left bottom/36px 30px no-repeat,
+    url("/assets/smart-tap/fall/bellota.svg") right bottom/18px 24px no-repeat;
+  pointer-events:none;
+  opacity:.92;
+  animation: otono-bob-harvest 5.2s ease-in-out infinite;
+}
+@media (max-width:760px){
+  [data-season="otono"] .st-ctas::after{display:none}
+}
+
+/* ---------- header garland helper (main site, si no hay ::after) ---------- */
+[data-season="otono"] .site-nav{
+  position:relative;
+}
+[data-season="otono"] .site-nav .otono-garland,
+[data-season="otono"] .otono-nav-garland{
+  position:absolute;left:0;right:0;bottom:-34px;height:46px;
+  background:url("/assets/smart-tap/fall/guirnalda-hojas.svg") repeat-x center/575px 46px;
+  pointer-events:none;z-index:3;
+}
+@media (max-width:760px){
+  [data-season="otono"] .site-nav .otono-garland,
+  [data-season="otono"] .otono-nav-garland{
+    height:34px;bottom:-22px;background-size:425px 34px;
+  }
+}
+
+/* ---------- móvil: menos movimiento ---------- */
+@media (max-width:700px){
+  .otono-fall-leaf{--dur:18s; opacity:.65}
+  /* la JS crea menos hojas; aquí bajamos opacidad/velocidad */
+  [data-season="otono"] .st-leaf,
+  html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .hero::before{animation-duration:8s}
+}
+@media (max-width:700px) and (prefers-reduced-motion: no-preference){
+  /* opción "más ligera": ocultar hojas flotantes del hero (las cayendo siguen, pocas) */
+  html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .hero::before{animation:none}
+}
+
+/* ---------- reduced motion: cero animación ---------- */
+@media (prefers-reduced-motion: reduce){
+  .otono-fall-layer{display:none!important}
+  [data-season="otono"] .st-garland,
+  [data-season="otono"] .otono-garland,
+[data-season="otono"] .otono-nav-garland,
+  [data-season="otono"] .otono-nav-garland,
+  html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) nav::after,
+  [data-season="otono"] .season-ribbon,
+  [data-season="otono"] .season-ribbon .leaf,
+  [data-season="otono"] .st-leaf,
+  [data-season="otono"] .st-sprig,
+  [data-season="otono"] .st-harvest,
+  [data-season="otono"] .st-ctas::after,
+  html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .hero::before,
+  html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .phone::before,
+  html[data-season="otono"] body:has(.season-ribbon[data-season="otono"]) .stats::before,
+  [data-season="otono"] .st-btn,
+  [data-season="otono"] .hero .button,
+  [data-season="otono"] a.button{
+    animation:none!important;
+    transition:none!important;
+  }
+}
+
+/* ---------- motor listo para Navidad (misma capa, otra clase) ---------- */
+[data-season="navidad"] .otono-fall-layer.otono-snow-layer{display:block}
+.otono-snow-flake{
+  position:absolute;top:-10%;
+  width:var(--flake-size,8px);height:var(--flake-size,8px);
+  border-radius:50%;background:#fff;
+  box-shadow:0 0 4px rgba(255,255,255,.7);
+  opacity:0;
+  animation: otono-drift var(--dur,12s) linear var(--delay,0s) infinite;
+  will-change:transform,opacity;
+}
+
+html.st-season-hidden .st-ctas::after{display:none}
+
+@media(prefers-reduced-motion:reduce){[data-season="otono"] :is(.st-btn,a.button):hover{transform:none!important}}
