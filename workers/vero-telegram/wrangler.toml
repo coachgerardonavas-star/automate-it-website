@@ -1,9 +1,18 @@
 name = "vero-telegram"
-main = "index.js"
+main = "secure-entry.js"
 compatibility_date = "2024-01-01"
 
 [vars]
 ALLOWED_CHAT_ID = "8348522203"
+
+# Secrets requeridos:
+#   wrangler secret put TELEGRAM_BOT_TOKEN
+#   wrangler secret put ANTHROPIC_API_KEY
+#   wrangler secret put TELEGRAM_WEBHOOK_SECRET
+# El mismo TELEGRAM_WEBHOOK_SECRET hay que configurarlo como secret_token en el
+# setWebhook de Telegram, para que Telegram mande la cabecera
+# X-Telegram-Bot-Api-Secret-Token en cada update. Sin ese secret configurado,
+# secure-entry.js falla cerrado (500) en cualquier POST.
 
 # Crear con: npx wrangler kv namespace create "vero-approvals"
 # y pegar el ID devuelto en la línea id de abajo.
