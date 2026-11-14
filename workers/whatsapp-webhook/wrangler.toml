@@ -13,6 +13,13 @@ account_id = "0eb99d5fd784e62ca2519c2ca0627ea5"
 # La ruta `yourbizupgraded.com/whatsapp-webhook*` que habia aqui nunca llego a
 # activarse (esa direccion devuelve el 404 del sitio) y hacia fallar cada
 # deploy, porque el token no tiene permiso de Workers Routes sobre la zona.
+#
+# Secrets requeridos (wrangler secret put <nombre>), el worker falla cerrado
+# (500) si falta alguno en un POST:
+#   META_APP_SECRET    — App Secret de Meta, para verificar X-Hub-Signature-256
+#   MAKE_WEBHOOK_URL    — URL del hook 2466172 de Make (antes hardcodeada en index.js)
+#   MAKE_WEBHOOK_KEY    — valor que Make exige en la cabecera x-make-apikey
+# META_VERIFY_TOKEN ya se usaba para el GET de verificación de Meta (hub.verify_token).
 
 [observability]
 enabled = true
