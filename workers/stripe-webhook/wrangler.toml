@@ -8,7 +8,7 @@ workers_dev = true
 #   wrangler secret put TELEGRAM_BOT_TOKEN         # el mismo bot que vero-telegram
 #   wrangler secret put SUPABASE_SERVICE_ROLE_KEY  # espejo del Client Portal
 #   wrangler secret put STRIPE_SUBSCRIPTIONS_KEY   # rk_live_* restringida: SOLO Subscriptions (escritura).
-#                                                  # Fija el fin a 3 meses de Smart Tap.
+#                                                  # Actualmente sin uso: el corte automático a 3 meses está apagado.
 #
 # La service_role key salta RLS por completo. Vive acá y NUNCA en el proyecto
 # del sitio: ese es el motivo por el que el espejo del portal se escribe desde
@@ -22,9 +22,11 @@ SUPABASE_URL = "https://fryufcddrbeewqcwyavz.supabase.co"
 # Payment link de "Consultoría de Negocios para Emprendedores".
 # Sirve para etiquetar el aviso; el webhook funciona igual sin esto.
 CONSULTORIA_PAYMENT_LINK = "plink_1TygKBAHnOzMvXBgGcp7rmdN"
-# Payment link de Smart Tap ($199 + $79/mes). Sus suscripciones reciben
-# cancel_at a 3 meses (Términos de Smart Tap, punto 7).
-SMART_TAP_PAYMENT_LINK = "plink_1UMe6QAHnOzMvXBgoInFroKP"
+# Payment link de Smart Tap ($199 de instalación + $79/mes, 1 ubicación).
+# Solo se usa para etiquetar el aviso de Telegram. Mínimo 3 meses; después
+# renueva mensualmente hasta que el cliente cancele.
+# Link anterior pausado: plink_1UMe6QAHnOzMvXBgoInFroKP.
+SMART_TAP_PAYMENT_LINK = "plink_1UW01qAHnOzMvXBguB9Yuei6"
 
 [observability]
 enabled = true

@@ -329,8 +329,8 @@ export default {
         // regardless of how slow Telegram is.
         ctx.waitUntil(notifyTelegram(env, buildCheckoutAlert(obj, env)));
         // Smart Tap: el corte automático a las 3 mensualidades (PR #87) queda
-        // APAGADO por decisión del CEO (25-oct-2026). Los Términos v5 §7 y el
-        // Payment Link dicen renovación automática mes a mes. La lógica sigue en
+        // APAGADO. Política del CEO (29-oct-2026): mínimo 3 meses; después
+        // renueva mensualmente hasta que el cliente cancele. La lógica sigue en
         // ./smart-tap-term.ts solo para poder revertir con `git revert`.
       }
 

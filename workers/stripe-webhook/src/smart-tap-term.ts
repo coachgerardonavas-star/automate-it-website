@@ -1,15 +1,11 @@
 /**
- * Smart Tap: fin automático del compromiso mínimo de 3 mensualidades.
+ * DESACTIVADO: el worker no llama esta lógica; se conserva solo para revertir.
+ * Política vigente (CEO, 29-oct-2026): mínimo 3 meses; después renueva
+ * mensualmente hasta que el cliente cancele.
  *
- * El payment link de Smart Tap crea una suscripción mensual de $79 que, sin
- * intervención, cobra para siempre. Los Términos (punto 7) dicen que el
- * servicio NO continúa solo al terminar los 3 meses: si el negocio quiere
- * seguir, firma un Anexo de Extensión. Un payment link no permite fijar el fin
- * de la suscripción, así que se fija aquí, al completarse el checkout.
- *
- * Cobros resultantes: el del checkout (instalación + mes 1), mes 2 y mes 3.
- * `cancel_at` cae exactamente en el fin del tercer período, así que Stripe no
- * genera una cuarta factura ni prorrateos.
+ * Lógica anterior: fijaba `cancel_at` al fin del tercer período al completarse
+ * el checkout. Cobraba instalación + mes 1, mes 2 y mes 3, sin cuarta factura
+ * ni prorrateos. Ese corte automático ya no se aplica.
  */
 
 export interface SmartTapTermEnv {
@@ -69,7 +65,7 @@ async function stripeRequest(
   return { ok: res.ok, status: res.status, json };
 }
 
-/** Fija el fin a 3 meses de una suscripción nacida del payment link de Smart Tap. */
+/** Lógica desactivada, solo para revertir: fija el fin a 3 meses de Smart Tap. */
 export async function scheduleSmartTapTermEnd(
   env: SmartTapTermEnv,
   session: Record<string, unknown>
