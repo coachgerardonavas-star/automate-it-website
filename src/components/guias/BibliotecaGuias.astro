@@ -1,0 +1,410 @@
+---
+import type { Lang } from "../../i18n/translations";
+import { LIVE_GUIDES, SHOW_COMING_SOON } from "./catalog";
+import { getGuiasCopy } from "./copy";
+import { GUIAS_EMAIL_STORAGE_KEY } from "../../lib/hubspot-guias";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const copy = getGuiasCopy(lang);
+const guides = LIVE_GUIDES.map((guide) => {
+  const text = copy.guides[guide.slug];
+  if (!text) throw new Error(`Missing guide copy for ${guide.slug}`);
+  return { ...guide, ...text, pageName: `${copy.libraryLabel} · ${text.title}` };
+});
+---
+
+<script is:inline define:vars={{ emailKey: GUIAS_EMAIL_STORAGE_KEY }}>
+  try {
+    var storedEmail = localStorage.getItem(emailKey);
+    if (storedEmail) document.documentElement.setAttribute("data-guias-known", "");
+  } catch (error) {
+    /* Sin almacenamiento local, cada visita pide el correo. */
+  }
+</script>
+
+<main class="guias-library pt-10 pb-24">
+  <div class="max-w-5xl mx-auto px-5 lg:px-8">
+    <header class="max-w-2xl mb-10 sm:mb-14">
+      <p class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-blue)] mb-4">
+        {copy.eyebrow}
+      </p>
+      <h1 class="font-heading text-[clamp(2.4rem,7vw,4.25rem)] leading-[1.05] tracking-[-0.03em] text-balance mb-5">
+        {copy.h1Lead}<br />
+        <span class="text-[var(--color-blue)]">{copy.h1Emphasis}</span>
+      </h1>
+      <p class="text-lg leading-relaxed text-[var(--color-text-secondary)] text-pretty max-w-[62ch]">
+        {copy.lead}
+      </p>
+    </header>
+
+    <section aria-labelledby="guias-heading">
+      <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+        <h2 id="guias-heading" class="font-heading text-2xl sm:text-3xl tracking-tight">
+          {copy.libraryHeading}
+        </h2>
+        <p class="guia-known">
+          <span data-guias-email></span>
+          <button type="button" data-guias-forget>{copy.notYou}</button>
+        </p>
+        <script is:inline define:vars={{ emailKey: GUIAS_EMAIL_STORAGE_KEY }}>
+          try {
+            var emailSlot = document.querySelector("[data-guias-email]");
+            var knownEmail = localStorage.getItem(emailKey);
+            if (emailSlot && knownEmail) emailSlot.textContent = knownEmail;
+          } catch (error) {
+            /* El módulo de la página vuelve a pintar el correo si este paso falla. */
+          }
+        </script>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 md:items-start">
+        {
+          guides.map((guide) => (
+            <article
+              class="guia-card rounded-lg border border-[var(--color-border)] bg-white p-5 sm:p-7 shadow-md"
+              data-guide-card
+              data-live
+              data-slug={guide.slug}
+              data-guide-name={guide.title}
+              data-page-name={guide.pageName}
+              data-processing-text={copy.processingConsent}
+              data-marketing-text={copy.consent}
+            >
+              <p class="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-blue)] mb-3">
+                {guide.kicker}
+              </p>
+              <h3 class="font-heading text-2xl sm:text-[1.75rem] leading-tight tracking-tight text-balance mb-3">
+                {guide.title}
+              </h3>
+              <p class="text-[var(--color-text-secondary)] leading-relaxed mb-6">{guide.body}</p>
+
+              <form class="guia-form" novalidate>
+                <div class="mb-4">
+                  <label class="block text-sm font-semibold mb-2" for={`email-${guide.slug}`}>
+                    {copy.emailLabel}
+                  </label>
+                  <input
+                    id={`email-${guide.slug}`}
+                    class="guia-input"
+                    name="email"
+                    type="email"
+                    inputmode="email"
+                    autocomplete="email"
+                    spellcheck="false"
+                    maxlength="254"
+                    required
+                    aria-describedby={`email-error-${guide.slug}`}
+                  />
+                  <p id={`email-error-${guide.slug}`} class="guia-error" data-email-error hidden>
+                    {copy.emailError}
+                  </p>
+                </div>
+                <label class="guia-consent">
+                  <input id={`consent-${guide.slug}`} type="checkbox" name="marketing_consent" />
+                  <span>{copy.consent}</span>
+                </label>
+                <button class="guia-button" type="submit">{copy.submit}</button>
+                <p class="guia-privacy">
+                  {copy.processingBefore}
+                  <a href={copy.privacyHref}>{copy.privacyLink}</a>
+                </p>
+                <noscript>
+                  <p class="mt-4">
+                    <a class="guia-button" href={guide.pdfPath} download={guide.downloadName}>
+                      {copy.downloadPdf}
+                    </a>
+                  </p>
+                </noscript>
+              </form>
+
+              <div class="guia-success" role="status">
+                <p class="font-heading text-2xl leading-tight mb-4">{copy.successTitle}</p>
+                <a class="guia-button" data-guia-download href={guide.pdfPath} download={guide.downloadName}>
+                  {copy.downloadPdf}
+                </a>
+              </div>
+
+              <div class="guia-ready">
+                <a class="guia-button" data-guia-download href={guide.pdfPath} download={guide.downloadName}>
+                  {copy.download}
+                </a>
+              </div>
+            </article>
+          ))
+        }
+
+        {
+          SHOW_COMING_SOON && (
+            <article class="rounded-lg border border-dashed border-[var(--color-border-strong)] bg-[var(--color-bg-soft)] p-5 sm:p-7">
+              <h3 class="font-heading text-2xl leading-tight tracking-tight mb-3 text-[var(--color-text-secondary)]">
+                {copy.soonTitle}
+              </h3>
+              <p class="text-[var(--color-text-secondary)] leading-relaxed">{copy.soonBody}</p>
+            </article>
+          )
+        }
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+  import {
+    clearGuiaMemory,
+    isValidGuideEmail,
+    listWithCurrentGuide,
+    readGuiaMemory,
+    submitGuiaDownloadInBackground,
+    writeGuiaMemory,
+    type GuiaSubmissionInput,
+  } from "../../lib/hubspot-guias";
+
+  const root = document.querySelector<HTMLElement>(".guias-library");
+  const emailSlot = root?.querySelector<HTMLElement>("[data-guias-email]");
+
+  function paintEmail(email: string) {
+    if (emailSlot) emailSlot.textContent = email;
+  }
+
+  function remember(card: HTMLElement, email: string, marketingConsent: boolean) {
+    const slug = card.dataset.slug ?? "";
+    const previous = readGuiaMemory(localStorage);
+    const slugs = listWithCurrentGuide(previous?.slugs ?? [], slug);
+    writeGuiaMemory(localStorage, { email, slugs, marketingConsent });
+    document.documentElement.setAttribute("data-guias-known", "");
+    paintEmail(email);
+    return slugs;
+  }
+
+  function payload(card: HTMLElement, email: string, marketingConsent: boolean, slugs: string[]): GuiaSubmissionInput {
+    return {
+      email,
+      slug: card.dataset.slug ?? "",
+      guideName: card.dataset.guideName ?? "",
+      marketingConsent,
+      downloadedSlugs: slugs,
+      pageUrl: window.location.href,
+      pageName: card.dataset.pageName ?? "",
+      processingConsentText: card.dataset.processingText ?? "",
+      marketingConsentText: card.dataset.marketingText ?? "",
+    };
+  }
+
+  function startDownload(anchor: HTMLAnchorElement) {
+    const link = document.createElement("a");
+    link.href = anchor.href;
+    link.download = anchor.getAttribute("download") ?? "";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  const stored = readGuiaMemory(localStorage);
+  if (stored) paintEmail(stored.email);
+
+  root?.querySelector<HTMLButtonElement>("[data-guias-forget]")?.addEventListener("click", () => {
+    clearGuiaMemory(localStorage);
+    document.documentElement.removeAttribute("data-guias-known");
+    paintEmail("");
+    root.querySelectorAll<HTMLElement>("[data-guide-card]").forEach((card) => {
+      card.classList.remove("is-success");
+      card.querySelector<HTMLFormElement>("form")?.reset();
+      const input = card.querySelector<HTMLInputElement>('input[type="email"]');
+      const error = card.querySelector<HTMLElement>("[data-email-error]");
+      input?.removeAttribute("aria-invalid");
+      error?.setAttribute("hidden", "");
+    });
+    root.querySelector<HTMLInputElement>('input[type="email"]')?.focus();
+  });
+
+  root?.querySelectorAll<HTMLElement>("[data-guide-card][data-live]").forEach((card) => {
+    const form = card.querySelector<HTMLFormElement>("form");
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const input = form.querySelector<HTMLInputElement>('input[type="email"]');
+      const error = form.querySelector<HTMLElement>("[data-email-error]");
+      const email = input?.value.trim() ?? "";
+      if (!input || !isValidGuideEmail(email)) {
+        input?.setAttribute("aria-invalid", "true");
+        error?.removeAttribute("hidden");
+        input?.focus();
+        return;
+      }
+      input.setAttribute("aria-invalid", "false");
+      error?.setAttribute("hidden", "");
+      const marketingConsent = form.querySelector<HTMLInputElement>('input[type="checkbox"]')?.checked ?? false;
+      const slugs = remember(card, email, marketingConsent);
+      void submitGuiaDownloadInBackground(payload(card, email, marketingConsent, slugs));
+      card.classList.add("is-success");
+      const pdf = card.querySelector<HTMLAnchorElement>(".guia-success [data-guia-download]");
+      if (pdf) startDownload(pdf);
+      card.querySelector<HTMLAnchorElement>(".guia-success [data-guia-download]")?.focus();
+    });
+
+    card.querySelectorAll<HTMLAnchorElement>("[data-guia-download]").forEach((anchor) => {
+      anchor.addEventListener("click", () => {
+        const memory = readGuiaMemory(localStorage);
+        if (!memory) return;
+        const slugs = remember(card, memory.email, memory.marketingConsent);
+        void submitGuiaDownloadInBackground(payload(card, memory.email, memory.marketingConsent, slugs));
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  .guias-library .guia-input {
+    width: 100%;
+    min-height: 52px;
+    padding: 0.8rem 0.9rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--color-border-strong);
+    background: var(--color-bg-soft);
+    color: var(--color-text-primary);
+    font: 600 1rem/1.4 "Open Sans", system-ui, sans-serif;
+  }
+  .guias-library .guia-input::placeholder {
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+  .guias-library .guia-input[aria-invalid="true"] {
+    border-color: var(--color-danger);
+  }
+  .guias-library .guia-error {
+    margin-top: 0.45rem;
+    color: var(--color-danger);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  .guias-library .guia-error[hidden] {
+    display: none;
+  }
+  .guias-library .guia-consent {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    margin: 0 0 1rem;
+    padding: 0.85rem 0.9rem;
+    border: 1px dashed var(--color-border-strong);
+    border-radius: 8px;
+    background: var(--color-bg-soft);
+    cursor: pointer;
+  }
+  /* The floating WhatsApp button sits on the bottom-right of the screen.
+     On a phone it covers the end of this sentence unless the text stops early. */
+  @media (max-width: 720px) {
+    .guias-library .guia-consent {
+      padding-right: 4.75rem;
+    }
+  }
+  .guias-library .guia-consent input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.15rem;
+    flex: none;
+    accent-color: var(--color-blue);
+  }
+  .guias-library .guia-consent span {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--color-text-primary);
+  }
+  .guias-library .guia-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    padding: 0.75rem 1.25rem;
+    border: 0;
+    border-radius: 12px;
+    background: var(--color-blue);
+    color: #fff;
+    font: 700 1rem/1.2 "Open Sans", system-ui, sans-serif;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0, 82, 204, 0.18);
+    cursor: pointer;
+    transition: background 200ms cubic-bezier(0.2, 0, 0, 1), transform 200ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  .guias-library .guia-button:hover {
+    background: var(--color-navy);
+    transform: translateY(-2px);
+  }
+  .guias-library .guia-privacy {
+    margin: 0.85rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+  .guias-library .guia-privacy a {
+    color: var(--color-blue);
+    font-weight: 700;
+    text-underline-offset: 2px;
+  }
+  .guias-library .guia-success,
+  .guias-library .guia-ready,
+  .guias-library .guia-known {
+    display: none;
+  }
+  html[data-guias-known] .guias-library .guia-known {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+  }
+  html[data-guias-known] .guias-library .guia-known [data-guias-email] {
+    font-weight: 700;
+    color: var(--color-text-primary);
+    overflow-wrap: anywhere;
+  }
+  html[data-guias-known] .guias-library .guia-known [data-guias-email]::after {
+    content: "·";
+    margin-left: 0.7rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+  .guias-library .guia-known button {
+    border: 0;
+    padding: 0.35rem 0;
+    background: none;
+    color: var(--color-blue);
+    font: 700 0.95rem/1.3 "Open Sans", system-ui, sans-serif;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+  }
+  html[data-guias-known] .guias-library .guia-card:not(.is-success) .guia-form {
+    display: none;
+  }
+  html[data-guias-known] .guias-library .guia-card:not(.is-success) .guia-ready {
+    display: block;
+  }
+  .guias-library .guia-card.is-success .guia-form,
+  .guias-library .guia-card.is-success .guia-ready {
+    display: none;
+  }
+  .guias-library .guia-card.is-success .guia-success {
+    display: block;
+  }
+  .guias-library a:focus-visible,
+  .guias-library button:focus-visible,
+  .guias-library input:focus-visible {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .guias-library .guia-button {
+      transition: none;
+    }
+    .guias-library .guia-button:hover {
+      transform: none;
+    }
+  }
+</style>
