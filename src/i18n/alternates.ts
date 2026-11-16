@@ -26,6 +26,7 @@ const PAIRS: Array<[string, string]> = [
   ["/guia-operacion", "/en/operations-guide"],
   ["/blog", "/en/blog"],
   ["/privacy-policy", "/en/privacy-policy"],
+  ["/guias", "/en/guides"],
   ["/terms", "/en/terms"],
   ["/terminos-consultoria-emprendedores", "/en/consulting-terms"],
   ["/demo", "/en/demo"],

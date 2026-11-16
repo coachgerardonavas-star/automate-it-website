@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import BibliotecaGuias from "../../components/guias/BibliotecaGuias.astro";
+import { getGuiasCopy } from "../../components/guias/copy";
+
+const lang = "en" as const;
+const copy = getGuiasCopy(lang);
+---
+
+<BaseLayout lang={lang} title={copy.metaTitle} description={copy.metaDescription}>
+  <Nav lang={lang} />
+  <BibliotecaGuias lang={lang} />
+  <Footer lang={lang} />
+</BaseLayout>
