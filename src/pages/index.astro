@@ -9,6 +9,12 @@ const t = translations[lang];
 ---
 
 <BaseLayout lang={lang} title={t.homeTitle} description={t.homeDescription} season={true}>
+  <Fragment slot="head">
+    <!-- Fraunces (normal + cursiva) pinta el titular de Smart Tap en la primera pantalla.
+         Sin precarga, el titular cambia de número de líneas al llegar la fuente y empuja el texto de abajo (CLS). -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-latin-wght-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-latin-wght-italic.woff2" crossorigin />
+  </Fragment>
   <div class="home-with-seo-faq">
     <Home2026 lang={lang} />
     <SeoFaq lang={lang} />
