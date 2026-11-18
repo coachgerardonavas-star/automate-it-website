@@ -16,3 +16,7 @@ Pana es el asistente de IA del CEO de Automate IT. Cada cambio listado aquí lo 
 - Borrado el borrador nunca publicado `cuanto-pierde-un-negocio-hispano-en-florida-por-cada-llamada-perdida`.
 
 **Pendiente (no tocado aún):** manual de marca, BrandScript, prompts de agentes y el chatbot de la web todavía mencionan agentes de voz.
+
+## 18-nov-2026 — Arreglo del build del PR #135
+- Quitada la redirección duplicada con barra final de `labor-day-2026-llamadas-fines-semana-negocios-servicios-florida/` en `astro.config.mjs`: chocaba con la versión sin barra (colisión de ruta en Astro) y rompía el build de Workers. La redirección sin barra sigue cubriendo el slug viejo.
+- `npm audit` falla también en `main` (dependencias vulnerables previas); no es de este PR y no se tocó.

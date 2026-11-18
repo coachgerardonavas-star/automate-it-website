@@ -60,6 +60,5 @@ export default defineConfig({
     "/blog/5-senales-de-que-necesitas-un-agente-inbound": "/blog/5-senales-de-que-tu-negocio-depende-demasiado-de-ti",
     "/blog/cuanto-te-cuesta-cada-llamada-perdida": "/blog/cuanto-te-cuesta-que-el-cliente-llame-para-preguntar",
     "/blog/labor-day-2026-llamadas-fines-semana-negocios-servicios-florida": "/blog/labor-day-2026-negocio-que-descansa-contigo-orlando",
-    "/blog/labor-day-2026-llamadas-fines-semana-negocios-servicios-florida/": "/blog/labor-day-2026-negocio-que-descansa-contigo-orlando",
   },
 });
