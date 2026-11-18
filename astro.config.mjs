@@ -55,5 +55,9 @@ export default defineConfig({
     // repo) se redirigen a los términos generales.
     "/ia": "/diagnostico",
     "/terminos-consulta": "/terms",
+    // Slugs del blog renombrados el 18-nov-2026 al quitar el posicionamiento
+    // de agentes de voz. 301 para conservar enlaces y SEO.
+    "/blog/5-senales-de-que-necesitas-un-agente-inbound": "/blog/5-senales-de-que-tu-negocio-depende-demasiado-de-ti",
+    "/blog/cuanto-te-cuesta-cada-llamada-perdida": "/blog/cuanto-te-cuesta-que-el-cliente-llame-para-preguntar",
   },
 });
