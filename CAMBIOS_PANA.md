@@ -24,3 +24,18 @@ Pana es el asistente de IA del CEO de Automate IT. Cada cambio listado aquí lo 
 ## 18-nov-2026 — Slug del post "Antes de contratar a alguien más"
 - Renombrado `recepcionista-vs-automatizacion-costo-real-florida-2026` → `antes-de-contratar-que-revisar-en-tu-operacion` para que la dirección coincida con el título nuevo y no hable de recepcionistas.
 - Una sola redirección 301 (sin duplicado con barra final) en `astro.config.mjs`. No había enlaces internos al slug viejo.
+
+## 2026-11-18 · Limpieza de posicionamiento de voz en docs y prompts (PR #136)
+
+**Quién lo pidió:** el CEO. Pana hizo este cambio por pedido del CEO.
+
+**Por qué:** Automate IT dejó de vender agentes de voz / recepcionistas con IA hace ~4 meses. Docs internos y el prompt del chatbot seguían presentando ese servicio. Oferta actual: mejora operativa (el negocio deja de depender del dueño) + Smart Tap. "No contestamos tus llamadas por ti."
+
+**Qué cambió:**
+- `workers/bit-chat-3126/index.js`: BIT ya no usa heurísticas de llamadas ni la comparación con recepcionista; dice claro que no contestamos llamadas ni vendemos agentes de voz. Precios sin cambio. Requiere `wrangler deploy` manual para llegar a producción.
+- `workers/bit-chat-3126/SYSTEM_PROMPT_draft.md`: marcado como borrador obsoleto, líneas de voz retiradas.
+- `src/i18n/translations.ts`: secciones heredadas (resultados, banda, agentes, bit, FAQ, para quién) sin cifras de llamadas perdidas, sin `agent.tony@receptionist`, sin Retell ni precio de voz.
+- `generar-banco.js`: prompts de imágenes de llamadas/recepción reemplazados por temas de operación.
+- `BrandScript_Automate_IT_v1_1.md`, `GUION_DE_ENTRADA.md`, `MANUAL_MAESTRO_v4_9.md`, `Manual_de_Marca_v2_5.docx`, `Quienes_Somos_v2_9.docx`: one-liner, problema, plan, heurísticas y "lo que somos" alineados a la oferta actual.
+
+**PR:** https://github.com/coachgerardonavas-star/automate-it-website/pull/136

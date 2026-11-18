@@ -14,6 +14,9 @@
 | n8n | Producto para clientes — NO infraestructura interna |
 | Documento | Confidencial · Uso Interno Exclusivo |
 
+| ⚠ NOTA (Noviembre 2026, Pana por pedido del CEO): los agentes de voz / recepcionista telefónica con IA (Retell, Gaby) se descontinuaron en julio de 2026 y no se venden. No contestamos llamadas por el cliente. La oferta actual es mejora operativa para pequeños negocios en crecimiento (revisar cómo fluye el trabajo, encontrar dónde se pierde tiempo o información y automatizar solo lo que vale la pena) más Smart Tap. Las referencias técnicas a Retell/voz que siguen abajo son históricas. |
+| --- |
+
 # **CAMBIOS EN v4.10 — Agosto 18, 2026**
 
 | Actualizaciones en esta versión: • Formulario público `/diagnostico` migrado a diagnóstico operativo: demanda semanal, canales de entrada, fricción, frecuencia, resultado deseado, dependencia de persona clave, urgencia y requisitos de privacidad/regulación. • El formulario ya no asigna Asistente/Estratega/Manager y no descalifica por tamaño del equipo; esas decisiones se toman después del diagnóstico. • Worker `diagnostico-intake` desplegado: HubSpot upsert + nota + Telegram + compatibilidad con Make 5148358 mediante el contrato histórico `fields.firstname,email,phone,address,industry,message`. • Casos regulados o inciertos se conservan en HubSpot, se notifican para conversación manual, omiten texto libre en canales sin BAA y no disparan Make/Retell. • Health endpoint confirmado en producción. • La compilación y el contrato se verifican sin crear leads ni llamadas de pago. |
@@ -75,7 +78,7 @@
 | LLM Router (resiliencia) | claude-code-llm-router — pendiente instalación | PENDIENTE |
 | n8n (workflows) | Cuenta cancelada — ZIP archivado | ARCHIVADO — solo para clientes |
 | Telegram CEO | Activo via scripts de Vero (Python) | ACTIVO — briefs y aprobaciones |
-| Retell AI (voz) | Setup completado | ACTIVO |
+| Retell AI (voz) | Descontinuado jul 2026 — no se vende | HISTÓRICO |
 | WhatsApp / Agente Marc | Meta Cloud API directa · +1 407-404-9495 · Make scenario 5414594 activo | ACTIVO — Fix pendiente: confirmar scope HubSpot deals.write (error 403 módulo 17) |
 | Retell Post-Call Webhook | Make scenario 5637378 | ACTIVO |
 | HubSpot (CRM) | Free tier activo | ACTIVO |
@@ -98,41 +101,41 @@
 Meta lanzó un agente de IA nativo para WhatsApp, Instagram y Messenger con un tier gratuito básico. Consecuencia directa: el chatbot de chat básico se commoditizó. Automate IT **no vende "te automatizo el WhatsApp"** como diferencial aislado — Meta ya lo regala.
 
 **Lo que Meta NO hace (ventaja Automate IT):**
-- No contesta la línea **telefónica**.
+- No revisa cómo fluye el trabajo del negocio ni encuentra dónde se pierde.
 - No es **hecho-por-ti** — el dueño lo configura solo.
-- No unifica **voz + chat + CRM** en un solo sistema operado.
+- No conecta la operación (pedidos, evidencias, fechas límite, papeleo) en un solo sistema operado.
 - No tiene el conocimiento cultural específico del mercado hispano.
 
-**Voz en español commoditizándose:**
-Rosie, AgentZap y CaseGen ya incluyen español. "Bilingüe" y "24/7" como capacidades técnicas ya no diferencian solos.
+**Voz en español commoditizándose (histórico):**
+Rosie, AgentZap y CaseGen ya incluyen español. Esa commoditización es parte de por qué Automate IT dejó de vender agentes de voz en julio de 2026.
 
 **Posicionamiento defendible:**
-Voz + chat unificados en un solo sistema + hecho-por-ti + cultural/hispano. Ese es el eje. (Florida es el mercado de origen; el servicio es 100% remoto y no se limita por estado.)
+Mejora operativa hecha-por-ti: revisar cómo fluye el trabajo, encontrar dónde se pierde tiempo o información y automatizar solo lo que vale la pena, para que el negocio deje de depender del dueño. Ese es el eje. (Florida es el mercado de origen; el servicio es 100% remoto y no se limita por estado.)
 
 ## **2A-bis. BrandScript Canónico — Fuente de Verdad del Mensaje**
 
-| REGLA PERMANENTE (v4.8): todo copy de Automate IT —sitio, reels, carruseles, captions, CTAs, guiones de Marc y Gaby, emails, anuncios— se ordena según el BrandScript (documento "BrandScript_Automate_IT_v1.md"). Cuando cualquier texto de marketing entre en conflicto con el BrandScript, manda el BrandScript. |
+| REGLA PERMANENTE (v4.8): todo copy de Automate IT —sitio, reels, carruseles, captions, CTAs, guiones de Marc, emails, anuncios— se ordena según el BrandScript (documento "BrandScript_Automate_IT_v1.md"). Cuando cualquier texto de marketing entre en conflicto con el BrandScript, manda el BrandScript. |
 | --- |
 
 **Regla de Orden (default de todo mensaje):** primero el problema del cliente, después Automate IT. Nunca abrir hablando del sistema. El cliente es el héroe; Automate IT es el guía.
 
 **One-liner oficial:**
-- Largo: "Ayudamos a dueños de pequeños negocios hispanos a nunca perder un cliente por no contestar — instalamos el sistema completo, de forma 100% remota, y tú solo lo enciendes."
-- Corto (redes): "Tu negocio contesta solo. Nosotros lo instalamos. Tú cobras."
+- Largo: "Ayudamos a pequeños negocios en crecimiento a que su operación deje de depender del dueño: revisamos cómo fluye el trabajo, encontramos dónde se pierde tiempo o información, y automatizamos solo lo que vale la pena."
+- Corto (redes): "Tu negocio deja de depender de ti."
 
 **Los 7 elementos (resumen — ver BrandScript completo para el detalle):**
 
 | **Elemento** | **Contenido canónico** |
 | --- | --- |
-| Héroe (qué quiere) | Que su negocio funcione aunque él no esté disponible. |
-| Problema externo | Pierde llamadas y WhatsApp; el cliente llama al siguiente en Google. |
+| Héroe (qué quiere) | Que su negocio funcione aunque él no esté encima de todo. |
+| Problema externo | Clientes preguntando cómo va su pedido, evidencias que llegan tarde, fechas límite sin vigilar, papeleo a medias. |
 | Problema interno | Se siente atrapado — el negocio depende de que él esté disponible. |
-| Problema filosófico | El que trabaja duro merece que su negocio opere a su nivel. |
-| Guía (empatía + autoridad) | "Sabemos lo que es contestar con las manos ocupadas" + "instalamos el sistema para negocios como el tuyo — donde sea que operes". |
-| Plan (3 pasos) | 1) Hablamos · 2) Lo instalamos · 3) Tu negocio contesta. |
+| Problema filosófico | Un negocio que ya funciona no debería depender de la memoria de una sola persona. |
+| Guía (empatía + autoridad) | "Sabemos lo que es que todo pase por ti" + "revisamos cómo fluye tu trabajo y arreglamos dónde se pierde". |
+| Plan (3 pasos) | 1) Revisamos · 2) Arreglamos lo que vale la pena · 3) Tu negocio deja de depender de ti. |
 | CTA | Directo: "Agenda tu diagnóstico gratis." Transicional: "Comenta [palabra clave] y te envío la guía." |
-| Fracaso | Cada semana sin sistema = más clientes perdidos que nunca sabrás que perdiste. |
-| Éxito | Llegas a casa sin revisar el teléfono; el CRM muestra citas agendadas solas. |
+| Fracaso | Cada semana sin orden = más tiempo repitiendo lo mismo y apagando fuegos. |
+| Éxito | Te tomas una semana libre y el negocio sigue; los clientes saben en qué va su pedido sin llamarte. |
 
 ## **2B. Principios de Resiliencia Operativa**
 
@@ -223,11 +226,8 @@ Voz + chat unificados en un solo sistema + hecho-por-ti + cultural/hispano. Ese 
 
 Nota: heurísticas #2 y #5 debilitadas por commoditización (jun 2026). Ver Manual de Instagram v2.4 Sección 3.3 para veredicto completo y propuesta de #6.
 
-- "Cada llamada sin contestar es un cliente que llama al siguiente en Google." [fuerte]
-- "Tu agente contesta en inglés y en español. El dueño no tiene que estar." [debilitada — reformulación pendiente]
-- "$328/mes vs $2,917/mes de recepcionista bilingüe en Florida." [fuerte — ancla en voz, mes vs mes]
 - "No necesitas aprender IA. Yo te instalo el sistema, tú enciendes el switch." [muy fuerte — amplificar]
-- "24/7/365. Sin días festivos, sin llamadas perdidas." [debilitada — todos lo dicen]
+- (Retiradas nov 2026: las heurísticas de llamadas sin contestar, agente bilingüe y "$328 vs recepcionista" — anclaban en el servicio de voz descontinuado.)
 
 **FILOSOFÍA DE CONTENIDO — REGLA FUNDAMENTAL**
 
@@ -346,7 +346,7 @@ Nota: heurísticas #2 y #5 debilitadas por commoditización (jun 2026). Ver Manu
 
 ## **9. Modelo Comercial**
 
-| **Fase** | **Plataforma de voz** | **Condición** |
+| **Fase** | **Plataforma de voz (histórico — voz descontinuada jul 2026)** | **Condición** |
 | --- | --- | --- |
 | 0–4 clientes | Retell AI directo — gestión manual en Sheets | Estado actual |
 | 5+ clientes (~$1,000/mes) | Retell + VoiceAIWrapper ($79/mes) | Al alcanzar 5 clientes |
@@ -453,7 +453,7 @@ Nota: heurísticas #2 y #5 debilitadas por commoditización (jun 2026). Ver Manu
 
 | **Plataforma** | **Para qué** | **Costo** | **Notas** |
 | --- | --- | --- | --- |
-| Retell AI | Agente de voz para clientes | $0.07–0.13/min | Setup completado |
+| Retell AI | Agente de voz (descontinuado jul 2026, no se vende) | $0.07–0.13/min | Histórico |
 | WhatsApp (Meta Cloud API) | Chatbot WhatsApp para clientes | Por conversación (primeras 1,000 service/mes gratis) | Setup pendiente |
 | Stripe | Cobro a clientes | % por transacción | Live mode activo |
 | Anthropic API | LLM para scripts Vero + BIT + agentes | Según tokens | <$0.25/mes en uso actual |

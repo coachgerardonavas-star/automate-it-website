@@ -55,35 +55,36 @@ const ESTILO = [
 ].join(', ');
 
 // ── POOL de prompts del negocio de Automate IT ────────────────────────────────
-// Tema central: automatización de llamadas, recepción IA, WhatsApp, agendamiento,
-// recordatorios/no-shows, reseñas y disponibilidad 24/7 para pequeños negocios.
+// Tema central: mejora operativa para pequeños negocios en crecimiento — estado de
+// pedidos, evidencias ligadas al expediente, fechas límite, papeleo, Smart Tap.
+// (Sin agentes de voz ni recepción telefónica: servicio descontinuado jul 2026.)
 const POOL = [
-  { nombre: 'latino-business-owner-answering-phone', prompt: 'Latino small business owner answering a phone call in a modern office, confident, professional tech setup' },
-  { nombre: 'ai-voice-agent-answering-calls', prompt: 'AI voice agent answering customer phone calls, futuristic call interface with soundwave visualization, no people, technical' },
-  { nombre: 'missed-call-notifications-phone', prompt: 'Smartphone screen showing multiple missed call notifications, close up macro detail' },
-  { nombre: 'restaurant-owner-busy-cant-answer', prompt: 'Busy restaurant owner cooking in the kitchen, unable to answer a ringing phone on the counter, realistic' },
+  { nombre: 'latino-business-owner-reviewing-workflow', prompt: 'Latino small business owner reviewing a simple workflow board in a modern office, confident, professional tech setup' },
+  { nombre: 'order-status-tracker', prompt: 'Order status tracker on a screen showing stages measured, in production, ready to install, no people, technical' },
+  { nombre: 'order-status-update-message', prompt: 'Smartphone screen showing an automatic order status update message to a customer, close up macro detail' },
+  { nombre: 'contractor-job-photo-evidence', prompt: 'Roofing contractor taking a job site photo on a smartphone that uploads to the customer file, realistic' },
   { nombre: 'whatsapp-business-chatbot', prompt: 'Smartphone showing a WhatsApp Business chat where an automated assistant replies to a customer instantly, close up UI' },
   { nombre: 'online-booking-calendar-app', prompt: 'Online appointment booking calendar app on a smartphone, customer selecting an available time slot, UI detail' },
   { nombre: 'appointment-reminder-sms', prompt: 'Automated appointment reminder text message on a phone screen, clean UI macro shot' },
   { nombre: 'salon-owner-with-client', prompt: 'Hair salon owner attending a client while a booking happens automatically on a tablet, modern salon' },
   { nombre: 'dental-clinic-automated-checkin', prompt: 'Dental clinic reception with an automated self check-in tablet, clean clinical environment, no staff' },
-  { nombre: 'auto-repair-owner-on-call', prompt: 'Auto repair shop owner taking a phone call near a car lift, mechanic, realistic workshop' },
-  { nombre: 'available-24-7-concept', prompt: 'Concept of a business available 24/7, a glowing clock merged with a phone, technical atmosphere, no people' },
+  { nombre: 'auto-repair-job-status-board', prompt: 'Auto repair shop with a job status board near a car lift, mechanic, realistic workshop' },
+  { nombre: 'deadline-tracking-concept', prompt: 'Deadline tracking concept, a calendar with upcoming due dates and alerts, technical atmosphere, no people' },
   { nombre: 'lead-capture-crm-dashboard', prompt: 'CRM lead capture dashboard on a laptop screen showing incoming leads in real time, data visualization' },
-  { nombre: 'call-analytics-dashboard', prompt: 'Analytics dashboard showing call volume and answered-call metrics with charts, screen detail' },
+  { nombre: 'customer-visits-dashboard', prompt: 'Dashboard showing customer visit frequency and customers drifting away, charts, screen detail' },
   { nombre: 'hispanic-entrepreneur-smartphone', prompt: 'Hispanic entrepreneur using a smartphone to manage their business, professional portrait' },
   { nombre: 'customer-booking-late-night', prompt: 'Customer booking an appointment on their smartphone late at night, screen glow on the face, realistic' },
-  { nombre: 'ai-virtual-receptionist', prompt: 'AI virtual receptionist visualized as a sleek holographic assistant, futuristic, no real people' },
-  { nombre: 'medical-clinic-front-desk-busy', prompt: 'Small medical clinic with patients waiting while a phone rings unanswered at the front desk, realistic' },
+  { nombre: 'paperwork-follow-up-checklist', prompt: 'Digital checklist of pending documents and signatures with completed items checked off, futuristic, no real people' },
+  { nombre: 'customer-tap-card-checkin', prompt: 'Customer tapping a loyalty club card on a phone at a small business counter, realistic' },
   { nombre: 'real-estate-agent-multitasking', prompt: 'Real estate agent showing a property while their phone receives automated inquiries, realistic' },
   { nombre: 'gym-owner-training-client', prompt: 'Gym owner training a client while new memberships get booked automatically on a screen nearby' },
-  { nombre: 'automated-reception-dashboard', prompt: 'Modern automated reception system dashboard on a screen with status indicators, tech environment' },
-  { nombre: 'voice-to-text-transcription', prompt: 'Real-time voice call transcription interface turning speech into text, technical UI, no people' },
+  { nombre: 'operations-status-dashboard', prompt: 'Modern operations dashboard on a screen with job status indicators, tech environment' },
+  { nombre: 'customer-file-with-photos', prompt: 'Customer file interface with job photos and documents attached in one place, technical UI, no people' },
   { nombre: 'follow-up-automation-flow', prompt: 'Automation workflow diagram for customer follow-up messages, connected nodes, technical' },
   { nombre: 'five-star-reviews-phone', prompt: 'Five star customer reviews appearing on a smartphone screen, rating notifications, macro shot' },
-  { nombre: 'owner-overwhelmed-by-calls', prompt: 'Overwhelmed small business owner surrounded by ringing phones and message notifications, stressed, moody' },
-  { nombre: 'relaxed-owner-automation-working', prompt: 'Relaxed business owner enjoying coffee while automation handles calls on screens behind them, calm' },
-  { nombre: 'bilingual-ai-call-handling', prompt: 'AI handling bilingual Spanish and English customer calls, language interface visualization, no people, technical' },
+  { nombre: 'owner-overwhelmed-by-everything', prompt: 'Overwhelmed small business owner surrounded by sticky notes, paperwork and message notifications, stressed, moody' },
+  { nombre: 'relaxed-owner-automation-working', prompt: 'Relaxed business owner enjoying coffee while order updates and follow-ups run on screens behind them, calm' },
+  { nombre: 'workflow-map-visualization', prompt: 'Map of how work flows through a small business, highlighting where information gets lost, no people, technical' },
   { nombre: 'restaurant-reservation-tablet', prompt: 'Restaurant self check-in and reservation tablet at the entrance, modern hospitality tech' },
   { nombre: 'team-monitoring-automation', prompt: 'Small team monitoring an automation dashboard on a large screen in a modern office, cool lighting' },
 ];
