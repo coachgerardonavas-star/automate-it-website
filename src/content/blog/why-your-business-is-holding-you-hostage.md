@@ -1,6 +1,6 @@
 ---
 title: "Why your business is holding you hostage"
-description: "Your day starts putting out fires and ends putting out fires. It's not because you're a bad owner — it's because tasks that don't belong on your calendar are on your calendar."
+description: "Your day starts putting out fires and ends putting out fires. It's not because you're a bad owner. It's because the work runs through you in places it shouldn't."
 pubDate: 2026-04-15
 lang: en
 author: Gerardo · Automate IT
@@ -9,7 +9,7 @@ tags: ["operations", "time", "manifesto"]
 
 It starts like this:
 
-7:42 a.m. Missed call from the customer you were about to close.
+7:42 a.m. Message from a customer asking how their order is going. Again.
 8:10 a.m. WhatsApp with a photo of an invoice that isn't yours.
 8:45 a.m. Email from a supplier asking for confirmation on an order you already confirmed Tuesday.
 
@@ -17,9 +17,9 @@ By 9:00 a.m. you've already done three things that weren't yours to do. And thos
 
 ## The hostage situation isn't a metaphor
 
-When service business owners describe their day, almost all of them describe the same thing: 4 to 8 hours a week on tasks no client pays for directly. Calendar coordination. Reminders. File forwarding. Triage of messages across three different channels. Recurring billing that didn't get automated. Reminders for recurring billing that didn't get automated either.
+When service business owners describe their day, almost all of them describe the same thing: hours every week on tasks no client pays for directly. Updating people on where a job stands. Hunting for a photo. Remembering a deadline. Chasing paperwork. Answering the same question for the third time.
 
-That's what we call hostage: the business owner pays the most expensive cost (their time) to do the cheapest work (repetitive admin).
+That's what we call hostage: the business owner pays the most expensive cost (their time) to do the cheapest work (repeating information).
 
 ## Why it happens
 
@@ -27,16 +27,18 @@ Three reasons, in order of importance:
 
 **1. You built it.** When you started the business you did everything. That structure never changed. The company grew but the operational habits stayed where they were.
 
-**2. The tools don't talk to each other.** Your CRM doesn't talk to your calendar. Your calendar doesn't talk to WhatsApp. WhatsApp doesn't talk to your billing system. Every gap between two tools, you cover yourself.
+**2. Information doesn't flow on its own.** The status of an order lives in your head. The photos live on someone's phone. The deadlines live in a notebook. Every time someone needs something, the path runs through you.
 
-**3. Hiring humans is expensive and slow.** An assistant costs between $1,200 and $2,500 per month in the US. Takes 2–3 months to be productive. And has a ceiling: eight hours a day, five days a week, plus vacation.
+**3. Hiring doesn't fix it by itself.** A new hire inherits the same mess. They learn to ask you, and now two people depend on your memory.
 
 ## What we do differently
 
-AI agents cover three things a human can't:
+We don't start by installing anything. We start by looking at how work flows through your business:
 
-- **24/7 availability.** The customer calling Sunday at 9 p.m. doesn't go to the competitor.
-- **60-second latency.** The first follow-up on a hot lead happens before the lead cools down.
-- **Flat cost per agent.** They don't scale with your hours, they scale with your volume. And you only feel that if you choose to scale.
+- **We review the path.** From the moment a customer comes in until the job is paid.
+- **We find where time or information gets lost.** Repeated questions, deadlines that depend on someone remembering, evidence that shows up late.
+- **We automate only what's worth it.** Automatic status confirmations, evidence tied to the customer's file, deadlines with alerts. The rest gets fixed with process, not technology.
 
-This site shows you the plans and services. But if you want to know where you specifically should start, fill out the diagnostic — it takes 5 minutes. We'll call you to walk through it. You leave the call with a map, not a sales pitch.
+The goal is one thing: your business stops depending on you to run.
+
+If you want to know where you specifically should start, fill out the [diagnostic](/en/diagnostic). You leave with a map, not a sales pitch.
