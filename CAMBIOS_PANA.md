@@ -20,3 +20,7 @@ Pana es el asistente de IA del CEO de Automate IT. Cada cambio listado aquí lo 
 ## 18-nov-2026 — Arreglo del build del PR #135
 - Quitada la redirección duplicada con barra final de `labor-day-2026-llamadas-fines-semana-negocios-servicios-florida/` en `astro.config.mjs`: chocaba con la versión sin barra (colisión de ruta en Astro) y rompía el build de Workers. La redirección sin barra sigue cubriendo el slug viejo.
 - `npm audit` falla también en `main` (dependencias vulnerables previas); no es de este PR y no se tocó.
+
+## 18-nov-2026 — Slug del post "Antes de contratar a alguien más"
+- Renombrado `recepcionista-vs-automatizacion-costo-real-florida-2026` → `antes-de-contratar-que-revisar-en-tu-operacion` para que la dirección coincida con el título nuevo y no hable de recepcionistas.
+- Una sola redirección 301 (sin duplicado con barra final) en `astro.config.mjs`. No había enlaces internos al slug viejo.
