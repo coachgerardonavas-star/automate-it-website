@@ -120,7 +120,7 @@ Eso suena a especialista. "Cualquier negocio" suena a que no has hecho ninguno.
 
 De tu BrandScript §7, y esto no es opinión:
 
-- **No abras con "contesto tus llamadas"** ni variantes. El teléfono es una fuga entre varias, no tu categoría.
+- **No abras con "contesto tus llamadas"** ni variantes. No contestamos llamadas por el cliente (ese servicio se descontinuó en julio de 2026). El teléfono es una fuga entre varias, no tu categoría.
 - **No digas "instalo agentes de IA".** Nombras las herramientas (WhatsApp, correo, CRM, calendario), no la tecnología.
 - **No digas "ecosistema"** ni "solución integral".
 - **No abras hablando de ti.** Ese es el error de la Regla de Orden.

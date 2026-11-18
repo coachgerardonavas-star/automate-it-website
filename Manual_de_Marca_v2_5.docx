@@ -4,6 +4,10 @@ Manual de Marca
 
 Versión 2.5 · Julio 13, 2026 · Confidencial
 
+**▶ CAMBIO (Noviembre 2026, Pana por pedido del CEO)**
+
+*Se retira el posicionamiento de recepción telefónica / agentes de voz (descontinuado jul 2026): one-liner, Lo que somos, Regla de Orden, heurísticas 1–3 y 5, y hero copy de "Recepcionista IA". Los cambios de versiones anteriores abajo son históricos.*
+
 **▶ CAMBIO v2.5 (Julio 13, 2026)**
 
 *"Florida" se retira del eyebrow del hero, del one-liner y de "Lo que somos" — deja de ser un filtro o mención por defecto. El modelo es 100% remoto; Florida es mercado de origen, no límite de servicio. La heurística #3 ($328 vs $2,917 recepcionista bilingüe en Florida) se mantiene sin cambio por ser cifra de mercado verificada. Ver BrandScript v1.1 §5.*
@@ -25,8 +29,8 @@ Arquetipo: El Ingeniero-Mago — confiado sin arrogancia, técnico sin jerga gra
 Mensaje central: No vendemos automatización. Vendemos tiempo recuperado y un negocio que funciona sin secuestrar al dueño.
 
 One-liner oficial (ancla de todo el copy):
-- Largo: "Ayudamos a dueños de pequeños negocios hispanos a nunca perder un cliente por no contestar — instalamos el sistema completo, de forma 100% remota, y tú solo lo enciendes."
-- Corto (redes): "Tu negocio contesta solo. Nosotros lo instalamos. Tú cobras."
+- Largo: "Ayudamos a pequeños negocios en crecimiento a que su operación deje de depender del dueño: revisamos cómo fluye el trabajo, encontramos dónde se pierde tiempo o información, y automatizamos solo lo que vale la pena."
+- Corto (redes): "Tu negocio deja de depender de ti."
 
 # **2. Posicionamiento**
 
@@ -34,9 +38,10 @@ One-liner oficial (ancla de todo el copy):
 
 | **LO QUE SOMOS** | **LO QUE NO SOMOS** |
 | --- | --- |
-| Empresa de recepción y comunicación automatizada para pequeños negocios — 100% remota. | No somos una app que el dueño configura solo. |
-| Instalamos y operamos el sistema completo — teléfono, WhatsApp y chat — para que el negocio siempre conteste. | No somos una agencia de transformación digital. |
-| HIPAA-compliant para sector salud (Plan Professional). | No somos IA general que “piensa por ti”. |
+| Mejora operativa para pequeños negocios en crecimiento: revisamos cómo fluye el trabajo y encontramos dónde se pierde tiempo o información. | No somos una app que el dueño configura solo. |
+| Automatizamos solo lo que vale la pena — avisos de estado de pedidos, evidencias ligadas al expediente del cliente, seguimiento de fechas límite y de papeleo — para que el negocio deje de depender del dueño. | No somos una agencia de transformación digital. |
+| Smart Tap: club de clientes / tarjeta tap que muestra quién te visita, cada cuánto y quién se está alejando. | No contestamos tus llamadas por ti. No somos servicio de recepción ni agentes de voz (descontinuado jul 2026). |
+| | No somos IA general que “piensa por ti”. |
 | Done-for-you es el diferenciador central. | No prometemos magia — prometemos sistema. |
 
 ## **2.2 Regla de Orden Narrativo — StoryBrand (default de todo copy)**
@@ -45,52 +50,22 @@ Primero el problema del cliente, después Automate IT. Nunca abrir un mensaje ha
 
 | **Orden correcto** | **Orden incorrecto** |
 | --- | --- |
-| "Pierdes clientes porque no puedes contestar." → "Nosotros contestamos por ti." | "Tenemos un sistema unificado de voz + WhatsApp + webchat con IA." |
+| "Tu negocio depende de que tú estés en todo." → "Revisamos cómo fluye el trabajo y arreglamos dónde se pierde." | "Instalamos automatizaciones con IA." |
 
-El problema del cliente se declara en tres niveles: externo (pierde llamadas y WhatsApp), interno (se siente atrapado, el negocio depende de él) y filosófico (quien trabaja duro merece que su negocio opere a su nivel). Se vende resolviendo el problema interno, no solo el externo.
+El problema del cliente se declara en tres niveles: externo (clientes preguntando cómo va su pedido, evidencias que llegan tarde, fechas límite sin vigilar, papeleo a medias), interno (se siente atrapado, el negocio depende de él) y filosófico (un negocio que ya funciona no debería depender de la memoria de una sola persona). Se vende resolviendo el problema interno, no solo el externo.
 
 # **3. Heurísticas de Categoría — Veredicto Junio 2026**
 
 | **#** | **Heurística** | **Veredicto** |
 | --- | --- | --- |
-| 1 | Cada llamada sin contestar es un cliente que llama al siguiente en Google. | Fuerte — mantener en todas las piezas. |
-| 2 | Tu agente contesta en inglés y en español. El dueño no tiene que estar. | Debilitada — enfocar en ángulo cultural, no capacidad técnica. |
-| 3 | $328/mes vs $2,917/mes de recepcionista bilingüe en Florida. | Fuerte — mantener. Mes vs mes siempre. |
+| 1–3 | (Llamadas sin contestar · agente bilingüe · $328 vs recepcionista bilingüe) | Retiradas nov 2026 — anclaban en el servicio de voz descontinuado. No usar. |
 | 4 | No necesitas aprender IA. Yo te instalo el sistema, tú enciendes el switch. | Muy fuerte — amplificar. Es el done-for-you en una frase. |
-| 5 | 24/7/365. Sin días festivos, sin llamadas perdidas. | Debilitada — todos los competidores lo dicen. |
-| 6 | Tu teléfono, tu WhatsApp y tu chat contestando solos — en un solo sistema, no cinco apps sueltas. | Fuerte — captura el diferenciador post-Meta Business Agent. Usar en Evaluación. |
+| 5 | (24/7 sin llamadas perdidas) | Retirada nov 2026 — servicio de voz descontinuado. |
+| 6 | Un sistema, no cinco apps sueltas. | Fuerte — usar sin referencia a teléfono contestando solo. |
 
-# **4. Hero Copy Oficial — ACTUALIZADO v2.3**
+# **4. Hero Copy Oficial**
 
-## **4.1 Cambio de precio en eyebrow**
-
-ANTES: “Recepcionista IA para negocios en Florida · Desde $99/mes”
-
-**DESPUÉS: “Recepcionista IA para negocios en Florida · Desde $198/mes”**
-
-(EN) ANTES: “AI Receptionist for Florida businesses · From $99/mo”
-
-**(EN) DESPUÉS: “AI Receptionist for Florida businesses · From $198/mo”**
-
-*Razón: el plan base ($99 Starter / $179 Professional) sin módulos de canal no entrega ningún valor funcional al cliente. El precio mínimo real de entrada es $198/mes (Starter + WhatsApp). El eyebrow anterior creaba expectativa incorrecta que genera fricción en la venta.*
-
-## **4.1-bis Cambio de eyebrow v2.5 — Florida retirada como filtro**
-
-ANTES (v2.3): "Recepcionista IA para negocios en Florida · Desde $198/mes"
-
-**DESPUÉS (v2.5): "Recepcionista IA para pequeños negocios · Desde $198/mes"**
-
-(EN) ANTES: "AI Receptionist for Florida businesses · From $198/mo"
-
-**(EN) DESPUÉS: "AI Receptionist for small businesses · From $198/mo"**
-
-*Razón: el modelo es 100% remoto. Mencionar Florida en el eyebrow por defecto cierra la puerta a leads de otros estados sin necesidad — Florida sigue siendo el mercado de origen y puede aparecer en piezas de contenido específicas, pero no en el copy por defecto del sitio.*
-
-## **4.2 Copy completo vigente**
-
-| **ESPAÑOL** | **ENGLISH** |
-| --- | --- |
-| Eyebrow: Recepcionista IA para pequeños negocios · Desde $198/mes H1: Mientras tú trabajas, nosotros contestamos. Subtítulo: El teléfono, el WhatsApp y el chat de tu negocio — contestando solos, en un solo sistema. Yo te lo instalo; tú enciendes el switch. Bullets: - Contesta llamadas mientras atiendes a tus clientes. - Responde WhatsApp mientras estás con tu familia. - Agenda citas mientras estás dormido. Microcopy: 30 minutos. Sin costo. Sin compromiso. | Eyebrow: AI Receptionist for small businesses · From $198/mo H1: While you work, we answer. Subtitle: Your business's phone, WhatsApp and chat — answering on their own, in one system. I set it up; you flip the switch. Bullets: - Answers calls while you're with your clients. - Responds to WhatsApp while you're with your family. - Books appointments while you're asleep. Microcopy: 30 minutes. No cost. No commitment. |
+El copy de hero vigente es el publicado en yourbizupgraded.com. El copy anterior basado en "Recepcionista IA" / "Mientras tú trabajas, nosotros contestamos" queda retirado (servicio de voz descontinuado jul 2026) y no debe reutilizarse.
 
 # **5. Paleta de Colores**
 

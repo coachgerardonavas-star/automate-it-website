@@ -6,6 +6,10 @@ Versión 2.9 · Julio 13, 2026 · Confidencial
 
 **⚠ ESTA NO ES LA FUENTE VIGENTE.** La fuente vigente de este manual es `Quienes_Somos.md`, en la carpeta ADN de Google Drive (v3.2, 10-sep-2026) — ese documento ya no lista precios aquí, los delega a `Manual_de_Pricing.md`, siguiendo la regla de una sola versión vigente por manual (Manual Maestro §7.1-§7.2). Esta copia de repo se corrigió el 21-sep-2026 solo para dejar de contradecir el catálogo actual; no se sigue manteniendo como documento de gobierno.
 
+**▶ CAMBIO (Noviembre 2026, Pana por pedido del CEO)**
+
+*Se retira el posicionamiento de recepción telefónica / agentes de voz (descontinuado jul 2026) de Misión, Visión, Producto, Público Objetivo, BrandScript, Propuesta de Valor y Heurísticas. Precios sin cambio.*
+
 **▶ CORRECCIÓN 21-sep-2026 (auditoría de documentos)**
 
 *Los planes Starter/Professional + módulos de canal de §3.1-§3.3, la fila "Plan objetivo" de §4.1 y la heurística de $328/mes en §6 citaban el catálogo retirado por decisión del CEO el 20-sep-2026. Reemplazados por el catálogo vigente (Asistente/Estratega/Manager), igual al de `Manual_de_Pricing.md` en ADN/Drive.*
@@ -24,15 +28,17 @@ Versión 2.9 · Julio 13, 2026 · Confidencial
 
 # **1. Misión**
 
-Automatizar la recepción y comunicación de pequeños negocios hispanos para que nunca pierdan un cliente por no contestar a tiempo — sin importar en qué estado operen, gracias a un modelo instalado 100% remoto. Florida es el mercado de origen de Automate IT, no un límite de servicio.
+Que los pequeños negocios en crecimiento dejen de depender del dueño: revisar cómo fluye el trabajo, encontrar dónde se pierde tiempo o información y automatizar solo lo que vale la pena. Florida es el mercado de origen de Automate IT, no un límite de servicio.
 
 # **2. Visión**
 
-Un mundo donde cualquier pequeño negocio — independientemente del idioma de su dueño o del estado donde opere — accede a la infraestructura de atención al cliente de una empresa Fortune 500, a una fracción del costo.
+Un mundo donde cualquier pequeño negocio — independientemente del idioma de su dueño o del estado donde opere — opera con el orden de una empresa grande, sin que todo pase por el dueño.
 
 # **3. El Producto — Qué Construimos**
 
-El producto central de Automate IT es un sistema de recepción y comunicación automatizada: agentes de voz y chatbots que atienden a clientes 24/7 en inglés y en español, agendan citas, capturan leads y los registran en el CRM — sin intervención humana para lo rutinario. Todo en un solo sistema, no en cinco apps sueltas.
+El producto central de Automate IT es mejora operativa: revisamos cómo fluye el trabajo, encontramos dónde se pierde tiempo o información y automatizamos solo lo que vale la pena — avisos de estado de pedidos, evidencias ligadas al expediente del cliente, seguimiento de fechas límite y de papeleo. La promesa: el negocio deja de depender del dueño. Además, Smart Tap: club de clientes / tarjeta tap que muestra quién te visita, cada cuánto y quién se está alejando.
+
+No contestamos las llamadas del cliente por él. Los agentes de voz / recepcionista telefónica con IA se descontinuaron en julio de 2026 y no se venden.
 
 ## **3.1 Planes — catálogo vigente (Asistente / Estratega / Manager)**
 
@@ -48,31 +54,29 @@ La mensualidad es siempre el 20% de la incorporación. Cada escalón sube +$1,00
 
 # **4. Público Objetivo**
 
-El cliente ideal de Automate IT no se define por su profesión — se define por su situación. Es el dueño hispano de un pequeño negocio de servicios que trabaja y atiende clientes al mismo tiempo, y por eso pierde llamadas o mensajes. El modelo es 100% remoto: Florida es el mercado de origen de Automate IT, no un requisito para ser cliente.
+El cliente ideal de Automate IT no se define por su profesión — se define por su situación. Es el dueño de un pequeño negocio en crecimiento que ya tiene demanda y sostiene la operación con su memoria: si él no está, algo se cae. El modelo es 100% remoto: Florida es el mercado de origen de Automate IT, no un requisito para ser cliente.
 
 ## **4.1 Buyer Persona — El Dueño Atrapado en su Propio Negocio**
 
 | **Atributo** | **Descripción** |
 | --- | --- |
-| Situación | Dueño y operador principal al mismo tiempo. Trabaja mientras el teléfono suena. |
+| Situación | Dueño y operador principal al mismo tiempo. Todo pasa por él. |
 | Idioma | Español cómodo. Inglés funcional pero con inseguridad. |
-| Negocio | Servicios con contacto directo de clientes — cualquier rubro donde el teléfono o WhatsApp genera ventas o citas. 1–10 empleados. |
+| Negocio | Servicios con contacto directo de clientes — con pedidos, trabajos o expedientes que seguir. 1–10 empleados. |
 | Geografía | Cualquier estado de EE.UU. — modelo 100% remoto. Florida es el mercado de origen y de referencia, no un requisito. |
 | Ingresos | $60K–$300K/año. |
 | Tecnología | WhatsApp como herramienta principal. Sin CRM formal. |
-| Dolor central | “Pierdo clientes porque no puedo contestar. Y cuando llamo de vuelta, ya encontraron a alguien más.” |
-| Barrera secundaria | “No me siento cómodo atendiendo en inglés cuando me llaman.” |
-| Disparador de compra | Perdió un cliente que sabe que pudo haber retenido — no por precio ni calidad, sino por no haber contestado a tiempo. |
+| Dolor central | “Si yo no me acuerdo, nadie se acuerda. Y si me tomo una semana libre, algo se rompe.” |
+| Disparador de compra | Se le cayó algo importante (una fecha, una evidencia, un papel) porque dependía de que alguien se acordara. |
 | Plan objetivo | Se determina en el diagnóstico — Asistente, Estratega o Manager según el proceso que le duele. Nunca se asume antes de diagnosticar. |
 
 ## **4.2 Cliente correcto vs. cliente incorrecto**
 
 | **✅ Cliente correcto** | **❌ No es nuestro cliente** |
 | --- | --- |
-| Recibe llamadas o WhatsApp como primer contacto de nuevos clientes | No tiene contacto telefónico directo con clientes |
-| El dueño es quien contesta — o nadie | Ya tiene recepcionista dedicada contratada |
-| Tiene clientes angloparlantes que no puede atender bien | Opera 100% en español con clientes hispanohablantes únicamente |
-| Perdió clientes por no contestar a tiempo | Tiene más de 15 empleados con estructura operativa establecida |
+| Ya tiene demanda y la operación depende del dueño | Todavía está consiguiendo sus primeros clientes |
+| Pierde tiempo o información entre personas, pedidos y papeles | Busca que le contesten las llamadas (no es lo que hacemos) |
+| | Tiene más de 15 empleados con estructura operativa establecida |
 
 ## **4.3 El Mensaje en Orden Narrativo — BrandScript (SB7 de Donald Miller)**
 
@@ -80,33 +84,31 @@ El cliente es el héroe; Automate IT es el guía. Todo mensaje empieza por el pr
 
 | **Elemento** | **Contenido** |
 | --- | --- |
-| Lo que el héroe quiere | Que su negocio funcione aunque él no esté disponible. |
-| Problema externo | Pierde llamadas y WhatsApp; el cliente llama al siguiente en Google. |
+| Lo que el héroe quiere | Que su negocio funcione aunque él no esté encima de todo. |
+| Problema externo | Clientes preguntando cómo va su pedido, evidencias que llegan tarde, fechas límite sin vigilar, papeleo a medias. |
 | Problema interno | Se siente atrapado — el negocio depende de que él esté disponible. Trabaja el doble y aun así se le escapa negocio. |
-| Problema filosófico | El que trabaja duro merece que su negocio opere a su nivel. |
-| El guía (Automate IT) | Empatía: "Sabemos lo que es contestar con las manos ocupadas." Autoridad: "Instalamos el sistema para negocios como el tuyo — donde sea que operes." |
-| El plan (3 pasos) | 1) Hablamos · 2) Lo instalamos · 3) Tu negocio contesta. |
+| Problema filosófico | Un negocio que ya funciona no debería depender de la memoria de una sola persona. |
+| El guía (Automate IT) | Empatía: "Sabemos lo que es que todo pase por ti." Autoridad: "Revisamos cómo fluye tu trabajo y arreglamos dónde se pierde." |
+| El plan (3 pasos) | 1) Revisamos · 2) Arreglamos lo que vale la pena · 3) Tu negocio deja de depender de ti. |
 | Llamado a la acción | Directo: "Agenda tu diagnóstico gratis." Transicional: "Comenta la palabra clave y te envío la guía." |
-| El fracaso a evitar | Cada semana sin sistema = más clientes perdidos que nunca sabrás que perdiste. |
-| El éxito | Llegas a casa sin revisar el teléfono; el CRM muestra citas que se agendaron solas. |
+| El fracaso a evitar | Cada semana sin orden = más tiempo repitiendo lo mismo y apagando fuegos. |
+| El éxito | Te tomas una semana libre y el negocio sigue; los clientes saben en qué va su pedido sin llamarte. |
 
 **One-liner oficial:**
-- Largo: "Ayudamos a dueños de pequeños negocios hispanos a nunca perder un cliente por no contestar — instalamos el sistema completo, de forma 100% remota, y tú solo lo enciendes."
-- Corto (redes): "Tu negocio contesta solo. Nosotros lo instalamos. Tú cobras."
+- Largo: "Ayudamos a pequeños negocios en crecimiento a que su operación deje de depender del dueño: revisamos cómo fluye el trabajo, encontramos dónde se pierde tiempo o información, y automatizamos solo lo que vale la pena."
+- Corto (redes): "Tu negocio deja de depender de ti."
 
 # **5. Propuesta de Valor**
 
 | **Un solo sistema** | **Hecho-por-ti** | **Cultural y local** |
 | --- | --- | --- |
-| El teléfono, WhatsApp y chat operando juntos — no cinco apps sueltas. | Nosotros lo instalamos, configuramos y conectamos. Sin curva de aprendizaje. | No es “bilingüe genérico”. Es entender la situación específica del dueño hispano — su idioma, su forma de operar, su realidad de negocio. |
+| Pedidos, evidencias, fechas y papeleo conectados — no cinco apps sueltas. | Nosotros lo instalamos, configuramos y conectamos. Sin curva de aprendizaje. | No es “bilingüe genérico”. Es entender la situación específica del dueño hispano — su idioma, su forma de operar, su realidad de negocio. |
 
 # **6. Heurísticas Clave**
 
 | **Heurística** | **Uso** |
 | --- | --- |
-| “Cada llamada sin contestar es un cliente que llama al siguiente en Google.” | Fuerte — todas las piezas. |
-| “$200/mes vs $2,917/mes de recepcionista bilingüe en Florida.” | Siempre mes vs mes — nunca mes vs año. Ancla vigente, igual a `Manual_de_Pricing.md` §2. |
 | “No necesitas aprender IA. Yo te instalo el sistema, tú enciendes el switch.” | Done-for-you en una frase. Amplificar. |
-| “24/7/365 sin días festivos.” | Debilitada — usar como soporte, no como gancho. |
+| (Llamadas sin contestar · $200 vs recepcionista · 24/7) | Retiradas nov 2026 — anclaban en el servicio de voz descontinuado. No usar. |
 
 Automate IT LLC · Quiénes Somos · v2.9 (copia de repo, corregida 21-sep-2026) · Confidencial

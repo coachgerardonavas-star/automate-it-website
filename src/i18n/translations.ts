@@ -178,28 +178,11 @@ export const translations = {
     },
 
     resultados: {
-      eyebrow: "Lo que pasa cuando no contestas",
+      eyebrow: "Lo que pasa cuando todo depende de ti",
       subtitle:
-        "La consecuencia es inmediata y medible. No es opinión — son datos de la industria.",
-      cards: [
-        {
-          stat: "62%",
-          consequence: "Llaman al siguiente negocio en Google. Inmediatamente.",
-          source: "411 Locals / getaira.io 2024 · PATLive",
-        },
-        {
-          stat: "85%",
-          consequence: "No vuelven a intentarlo. Nunca.",
-          source: "BIA/Kelsey · PATLive · AnswerConnect · Forbes",
-        },
-        {
-          stat: "$126K",
-          consequence:
-            "Es lo que pierde un negocio promedio al año. Solo en llamadas. Promedio — varía por industria (salón ~$35K, dental ~$150K+).",
-          source: "AMBS Call Center",
-        },
-      ],
-      disclaimer: "Datos de la industria de servicios en EE.UU., 2024–2026.",
+        "Si la información vive en tu cabeza, cada pedido, cada foto y cada fecha límite pasa por ti.",
+      cards: [],
+      disclaimer: "",
     },
 
     ribbon: {
@@ -210,28 +193,10 @@ export const translations = {
     banda: {
       stats: [
         {
-          stat: "85%",
-          label:
-            "de las personas que no logran contactar un negocio no vuelven a llamar",
-          source: "PATLive / SchedulingKit 2026",
-        },
-        {
-          stat: "62%",
-          label:
-            "de los negocios pequeños no contestan la mayoría de sus llamadas",
-          source: "411 Locals / getaira.io 2026",
-        },
-        {
           stat: "5.2M",
           label:
-            "personas hablan español en casa en Florida — muchas esperan que alguien conteste en inglés",
+            "personas hablan español en casa en Florida",
           source: "MPI Data Hub / NIWAP 2024",
-        },
-        {
-          stat: "$126K",
-          label:
-            "en ingresos pierde al año el negocio promedio por llamadas no contestadas",
-          source: "SchedulingKit / Dialzara 2026",
         },
       ],
     },
@@ -290,25 +255,25 @@ export const translations = {
       terminalTitle: "automate-it · live",
       blocks: [
         {
-          prompt: "> agent.tony@receptionist",
-          promptCh: 28,
+          prompt: "> agent.tony@orders",
+          promptCh: 19,
           promptDur: 1.0,
           promptDelay: 0.0,
           lines: [
-            { text: "Llamada entrante: María González", delay: 1.1 },
+            { text: "Pedido de María González: medidas tomadas", delay: 1.1 },
             {
-              before: "Calificando lead… ",
-              ok: "alto interés",
+              before: "Actualizando estado… ",
+              ok: "en producción",
               after: "",
               delay: 1.6,
             },
             {
-              text: "Agendando cita: jueves 3pm con Dr. Ramos",
+              text: "Próximo paso: listo para instalar el jueves",
               delay: 2.1,
             },
             {
               before: "",
-              ok: "Confirmación enviada por WhatsApp",
+              ok: "Aviso de estado enviado al cliente por WhatsApp",
               after: "",
               delay: 2.6,
             },
@@ -444,7 +409,7 @@ export const translations = {
       anchorLabel: "Saber más sobre BIT",
       avatarAlt: "BIT, mascota de Automate IT",
       description:
-        "BIT es la cara visible de tu sistema multi-agente. Coordina voz, chat, CRM y marketing, te avisa cuando algo requiere tu atención y reporta resultados cada mañana.",
+        "BIT es la cara visible de tu sistema multi-agente. Coordina tus procesos, mensajes, CRM y seguimiento, te avisa cuando algo requiere tu atención y reporta resultados cada mañana.",
     },
 
     whatsappButton: {
@@ -479,8 +444,8 @@ export const translations = {
           a: "Sí, y es lo normal. Casi todos empiezan con un Asistente ($1,000 de incorporación + $200/mes) encargándose de un solo proceso. Cuando el negocio pide más, se sube de nivel — no se compran piezas sueltas.",
         },
         {
-          q: "¿Qué pasa si supero los 300 minutos o mensajes?",
-          a: "Se facturan bloques adicionales de 300 unidades. Voz: $35. WhatsApp: $25. CRM: $20. Siempre bloque completo, nunca fracciones.",
+          q: "¿Qué pasa si supero los 300 mensajes?",
+          a: "Se facturan bloques adicionales de 300 unidades. WhatsApp: $25. CRM: $20. Siempre bloque completo, nunca fracciones.",
         },
         {
           q: "¿El setup fee es reembolsable?",
@@ -500,7 +465,7 @@ export const translations = {
         },
         {
           q: "¿El sistema de IA escucha o guarda mis conversaciones con clientes?",
-          a: "No. Automate IT no almacena ni tiene acceso al contenido de las conversaciones. Los datos de llamadas y mensajes quedan en los sistemas de los proveedores (Retell AI, Twilio) bajo sus propios términos de privacidad, y las cuentas son tuyas.",
+          a: "No. Automate IT no almacena ni tiene acceso al contenido de las conversaciones. Los datos de los mensajes quedan en los sistemas de los proveedores bajo sus propios términos de privacidad, y las cuentas son tuyas.",
         },
         {
           q: "¿Puedo usar este servicio si soy abogado o manejo información confidencial de clientes?",
@@ -534,31 +499,31 @@ export const translations = {
       recommendedLabel: "Recomendado:",
       rubros: [
         {
-          name: "Contestar es tu cuello de botella",
-          pain: "Las llamadas y los WhatsApp llegan mientras estás atendiendo. O contestas tarde o se quedan sin respuesta.",
+          name: "Te preguntan cómo va su pedido",
+          pain: "El cliente llama o escribe a mitad de semana para saber en qué va su trabajo. Cada vez alguien deja lo que hace para repetir lo mismo.",
           solution:
-            "Recepción 24/7 que contesta de inmediato, califica al cliente y agenda en tu calendario.",
+            "Avisos de estado automáticos en los puntos clave del proceso, sin que nadie redacte el mensaje cada vez.",
           tier: "Asistente",
         },
         {
-          name: "Eres el dueño y el recepcionista",
-          pain: "Cada lead nuevo pasa por ti. Pierdes horas del día contestando antes de cobrar la primera factura.",
+          name: "Las fotos y evidencias llegan tarde",
+          pain: "Las fotos del trabajo dependen de que alguien las suba a mano. Llegan días después, o no llegan, y no quedan en el expediente del cliente.",
           solution:
-            "Un agente toma el primer contacto, filtra curiosos y solo te pasa los clientes listos para hablar.",
+            "La evidencia se captura en el momento y queda ligada al expediente del cliente.",
           tier: "Asistente",
         },
         {
-          name: "Te llaman en inglés y respondes a medias",
-          pain: "Tus clientes angloparlantes cuelgan o se van con la competencia porque la primera conversación se siente forzada.",
+          name: "Las fechas límite viven en tu cabeza",
+          pain: "Permisos, entregas, vencimientos. Si tú no te acuerdas, nadie se acuerda.",
           solution:
-            "Atención bilingüe que detecta el idioma y responde con la misma claridad en inglés que en español.",
+            "Seguimiento de fechas límite que avisa a quien corresponde antes de que se venzan.",
           tier: "Asistente",
         },
         {
-          name: "Pierdes clientes que nunca supiste que existieron",
-          pain: "No tienes registro de cuántas llamadas o mensajes se quedaron sin contestar mientras trabajabas.",
+          name: "Los papeles se quedan a medias",
+          pain: "Documentos pendientes, firmas que no llegan, formularios incompletos. Nadie los persigue hasta que es tarde.",
           solution:
-            "Cada interacción queda registrada con quién, cuándo y qué pidió, y un follow-up automático cierra el lazo.",
+            "Seguimiento automático de papeleo que registra qué falta y de quién, hasta que queda completo.",
           tier: "Asistente",
         },
       ],
@@ -928,28 +893,11 @@ export const translations = {
     },
 
     resultados: {
-      eyebrow: "What happens when you don't answer",
+      eyebrow: "What happens when everything depends on you",
       subtitle:
-        "The consequence is immediate and measurable. Not opinion — industry data.",
-      cards: [
-        {
-          stat: "62%",
-          consequence: "Call the next business on Google. Immediately.",
-          source: "411 Locals / getaira.io 2024 · PATLive",
-        },
-        {
-          stat: "85%",
-          consequence: "Never try again. Ever.",
-          source: "BIA/Kelsey · PATLive · AnswerConnect · Forbes",
-        },
-        {
-          stat: "$126K",
-          consequence:
-            "Is what the average business loses per year. From missed calls alone. Average — varies by industry (salon ~$35K, dental ~$150K+).",
-          source: "AMBS Call Center",
-        },
-      ],
-      disclaimer: "U.S. service industry data, 2024–2026.",
+        "If the information lives in your head, every order, every photo and every deadline runs through you.",
+      cards: [],
+      disclaimer: "",
     },
 
     ribbon: {
@@ -960,26 +908,10 @@ export const translations = {
     banda: {
       stats: [
         {
-          stat: "85%",
-          label: "of callers who don't reach a business won't call back",
-          source: "PATLive / SchedulingKit 2026",
-        },
-        {
-          stat: "62%",
-          label: "of small businesses miss most of their incoming calls",
-          source: "411 Locals / getaira.io 2026",
-        },
-        {
           stat: "5.2M",
           label:
-            "people speak Spanish at home in Florida — many need someone to answer in English",
+            "people speak Spanish at home in Florida",
           source: "MPI Data Hub / NIWAP 2024",
-        },
-        {
-          stat: "$126K",
-          label:
-            "average annual revenue lost by small businesses from missed calls",
-          source: "SchedulingKit / Dialzara 2026",
         },
       ],
     },
@@ -1038,25 +970,25 @@ export const translations = {
       terminalTitle: "automate-it · live",
       blocks: [
         {
-          prompt: "> agent.tony@receptionist",
-          promptCh: 28,
+          prompt: "> agent.tony@orders",
+          promptCh: 19,
           promptDur: 1.0,
           promptDelay: 0.0,
           lines: [
-            { text: "Incoming call: María González", delay: 1.1 },
+            { text: "María González order: measurements taken", delay: 1.1 },
             {
-              before: "Qualifying lead… ",
-              ok: "high intent",
+              before: "Updating status… ",
+              ok: "in production",
               after: "",
               delay: 1.6,
             },
             {
-              text: "Booking appointment: Thursday 3pm with Dr. Ramos",
+              text: "Next step: ready to install Thursday",
               delay: 2.1,
             },
             {
               before: "",
-              ok: "Confirmation sent via WhatsApp",
+              ok: "Status update sent to the customer via WhatsApp",
               after: "",
               delay: 2.6,
             },
@@ -1189,7 +1121,7 @@ export const translations = {
       anchorLabel: "Learn more about BIT",
       avatarAlt: "BIT, the Automate IT mascot",
       description:
-        "BIT is the visible face of your multi-agent system. It coordinates voice, chat, CRM, and marketing, alerts you when something needs your attention, and reports results every morning.",
+        "BIT is the visible face of your multi-agent system. It coordinates your processes, messages, CRM, and follow-up, alerts you when something needs your attention, and reports results every morning.",
     },
 
     whatsappButton: {
@@ -1221,8 +1153,8 @@ export const translations = {
           a: "Yes, and that's the norm. Almost everyone starts with an Assistant ($1,000 onboarding + $200/mo) handling a single process. When the business asks for more, you move up a level — you don't buy loose pieces.",
         },
         {
-          q: "What happens if I exceed 300 minutes or messages?",
-          a: "Additional 300-unit blocks are billed. Voice: $35. WhatsApp: $25. CRM: $20. Always full block, never fractions.",
+          q: "What happens if I exceed 300 messages?",
+          a: "Additional 300-unit blocks are billed. WhatsApp: $25. CRM: $20. Always full block, never fractions.",
         },
         {
           q: "Is the setup fee refundable?",
@@ -1242,7 +1174,7 @@ export const translations = {
         },
         {
           q: "Does the AI system listen to or store my conversations with clients?",
-          a: "No. Automate IT doesn't store or have access to the content of conversations. Call and message data stays in the providers' systems (Retell AI, Twilio) under their own privacy terms, and the accounts are yours.",
+          a: "No. Automate IT doesn't store or have access to the content of conversations. Message data stays in the providers' systems under their own privacy terms, and the accounts are yours.",
         },
         {
           q: "Can I use this service if I'm a lawyer or handle confidential client information?",
@@ -1276,31 +1208,31 @@ export const translations = {
       recommendedLabel: "Recommended:",
       rubros: [
         {
-          name: "Answering is your bottleneck",
-          pain: "Calls and WhatsApp come in while you're with a customer. Either you reply late or they go unanswered.",
+          name: "Customers keep asking how their order is going",
+          pain: "Customers call or text mid-week to ask where their job stands. Every time, someone stops working to repeat the same thing.",
           solution:
-            "24/7 reception that answers instantly, qualifies the customer, and books in your calendar.",
+            "Automatic status updates at the key points of the process, without anyone writing the message each time.",
           tier: "Assistant",
         },
         {
-          name: "You're the owner and the receptionist",
-          pain: "Every new lead runs through you. Hours of the day go to first contact before you bill a single client.",
+          name: "Photos and evidence arrive late",
+          pain: "Job photos depend on someone uploading them by hand. They show up days later, or never, and they don't end up in the customer file.",
           solution:
-            "An agent handles the first touch, filters out tire-kickers, and only routes customers ready to talk.",
+            "Evidence is captured on the spot and tied to the customer file.",
           tier: "Assistant",
         },
         {
-          name: "They call in English and you answer halfway",
-          pain: "Your English-speaking customers hang up or go to a competitor because the first conversation feels forced.",
+          name: "Deadlines live in your head",
+          pain: "Permits, deliveries, expirations. If you don't remember, nobody does.",
           solution:
-            "Bilingual reception that detects the language and responds with the same clarity in English as in Spanish.",
+            "Deadline tracking that alerts the right person before anything expires.",
           tier: "Assistant",
         },
         {
-          name: "You're losing customers you never knew about",
-          pain: "You have no record of how many calls or messages went unanswered while you were working.",
+          name: "Paperwork stalls halfway",
+          pain: "Pending documents, missing signatures, incomplete forms. Nobody chases them until it's too late.",
           solution:
-            "Every interaction is logged with who, when, and what they asked, and an automatic follow-up closes the loop.",
+            "Automatic paperwork follow-up that keeps track of what's missing and from whom, until it's done.",
           tier: "Assistant",
         },
       ],
