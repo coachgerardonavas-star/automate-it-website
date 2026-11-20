@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import openSans400 from "@fontsource/open-sans/files/open-sans-latin-400-normal.woff2?url";
+import openSans600 from "@fontsource/open-sans/files/open-sans-latin-600-normal.woff2?url";
 import { translations, type Lang } from "../i18n/translations";
 import { getAlternates } from "../i18n/alternates";
 import { jsonLd } from "../lib/jsonld";
@@ -118,6 +120,8 @@ const websiteSchema = {
 <html lang={htmlLang}>
   <head>
     <meta charset="UTF-8" />
+    <link rel="preload" as="font" type="font/woff2" href={openSans400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={openSans600} crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={pageDescription} />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
@@ -288,6 +292,7 @@ const websiteSchema = {
       )
     }
 
+    <slot name="head" />
     <title>{pageTitle}</title>
   </head>
   <body class="bg-[var(--color-bg)] text-[var(--color-text-primary)]">
