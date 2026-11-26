@@ -14,7 +14,16 @@ const title = `${translations[lang].legal.privacy.title} · Automate IT`;
 <BaseLayout lang={lang} title={title} description={description}>
   <Nav lang={lang} />
   <main>
-    <LegalContent lang={lang} doc="privacy" lastUpdated={lastUpdated} />
+    <LegalContent lang={lang} doc="privacy" lastUpdated={lastUpdated}>
+      <section>
+        <h2 class="font-heading text-xl sm:text-2xl mb-3 text-white">
+          Guide library and emails
+        </h2>
+        <p class="text-sm sm:text-base text-white/80 leading-relaxed">
+          When you request a guide, we use HubSpot to store your email address and which guide you requested. We also store your email on your own device so we don't ask for it again; you can delete it with the “Not you?” link. You can unsubscribe using the link in any of our emails, or by writing to automateit@yourbizupgraded.com.
+        </p>
+      </section>
+    </LegalContent>
   </main>
   <Footer lang={lang} />
 </BaseLayout>
