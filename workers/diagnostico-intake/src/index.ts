@@ -1,4 +1,6 @@
 /** Public diagnostic intake: HubSpot, Telegram and Make scenario 5148358. */
+import { toBusinessTypeOption, norm } from "./business-type";
+
 export interface Env {
   HUBSPOT_TOKEN: string; TELEGRAM_BOT_TOKEN?: string; TELEGRAM_CHAT_ID?: string;
   ALLOWED_ORIGINS: string; MAKE_LEAD_WEBHOOK_URL?: string;
@@ -13,9 +15,6 @@ interface Payload {
 const HUBSPOT_API = "https://api.hubapi.com";
 const ASSOC_NOTE_TO_CONTACT = 202;
 
-function norm(v?: string): string {
-  return (v || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
-}
 /** Yes and unsure both take the privacy-safe manual route. */
 function isRegulatedRisk(p: Payload): boolean {
   return ["si", "yes", "no estoy seguro", "not sure"].includes(norm(p.regulated));
@@ -60,7 +59,7 @@ async function upsertContact(env: Env, p: Payload): Promise<string> {
   if (p.phone) props.phone = p.phone;
   if (p.public_url) props.website = p.public_url;
   // business_type and context are user-authored text, so regulated/unsure leads never send them to HubSpot.
-  if (!isRegulatedRisk(p) && p.business_type) props.tipo_de_negocio = p.business_type;
+  if (!isRegulatedRisk(p) && p.business_type) props.tipo_de_negocio = toBusinessTypeOption(p.business_type);
   if (p.urgency) props.urgencia = urgencyLabel(p.urgency);
   if (!isRegulatedRisk(p) && p.context) props.descripcion = p.context.slice(0, 65000);
   if (p.lang) props.idioma_conversacion = p.lang === "en" ? "Inglés" : "Español";

@@ -26,6 +26,12 @@ const makeBody = worker.match(/body: JSON\.stringify\(\{ fields: \{([\s\S]*?)\} 
 const makeKeys = [...`{${makeBody}}`.matchAll(/(?:\{|,)\s*(firstname|email|phone|address|industry|message)(?=\s*:|\s*[,}])/g)].map(m => m[1]);
 assert.deepEqual(makeKeys, ["firstname", "email", "phone", "address", "industry", "message"],
   "Make 5148358 contract changed");
+assert.match(makeBody, /\bindustry:\s*p\.business_type\s*\|\|\s*""\s*,/,
+  "Make industry must retain the raw business type");
+assert.match(worker, /if \(!isRegulatedRisk\(p\) && p\.business_type\) props\.tipo_de_negocio = toBusinessTypeOption\(p\.business_type\);/,
+  "HubSpot business type must be mapped and omitted for regulated leads");
+assert.match(worker, /if \(!isRegulatedRisk\(p\) && p\.context\) props\.descripcion = p\.context\.slice\(0, 65000\);/,
+  "HubSpot context must be omitted for regulated leads");
 
 assert.doesNotMatch(worker, /team_size|30_plus|MEMBER_BY_PAIN|\bpain\?/, "legacy qualification remains");
 assert.match(worker, /if \(isRegulatedRisk\(p\)\) return null;/, "regulated leads must not call Make");
