@@ -104,7 +104,7 @@ La mayoria de los negocios con los que hablo descubren que ese numero es mas gra
 
 ---
 
-Si quieres hacer ese calculo con datos reales de tu negocio y revisar que sistema de seguimiento tiene sentido para tu operacion, el diagnostico es gratuito y toma veinte minutos.
+Si quieres hacer ese calculo con datos reales de tu negocio y revisar que sistema de seguimiento tiene sentido para tu operacion, el diagnostico es gratuito.
 
 [Haz tu diagnostico en yourbizupgraded.com/diagnostico](/diagnostico)
 

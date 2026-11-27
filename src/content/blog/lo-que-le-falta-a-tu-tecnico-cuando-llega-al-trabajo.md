@@ -46,6 +46,6 @@ Si pasa más de una o dos veces por semana, hay un punto en el flujo donde la in
 
 ---
 
-Si quieres revisar dónde se pierde la información en tu operación, el diagnóstico gratuito hace exactamente eso: seguir el trabajo desde que entra hasta que el técnico sale, y encontrar dónde se interrumpe el flujo. Toma menos de cinco minutos.
+Si quieres revisar dónde se pierde la información en tu operación, el diagnóstico gratuito hace exactamente eso: seguir el trabajo desde que entra hasta que el técnico sale, y encontrar dónde se interrumpe el flujo.
 
 [Descubre dónde se pierde la información en tu negocio →](/diagnostico)

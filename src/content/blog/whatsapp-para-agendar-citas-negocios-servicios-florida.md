@@ -102,7 +102,7 @@ El setup tarda 2 semanas. No requieres cambiar tu numero de telefono ni aprender
 
 ## El paso siguiente
 
-Si quieres calcular el impacto especifico para tu negocio — cuantas citas perdidas tienes al mes, cual es tu ticket promedio, y que combinacion de canales tiene mas sentido para tu operacion — el diagnostico gratuito tarda 20 minutos.
+Si quieres calcular el impacto especifico para tu negocio — cuantas citas perdidas tienes al mes, cual es tu ticket promedio, y que combinacion de canales tiene mas sentido para tu operacion — el diagnostico es gratuito.
 
 Sales con un mapa de lo que tiene sentido implementar. No con una cotizacion genenca.
 

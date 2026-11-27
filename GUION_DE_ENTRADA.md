@@ -229,7 +229,7 @@ Eso ya está en tu BrandScript §3-bis, con nombre y con regla. **La regla es qu
 |---|---|---|
 | **El Acostumbrado** — "así es esto" | Le **nombras** el problema con algo que acabas de ver. Nada más. | Nada de solución. Nada de precio. Plantas y te vas. |
 | **El Resignado** — "es parte del oficio" | Le confirmas que **sí tiene arreglo**. Un ejemplo de otro negocio. | Todavía no le vendes a ti. Solo que la cura existe. |
-| **El Que Ya Busca** — "sí, ¿y tú qué haces?" | Ahora sí: la Radiografía. "No te vendo un parche, miro tu caso." | — |
+| **El Que Ya Busca** — "sí, ¿y tú qué haces?" | Ahora sí: el diagnóstico. "No te vendo un parche, miro tu caso." | — |
 
 Esto resuelve tu angustia. **Al que no sabe que tiene un problema no le vendes nada.** No estás ahí para convencerlo. Estás ahí para que dentro de tres semanas, cuando se le caiga algo, se acuerde de que un tipo de Kissimmee le preguntó justo eso.
 

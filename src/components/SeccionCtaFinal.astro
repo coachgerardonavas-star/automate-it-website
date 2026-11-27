@@ -30,79 +30,13 @@ const t = translations[lang].ctaFinal;
       {t.subtitle}
     </p>
 
-    <form
-      id="cta-form"
-      class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 text-left"
-      novalidate
-      data-error-msg={t.errorAllFields}
-      data-error-fallback={t.errorSubmitFallback}
-      data-submitting={t.submitting}
-      data-submit-label={t.submitButton}
+    <a
+      href={lang === "en" ? "/en/diagnostic" : "/diagnostico"}
+      class="btn-cta inline-flex items-center justify-center px-6 py-3 rounded font-semibold bg-white text-[var(--color-blue)] hover:bg-white/90 transition-colors"
     >
-      <label class="block">
-        <span class="sr-only">{t.formNamePlaceholder}</span>
-        <input
-          type="text"
-          name="name"
-          placeholder={t.formNamePlaceholder}
-          required
-          autocomplete="name"
-          class="w-full px-4 py-3 rounded bg-white/[0.08] border border-white/25 placeholder-white/50 text-white focus:outline-none focus:border-white transition-colors"
-        />
-      </label>
-      <label class="block">
-        <span class="sr-only">{t.formEmailPlaceholder}</span>
-        <input
-          type="email"
-          name="email"
-          placeholder={t.formEmailPlaceholder}
-          required
-          autocomplete="email"
-          class="w-full px-4 py-3 rounded bg-white/[0.08] border border-white/25 placeholder-white/50 text-white focus:outline-none focus:border-white transition-colors"
-        />
-      </label>
-      <label class="block">
-        <span class="sr-only">{t.formBizTypePlaceholder}</span>
-        <select
-          name="business_type"
-          required
-          class="w-full px-4 py-3 rounded bg-white/[0.08] border border-white/25 text-white focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer"
-        >
-          <option value="" class="bg-[var(--color-bg-dark)] text-white">{t.formBizTypePlaceholder}</option>
-          {
-            t.businessTypes.map((bt) => (
-              <option value={bt} class="bg-[var(--color-bg-dark)] text-white">
-                {bt}
-              </option>
-            ))
-          }
-        </select>
-      </label>
-      <button
-        type="submit"
-        class="btn-cta sm:col-span-3 inline-flex items-center justify-center px-6 py-3 rounded font-semibold bg-white text-[var(--color-blue)] hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      >
-        {t.submitButton}
-      </button>
-    </form>
+      {t.submitButton}
+    </a>
 
-    <p id="cta-error" class="hidden text-sm text-red-200 mb-2"></p>
-
-    <div
-      id="cta-success"
-      class="hidden p-6 rounded-lg border border-brand-lime/50 bg-white/10 text-left"
-      role="status"
-      aria-live="polite"
-    >
-      <p class="font-heading text-xl mb-2 text-brand-lime">{t.successHeading}</p>
-      <p class="text-sm sm:text-base text-white/90">
-        {t.successBody}
-      </p>
-    </div>
-
-    <p class="mt-6 text-sm text-white/60">
-      {t.privacyDisclaimer}
-    </p>
   </div>
 </section>
 
@@ -126,61 +60,3 @@ const t = translations[lang].ctaFinal;
     }
   }
 </style>
-
-<script>
-  import { submitToHubSpot } from "../lib/hubspot";
-  import { HUBSPOT_FORM_GUID_CTA } from "../config/site";
-
-  const form = document.getElementById("cta-form") as HTMLFormElement | null;
-  const error = document.getElementById("cta-error");
-  const success = document.getElementById("cta-success");
-
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!form || !error || !success) return;
-
-    error.classList.add("hidden");
-    error.textContent = "";
-
-    if (!form.checkValidity()) {
-      error.textContent = form.dataset.errorMsg ?? "";
-      error.classList.remove("hidden");
-      form.reportValidity();
-      return;
-    }
-
-    const submitBtn = form.querySelector(
-      'button[type="submit"]'
-    ) as HTMLButtonElement | null;
-    const restoreBtn = () => {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = form.dataset.submitLabel ?? "";
-      }
-    };
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = form.dataset.submitting ?? "";
-    }
-
-    const data = Object.fromEntries(new FormData(form)) as Record<
-      string,
-      string
-    >;
-
-    try {
-      await submitToHubSpot(HUBSPOT_FORM_GUID_CTA, [
-        { name: "firstname", value: data.name ?? "" },
-        { name: "email", value: data.email ?? "" },
-        { name: "industry", value: data.business_type ?? "" },
-      ]);
-      form.classList.add("hidden");
-      success.classList.remove("hidden");
-    } catch (err) {
-      console.error("[lead] CTA final HubSpot error:", err);
-      error.textContent = form.dataset.errorFallback ?? "";
-      error.classList.remove("hidden");
-      restoreBtn();
-    }
-  });
-</script>

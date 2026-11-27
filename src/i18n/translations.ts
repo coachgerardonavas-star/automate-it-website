@@ -29,7 +29,7 @@ export const translations = {
         body: "Revisamos cómo fluye el trabajo en tu negocio, encontramos dónde se pierde tiempo o información y mejoramos lo que realmente vale la pena intervenir.",
         primary: "Ver dónde se traba mi operación",
         secondary: "Cómo trabajamos",
-        note: "Diagnóstico de 5 minutos · Sin costo",
+        note: "Diagnóstico · Sin costo",
       },
       dashboard: {
         label: "Ejemplo ilustrativo",
@@ -128,7 +128,7 @@ export const translations = {
           { q: "¿Necesito conocimientos técnicos?", a: "No. Hablamos de tu operación en lenguaje claro y nos encargamos de la parte técnica." },
         ],
       },
-      final: { eyebrow: "PRIMER PASO", title: "Encuentra el punto que más tiempo le está costando a tu negocio.", body: "Cuéntanos cómo funciona hoy tu operación. Te ayudaremos a identificar una mejora concreta por donde comenzar.", cta: "Comenzar diagnóstico" },
+      final: { eyebrow: "PRIMER PASO", title: "Encuentra el punto que más tiempo le está costando a tu negocio.", body: "Cuéntanos cómo funciona hoy tu operación. Te escribimos por WhatsApp en menos de 24 horas y te entregamos el resultado del diagnóstico en una llamada con Gerardo en un plazo de 2 días.", cta: "Comenzar diagnóstico" },
       // Las rutas legales van aquí y no hardcodeadas en el componente: el
       // footer del home apuntaba a `/privacidad` y `/terminos`, que en español
       // solo funcionan por redirección 301 y en inglés (`/en/privacidad`) no
@@ -168,7 +168,7 @@ export const translations = {
       heroImageAlt:
         "Ilustración isométrica: WhatsApp, Google Calendar, QuickBooks, HubSpot, Instagram y Gmail apilados como capas de un mismo sistema, conectadas al equipo, al almacén y a la operación del negocio.",
       microcopy:
-        "Formulario de 5 minutos. Con él hacemos la Radiografía de tu Operación. Sin costo. Sin compromiso.",
+        "Un formulario breve. Con él preparamos tu diagnóstico. Sin costo. Sin compromiso.",
       trustBadges: [
         { icon: "🔒", text: "Tus datos no se venden" },
         { icon: "🤐", text: "Conversaciones privadas" },
@@ -267,7 +267,7 @@ export const translations = {
         {
           n: "01",
           title: "Diagnóstico",
-          body: "Completas el formulario de diagnóstico — son 5 minutos. Con eso hacemos la Radiografía de tu Operación: dónde entra el trabajo, dónde se enfría y dónde se te va el tiempo. Sales con un plan claro de qué arreglar primero, lo hagas con nosotros o no.",
+          body: "Completas el formulario de diagnóstico. Con eso preparamos tu diagnóstico: dónde entra el trabajo, dónde se enfría y dónde se te va el tiempo. Sales con un plan claro de qué arreglar primero, lo hagas con nosotros o no.",
         },
         {
           n: "02",
@@ -568,9 +568,9 @@ export const translations = {
       eyebrow: "Diagnóstico gratuito",
       titleLine1: "¿Listo para recuperar",
       titleLine2: "el control de tu negocio?",
-      titleLine3: "5 minutos. Sin compromiso.",
+      titleLine3: "Sin compromiso.",
       subtitle:
-        "Cuéntanos cómo trabajas hoy y te decimos qué está frenando tu crecimiento y qué arreglaríamos primero. Te contactamos en menos de 24 horas con tu Radiografía de tu Operación. Sin venta dura.",
+        "Cuéntanos cómo trabajas hoy y te decimos qué está frenando tu crecimiento y qué arreglaríamos primero. Te escribimos por WhatsApp en menos de 24 horas y te entregamos el resultado del diagnóstico en una llamada con Gerardo en un plazo de 2 días. Sin venta dura.",
       formNamePlaceholder: "Tu nombre",
       formEmailPlaceholder: "Tu email",
       formBizTypePlaceholder: "Tipo de negocio",
@@ -581,7 +581,7 @@ export const translations = {
         "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
       successHeading: "Recibido.",
       successBody:
-        "Te contactamos en menos de 24 horas al email que dejaste. Mientras tanto, revisa tu carpeta de spam por si nuestro mail termina ahí.",
+        "Te escribiremos por WhatsApp en menos de 24 horas y recibirás el resultado del diagnóstico en una llamada con Gerardo en un plazo de 2 días.",
       privacyDisclaimer:
         "Tus datos no se comparten ni se venden. Los usamos solo para coordinar tu diagnóstico.",
       businessTypes: [
@@ -628,9 +628,9 @@ export const translations = {
     diagnosticoPage: {
       title: "Diagnóstico gratuito · Automate IT",
       backLink: "← Volver a la home",
-      heading: "Diagnóstico gratuito · 5 minutos",
+      heading: "Diagnóstico gratuito",
       subheading:
-        "Cuéntanos un poco sobre tu negocio y el problema más caro. En la primera respuesta tendrás un mapa de qué automatizamos y en qué orden.",
+        "Cuéntanos un poco sobre tu negocio y el problema más caro. Te contactaremos por WhatsApp en menos de 24 horas y recibirás el resultado del diagnóstico en una llamada con Gerardo en un plazo de 2 días.",
       labels: {
         name: "Tu nombre",
         email: "Email",
@@ -690,7 +690,7 @@ export const translations = {
       submitting: "Enviando…",
       successHeading: "Recibido.",
       successBody:
-        "Revisaremos tu información y te contactaremos por email o WhatsApp en menos de 24 horas.",
+        "Revisaremos tu información y te contactaremos por WhatsApp en menos de 24 horas. Recibirás el resultado del diagnóstico en una llamada con Gerardo en un plazo de 2 días.",
       errorSubmitFallback:
         "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
       privacyDisclaimer:
@@ -834,7 +834,7 @@ export const translations = {
 
     home2026: {
       nav: { how: "How it works", plans: "Plans", about: "About", blog: "Blog", diagnostic: "Diagnostic" },
-      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", h1Line1: "We build systems so you take control of your", heroPhrases: ["business.", "time.", "money.", "operations."], heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"], body: "You regain control. We make sure information arrives on time and repetitive work moves forward inside the tools you already use.", primary: "Find the friction in my operation", secondary: "How we work", note: "5-minute diagnostic · No cost" },
+      hero: { eyebrow: "OPERATIONAL IMPROVEMENT FOR SMALL BUSINESSES", h1Line1: "We build systems so you take control of your", heroPhrases: ["business.", "time.", "money.", "operations."], heroPhraseColors: ["#0052CC", "#F2A93B", "#AADD00", "#00D9FF"], body: "You regain control. We make sure information arrives on time and repetitive work moves forward inside the tools you already use.", primary: "Find the friction in my operation", secondary: "How we work", note: "Diagnostic · No cost" },
       dashboard: { label: "Illustrative example", title: "Operations pulse", live: "System active", metric: "Operations status", metricValue: "Visible", rows: [{ name: "Inquiries organized", status: "Up to date" }, { name: "Follow-ups scheduled", status: "In progress" }, { name: "Invoices to review", status: "2 pending" }] },
       ticker: ["FEWER MANUAL TASKS", "MORE VISIBILITY", "CONSISTENT FOLLOW-UP", "CONNECTED TOOLS"],
       problem: {
@@ -883,7 +883,7 @@ export const translations = {
       fit: { title: "This works best when…", good: ["You already have a recurring process", "Your team uses several tools", "You want to improve step by step", "You can participate in key decisions"], avoidTitle: "It may not fit if…", avoid: ["You want an instant solution without reviewing the process", "You want to replace every system at once", "There is no owner for the project"] },
       about: { eyebrow: "PEOPLE BEHIND THE SYSTEM", title: "Technology should support the way you work.", quote: "We work inside your operation, find where time, information, or money is being lost, and leave the improvement running with you.", name: "Gerardo Navas", role: "Founder of Automate IT" },
       faq: { eyebrow: "FREQUENTLY ASKED QUESTIONS", title: "What to know before we start.", items: [{ q: "Do I need to replace the tools I already use?", a: "In many cases, no. We first assess your current operation and look for ways to build on what already works." }, { q: "Where do we begin?", a: "With a short diagnostic. We identify the most costly friction and propose a concrete first scope." }, { q: "How long does implementation take?", a: "It depends on the process and integrations. Before starting, we define scope, stages, and dates so you know what to expect." }, { q: "Do I need technical knowledge?", a: "No. We discuss your operation in plain language and handle the technical work." }] },
-      final: { eyebrow: "FIRST STEP", title: "Find the point costing your business the most time.", body: "Tell us how your operation works today. We will help identify one practical improvement to start with.", cta: "Start diagnostic" },
+      final: { eyebrow: "FIRST STEP", title: "Find the point costing your business the most time.", body: "Tell us how your operation works today. We’ll contact you on WhatsApp in less than 24 hours, and Gerardo will share your diagnostic results on a call within 2 days.", cta: "Start diagnostic" },
       footer: { line: "Practical systems for clearer operations.", privacy: "Privacy", privacyHref: "/en/privacy-policy", terms: "Terms", termsHref: "/en/terms", rights: "Automate IT LLC. All rights reserved." },
     },
 
@@ -918,7 +918,7 @@ export const translations = {
       heroImageAlt:
         "Isometric illustration: WhatsApp, Google Calendar, QuickBooks, HubSpot, Instagram and Gmail stacked as layers of a single system, connected to the team, the warehouse and the day-to-day operation.",
       microcopy:
-        "5-minute form. We turn it into your Operations X-Ray. No cost. No commitment.",
+        "A short form. We use it to prepare your diagnostic. No cost. No commitment.",
       trustBadges: [
         { icon: "🔒", text: "Your data is never sold" },
         { icon: "🤐", text: "Conversations stay private" },
@@ -1015,7 +1015,7 @@ export const translations = {
         {
           n: "01",
           title: "Diagnostic",
-          body: "Fill out the diagnostic form — it takes 5 minutes. We turn it into your Operations X-Ray: we review how you work today and pinpoint where your time and customers are leaking. You leave the call knowing exactly where we can help you first.",
+          body: "Fill out the diagnostic form. We use it to prepare your diagnostic: we review how you work today and pinpoint where your time and customers are leaking. You leave the call knowing exactly where we can help you first.",
         },
         {
           n: "02",
@@ -1310,9 +1310,9 @@ export const translations = {
       eyebrow: "Free diagnostic",
       titleLine1: "Ready to take back",
       titleLine2: "control of your business?",
-      titleLine3: "5 minutes. No commitment.",
+      titleLine3: "No commitment.",
       subtitle:
-        "Tell us how you work today and we'll tell you what's slowing your growth and what we'd fix first. We contact you within 24 hours with your Operations X-Ray. No hard sell.",
+        "Tell us how you work today and we'll tell you what's slowing your growth and what we'd fix first. We’ll contact you on WhatsApp in less than 24 hours, and Gerardo will share your diagnostic results on a call within 2 days. No hard sell.",
       formNamePlaceholder: "Your name",
       formEmailPlaceholder: "Your email",
       formBizTypePlaceholder: "Business type",
@@ -1323,7 +1323,7 @@ export const translations = {
         "Something went wrong. Email us at automateit@yourbizupgraded.com",
       successHeading: "Got it.",
       successBody:
-        "We'll contact you within 24 hours at the email you provided. Meanwhile, check your spam folder in case our message ends up there.",
+        "We’ll contact you on WhatsApp in less than 24 hours, and Gerardo will share your diagnostic results on a call within 2 days.",
       privacyDisclaimer:
         "Your data isn't shared or sold. We only use it to coordinate your diagnostic.",
       businessTypes: [
@@ -1369,9 +1369,9 @@ export const translations = {
     diagnosticoPage: {
       title: "Free diagnostic · Automate IT",
       backLink: "← Back to home",
-      heading: "Free diagnostic · 5 minutes",
+      heading: "Free diagnostic",
       subheading:
-        "Tell us a bit about your business and your most expensive problem. In our first reply you'll get a map of what to automate and in what order.",
+        "Tell us a bit about your business and your most expensive problem. We’ll contact you on WhatsApp in less than 24 hours, and Gerardo will share the diagnostic results with you on a call within 2 days.",
       labels: {
         name: "Your name",
         email: "Email",
@@ -1429,7 +1429,7 @@ export const translations = {
       submitting: "Sending…",
       successHeading: "Got it.",
       successBody:
-        "We'll review your information and reach out via email or WhatsApp within 24 hours.",
+        "We’ll review your information and contact you on WhatsApp in less than 24 hours. Gerardo will share the diagnostic results with you on a call within 2 days.",
       errorSubmitFallback:
         "Something went wrong. Email us at automateit@yourbizupgraded.com",
       privacyDisclaimer:

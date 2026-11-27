@@ -95,6 +95,6 @@ La diferencia entre los dos no es magica: es que uno depende de tu tiempo y el o
 
 ---
 
-Si quieres saber que tan grande es la base dormida de tu negocio y si tiene sentido automatizar el seguimiento, el diagnostico es gratis y tarda 15 minutos.
+Si quieres saber que tan grande es la base dormida de tu negocio y si tiene sentido automatizar el seguimiento, el diagnostico es gratis.
 
 [Agenda tu diagnostico en yourbizupgraded.com/diagnostico](/diagnostico)

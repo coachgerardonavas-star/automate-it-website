@@ -90,7 +90,7 @@ Antes del 30 de septiembre, vale la pena hacer este cálculo en papel:
 
 Ese número es lo que entra automáticamente a tu costo de nómina el 1 de octubre, sin que hagas nada. Ahora tienes la magnitud del cambio. La decisión sobre qué hacer con ella es tuya.
 
-Si además quieres saber qué parte de ese costo podría migrar a automatización — y si tu negocio tiene el perfil para que eso tenga sentido — el diagnóstico de Automate IT tarda 15 minutos y no tiene costo.
+Si además quieres saber qué parte de ese costo podría migrar a automatización — y si tu negocio tiene el perfil para que eso tenga sentido — el diagnóstico de Automate IT no tiene costo.
 
 [Haz tu diagnóstico en yourbizupgraded.com/diagnostico](/diagnostico)
 

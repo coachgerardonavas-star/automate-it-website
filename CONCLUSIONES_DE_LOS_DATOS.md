@@ -160,7 +160,7 @@ Casi siempre la respuesta va a ser alguna versión de *"no exactamente"*. Ahí n
 - **No vendes una solución.** Vendes una medición, que es mucho más fácil de aceptar.
 - **No necesitas conocer su oficio.** Solo su puerta de entrada.
 - **No puede decirte que no tiene el problema**, porque no le estás afirmando que lo tiene. Le estás preguntando si lo sabe.
-- **Encaja con los tres niveles de conciencia de tu BrandScript**: al que no sabe, le nombras el dato; al resignado, le ofreces contarlo; al que ya busca, le ofreces la Radiografía.
+- **Encaja con los tres niveles de conciencia de tu BrandScript**: al que no sabe, le nombras el dato; al resignado, le ofreces contarlo; al que ya busca, le ofreces el diagnóstico.
 
 ### Lo que dejas al salir
 

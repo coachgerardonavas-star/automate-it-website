@@ -101,7 +101,7 @@ Eso es lo que determina si la inversión en LSA convierte al 31% o al 15%. Y des
 
 ---
 
-Si tienes un negocio de servicios en Florida y quieres revisar cómo está respondiendo tu sistema de atención a los leads que ya recibes, el diagnóstico es gratuito y toma veinte minutos.
+Si tienes un negocio de servicios en Florida y quieres revisar cómo está respondiendo tu sistema de atención a los leads que ya recibes, el diagnóstico es gratuito.
 
 [Haz tu diagnóstico en yourbizupgraded.com/diagnostico](/diagnostico)
 
