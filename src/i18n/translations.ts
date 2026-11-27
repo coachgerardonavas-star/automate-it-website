@@ -630,7 +630,7 @@ export const translations = {
       backLink: "← Volver a la home",
       heading: "Diagnóstico gratuito · 5 minutos",
       subheading:
-        "Cuéntanos un poco sobre tu negocio y el problema más caro. En la primera respuesta tendrás un mapa de qué automatizamos y en qué orden.",
+        "Cuéntanos un poco sobre tu negocio y el problema más caro. Te contactaremos por WhatsApp en menos de 24 horas y recibirás el resultado del diagnóstico en una llamada con Gerardo en un plazo de 2 días.",
       labels: {
         name: "Tu nombre",
         email: "Email",
@@ -690,7 +690,7 @@ export const translations = {
       submitting: "Enviando…",
       successHeading: "Recibido.",
       successBody:
-        "Revisaremos tu información y te contactaremos por email o WhatsApp en menos de 24 horas.",
+        "Revisaremos tu información y te contactaremos por WhatsApp en menos de 24 horas. Recibirás el resultado del diagnóstico en una llamada con Gerardo en un plazo de 2 días.",
       errorSubmitFallback:
         "Hubo un problema. Escríbenos a automateit@yourbizupgraded.com",
       privacyDisclaimer:
@@ -1371,7 +1371,7 @@ export const translations = {
       backLink: "← Back to home",
       heading: "Free diagnostic · 5 minutes",
       subheading:
-        "Tell us a bit about your business and your most expensive problem. In our first reply you'll get a map of what to automate and in what order.",
+        "Tell us a bit about your business and your most expensive problem. We’ll contact you on WhatsApp in less than 24 hours, and Gerardo will share the diagnostic results with you on a call within 2 days.",
       labels: {
         name: "Your name",
         email: "Email",
@@ -1429,7 +1429,7 @@ export const translations = {
       submitting: "Sending…",
       successHeading: "Got it.",
       successBody:
-        "We'll review your information and reach out via email or WhatsApp within 24 hours.",
+        "We’ll review your information and contact you on WhatsApp in less than 24 hours. Gerardo will share the diagnostic results with you on a call within 2 days.",
       errorSubmitFallback:
         "Something went wrong. Email us at automateit@yourbizupgraded.com",
       privacyDisclaimer:
