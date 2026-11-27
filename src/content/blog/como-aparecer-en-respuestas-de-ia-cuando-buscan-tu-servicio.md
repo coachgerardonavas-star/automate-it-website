@@ -81,6 +81,6 @@ El detalle práctico: si alguien llega desde una respuesta de IA y llama a tu n�
 
 ---
 
-Si quieres revisar exactamente cómo está posicionado tu negocio en búsquedas de IA y qué necesitas para que el cliente que llega lo encuentre atendido, el diagnóstico tarda quince minutos y no tiene costo.
+Si quieres revisar exactamente cómo está posicionado tu negocio en búsquedas de IA y qué necesitas para que el cliente que llega lo encuentre atendido, el diagnóstico no tiene costo.
 
 [Haz tu diagnóstico en yourbizupgraded.com/diagnostico](/diagnostico)

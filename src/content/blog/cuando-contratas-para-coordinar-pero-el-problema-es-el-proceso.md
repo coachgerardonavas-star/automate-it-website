@@ -67,7 +67,7 @@ La respuesta a esa pregunta no siempre apunta a automatizar. A veces apunta a co
 
 ---
 
-Si quieres hacer ese análisis con datos reales de tu operación, el diagnóstico de Automate IT es gratuito y toma veinte minutos.
+Si quieres hacer ese análisis con datos reales de tu operación, el diagnóstico de Automate IT es gratuito.
 
 [Haz tu diagnóstico en yourbizupgraded.com/diagnostico](/diagnostico)
 

@@ -62,4 +62,4 @@ Esa pregunta tiene respuestas concretas. Empieza con saber exactamente dónde es
 
 ---
 
-Si quieres mapear cuáles son los puntos donde tu negocio todavía te necesita a ti, el diagnóstico es gratuito y toma menos de cinco minutos. [Empieza aquí.](/diagnostico)
+Si quieres mapear cuáles son los puntos donde tu negocio todavía te necesita a ti, el diagnóstico es gratuito. [Empieza aquí.](/diagnostico)

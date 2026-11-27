@@ -80,6 +80,6 @@ Esos son problemas de sistema. Y tienen solución de sistema.
 
 ---
 
-Si quieres saber exactamente cuánto está costando ese punto ciego en tu negocio, el diagnóstico es gratuito y toma diez minutos.
+Si quieres saber exactamente cuánto está costando ese punto ciego en tu negocio, el diagnóstico es gratuito.
 
 [Haz tu diagnóstico en yourbizupgraded.com/diagnostico](/diagnostico)

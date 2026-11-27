@@ -133,6 +133,8 @@ export default { async fetch(request: Request, env: Env, ctx: ExecutionContext):
   let p: Payload;
   try { p = await request.json() as Payload; } catch { return json({ error: "Invalid JSON" }, 400, cors); }
   if (!p.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email)) return json({ error: "Email inválido" }, 400, cors);
+  if (typeof p.phone !== "string" || !/^[+\d\s().\-]+$/.test(p.phone) || (p.phone.match(/\d/g)?.length ?? 0) < 7)
+    return json({ error: p.lang === "en" ? "We need your WhatsApp number to contact you within 24 hours." : "Necesitamos tu WhatsApp para escribirte en menos de 24 horas." }, 400, cors);
   if (p.entry_channels !== undefined && !Array.isArray(p.entry_channels)) return json({ error: "entry_channels debe ser una lista" }, 400, cors);
   try {
     const contactId = await upsertContact(env, p); await createNote(env, contactId, p);

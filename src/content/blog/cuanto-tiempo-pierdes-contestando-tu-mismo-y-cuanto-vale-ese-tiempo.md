@@ -88,6 +88,6 @@ El numero que sale de ese ejercicio suele sorprender.
 
 ---
 
-Si quieres saber si tu negocio tiene el perfil para automatizar la comunicacion y cuanto tiempo podrias recuperar, el diagnostico es gratis y tarda 15 minutos.
+Si quieres saber si tu negocio tiene el perfil para automatizar la comunicacion y cuanto tiempo podrias recuperar, el diagnostico es gratis.
 
 [Agenda tu diagnostico en yourbizupgraded.com/diagnostico](/diagnostico)

@@ -90,7 +90,7 @@ No se trata de estar en el top 3 de hace tres años. Se trata de ser el negocio 
 
 ## El siguiente paso
 
-Si tienes un negocio de servicios en Florida y quieres saber cómo está posicionado tu sistema de atención al cliente frente a lo que Google está priorizando hoy, el diagnóstico de Automate IT tarda 15 minutos y no tiene costo.
+Si tienes un negocio de servicios en Florida y quieres saber cómo está posicionado tu sistema de atención al cliente frente a lo que Google está priorizando hoy, el diagnóstico de Automate IT no tiene costo.
 
 [Haz tu diagnóstico aquí](/diagnostico)
 

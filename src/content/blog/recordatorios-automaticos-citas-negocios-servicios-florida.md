@@ -133,7 +133,7 @@ Si ese numero supera el 10%, tienes un sistema de atencion que esta operando por
 
 ---
 
-Si quieres saber exactamente cuanto estas perdiendo en no-shows y que canal funciona mejor para tu tipo de negocio, el diagnostico es gratuito y toma veinte minutos.
+Si quieres saber exactamente cuanto estas perdiendo en no-shows y que canal funciona mejor para tu tipo de negocio, el diagnostico es gratuito.
 
 [Haz tu diagnostico en yourbizupgraded.com/diagnostico](/diagnostico)
 

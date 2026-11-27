@@ -194,7 +194,7 @@ Reglas estrictas del verde lima `#AADD00`: solo en estados "En vivo", "Activo", 
 
 Nunca dos puertas al mismo prospecto.
 
-> **La Radiografía de tu Operación por $1 se retiró el 25-oct-2026** (decisión del CEO; nunca tuvo cobros). Se borraron `/ia` y `/terminos-consulta`, que redirigen 301 a `/diagnostico` y `/terms` (`astro.config.mjs`), y su Payment Link quedó desactivado en Stripe. No volver a ofrecer una puerta de $1. Ojo: "La Radiografía de tu Operación" sigue siendo el nombre del entregable del **diagnóstico gratis**; ese uso se queda.
+> **La Radiografía de tu Operación por $1 se retiró el 25-oct-2026** (decisión del CEO; nunca tuvo cobros). Se borraron `/ia` y `/terminos-consulta`, que redirigen 301 a `/diagnostico` y `/terms` (`astro.config.mjs`), y su Payment Link quedó desactivado en Stripe. No volver a ofrecer una puerta de $1. Por decisión del CEO del 26-nov-2026, el entregable del **diagnóstico gratis** se llama «diagnóstico» (EN: diagnostic).
 
 > **`/empresas` se retiró el 20-sep-2026** (decisión del CEO). Publicaba "La Memoria Operativa", que `Manual_de_Pricing.md` §5 define como catálogo cerrado y cuyo canal, según `Perfil_de_Cliente_Ideal.md` §7, es "LinkedIn, referidos, outreach — **nunca** por la home". La ruta redirige 301 al home (`astro.config.mjs`). No volver a publicar esa oferta en el sitio sin que el CEO lo diga.
 

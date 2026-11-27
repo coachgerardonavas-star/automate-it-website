@@ -92,7 +92,7 @@ Cuando quieras dar ese paso — conectar el seguimiento con el calendario de cit
 
 ---
 
-Si quieres ver como funcionaria este flujo en tu tipo de negocio y que canal tiene mas tasa de respuesta para tu industria, el diagnostico es gratuito y tarda 20 minutos.
+Si quieres ver como funcionaria este flujo en tu tipo de negocio y que canal tiene mas tasa de respuesta para tu industria, el diagnostico es gratuito.
 
 [Hacer el diagnostico gratuito](/diagnostico)
 

@@ -19,6 +19,9 @@ for (const field of fields) {
 assert.match(form, /entry_channels:entry,lang:/, "form must send entry_channels[] and lang");
 assert.match(worker, /lang\?: string/, "worker Payload missing lang");
 
+assert.match(worker, /typeof p\.phone !== "string"[\s\S]*?p\.phone\.match\(/, "worker must validate a required phone number");
+assert.match(worker, /p\.phone\.match\(\/\\d\/g\)\?\.length \?\? 0\) < 7/, "worker must require at least seven digits");
+
 const makeBody = worker.match(/body: JSON\.stringify\(\{ fields: \{([\s\S]*?)\} \}\)/)?.[1] || "";
 const makeKeys = [...`{${makeBody}}`.matchAll(/(?:\{|,)\s*(firstname|email|phone|address|industry|message)(?=\s*:|\s*[,}])/g)].map(m => m[1]);
 assert.deepEqual(makeKeys, ["firstname", "email", "phone", "address", "industry", "message"],
